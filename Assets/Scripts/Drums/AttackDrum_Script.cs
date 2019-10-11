@@ -28,16 +28,4 @@ public class AttackDrum_Script : Drum_Script
     {
        
     }
-
-    //public void OnCollisionEnter(Collision col) 
-    //{
-    //    if (this.tag == "Drum_Edge")
-    //    {
-    //        Debug.Log("edge_hit");
-    //    }
-    //    if (this.tag == "Drum_Center")
-    //    {
-    //        Debug.Log("center_hit");
-    //    }
-    //}
 }
