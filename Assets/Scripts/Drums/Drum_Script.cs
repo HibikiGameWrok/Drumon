@@ -29,4 +29,34 @@ public class Drum_Script : MonoBehaviour
     {
         
     }
+
+
+    /// <summary>
+    /// 当たり判定の検出をする
+    /// </summary>
+    public void OnCollisionEnter(Collision col)
+    {
+        Debug.Log(this.tag);
+        if (this.tag == "Drum_Edge")
+        {
+            Debug.Log("edge_hit");
+        }
+        if (this.tag == "Drum_Center")
+        {
+            Debug.Log("center_hit");
+        }
+    }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        //Debug.Log(this.tag);
+        if (this.tag == "Drum_Edge")
+        {
+            Debug.Log("edge_hit");
+        }
+        if (this.tag == "Drum_Center")
+        {
+            Debug.Log("center_hit");
+        }
+    }
 }

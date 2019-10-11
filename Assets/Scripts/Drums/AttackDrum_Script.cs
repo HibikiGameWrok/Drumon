@@ -26,6 +26,18 @@ public class AttackDrum_Script : Drum_Script
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
+
+    //public void OnCollisionEnter(Collision col) 
+    //{
+    //    if (this.tag == "Drum_Edge")
+    //    {
+    //        Debug.Log("edge_hit");
+    //    }
+    //    if (this.tag == "Drum_Center")
+    //    {
+    //        Debug.Log("center_hit");
+    //    }
+    //}
 }
