@@ -30,7 +30,12 @@ public class EnemyDrumonController_Script : MonoBehaviour
     private GameEvent BoostDefense_Event;
 
     [SerializeField]
-    private Image WaitGaugeReference;
+    private GameObject WaitGaugePrefab;
+    private GeneralBar_Script WaitGaugeReference;
+
+    [SerializeField]
+    private GameObject HPGaugePrefab;
+    private GeneralBar_Script HPGaugeReference;
 
     private int m_hpCurrent;
     private float m_waitTimer = 0.0f; //Time taken for an Action to be taken
@@ -44,22 +49,21 @@ public class EnemyDrumonController_Script : MonoBehaviour
     private delegate void EnemyDrumonAction();
     private EnemyDrumonAction Action;
 
-    // Start is called before the first frame update
+    //Function : Start
     void Start()
     {
         m_hpCurrent = data.HP;
-        WaitGaugeReference.transform.localScale = new Vector3(0, 1, 1);
+
+        WaitGaugeReference = Instantiate(WaitGaugePrefab, GameObject.Find("Canvas").transform).GetComponent<GeneralBar_Script>();
+
+        HPGaugeReference = Instantiate(HPGaugePrefab, GameObject.Find("Canvas").transform).GetComponent<GeneralBar_Script>();
+        HPGaugeReference.SetWaitGauge((float)m_hpCurrent/(float)data.HP);
+
     }
 
-    // Update is called once per frame
+    //Function : Update
     void Update()
     {
-
-        //Tentative Debug code
-        if (Action == null)
-            WaitGaugeReference.rectTransform.localScale = new Vector3(m_waitTimer / data.WAIT, 1, 1);
-        else
-            WaitGaugeReference.rectTransform.localScale = new Vector3(1, 1, 1);
 
         if (Action != null)
         {
@@ -71,23 +75,43 @@ public class EnemyDrumonController_Script : MonoBehaviour
         m_waitTimer += Time.deltaTime;
         if (m_waitTimer >= data.WAIT)
         {
+            WaitGaugeReference.SetWaitGauge(1);
             m_waitTimer = 0.0f;
             ExecuteTurn();
         }
+        else
+        {
+            WaitGaugeReference.SetWaitGauge(m_waitTimer / data.WAIT);
+        }
 
     }
 
+    //Function : Damage
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //int _incomingdamage | Damage value of Player's attack
+    //ELEM _elem | Element of Player's attack
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //Call this function to attack this Enemy. Minimum damage will always be 1.
     public void Damage(int _incomingdamage, ELEM _elem)
     {
-        m_hpCurrent -= (int)Mathf.Clamp(_incomingdamage * elementChecker.CompareElement((int)data.Elem, (int)_elem) - (data.DEF + m_defBoost), 1, 99999);
+        m_hpCurrent -= (int)Mathf.Clamp((float)_incomingdamage * elementChecker.CompareElement((int)data.Elem, (int)_elem) - (data.DEF + m_defBoost), 1, 99999);
 
         if (m_hpCurrent <= 0)
         {
+            m_hpCurrent = 0;
+
             //Enemy dies
 
+            
         }
+
+        HPGaugeReference.SetWaitGauge((float)m_hpCurrent / (float)data.HP);
+
     }
 
+    //Function : ExecuteTurn
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //This function is called when the Enemy Wait Gauge is full
     void ExecuteTurn()
     {
         switch(data.Behaviour)
@@ -118,6 +142,9 @@ public class EnemyDrumonController_Script : MonoBehaviour
         }
     }
 
+    //Function : AttackNormal
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //This is an Action function, for carrying out a Normal Attack
     void AttackNormal()
     {
         if (m_actionTimer >= data.AnimTimeAtkNormal)
@@ -133,6 +160,9 @@ public class EnemyDrumonController_Script : MonoBehaviour
         }
     }
 
+    //Function : AttackSpecial
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //This is an Action function, for carrying out a Special Attack
     void AttackSpecial()
     {
         if (m_actionTimer >= data.AnimTimeAtkSpecial)
@@ -143,11 +173,24 @@ public class EnemyDrumonController_Script : MonoBehaviour
         {
             m_actionTaken = true;
 
-            //Attack Special
-            AttackSpecial_Event.Raise();
+            if (m_chargingSpecialAttack) //2nd Turn - Attack
+            {
+                m_chargingSpecialAttack = false;
+
+                //Attack Special
+                AttackSpecial_Event.Raise();
+            }
+            else //1st Turn - Charging up
+            {
+                m_chargingSpecialAttack = true;
+            }
+            
         }
     }
 
+    //Function : BoostAttack
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //This is an Action function, for increasing Attack
     void BoostAttack()
     {
         if (m_actionTimer >= data.AnimTimeBoostAtk)
@@ -163,6 +206,9 @@ public class EnemyDrumonController_Script : MonoBehaviour
         }
     }
 
+    //Function : BoostDefense
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //This is an Action function, for increasing Defense
     void BoostDefense()
     {
         if (m_actionTimer >= data.AnimTimeBoostDef)
@@ -178,6 +224,11 @@ public class EnemyDrumonController_Script : MonoBehaviour
         }
     }
 
+    //Function : SetNextAction
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //EnemyDrumonAction _action
+    //~~~~~~~~~~~~~~~~~~~~~~~~
+    //This function sets the Action of the Enemy, and should normally only be called in ExecuteTurn()
     void SetNextAction(EnemyDrumonAction _action)
     {
         Action = _action;
