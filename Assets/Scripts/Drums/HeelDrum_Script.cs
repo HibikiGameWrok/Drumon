@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      AttackDrum_Scripts.cs							    |
+//  file:      HeelDrum_Scripts.cs							        |
 //				 															    |
-//  brief:    攻撃用のドラムクラスのスクリプト		            |
-//              Attack Drum class  				                    |
+//  brief:    回復用のドラムクラスのスクリプト		            |
+//              Heel Drum class  				                        |
 //																				|
 //  date:	2019.10.9												    |
 //																				|
@@ -14,8 +14,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 攻撃用のドラムクラスの定義
-public class AttackDrum_Script : Drum_Script
+// 回復用のドラムクラスの定義
+public class HeelDrum_Script : Drum_Script
 {
     // メンバ変数
 
@@ -26,7 +26,7 @@ public class AttackDrum_Script : Drum_Script
     {
         // 親オブジェクトを入れる
         m_manager = manager;
-
+        
         // アクティブにする
         Active = true;
     }
@@ -38,13 +38,13 @@ public class AttackDrum_Script : Drum_Script
     public override bool Execute()
     {
         // アクティブでないなら
-        if (Active == false)
+        if(Active == false)
         {
             // 変更する
             return false;
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             // 変更する
             return false;
@@ -62,7 +62,7 @@ public class AttackDrum_Script : Drum_Script
     {
         // 親オブジェクトを解放する
         m_manager = null;
-
+        
         // 非アクティブにする
         Active = false;
     }
