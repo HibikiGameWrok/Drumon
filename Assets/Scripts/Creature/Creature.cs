@@ -4,26 +4,16 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
+    // キャラクターデータ
     [SerializeField]
     private CharactorData m_charaData;
 
+    // データのプロパティ
     public CharactorData CharaData
     {
         get { return m_charaData; }
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // 相手へ攻撃する関数
     public void Attack(Creature target)
@@ -76,6 +66,4 @@ public class Creature : MonoBehaviour
         // 自身のHPに反映させる
         this.m_charaData.Hp = damage;
     }
-
-
 }
