@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 回復用のドラムクラスの定義
-public class HeelDrum_Script : Drum_Script
+public class HealDrum_Script : Drum_Script
 {
     // メンバ変数
 
