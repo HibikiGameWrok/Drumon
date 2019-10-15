@@ -43,14 +43,14 @@ public class CharactorData : ScriptableObject
         set { def = value; }
     }
 
-    [SerializeField]
-    private float wait;
+    //[SerializeField]
+    //private float wait;
 
-    public float Wait
-    {
-        get { return wait; }
-        set { wait = value; }
-    }
+    //public float Wait
+    //{
+    //    get { return wait; }
+    //    set { wait = value; }
+    //}
 
     [SerializeField]
     private ELEM elem;
