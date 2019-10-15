@@ -16,20 +16,60 @@ using UnityEngine;
 
 
 // Drumクラスの定義
-public class Drum_Script : MonoBehaviour
+public class Drum_Script
 {
     // メンバ変数
+    // ドラムマネージャーを入れる変数
+    protected DrumManager_Script m_manager;
+    // 現在アクティブかどうか
+    private bool m_isActive;
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 初期化処理 
+    /// </summary>
+    public virtual void Initialize(DrumManager_Script manager)
     {
-        
+        // 親オブジェクトを入れる
+        m_manager = manager;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    /// <summary>
+    /// 実行する
+    /// </summary>
+    /// <returns>true=継続する false=ドラムを変更する</returns>
+    public virtual bool Execute()
     {
-        
+        if(m_isActive == false)
+        {
+            // 変更する
+            return false;
+        }
+
+        // 継続する
+        return true;
+    }
+
+
+    /// <summary>
+    /// 終了処理
+    /// </summary>
+    public virtual void Dispose()
+    {
+        // 親オブジェクトを解放する
+        m_manager = null;
+    }
+
+
+    /// <summary>
+    /// アクティブフラグのプロパティ
+    /// </summary>
+    public bool Active
+    {
+        // アクティブフラグを取得する
+        get { return m_isActive; }
+        // アクティブフラグを設定する
+        set { m_isActive = value; }
     }
 
     /// <summary>
@@ -37,14 +77,7 @@ public class Drum_Script : MonoBehaviour
     /// </summary>
     public void OnTriggerEnter(Collider col)
     {
-        // test
-        if(this.tag == "Drum_Center")
-        {
-            Debug.Log(this.tag);
-        }
-        if(this.tag == "Drum_Edge")
-        {
-            Debug.Log(this.tag);
-        }
+        if (col.tag == "")
+            m_isActive = true;
     }
 }

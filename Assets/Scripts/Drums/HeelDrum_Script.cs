@@ -1,18 +1,69 @@
-﻿using System.Collections;
+﻿/*----------------------------------------------------------*/
+//  file:      HeelDrum_Scripts.cs							        |
+//				 															    |
+//  brief:    回復用のドラムクラスのスクリプト		            |
+//              Heel Drum class  				                        |
+//																				|
+//  date:	2019.10.9												    |
+//																				|
+//  author: Renya Fukuyama										|
+/*----------------------------------------------------------*/
+
+// using
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 回復用のドラムクラスの定義
 public class HeelDrum_Script : Drum_Script
 {
-    // Start is called before the first frame update
-    void Start()
+    // メンバ変数
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
+    public override void Initialize(DrumManager_Script manager)
     {
+        // 親オブジェクトを入れる
+        m_manager = manager;
         
+        // アクティブにする
+        Active = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// 実行する
+    /// </summary>
+    /// <returns>true=継続する false=ドラムを変更する</returns>
+    public override bool Execute()
     {
+        // アクティブでないなら
+        if(Active == false)
+        {
+            // 変更する
+            return false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            // 変更する
+            return false;
+        }
+
+        // 継続する
+        return true;
+    }
+
+
+    /// <summary>
+    /// 終了処理
+    /// </summary>
+    public override void Dispose()
+    {
+        // 親オブジェクトを解放する
+        m_manager = null;
         
+        // 非アクティブにする
+        Active = false;
     }
 }
