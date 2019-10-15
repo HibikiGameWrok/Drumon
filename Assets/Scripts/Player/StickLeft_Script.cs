@@ -7,25 +7,52 @@ public class StickLeft_Script : MonoBehaviour
     // 定数
     // バイブの長さ
     private const int VIB_LENGTH = 50;
+    // 同時に叩いた時のバイブの長さ
+    private const int DOUBLE_HIT_VIB_LENGTH = 200;
     // バイブの大きさ
     private const int VIB_SIZE = 128;
+    // 同時に叩いた時のバイブの大きさ
+    private const int DOUBLE_HIT_VIB_SIZE = 255;
+    // 同時に叩ける時間
+    private const int DOUBLE_HIT_TIME = 5;
 
 
     // バイブレーション
     private OVRHapticsClip m_vibClip;
+    private OVRHapticsClip m_doubleHitVibClip;
     private byte[] m_vibration;
+    private byte[] m_doubleHitVib;
+    // 左スティックの状態
+    private int m_leftStickState;
+    // 右スティック
+    private StickRight_Script m_rightStick;
+    // 同時に叩ける時間
+    private int m_doubleHitTime;
 
     // Start is called before the first frame update
     void Start()
     {
         // バイブの長さ
         m_vibration = new byte[VIB_LENGTH];
+        // 同時に叩いた時のバイブの長さ
+        m_doubleHitVib = new byte[DOUBLE_HIT_VIB_LENGTH];
         for (int i = 0; i < m_vibration.Length; i++)
         {
             // バイブの大きさ
             m_vibration[i] = VIB_SIZE;
         }
+        for (int i = 0; i < m_doubleHitVib.Length; i++)
+        {
+            // 同時に叩いた時のバイブの大きさ
+            m_doubleHitVib[i] = DOUBLE_HIT_VIB_SIZE;
+        }
         m_vibClip = new OVRHapticsClip(m_vibration, m_vibration.Length);
+        m_doubleHitVibClip = new OVRHapticsClip(m_doubleHitVib, m_doubleHitVib.Length);
+
+        // 初期化
+        m_leftStickState = 0;
+        m_doubleHitTime = 0;
+        m_rightStick = FindObjectOfType<StickRight_Script>();
     }
 
     // Update is called once per frame
@@ -67,16 +94,66 @@ public class StickLeft_Script : MonoBehaviour
         {
             Debug.Log("左アナログスティックを右に倒した");
         }
+
+        // 左スティックで叩いたら
+        if (m_leftStickState == 1)
+        {
+            // 時間を計る
+            m_doubleHitTime--;
+        }
+        // 時間が0になったら
+        if (m_doubleHitTime < 0)
+        {
+            // 左スティックの状態を元に戻す
+            m_leftStickState = 0;
+            // 時間を初期化
+            m_doubleHitTime = 0;
+        }
     }
 
     // 当たり判定
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log("LeftHit");
+
         if (collision.gameObject.name == "Drum")
         {
             // 振動させる
             OVRHaptics.LeftChannel.Preempt(m_vibClip);
+            // 左スティックの状態を叩いた状態に変更
+            m_leftStickState = 1;
+            // 時間を代入
+            m_doubleHitTime = DOUBLE_HIT_TIME;
+
+            // 右スティックが叩いた状態だったら
+            if (m_rightStick.RightStickState == 1)
+            {
+                Debug.Log("doubleHit");
+
+                // 振動させる
+                OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
+                OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
+
+                // 左スティックの状態を元に戻す
+                m_leftStickState = 0;
+                // 右スティックの状態を元に戻す
+                m_rightStick.RightStickState = 0;
+                // 時間を初期化
+                m_doubleHitTime = 0;
+            }
         }
+    }
+
+    // 左スティックの状態のプロパティ
+    public int LeftStickState
+    {
+        get { return m_leftStickState; }
+        set { m_leftStickState = value; }
+    }
+    // 同時に叩ける時間のプロパティ
+    public int DoubleHitTime
+    {
+        get { return m_doubleHitTime; }
+        set { m_doubleHitTime = value; }
     }
 }
