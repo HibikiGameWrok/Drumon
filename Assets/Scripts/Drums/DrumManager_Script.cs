@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      DrumManger_Script.cs		                        |
-//				 															    |
-//  brief:    ドラムマネージャーのスクリプト				    |
-//              Drums 	Manager Class		                        |
-//																				|
-//  date:	2019.10.11											    |
-//																				|
-//  author: Renya Fukuyama										|
+//  file:      DrumManger_Script.cs		                    |
+//				 											|
+//  brief:    ドラムマネージャーのスクリプト				|
+//              Drums 	Manager Class		                |
+//															|
+//  date:	2019.10.11										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
@@ -22,7 +22,7 @@ public class DrumManager_Script : MonoBehaviour
     enum DRUM_TYPE : int
     {
         ATTACK,
-        HEEL,
+        HEAL,
         SELECT,
         CATCH,
 
@@ -35,7 +35,7 @@ public class DrumManager_Script : MonoBehaviour
     private AttackDrum_Script m_attackDrum;
     // 回復用のドラム
     [SerializeField]
-    private HeelDrum_Script m_heelDrum;
+    private HealDrum_Script m_healDrum;
     // メニューセレクト用のドラム
     [SerializeField]
     private SelectDrum_Script m_selectDrum;
@@ -59,7 +59,7 @@ public class DrumManager_Script : MonoBehaviour
         // 攻撃用のドラムを生成する
         m_attackDrum = new AttackDrum_Script();
         // 回復用のドラムを生成する
-        m_heelDrum = new HeelDrum_Script();
+        m_healDrum = new HealDrum_Script();
 
         m_meshRenderer = GetComponentInChildren<MeshRenderer>();
 
@@ -76,7 +76,7 @@ public class DrumManager_Script : MonoBehaviour
         // test
         m_material = new Material[(int)DRUM_TYPE.TOTAL];
         m_material[(int)DRUM_TYPE.ATTACK] = Resources.Load("Materials/M_Attack_Drum", typeof(Material)) as Material;
-        m_material[(int)DRUM_TYPE.HEEL] = Resources.Load<Material>("Materials/M_Heel_Drum");
+        m_material[(int)DRUM_TYPE.HEAL] = Resources.Load<Material>("Materials/M_Heal_Drum");
     }
 
     // Update is called once per frame
@@ -97,12 +97,12 @@ public class DrumManager_Script : MonoBehaviour
                 else
                 {
                     // ドラムを変更する
-                    ChangeDrum(m_heelDrum);
+                    ChangeDrum(m_healDrum);
                     // 分かりやすいようにマテリアルを変更する
                     m_meshRenderer.material = m_material[0];
                 }
             }
-            else if(m_currentDrum == m_heelDrum)
+            else if(m_currentDrum == m_healDrum)
             {
                 if (result == true)
                 {
@@ -132,11 +132,11 @@ public class DrumManager_Script : MonoBehaviour
             m_attackDrum.Dispose();
             m_attackDrum = null;
         }
-        if (m_heelDrum != null)
+        if (m_healDrum != null)
         {
             // 回復用のドラムを解放する
-            m_heelDrum.Dispose();
-            m_heelDrum = null;
+            m_healDrum.Dispose();
+            m_healDrum = null;
         }
         
     }
@@ -185,11 +185,11 @@ public class DrumManager_Script : MonoBehaviour
     /// <summary>
     /// 回復用のドラムを取得する
     /// </summary>
-    public Drum_Script GetHeelDrum
+    public Drum_Script GetHealDrum
     {
         get
         {
-            return m_heelDrum;
+            return m_healDrum;
         }
     }
 

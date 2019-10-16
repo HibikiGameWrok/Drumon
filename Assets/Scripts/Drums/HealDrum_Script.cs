@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      HeelDrum_Scripts.cs							        |
-//				 															    |
-//  brief:    回復用のドラムクラスのスクリプト		            |
-//              Heel Drum class  				                        |
-//																				|
-//  date:	2019.10.9												    |
-//																				|
-//  author: Renya Fukuyama										|
+//  file:      HealDrum_Scripts.cs						    |
+//				 											|
+//  brief:    回復用のドラムクラスのスクリプト		        |
+//              Heal Drum class  				            |
+//															|
+//  date:	2019.10.9										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 回復用のドラムクラスの定義
-public class HeelDrum_Script : Drum_Script
+public class HealDrum_Script : Drum_Script
 {
     // メンバ変数
 

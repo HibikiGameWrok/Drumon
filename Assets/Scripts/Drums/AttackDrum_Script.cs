@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      AttackDrum_Scripts.cs							    |
-//				 															    |
-//  brief:    攻撃用のドラムクラスのスクリプト		            |
-//              Attack Drum class  				                    |
-//																				|
-//  date:	2019.10.9												    |
-//																				|
-//  author: Renya Fukuyama										|
+//  file:      AttackDrum_Scripts.cs					    |
+//				 											|
+//  brief:    攻撃用のドラムクラスのスクリプト		        |
+//              Attack Drum class  				            |
+//															|
+//  date:	2019.10.9										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using

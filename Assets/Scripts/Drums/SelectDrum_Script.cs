@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      SelectDrum_Scripts.cs							    |
-//				 															    |
-//  brief:   メニューセレクトドラムクラスのスクリプト      |
-//              Select Drum class  				                    |
-//																				|
-//  date:	2019.10.14											    |
-//																				|
-//  author: Renya Fukuyama										|
+//  file:      SelectDrum_Scripts.cs					    |
+//				 											|
+//  brief:   メニューセレクトドラムクラスのスクリプト       |
+//              Select Drum class  				            |
+//															|
+//  date:	2019.10.14										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
