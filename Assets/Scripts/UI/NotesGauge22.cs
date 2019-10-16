@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NotesGage : MonoBehaviour
+public class NotesGage22 : MonoBehaviour
 {
  　 private Slider m_notesSlider;
 
