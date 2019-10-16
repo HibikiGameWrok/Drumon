@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿//
+//   FileName @ Creature.cs
+//   
+//   Creater  @ Hibiki Yoshiyasu
+//
+//   Day      @ 2019 / 10 / 15
+//
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
