@@ -37,7 +37,8 @@ public class NotesActionGauge_Script : MonoBehaviour
     void Start()
     {
         // 子のハンドルを取得
-        m_childHandle = GameObject.Find("Handle");
+        m_childHandle = transform.GetChild(0).gameObject;
+
         // プレハブを取得
         m_prefabNotes = (GameObject)Resources.Load("InsPrefab/NotesPrefab");
     }
