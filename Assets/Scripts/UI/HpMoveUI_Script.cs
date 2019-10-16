@@ -1,9 +1,16 @@
-﻿using System.Collections;
+﻿//
+//      FileName @ TimeGauge.cs
+//
+//      Creater  @ Hibiki Yoshiyasu
+//
+//      Day      @ 2019 / 10 / 16      
+//
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NotesGage22 : MonoBehaviour
+public class NotesGauge22 : MonoBehaviour
 {
  　 private Slider m_notesSlider;
 
