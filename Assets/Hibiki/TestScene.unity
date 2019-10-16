@@ -2571,6 +2571,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyMonster Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2570164037610894774, guid: 37bce05ab15bb374f94b8db5cf54334b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2570164037610894770, guid: 37bce05ab15bb374f94b8db5cf54334b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2679,12 +2684,12 @@ PrefabInstance:
     - target: {fileID: 2570164037964148483, guid: 37bce05ab15bb374f94b8db5cf54334b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2570164038234810550, guid: 37bce05ab15bb374f94b8db5cf54334b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2570164037610894769, guid: 37bce05ab15bb374f94b8db5cf54334b,
         type: 3}
