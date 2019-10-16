@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class NotesActionGauge_Script : MonoBehaviour
 {
+    // ゲージの最小値
+    public const int MIN_GAUGE = 4;
+    // ゲージの最大値
+    public const int MAX_GAUGE = 4;
+
     // ノーツの生成最大値
     public const int MAX_INS_NOTES = 8;
 
@@ -41,7 +46,6 @@ public class NotesActionGauge_Script : MonoBehaviour
     void Update()
     {
         HandleMove();
-
         KeyNotesinstace();
     }
 
@@ -50,7 +54,7 @@ public class NotesActionGauge_Script : MonoBehaviour
     {
         if (m_finishFlag == false)
         {
-            if (m_childHandle.transform.position.x < (this.transform.position.x + 4))
+            if (m_childHandle.transform.position.x < (this.transform.position.x + MAX_GAUGE))
             {
                 m_childHandle.transform.position += new Vector3(0.05f, 0, 0);
             }
@@ -89,7 +93,7 @@ public class NotesActionGauge_Script : MonoBehaviour
         // ノーツの数を０にする
         m_notesCount = 0;
         // 子を初期位置に戻す
-        m_childHandle.transform.position = new Vector3(this.transform.position.x - 4, 0, 0);
+        m_childHandle.transform.position = new Vector3(this.transform.position.x - MIN_GAUGE, this.transform.position.y, this.transform.position.z);
         // 終了フラグを初期化
         m_finishFlag = false;
     }
@@ -97,6 +101,10 @@ public class NotesActionGauge_Script : MonoBehaviour
     // デバッグ用キーによってノーツを出す
     private void KeyNotesinstace()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            NotesReset();
+        }
         if(Input.GetKeyDown(KeyCode.A))
         {
             InstantiateNotes(NOTES_TYPE.OneInHit);
