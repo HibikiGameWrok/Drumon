@@ -1146,7 +1146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4032153296153984, guid: efe266538a8dcda4dbd04fbff7997053, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4032153296153984, guid: efe266538a8dcda4dbd04fbff7997053, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1591,7 +1591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: cbaf1c32e7ec84f10a51be1b09c0ef46, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: cbaf1c32e7ec84f10a51be1b09c0ef46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1639,7 +1639,7 @@ Transform:
   - {fileID: 924732625}
   - {fileID: 1006064854}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1604774949
 GameObject:
@@ -1779,9 +1779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991386498b004fb488e13f965634268e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_notesSlider: {fileID: 0}
-  m_gaugeTime: 0
-  m_gaugeStopFlag: 0
 --- !u!1 &1801098313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,7 +1872,7 @@ RectTransform:
   - {fileID: 1655275224}
   - {fileID: 1072787621}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1973,7 +1970,7 @@ Transform:
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1992810085 stripped
 GameObject:
@@ -2183,6 +2180,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicalScore
       objectReference: {fileID: 0}
+    - target: {fileID: 1323754040526153348, guid: ac8126d2823da90448f603b8aba33dc2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1323754040526153350, guid: ac8126d2823da90448f603b8aba33dc2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2221,7 +2223,7 @@ PrefabInstance:
     - target: {fileID: 1323754040526153350, guid: ac8126d2823da90448f603b8aba33dc2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1323754040526153350, guid: ac8126d2823da90448f603b8aba33dc2,
         type: 3}
