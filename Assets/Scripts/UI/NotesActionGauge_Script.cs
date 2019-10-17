@@ -84,7 +84,7 @@ public class NotesActionGauge_Script : MonoBehaviour
 
     // ドラムとスティックが当たると呼ばれる関数
     // 引数 : NOTES_TYPE type -- 叩き方
-    private void InstantiateNotes(NOTES_TYPE type)
+    public void InstantiateNotes(NOTES_TYPE type)
     {　
         // ノーツのプレハブタイプを設定しロードする
         SetNotesPrefabPath(type);
