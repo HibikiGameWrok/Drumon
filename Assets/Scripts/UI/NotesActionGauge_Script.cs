@@ -25,48 +25,65 @@ public class NotesActionGauge_Script : MonoBehaviour
     // ノーツの生成数を保持する変数
     private int m_notesCount = 0;
 
+
     // ゲージの進行を可視化する為のハンドル
-    private GameObject m_childHandle = null;
+    private Transform m_childHandle = null;
+    // ノーツをまとめる親オブジェクト
+    private Transform m_notesManager = null;
     // ノーツプレハブ
     private GameObject m_prefabNotes = null;
+
 
     // 行動ゲージが終わったか
     private bool m_finishFlag = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        // 子のハンドルを取得
-        m_childHandle = transform.GetChild(0).gameObject;
+        // 子のオブジェクトを取得
+        m_childHandle = this.transform.Find("Handle");
+        m_notesManager = this.transform.Find("NotesManager");
 
         // プレハブを取得
         m_prefabNotes = (GameObject)Resources.Load("InsPrefab/NotesPrefab");
     }
 
+
     // Update is called once per frame
     void Update()
     {
+        // ハンドルの動作処理
         HandleMove();
-        KeyNotesinstace();
+
+        /// デバッグ用関数 ///
+        KeyNotesinstace(); 
     }
+
 
     // ハンドルの動作処理
     private void HandleMove()
     {
+        // 動作終了フラグが立ってないか
         if (m_finishFlag == false)
         {
+            // 背景画像の端までハンドルが到達しているか
             if (m_childHandle.transform.position.x < (this.transform.position.x + MAX_GAUGE))
             {
+                // x座標に加算、よって右方向へ移動
                 m_childHandle.transform.position += new Vector3(0.05f, 0, 0);
             }
             else
             {
+                // 到達したならば動作終了フラグを立てる
                 m_finishFlag = true;
             }
         }
     }
 
-    // ノーツを生成する動作処理
+
+    // ドラムとスティックが当たると呼ばれる関数
+    // 引数 : NOTES_TYPE type -- 叩き方
     private void InstantiateNotes(NOTES_TYPE type)
     {　
         // ノーツのプレハブタイプを設定しロードする
@@ -75,29 +92,42 @@ public class NotesActionGauge_Script : MonoBehaviour
         if (m_notesCount < MAX_INS_NOTES)
         {
             // ハンドルの位置にプレハブを生成
-            Instantiate(m_prefabNotes, m_childHandle.transform.position, Quaternion.identity);
+            GameObject InsNotes = (GameObject)Instantiate(m_prefabNotes, m_childHandle.transform.position, Quaternion.identity);
+            InsNotes.transform.parent = m_notesManager.transform;
             // ノーツの数を増加
             m_notesCount++;
         }
     }
 
-    // ノーツの出す種類を設定
+
+    // ドラムの叩き方によって、出すノールのプレハブをロードする関数
+    // InstantiateNotes関数で呼ばれる
+    // 引数 : NOTES_TYPE type -- 叩き方
     private void SetNotesPrefabPath(NOTES_TYPE type)
     {
         // プレハブを取得
         m_prefabNotes = (GameObject)Resources.Load("InsPrefab/NotesPrefab" + (int)type);
     }
 
+
     // ノーツとゲージをリセットする
+    // どこでも呼べるようにpublic化
     public void NotesReset()
     {
         // ノーツの数を０にする
         m_notesCount = 0;
+        // ノーツ管理オブジェクトの子として生成されたノーツオブジェクトを全て消す
+        foreach(Transform n in m_notesManager.transform)
+        {
+            GameObject.Destroy(n.gameObject);
+        }
+
         // 子を初期位置に戻す
         m_childHandle.transform.position = new Vector3(this.transform.position.x - MIN_GAUGE, this.transform.position.y, this.transform.position.z);
         // 終了フラグを初期化
         m_finishFlag = false;
     }
+
 
     // デバッグ用キーによってノーツを出す
     private void KeyNotesinstace()
