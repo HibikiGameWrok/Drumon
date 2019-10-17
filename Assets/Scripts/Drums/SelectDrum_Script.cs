@@ -15,12 +15,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // メニューセレクトドラムクラスの定義
-public class SelectDrum_Script : Drum_Script
+public class SelectDrum_Script
 {
-    // Start is called before the first frame update
+    /// <summary>
+    /// デフォルト関数
+    /// </summary>
     void Start()
     {
-        
+        // 何もしない
     }
 
     // Update is called once per frame
