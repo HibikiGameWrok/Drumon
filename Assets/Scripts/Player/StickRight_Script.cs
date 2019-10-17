@@ -133,6 +133,8 @@ public class StickRight_Script : MonoBehaviour
                 m_leftStick.LeftStickState = 0;
                 // 時間を初期化
                 m_leftStick.DoubleHitTime = 0;
+                // フラグを立てる
+                m_leftStick.NotesTypeFlag.OnFlag((uint)StickLeft_Script.NOTES_TYPE_FLAG.DoubleInHit);
             }
         }
         // 外側に当たったら
@@ -164,6 +166,8 @@ public class StickRight_Script : MonoBehaviour
                     m_leftStick.LeftStickState = 0;
                     // 時間を初期化
                     m_leftStick.DoubleHitTime = 0;
+                    // フラグを立てる
+                    m_leftStick.NotesTypeFlag.OnFlag((uint)StickLeft_Script.NOTES_TYPE_FLAG.DoubleOutHit);
                 }
             }
         }

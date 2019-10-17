@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class StickLeft_Script : MonoBehaviour
 {
-    enum NOTES_TYPE_FLAG
+    public enum NOTES_TYPE_FLAG
     {
-
+        OneInHit = (1 << 0),           // １スティックで内側を叩いた時(0001)
+        OneOutHit = (1 << 1),          // １スティックで外側を叩いた時(0010)
+        DoubleInHit = (1 << 2),        // ２スティックで内側を叩いた時(0100)
+        DoubleOutHit = (1 << 3),       // ２スティックで外側を叩いた時(1000)
     }
 
     // 定数
@@ -38,6 +41,8 @@ public class StickLeft_Script : MonoBehaviour
     private bool m_inHitFlag;
     // 外側を叩く判定フラグ
     private bool m_outHitFlag;
+    // フラグ管理
+    private Flag_Script m_notesTypeFlag;
 
     AudioSource audioSource;
     // 内側を叩いた音
@@ -74,6 +79,7 @@ public class StickLeft_Script : MonoBehaviour
 
         m_inHitFlag = false;
         m_outHitFlag = false;
+        m_notesTypeFlag = new Flag_Script();
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -144,6 +150,8 @@ public class StickLeft_Script : MonoBehaviour
                 m_rightStick.RightStickState = 0;
                 // 時間を初期化
                 m_doubleHitTime = 0;
+                // フラグを立てる
+                m_notesTypeFlag.OnFlag((uint)NOTES_TYPE_FLAG.DoubleInHit);
             }
         }
         // 外側に当たったら
@@ -175,6 +183,8 @@ public class StickLeft_Script : MonoBehaviour
                     m_rightStick.RightStickState = 0;
                     // 時間を初期化
                     m_doubleHitTime = 0;
+                    // フラグを立てる
+                    m_notesTypeFlag.OnFlag((uint)NOTES_TYPE_FLAG.DoubleOutHit);
                 }
             }
         }
@@ -231,5 +241,11 @@ public class StickLeft_Script : MonoBehaviour
     {
         get { return m_doubleHitTime; }
         set { m_doubleHitTime = value; }
+    }
+    // フラグ管理のプロパティ
+    public Flag_Script NotesTypeFlag
+    {
+        get { return m_notesTypeFlag; }
+        set { m_notesTypeFlag = value; }
     }
 }
