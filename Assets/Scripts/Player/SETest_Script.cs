@@ -18,7 +18,10 @@ public class SETest_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if (Input.GetKey(KeyCode.UpArrow))
+        //{
+        //    audioSource.PlayOneShot(m_donSE);
+        //}
     }
 
     // 当たり判定
