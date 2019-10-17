@@ -14,7 +14,7 @@ public class StickLeft_Script : MonoBehaviour
     // 同時に叩いた時のバイブの大きさ
     private const int DOUBLE_HIT_VIB_SIZE = 255;
     // 同時に叩ける時間
-    private const int DOUBLE_HIT_TIME = 5;
+    private const int DOUBLE_HIT_TIME = 3;
 
 
     // バイブレーション
@@ -28,6 +28,19 @@ public class StickLeft_Script : MonoBehaviour
     private StickRight_Script m_rightStick;
     // 同時に叩ける時間
     private int m_doubleHitTime;
+
+    // 内側を叩く判定フラグ
+    private bool m_inHitFlag;
+    // 外側を叩く判定フラグ
+    private bool m_outHitFlag;
+
+    AudioSource audioSource;
+    // 内側を叩いた音
+    [SerializeField]
+    private AudioClip m_inHitSE;
+    // 外側を叩いた音
+    [SerializeField]
+    private AudioClip m_outHitSE;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +66,11 @@ public class StickLeft_Script : MonoBehaviour
         m_leftStickState = 0;
         m_doubleHitTime = 0;
         m_rightStick = FindObjectOfType<StickRight_Script>();
+
+        m_inHitFlag = false;
+        m_outHitFlag = false;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -95,6 +113,72 @@ public class StickLeft_Script : MonoBehaviour
             Debug.Log("左アナログスティックを右に倒した");
         }
 
+        // 内側に当たったら
+        if (m_inHitFlag == true)
+        {
+            // 振動させる
+            OVRHaptics.LeftChannel.Preempt(m_vibClip);
+            // 左スティックの状態を叩いた状態に変更
+            m_leftStickState = 1;
+            // 時間を代入
+            m_doubleHitTime = DOUBLE_HIT_TIME;
+            // 音を鳴らす
+            audioSource.PlayOneShot(m_inHitSE);
+
+            // 右スティックが叩いた状態だったら
+            if (m_rightStick.RightStickState == 1)
+            {
+                Debug.Log("doubleHit");
+
+                // 振動させる
+                OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
+                OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
+                // 左スティックの状態を元に戻す
+                m_leftStickState = 0;
+                // 右スティックの状態を元に戻す
+                m_rightStick.RightStickState = 0;
+                // 時間を初期化
+                m_doubleHitTime = 0;
+            }
+        }
+        // 外側に当たったら
+        else
+        {
+            if (m_outHitFlag == true)
+            {
+                // 振動させる
+                OVRHaptics.LeftChannel.Preempt(m_vibClip);
+                // 左スティックの状態を叩いた状態に変更
+                m_leftStickState = 1;
+                // 時間を代入
+                m_doubleHitTime = DOUBLE_HIT_TIME;
+                // 音を鳴らす
+                audioSource.PlayOneShot(m_outHitSE);
+
+                // 右スティックが叩いた状態だったら
+                if (m_rightStick.RightStickState == 1)
+                {
+                    Debug.Log("doubleHit");
+
+                    // 振動させる
+                    OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
+                    OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
+
+                    // 左スティックの状態を元に戻す
+                    m_leftStickState = 0;
+                    // 右スティックの状態を元に戻す
+                    m_rightStick.RightStickState = 0;
+                    // 時間を初期化
+                    m_doubleHitTime = 0;
+                }
+            }
+        }
+
+        // 内側を叩く判定フラグを初期化
+        m_inHitFlag = false;
+        // 外側を叩く判定フラグを初期化
+        m_outHitFlag = false;
+
         // 左スティックで叩いたら
         if (m_leftStickState == 1)
         {
@@ -116,31 +200,18 @@ public class StickLeft_Script : MonoBehaviour
     {
         Debug.Log("LeftHit");
 
-        if (collision.gameObject.name == "Drum")
+        if (collision.gameObject.name == "InDrum")
         {
-            // 振動させる
-            OVRHaptics.LeftChannel.Preempt(m_vibClip);
-            // 左スティックの状態を叩いた状態に変更
-            m_leftStickState = 1;
-            // 時間を代入
-            m_doubleHitTime = DOUBLE_HIT_TIME;
+            Debug.Log("AttackInDrum");
 
-            // 右スティックが叩いた状態だったら
-            if (m_rightStick.RightStickState == 1)
-            {
-                Debug.Log("doubleHit");
+            m_inHitFlag = true;
+        }
 
-                // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
-                OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
+        if (collision.gameObject.name == "OutDrum")
+        {
+            Debug.Log("AttackOutDrum");
 
-                // 左スティックの状態を元に戻す
-                m_leftStickState = 0;
-                // 右スティックの状態を元に戻す
-                m_rightStick.RightStickState = 0;
-                // 時間を初期化
-                m_doubleHitTime = 0;
-            }
+            m_outHitFlag = true;
         }
     }
 
