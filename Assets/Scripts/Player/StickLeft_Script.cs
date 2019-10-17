@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class StickLeft_Script : MonoBehaviour
 {
+    enum NOTES_TYPE_FLAG
+    {
+
+    }
+
     // 定数
     // バイブの長さ
     private const int VIB_LENGTH = 50;
