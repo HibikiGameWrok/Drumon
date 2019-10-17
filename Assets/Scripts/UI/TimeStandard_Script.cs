@@ -1,17 +1,16 @@
 ﻿//
-//   FileName @ Creature.cs
-//   
-//   Creater  @ Hibiki Yoshiyasu
+//      FileName @ TimeGauge.cs
 //
-//   Day      @ 2019 / 10 / 15
+//      Creater  @ Hibiki Yoshiyasu
+//
+//      Day      @ 2019 / 10 / 16      
 //
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCreature : Creature
+public class TimeStandard_Script : MonoBehaviour
 {
-
     // Start is called before the first frame update
     void Start()
     {

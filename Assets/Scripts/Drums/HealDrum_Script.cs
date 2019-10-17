@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      HeelDrum_Scripts.cs							        |
-//				 															    |
-//  brief:    回復用のドラムクラスのスクリプト		            |
-//              Heel Drum class  				                        |
-//																				|
-//  date:	2019.10.9												    |
-//																				|
-//  author: Renya Fukuyama										|
+//  file:      HealDrum_Scripts.cs						    |
+//				 											|
+//  brief:    回復用のドラムクラスのスクリプト		        |
+//              Heal Drum class  				            |
+//															|
+//  date:	2019.10.9										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
