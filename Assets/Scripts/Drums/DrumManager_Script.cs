@@ -57,7 +57,7 @@ public class DrumManager_Script : MonoBehaviour
         // 初期化する
         m_attackDrum.Initialize(this);
         // 回復用のドラムを生成する
-        m_healDrum = GameObject.FindGameObjectWithTag("Drum_Center").GetComponent<HealDrum_Script>();
+        m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
         // 初期化する
         m_healDrum.Initialize(this);
         // 選択用のドラムを生成する

@@ -55,11 +55,4 @@ public abstract class Drum_Script : MonoBehaviour
         set;
     }
 
-    /// <summary>
-    /// 当たり判定の検出をする
-    /// </summary>
-  //  public abstract void OnTriggerEnter(Collider col);
-
-   // public abstract void OnTriggerExit(Collider col);
-
 }
