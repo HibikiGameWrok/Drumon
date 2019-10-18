@@ -23,6 +23,10 @@ public class NotesActionGauge_Script : MonoBehaviour
     // 出すノーツの種類
     NOTES_TYPE m_notesType;
 
+    // ノーツの速度
+    [SerializeField]
+    private float m_notesVel = 0.01f;
+
     // ノーツの生成数を保持する変数
     private int m_notesCount = 0;
 
@@ -72,7 +76,7 @@ public class NotesActionGauge_Script : MonoBehaviour
             if (m_childHandle.transform.position.x < (this.transform.position.x + MAX_GAUGE))
             {
                 // x座標に加算、よって右方向へ移動
-                m_childHandle.transform.position += new Vector3(0.05f, 0, 0);
+                m_childHandle.transform.position += new Vector3(m_notesVel, 0, 0);
             }
             else
             {
