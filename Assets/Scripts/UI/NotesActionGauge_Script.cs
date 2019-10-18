@@ -14,6 +14,7 @@ public class NotesActionGauge_Script : MonoBehaviour
 
     public enum NOTES_TYPE : int
     {
+        NONE,               // 何もない
         OneInHit,           // １スティックで内側を叩いた時
         OneOutHit,          // １スティックで外側を叩いた時
         DoubleInHit,        // ２スティックで内側を叩いた時
