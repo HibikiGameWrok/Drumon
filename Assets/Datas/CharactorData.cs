@@ -22,7 +22,6 @@ public class CharactorData : ScriptableObject
     public int Hp
     {
         get { return hp; }
-        set { hp = value; }
     }
 
     [SerializeField]
@@ -31,7 +30,6 @@ public class CharactorData : ScriptableObject
     public int Atk
     {
         get { return atk; }
-        set { atk = value; }
     }
 
     [SerializeField]
@@ -40,17 +38,16 @@ public class CharactorData : ScriptableObject
     public int Def
     {
         get { return def; }
-        set { def = value; }
     }
 
-    [SerializeField]
-    private float wait;
+    //[SerializeField]
+    //private float wait;
 
-    public float Wait
-    {
-        get { return wait; }
-        set { wait = value; }
-    }
+    //public float Wait
+    //{
+    //    get { return wait; }
+    //    set { wait = value; }
+    //}
 
     [SerializeField]
     private ELEM elem;
@@ -58,6 +55,5 @@ public class CharactorData : ScriptableObject
     public ELEM Elem
     {
         get { return elem; }
-        set { elem = value; }
     }
 }
