@@ -71,6 +71,6 @@ public class Creature : MonoBehaviour
     public void Damage(int damage)
     {
         // 自身のHPに反映させる
-        this.m_charaData.Hp = damage;
+        //this.m_charaData.Hp = damage;
     }
 }
