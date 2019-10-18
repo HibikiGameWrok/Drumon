@@ -1,17 +1,32 @@
-﻿using System.Collections;
+﻿///
+///     FileName =
+///
+///
+///
+///
+///
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class AttackRecipeManeger : MonoBehaviour
+public class AttackRecipeManeger_Script : MonoBehaviour
 {
+    enum Data_Type
+    {
+        NAME,
+
+
+    }
+
+
     TextAsset csvFile; // CSVファイル
     List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
 
-    // Start is called before the first frame update
     void Start()
     {
-        csvFile = Resources.Load("Excel/CreatureAttackCSV") as TextAsset; // Resouces下のCSV読み込み
+        // Resouces下のCSV読み込み
+        csvFile = Resources.Load("Excel/CreatureAttackCSV") as TextAsset; 
         StringReader reader = new StringReader(csvFile.text);
 
         // , で分割しつつ一行ずつ読み込み
@@ -22,13 +37,21 @@ public class AttackRecipeManeger : MonoBehaviour
             csvDatas.Add(line.Split(',')); // , 区切りでリストに追加
         }
 
-        // csvDatas[行][列]を指定して値を自由に取り出せる
-        Debug.Log(csvDatas[0][1]);
+        // デバッグ用中身を確認する処理
+        for (int i = 0; i < csvDatas.Count; i++)
+        {
+            for (int j = 0; j < csvDatas[i].Length; j++) 
+            {
+                Debug.Log(csvDatas[i][j]);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+
 }
