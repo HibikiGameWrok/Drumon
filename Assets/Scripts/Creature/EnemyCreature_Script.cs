@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
+public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 {
-    [SerializeField, Range(1,100)]
-    private int HEAL_RATE;
-
     [SerializeField]
     private CharactorData m_data;
 
@@ -36,7 +32,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void Execute()
     {
         this.CountTimer();
-        if(this.m_target != null && this.m_timer >= 5.0f)
+        if (this.m_target != null && this.m_timer >= 5.0f)
         {
             this.Attack(1);
             this.m_timer = 0.0f;
@@ -51,7 +47,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void Attack(int rate)
     {
         int damage = (this.m_atk * rate / 2) - (this.m_target.GetData().Def / 4);
-        
+
         this.m_target.Damage(damage);
     }
 
@@ -63,7 +59,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Heal()
     {
-        this.m_hp = m_data.Hp / 100 * HEAL_RATE;
+        this.m_hp = m_data.Hp / 100;
     }
 
     public CharactorData GetData()
