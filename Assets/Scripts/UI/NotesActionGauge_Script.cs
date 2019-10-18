@@ -1,10 +1,10 @@
-﻿///
-///
-///
-///
-///
-///
-///
+﻿//
+//      FileName @ NoteActionGauge_Scrip.cs
+//
+//      Creater  @ Hibiki Yoshiyasu
+//
+//      Day      @ 2019 / 10 / 16      
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,8 +23,8 @@ public class NotesActionGauge_Script : MonoBehaviour
     {
         NONE,               // 何もない
         ONE_IN_HIT,           // １スティックで内側を叩いた時
-        ONE_OUT_HIT,          // １スティックで外側を叩いた時
         DOUBLE_IN_HIT,        // ２スティックで内側を叩いた時
+        ONE_OUT_HIT,          // １スティックで外側を叩いた時
         DOUBLE_OUT_HIT,       // ２スティックで外側を叩いた時
     }
 
@@ -43,8 +43,11 @@ public class NotesActionGauge_Script : MonoBehaviour
     private Transform m_childHandle = null;
     // ノーツをまとめる親オブジェクト
     private Transform m_notesManager = null;
+    // ノーツをまとめる親オブジェクトにアタッチしているスクリプトを取得
+    private NotesManager_Script m_notesmanager_script = null;
     // ノーツプレハブ
     private GameObject m_prefabNotes = null;
+
 
 
     // 行動ゲージが終わったか
@@ -57,7 +60,8 @@ public class NotesActionGauge_Script : MonoBehaviour
         // 子のオブジェクトを取得
         m_childHandle = this.transform.Find("Handle");
         m_notesManager = this.transform.Find("NotesManager");
-
+        // 子のオブジェクトにアタッチしているScriptを取得
+        m_notesmanager_script = m_notesManager.GetComponent<NotesManager_Script>();
         // プレハブを取得
         m_prefabNotes = (GameObject)Resources.Load("InsPrefab/NotesPrefab");
     }
@@ -70,7 +74,7 @@ public class NotesActionGauge_Script : MonoBehaviour
         HandleMove();
 
         /// デバッグ用関数 ///
-        KeyNotesinstace(); 
+        KeyNotesinstace();
     }
 
 
@@ -98,7 +102,7 @@ public class NotesActionGauge_Script : MonoBehaviour
     // ドラムとスティックが当たると呼ばれる関数
     // 引数 : NOTES_TYPE type -- 叩き方
     public void InstantiateNotes(NOTES_TYPE type)
-    {　
+    {
         // ノーツのプレハブタイプを設定しロードする
         SetNotesPrefabPath(type);
         // ノーツの現在の数が設定値に達成していなければ
@@ -130,7 +134,7 @@ public class NotesActionGauge_Script : MonoBehaviour
         // ノーツの数を０にする
         m_notesCount = 0;
         // ノーツ管理オブジェクトの子として生成されたノーツオブジェクトを全て消す
-        foreach(Transform n in m_notesManager.transform)
+        foreach (Transform n in m_notesManager.transform)
         {
             GameObject.Destroy(n.gameObject);
         }
@@ -145,21 +149,21 @@ public class NotesActionGauge_Script : MonoBehaviour
     // デバッグ用キーによってノーツを出す
     private void KeyNotesinstace()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             NotesReset();
         }
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             InstantiateNotes(NOTES_TYPE.ONE_IN_HIT);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            InstantiateNotes(NOTES_TYPE.ONE_OUT_HIT);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             InstantiateNotes(NOTES_TYPE.DOUBLE_IN_HIT);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            InstantiateNotes(NOTES_TYPE.ONE_OUT_HIT);
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
