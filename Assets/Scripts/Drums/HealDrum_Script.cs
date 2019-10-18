@@ -21,7 +21,6 @@ public class HealDrum_Script : Drum_Script
 
     // メンバ変数
 
-
     /// <summary>
     /// デフォルト関数
     /// </summary>
@@ -37,9 +36,6 @@ public class HealDrum_Script : Drum_Script
     {
         // 親オブジェクトを入れる
         m_manager = manager;
-        
-        // アクティブにする
-        Active = true;
     }
 
 

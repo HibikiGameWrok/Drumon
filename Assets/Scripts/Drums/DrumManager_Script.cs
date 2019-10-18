@@ -53,25 +53,28 @@ public class DrumManager_Script : MonoBehaviour
     void Awake()
     {
         // 攻撃用のドラムを生成する
-        m_attackDrum = GetComponentInChildren<AttackDrum_Script>();
+        m_attackDrum = GameObject.FindGameObjectWithTag("AttackDrum").GetComponent<AttackDrum_Script>();
         // 初期化する
         m_attackDrum.Initialize(this);
         // 回復用のドラムを生成する
         m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
         // 初期化する
         m_healDrum.Initialize(this);
+        
         // 選択用のドラムを生成する
         //  m_selectDrum = GetComponentInChildren<SelectDrum_Script>();
 
         // 現在のドラムを攻撃用のドラムにする
-        m_currentDrum = m_healDrum;
+        m_currentDrum = m_attackDrum;
+        // 現在のドラムをアクティブにする
+        m_currentDrum.Active = true;
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        // 現状は何もしない
     }
 
     // Update is called once per frame

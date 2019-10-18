@@ -35,11 +35,6 @@ public class AttackDrum_Script : Drum_Script
     {
         // 親オブジェクトを入れる
         m_manager = manager;
-
-        Debug.Log("Attack init");
-
-        // アクティブにする
-        Active = true;
     }
 
     /// <summary>
@@ -75,24 +70,34 @@ public class AttackDrum_Script : Drum_Script
     /// </summary>
     public override bool Active
     {
+        // 取得する
         get { return m_isActive; }
+        // 設定する
         set { m_isActive = value; }
     }
 
-    public void OnTriggerEnter(Collider col)
-    {
-        if (col.tag == "Stick")
-        {
-            //if (gameObject.tag == "Drum_Base") 
-            {
-                Debug.Log("Stick hit");
-                Active = true;
 
-                m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
-            }
+    /// <summary>
+    /// 衝突を検出した時の処理
+    /// </summary>
+    /// <param name="other">当たったオブジェクト</param>
+    public void OnTriggerEnter(Collider other)
+    {
+        // スティックに当たったら処理をする
+        if (other.tag == "Stick")
+        { 
+            // アクティブにする
+            Active = true;
+            // このドラムを現在のドラムにする
+            m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
         }
     }
 
+
+    /// <summary>
+    /// 衝突したオブジェクトが離れた時の処理
+    /// </summary>
+    /// <param name="other">当たっていたオブジェクト</param>
     public void OnTriggerExit(Collider col)
     {
         if (col.tag == "Stick")
