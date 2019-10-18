@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      AttackDrum_Scripts.cs					    |
-//				 											|
-//  brief:    攻撃用のドラムクラスのスクリプト		        |
-//              Attack Drum class  				            |
-//															|
-//  date:	2019.10.9										|
-//															|
-//  author: Renya Fukuyama									|
+//  file:      AttackDrum_Scripts.cs					            |
+//				 											                    |
+//  brief:    攻撃用のドラムクラスのスクリプト		            | 
+//              Attack Drum class  				                    |
+//															                    |
+//  date:	2019.10.9										            |
+//															                    |
+//  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
 
 // using
@@ -31,6 +31,7 @@ public class AttackDrum_Script : Drum_Script
     /// <summary>
     /// 初期化処理
     /// </summary>
+    /// <param name="manager">ドラムマネージャー</param>
     public override void Initialize(DrumManager_Script manager)
     {
         // 親オブジェクトを入れる
@@ -44,7 +45,7 @@ public class AttackDrum_Script : Drum_Script
     public override bool Execute()
     {
         // アクティブでないなら
-        if (Active == false)
+        if (isActive == false)
         {
             // 変更する
             return false;
@@ -61,14 +62,14 @@ public class AttackDrum_Script : Drum_Script
     public override void Dispose()
     {
         // 非アクティブにする
-        Active = false;
+        isActive = false;
     }
 
 
     /// <summary>
     /// アクティブフラグのプロパティ
     /// </summary>
-    public override bool Active
+    public override bool isActive
     {
         // 取得する
         get { return m_isActive; }
@@ -87,7 +88,7 @@ public class AttackDrum_Script : Drum_Script
         if (other.tag == "Stick")
         { 
             // アクティブにする
-            Active = true;
+            isActive = true;
             // このドラムを現在のドラムにする
             m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
         }

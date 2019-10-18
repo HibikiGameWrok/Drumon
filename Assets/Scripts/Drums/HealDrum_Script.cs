@@ -46,7 +46,7 @@ public class HealDrum_Script : Drum_Script
     public override bool Execute()
     {
         // アクティブでないなら
-        if(Active == false)
+        if(isActive == false)
         {
             // 変更する
             return false;
@@ -63,14 +63,14 @@ public class HealDrum_Script : Drum_Script
     public override void Dispose()
     {        
         // 非アクティブにする
-        Active = false;
+        isActive = false;
     }
 
 
     /// <summary>
     /// アクティブフラグのプロパティ
     /// </summary>
-    public override bool Active
+    public override bool isActive
     {
         get { return m_isActive; }
 
@@ -86,7 +86,7 @@ public class HealDrum_Script : Drum_Script
         if (col.tag == "Stick")
         {
             // アクティブにする
-            Active = true;
+            isActive = true;
             // 回復用のドラムに変更する
             m_manager.ChangeDrum(m_manager.HealDrum);
         }

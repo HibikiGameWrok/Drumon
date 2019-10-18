@@ -163,8 +163,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 927816994}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -245,7 +244,7 @@ GameObject:
   - component: {fileID: 927816997}
   m_Layer: 0
   m_Name: AttackDrum
-  m_TagString: Drum_Base
+  m_TagString: AttackDrum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,8 +262,8 @@ Transform:
   m_Children:
   - {fileID: 1156021174}
   - {fileID: 723717710}
-  m_Father: {fileID: 710817642}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &927816997
 MonoBehaviour:
@@ -583,7 +582,7 @@ GameObject:
   - component: {fileID: 1340705685}
   - component: {fileID: 1340705689}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Stick
   m_TagString: Stick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

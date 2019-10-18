@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      DrumManger_Script.cs		                    |
-//				 											|
-//  brief:    ドラムマネージャーのスクリプト				|
-//              Drums 	Manager Class		                |
-//															|
-//  date:	2019.10.11										|
-//															|
-//  author: Renya Fukuyama									|
+//  file:      DrumManger_Script.cs		                        |
+//				 											                    |
+//  brief:    ドラムマネージャーのスクリプト				    |
+//              Drums 	Manager Class		                        |
+//															                    |
+//  date:	2019.10.11										        |
+//															                    |
+//  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
 
 // using
@@ -16,19 +16,8 @@ using UnityEngine;
 
 
 // ドラムマネージャーの定義
-public class DrumManager_Script : MonoBehaviour 
+public class DrumManager_Script : SingletonBase_Script<DrumManager_Script> 
 {
-    // 列挙
-    public enum DRUM_TYPE
-    {
-        ATTACK,
-        HEAL,
-        SELECT,
-        CATCH,
-
-        TOTAL
-    }
-
     // メンバ変数 
     // 攻撃用のドラム 
     [SerializeField]
@@ -50,8 +39,11 @@ public class DrumManager_Script : MonoBehaviour
     /// <summary>
     /// Awake関数
     /// </summary>
-    void Awake()
+    protected override void Awake() 
     {
+        // 既にこのオブジェクトがあるか確認する
+        CheckInstance();
+
         // 攻撃用のドラムを生成する
         m_attackDrum = GameObject.FindGameObjectWithTag("AttackDrum").GetComponent<AttackDrum_Script>();
         // 初期化する
@@ -60,17 +52,18 @@ public class DrumManager_Script : MonoBehaviour
         m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
         // 初期化する
         m_healDrum.Initialize(this);
-        
+
         // 選択用のドラムを生成する
-        //  m_selectDrum = GetComponentInChildren<SelectDrum_Script>();
+        // m_selectDrum = GameObject.FindGameObjectWithTag("SelectDrum").GetComponent<SelectDrum_Script>();
+        // m_selectDrum.Initialize(this);
 
         // 現在のドラムを攻撃用のドラムにする
         m_currentDrum = m_attackDrum;
         // 現在のドラムをアクティブにする
-        m_currentDrum.Active = true;
+        m_currentDrum.isActive = true;
     }
 
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +90,7 @@ public class DrumManager_Script : MonoBehaviour
          
                 }
             }
+            // 回復用のドラムの処理
             else if(m_currentDrum == m_healDrum)
             {
                 if (result == true)

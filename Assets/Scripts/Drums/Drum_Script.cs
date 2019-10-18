@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      Drum_Script.cs					            |
-//				 											|
-//  brief:    ドラムの基底クラスのスクリプト				|
-//              Drum base class 				            |
-//															|
-//  date:	2019.10.9										|
-//															|
-//  author: Renya Fukuyama									|
+//  file:      Drum_Script.cs					                        |
+//				 											                    |
+//  brief:    ドラムの基底クラスのスクリプト				    |
+//              Drum base class 				                        |
+//															                    |
+//  date:	2019.10.9										            |
+//															                    |
+//  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
 
 // using
@@ -47,7 +47,7 @@ public abstract class Drum_Script : MonoBehaviour
     /// <summary>
     /// アクティブフラグのプロパティ
     /// </summary>
-    public abstract bool Active
+    public abstract bool isActive
     {
         // アクティブフラグを取得する
         get;
