@@ -15,7 +15,7 @@ public class StickLeft_Script : MonoBehaviour
     // 同時に叩いた時のバイブの大きさ
     private const int DOUBLE_HIT_VIB_SIZE = 255;
     // 同時に叩ける時間
-    private const int DOUBLE_HIT_TIME = 3;
+    private const int DOUBLE_HIT_TIME = 5;
 
 
     // バイブレーション
@@ -43,6 +43,11 @@ public class StickLeft_Script : MonoBehaviour
     // 当たった数
     private int m_hitNum;
 
+    // 内側を同時に叩いたフラグ
+    private bool m_doubleInHitFlag;
+    // 外側を同時に叩いたフラグ
+    private bool m_doubleOutHitFlag;
+
     AudioSource audioSource;
     // 内側を叩いた音
     [SerializeField]
@@ -50,9 +55,6 @@ public class StickLeft_Script : MonoBehaviour
     // 外側を叩いた音
     [SerializeField]
     private AudioClip m_outHitSE;
-
-    GameObject m_musicalScore;
-    NotesActionGauge_Script m_notesActionGauge;
 
     // Start is called before the first frame update
     void Start()
@@ -87,10 +89,10 @@ public class StickLeft_Script : MonoBehaviour
 
         m_hitNum = 0;
 
-        audioSource = GetComponent<AudioSource>();
+        m_doubleInHitFlag = false;
+        m_doubleOutHitFlag = false;
 
-        m_musicalScore = GameObject.Find("MusicalScore");
-        m_notesActionGauge = m_musicalScore.GetComponent<NotesActionGauge_Script>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -110,43 +112,6 @@ public class StickLeft_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.RawButton.X))
-        {
-            Debug.Log("Xボタンを押した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.Y))
-        {
-            Debug.Log("Yボタンを押した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.Start))
-        {
-            Debug.Log("メニューボタン（左アナログスティックの下にある）を押した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
-        {
-            Debug.Log("左人差し指トリガーを押した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
-        {
-            Debug.Log("左中指トリガーを押した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickUp))
-        {
-            Debug.Log("左アナログスティックを上に倒した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickDown))
-        {
-            Debug.Log("左アナログスティックを下に倒した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickLeft))
-        {
-            Debug.Log("左アナログスティックを左に倒した");
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickRight))
-        {
-            Debug.Log("左アナログスティックを右に倒した");
-        }
-
         // 内側を叩いたら
         if (m_inHitFlag == true)
         {
@@ -164,8 +129,6 @@ public class StickLeft_Script : MonoBehaviour
             // 右スティックが叩いた状態だったら
             if (m_rightStick.RightStickState == 1 && m_rightStick.InHitNotesFlag == true)
             {
-                Debug.Log("doubleHit");
-
                 // 振動させる
                 OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
                 OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
@@ -176,11 +139,10 @@ public class StickLeft_Script : MonoBehaviour
                 // 時間を初期化
                 m_doubleHitTime = 0;
 
-                // ノーツ生成
-                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_IN_HIT);
-
                 m_inHitNotesFlag = false;
                 m_rightStick.InHitNotesFlag = false;
+
+                m_doubleInHitFlag = true;
             }
         }
         // 外側を叩いたら
@@ -202,8 +164,6 @@ public class StickLeft_Script : MonoBehaviour
                 // 右スティックが叩いた状態だったら
                 if (m_rightStick.RightStickState == 1 && m_rightStick.OutHitNotesFlag == true)
                 {
-                    Debug.Log("doubleHit");
-
                     // 振動させる
                     OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
                     OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
@@ -215,11 +175,10 @@ public class StickLeft_Script : MonoBehaviour
                     // 時間を初期化
                     m_doubleHitTime = 0;
 
-                    // ノーツ生成
-                    m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
-
                     m_outHitNotesFlag = false;
                     m_rightStick.OutHitNotesFlag = false;
+
+                    m_doubleOutHitFlag = true;
                 }
             }
         }
@@ -229,28 +188,6 @@ public class StickLeft_Script : MonoBehaviour
         {
             // 時間を計る
             m_doubleHitTime--;
-        }
-        // 時間が0になったら
-        if (m_doubleHitTime < 0)
-        {
-            if (m_inHitNotesFlag == true)
-            {
-                // ノーツ生成
-                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_IN_HIT);
-            }
-            else if (m_outHitNotesFlag == true)
-            {
-                // ノーツ生成
-                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_OUT_HIT);
-            }
-
-            // 左スティックの状態を元に戻す
-            m_leftStickState = 0;
-            // 時間を初期化
-            m_doubleHitTime = 0;
-
-            m_inHitNotesFlag = false;
-            m_outHitNotesFlag = false;
         }
 
         // 内側を叩く判定フラグを初期化
@@ -268,20 +205,14 @@ public class StickLeft_Script : MonoBehaviour
         // まだ当たっていなければ
         if (m_hitFlag == false)
         {
-            Debug.Log("LeftHit");
-
             // 内側を叩いたら
             if (collision.gameObject.name == "InDrum")
             {
-                Debug.Log("AttackInDrum");
-
                 m_inHitFlag = true;
             }
             // 外側を叩いたら
             else if (collision.gameObject.name == "OutDrum")
             {
-                Debug.Log("AttackOutDrum");
-
                 m_outHitFlag = true;
             }
         }
@@ -307,6 +238,18 @@ public class StickLeft_Script : MonoBehaviour
         set { m_doubleHitTime = value; }
     }
 
+    public bool InHitFlag
+    {
+        get { return m_inHitFlag; }
+        set { m_inHitFlag = value; }
+    }
+
+    public bool OutHitFlag
+    {
+        get { return m_outHitFlag; }
+        set { m_outHitFlag = value; }
+    }
+
     public bool InHitNotesFlag
     {
         get { return m_inHitNotesFlag; }
@@ -316,5 +259,16 @@ public class StickLeft_Script : MonoBehaviour
     {
         get { return m_outHitNotesFlag; }
         set { m_outHitNotesFlag = value; }
+    }
+
+    public bool DoubleInHitFlag
+    {
+        get { return m_doubleInHitFlag; }
+        set { m_doubleInHitFlag = value; }
+    }
+    public bool DoubleOutHitFlag
+    {
+        get { return m_doubleOutHitFlag; }
+        set { m_doubleOutHitFlag = value; }
     }
 }
