@@ -7,18 +7,25 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     private PlayerCreature_Script m_playerCreature;
     private EnemyCreature_Script m_enemyCreature;
 
+    private bool m_isSetting;
+
     // Start is called before the first frame update
     void Start()
     {
         this.m_playerCreature = null;
         this.m_enemyCreature = null;
+
+        this.m_isSetting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.m_playerCreature.Execute();
-        this.m_enemyCreature.Execute();
+        if (m_isSetting)
+        {
+            this.m_playerCreature.Execute();
+            this.m_enemyCreature.Execute();
+        }
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
@@ -37,5 +44,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         this.m_playerCreature.SetTarget(this.m_enemyCreature);
         this.m_enemyCreature.SetTarget(this.m_playerCreature);
+
+        this.m_isSetting = true;
     }
 }
