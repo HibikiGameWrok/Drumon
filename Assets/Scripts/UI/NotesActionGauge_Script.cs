@@ -14,6 +14,7 @@ public class NotesActionGauge_Script : MonoBehaviour
 
     public enum NOTES_TYPE : int
     {
+        NONE,               // 何もない
         OneInHit,           // １スティックで内側を叩いた時
         OneOutHit,          // １スティックで外側を叩いた時
         DoubleInHit,        // ２スティックで内側を叩いた時
@@ -21,6 +22,10 @@ public class NotesActionGauge_Script : MonoBehaviour
     }
     // 出すノーツの種類
     NOTES_TYPE m_notesType;
+
+    // ノーツの速度
+    [SerializeField]
+    private float m_notesVel = 0.01f;
 
     // ノーツの生成数を保持する変数
     private int m_notesCount = 0;
@@ -71,7 +76,7 @@ public class NotesActionGauge_Script : MonoBehaviour
             if (m_childHandle.transform.position.x < (this.transform.position.x + MAX_GAUGE))
             {
                 // x座標に加算、よって右方向へ移動
-                m_childHandle.transform.position += new Vector3(0.05f, 0, 0);
+                m_childHandle.transform.position += new Vector3(m_notesVel, 0, 0);
             }
             else
             {
@@ -151,6 +156,11 @@ public class NotesActionGauge_Script : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             InstantiateNotes(NOTES_TYPE.DoubleOutHit);
+        }
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            NotesReset();
         }
     }
 }

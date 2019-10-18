@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      Drum_Script.cs					            |
-//				 											|
-//  brief:    ドラムの基底クラスのスクリプト				|
-//              Drum base class 				            |
-//															|
-//  date:	2019.10.9										|
-//															|
-//  author: Renya Fukuyama									|
+//  file:      Drum_Script.cs					                        |
+//				 											                    |
+//  brief:    ドラムの基底クラスのスクリプト				    |
+//              Drum base class 				                        |
+//															                    |
+//  date:	2019.10.9										            |
+//															                    |
+//  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
 
 // using
@@ -16,68 +16,43 @@ using UnityEngine;
 
 
 // Drumクラスの定義
-public class Drum_Script
+public abstract class Drum_Script : MonoBehaviour
 {
     // メンバ変数
     // ドラムマネージャーを入れる変数
     protected DrumManager_Script m_manager;
     // 現在アクティブかどうか
-    private bool m_isActive;
+    protected bool m_isActive;
+
 
     /// <summary>
     /// 初期化処理 
     /// </summary>
-    public virtual void Initialize(DrumManager_Script manager)
-    {
-        // 親オブジェクトを入れる
-        m_manager = manager;
-    }
+    public abstract void Initialize(DrumManager_Script manager);
 
 
     /// <summary>
     /// 実行する
     /// </summary>
     /// <returns>true=継続する false=ドラムを変更する</returns>
-    public virtual bool Execute()
-    {
-        if(m_isActive == false)
-        {
-            // 変更する
-            return false;
-        }
-
-        // 継続する
-        return true;
-    }
+    public abstract bool Execute();
 
 
     /// <summary>
     /// 終了処理
     /// </summary>
-    public virtual void Dispose()
-    {
-        // 親オブジェクトを解放する
-        m_manager = null;
-    }
+    public abstract void Dispose();
 
 
     /// <summary>
     /// アクティブフラグのプロパティ
     /// </summary>
-    public bool Active
+    public abstract bool isActive
     {
         // アクティブフラグを取得する
-        get { return m_isActive; }
+        get;
         // アクティブフラグを設定する
-        set { m_isActive = value; }
+        set;
     }
 
-    /// <summary>
-    /// 当たり判定の検出をする
-    /// </summary>
-    public void OnTriggerEnter(Collider col)
-    {
-        if (col.tag == "")
-            m_isActive = true;
-    }
 }
