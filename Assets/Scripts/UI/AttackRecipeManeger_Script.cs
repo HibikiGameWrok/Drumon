@@ -1,10 +1,10 @@
-﻿///
-///     FileName =
-///
-///
-///
-///
-///
+﻿//
+//      FileName @ AttackRecipeManeger_Script.cs
+//
+//      Creater  @ Hibiki Yoshiyasu
+//
+//      Day      @ 2019 / 10 / 16      
+//
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -12,16 +12,19 @@ using UnityEngine;
 
 public class AttackRecipeManeger_Script : MonoBehaviour
 {
-    enum Data_Type
+    // 列のデータタイプ
+    enum Data_Column_Type
     {
-        NAME,
-
-
+        ATK_NAME,
+        ATK_ELEMENT,
+        ATK_NOTES,
+        ATK_RATE,
     }
 
-
-    TextAsset csvFile; // CSVファイル
-    List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
+    // CSVファイル
+    TextAsset csvFile;
+    // CSVの中身を入れるリスト;
+    List<string[]> csvDatas = new List<string[]>(); 
 
     void Start()
     {
@@ -38,7 +41,7 @@ public class AttackRecipeManeger_Script : MonoBehaviour
         }
 
         // デバッグ用中身を確認する処理
-        for (int i = 0; i < csvDatas.Count; i++)
+        for (int i = 1; i < csvDatas.Count; i++)
         {
             for (int j = 0; j < csvDatas[i].Length; j++) 
             {
@@ -53,5 +56,10 @@ public class AttackRecipeManeger_Script : MonoBehaviour
 
     }
 
+    // 前に出現しているクリーチャーがレシピに存在するか検索
+    public void SetCreatureNameSearch()
+    {
+
+    }
 
 }

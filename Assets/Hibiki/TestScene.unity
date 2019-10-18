@@ -627,6 +627,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463128442}
+  - component: {fileID: 463128443}
   m_Layer: 0
   m_Name: AttackRecipeManeger
   m_TagString: Untagged
@@ -648,6 +649,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &463128443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463128441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ec6cb8bc488824b90656fc3accfef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &506546499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,6 +1329,24 @@ Transform:
   m_Father: {fileID: 1801098317}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1125772166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1323754039691525640, guid: ac8126d2823da90448f603b8aba33dc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1323754040630351360}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1125772168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125772166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10cc5c80bffab8949bf3eb91b29c0bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1286406678
 PrefabInstance:
   m_ObjectHideFlags: 0
