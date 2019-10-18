@@ -21,6 +21,10 @@ public abstract class SingletonBase_Script<T> : MonoBehaviour where T : MonoBeha
     // インスタンス
     private static T m_instance;
    
+
+    /// <summary>
+    /// インスタンスを取得する
+    /// </summary>
     public static T Get
     {
         get
@@ -42,6 +46,10 @@ public abstract class SingletonBase_Script<T> : MonoBehaviour where T : MonoBeha
         }
     }
 
+
+    /// <summary>
+    /// Awake関数
+    /// </summary>
     protected virtual void Awake()
     {
         // 他のゲームオブジェクトにアタッチされているか調べる
@@ -49,6 +57,11 @@ public abstract class SingletonBase_Script<T> : MonoBehaviour where T : MonoBeha
         CheckInstance();
     }
 
+
+    /// <summary>
+    /// 既にインスタンスがあるか確認する
+    /// </summary>
+    /// <returns>true=存在しない false=存在する</returns>
     protected bool CheckInstance()
     {
         // インスタンスがnullなら生成する

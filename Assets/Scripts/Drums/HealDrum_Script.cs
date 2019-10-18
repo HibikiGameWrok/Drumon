@@ -10,6 +10,7 @@
 /*----------------------------------------------------------*/
 
 // using
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,16 @@ using UnityEngine;
 // 回復用のドラムクラスの定義
 public class HealDrum_Script : Drum_Script
 {
+
     // メンバ変数
+
+    /// <summary>
+    /// デフォルト関数
+    /// </summary>
+    void Start()
+    {
+        // 何もしない
+    }
 
     /// <summary>
     /// 初期化処理
@@ -26,10 +36,8 @@ public class HealDrum_Script : Drum_Script
     {
         // 親オブジェクトを入れる
         m_manager = manager;
-        
-        // アクティブにする
-        Active = true;
     }
+
 
     /// <summary>
     /// 実行する
@@ -38,13 +46,7 @@ public class HealDrum_Script : Drum_Script
     public override bool Execute()
     {
         // アクティブでないなら
-        if(Active == false)
-        {
-            // 変更する
-            return false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
+        if(isActive == false)
         {
             // 変更する
             return false;
@@ -59,11 +61,47 @@ public class HealDrum_Script : Drum_Script
     /// 終了処理
     /// </summary>
     public override void Dispose()
-    {
-        // 親オブジェクトを解放する
-        m_manager = null;
-        
+    {        
         // 非アクティブにする
-        Active = false;
+        isActive = false;
+    }
+
+
+    /// <summary>
+    /// アクティブフラグのプロパティ
+    /// </summary>
+    public override bool isActive
+    {
+        get { return m_isActive; }
+
+        set { m_isActive = value; }
+    }
+
+    /// <summary>
+    /// 当たり判定の検出をする
+    /// </summary>
+    /// <param name="col">衝突した相手</param>
+    public void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Stick")
+        {
+            // アクティブにする
+            isActive = true;
+            // 回復用のドラムに変更する
+            m_manager.ChangeDrum(m_manager.HealDrum);
+        }
+    }
+
+
+    /// <summary>
+    /// 当たり判定から外れた時
+    /// </summary>
+    /// <param name="col">衝突した相手</param>
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.tag == "Stick")
+        {
+            Debug.Log("nonononononono");
+        }
     }
 }
