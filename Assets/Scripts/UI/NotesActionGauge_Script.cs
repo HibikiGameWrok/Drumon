@@ -165,5 +165,10 @@ public class NotesActionGauge_Script : MonoBehaviour
         {
             InstantiateNotes(NOTES_TYPE.DOUBLE_OUT_HIT);
         }
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            NotesReset();
+        }
     }
 }

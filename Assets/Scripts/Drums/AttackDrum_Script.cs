@@ -19,6 +19,11 @@ using UnityEngine;
 public class AttackDrum_Script : Drum_Script
 {
     // メンバ変数
+    GameObject m_musicalScore;
+    NotesActionGauge_Script m_notesActionGauge;
+
+    StickLeft_Script m_leftStick;
+    StickRight_Script m_rightStick;
 
     /// <summary>
     /// デフォルト関数
@@ -36,6 +41,12 @@ public class AttackDrum_Script : Drum_Script
     {
         // 親オブジェクトを入れる
         m_manager = manager;
+
+        m_musicalScore = GameObject.Find("MusicalScore");
+        m_notesActionGauge = m_musicalScore.GetComponent<NotesActionGauge_Script>();
+
+        m_leftStick = FindObjectOfType<StickLeft_Script>();
+        m_rightStick = FindObjectOfType<StickRight_Script>();
     }
 
     /// <summary>
@@ -49,6 +60,78 @@ public class AttackDrum_Script : Drum_Script
         {
             // 変更する
             return false;
+        }
+
+        // 内側を同時に叩いていたら
+        if (m_rightStick.DoubleInHitFlag == true)
+        {
+            // ノーツ生成
+            m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_IN_HIT);
+
+            m_rightStick.DoubleInHitFlag = false;
+        }
+        // 外側を同時に叩いていたら
+        else if (m_rightStick.DoubleOutHitFlag == true)
+        {
+            // ノーツ生成
+            m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
+
+            m_rightStick.DoubleOutHitFlag = false;
+        }
+
+        // 内側を同時に叩いていたら
+        if (m_leftStick.DoubleInHitFlag == true)
+        {
+            // ノーツ生成
+            m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_IN_HIT);
+
+            m_leftStick.DoubleInHitFlag = false;
+        }
+        // 外側を同時に叩いていたら
+        else if (m_leftStick.DoubleOutHitFlag == true)
+        {
+            // ノーツ生成
+            m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
+
+            m_leftStick.DoubleOutHitFlag = false;
+        }
+
+        // 時間が0になったら
+        if (m_leftStick.DoubleHitTime < 0)
+        {
+            if (m_leftStick.InHitNotesFlag == true)
+            {
+                // ノーツ生成
+                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_IN_HIT);
+            }
+            else if (m_leftStick.OutHitNotesFlag == true)
+            {
+                // ノーツ生成
+                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_OUT_HIT);
+            }
+
+            if (m_rightStick.InHitNotesFlag == true)
+            {
+                // ノーツ生成
+                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_IN_HIT);
+            }
+            else if (m_rightStick.OutHitNotesFlag == true)
+            {
+                // ノーツ生成
+                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_OUT_HIT);
+            }
+
+            // 左スティックの状態を元に戻す
+            m_leftStick.LeftStickState = 0;
+            // 右スティックの状態を元に戻す
+            m_rightStick.RightStickState = 0;
+            // 時間を初期化
+            m_leftStick.DoubleHitTime = 0;
+
+            m_leftStick.InHitNotesFlag = false;
+            m_leftStick.OutHitNotesFlag = false;
+            m_rightStick.InHitNotesFlag = false;
+            m_rightStick.OutHitNotesFlag = false;
         }
 
         // 継続する
@@ -93,7 +176,6 @@ public class AttackDrum_Script : Drum_Script
             m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
         }
     }
-
 
     /// <summary>
     /// 衝突したオブジェクトが離れた時の処理
