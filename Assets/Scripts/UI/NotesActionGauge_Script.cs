@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿///
+///
+///
+///
+///
+///
+///
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +22,12 @@ public class NotesActionGauge_Script : MonoBehaviour
     public enum NOTES_TYPE : int
     {
         NONE,               // 何もない
-        OneInHit,           // １スティックで内側を叩いた時
-        OneOutHit,          // １スティックで外側を叩いた時
-        DoubleInHit,        // ２スティックで内側を叩いた時
-        DoubleOutHit,       // ２スティックで外側を叩いた時
+        ONE_IN_HIT,           // １スティックで内側を叩いた時
+        ONE_OUT_HIT,          // １スティックで外側を叩いた時
+        DOUBLE_IN_HIT,        // ２スティックで内側を叩いた時
+        DOUBLE_OUT_HIT,       // ２スティックで外側を叩いた時
     }
+
     // 出すノーツの種類
     NOTES_TYPE m_notesType;
 
@@ -143,24 +151,19 @@ public class NotesActionGauge_Script : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.A))
         {
-            InstantiateNotes(NOTES_TYPE.OneInHit);
+            InstantiateNotes(NOTES_TYPE.ONE_IN_HIT);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            InstantiateNotes(NOTES_TYPE.OneOutHit);
+            InstantiateNotes(NOTES_TYPE.ONE_OUT_HIT);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            InstantiateNotes(NOTES_TYPE.DoubleInHit);
+            InstantiateNotes(NOTES_TYPE.DOUBLE_IN_HIT);
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            InstantiateNotes(NOTES_TYPE.DoubleOutHit);
-        }
-
-        if (OVRInput.GetDown(OVRInput.RawButton.A))
-        {
-            NotesReset();
+            InstantiateNotes(NOTES_TYPE.DOUBLE_OUT_HIT);
         }
     }
 }

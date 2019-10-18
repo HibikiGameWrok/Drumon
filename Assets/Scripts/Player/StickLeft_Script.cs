@@ -177,7 +177,7 @@ public class StickLeft_Script : MonoBehaviour
                 m_doubleHitTime = 0;
 
                 // ノーツ生成
-                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DoubleInHit);
+                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_IN_HIT);
 
                 m_inHitNotesFlag = false;
                 m_rightStick.InHitNotesFlag = false;
@@ -216,7 +216,7 @@ public class StickLeft_Script : MonoBehaviour
                     m_doubleHitTime = 0;
 
                     // ノーツ生成
-                    m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DoubleOutHit);
+                    m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
 
                     m_outHitNotesFlag = false;
                     m_rightStick.OutHitNotesFlag = false;
@@ -236,12 +236,12 @@ public class StickLeft_Script : MonoBehaviour
             if (m_inHitNotesFlag == true)
             {
                 // ノーツ生成
-                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.OneInHit);
+                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_IN_HIT);
             }
             else if (m_outHitNotesFlag == true)
             {
                 // ノーツ生成
-                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.OneOutHit);
+                m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_OUT_HIT);
             }
 
             // 左スティックの状態を元に戻す
