@@ -3,14 +3,14 @@
 //
 //      Creater  @ Hibiki Yoshiyasu
 //
-//      Day      @ 2019 / 10 / 16      
+//      Day      @ 2019 / 10 / 16 (Wednesday)     
 //
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class AttackRecipeManeger_Script : MonoBehaviour
+public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeger_Script>
 {
     // 列のデータタイプ
     enum Data_Column_Type
@@ -25,6 +25,9 @@ public class AttackRecipeManeger_Script : MonoBehaviour
     TextAsset csvFile;
     // CSVの中身を入れるリスト;
     List<string[]> csvDatas = new List<string[]>(); 
+
+    // モンスター
+    
 
     void Start()
     {
@@ -41,25 +44,24 @@ public class AttackRecipeManeger_Script : MonoBehaviour
         }
 
         // デバッグ用中身を確認する処理
-        for (int i = 1; i < csvDatas.Count; i++)
-        {
-            for (int j = 0; j < csvDatas[i].Length; j++) 
-            {
-                Debug.Log(csvDatas[i][j]);
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        //for (int i = 1; i < csvDatas.Count; i++)
+        //{
+        //    for (int j = 0; j < csvDatas[i].Length; j++) 
+        //    {
+        //        Debug.Log(csvDatas[i][j]);
+        //    }
+        //}
     }
 
     // 前に出現しているクリーチャーがレシピに存在するか検索
-    public void SetCreatureNameSearch()
+    public void SetCreatureNameSearch( creatureName)
     {
+        if()
+        {
 
+        }
     }
+
+    
 
 }
