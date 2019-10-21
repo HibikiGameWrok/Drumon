@@ -22,7 +22,9 @@ public class AttackDrum_Script : Drum_Script
     GameObject m_musicalScore;
     NotesActionGauge_Script m_notesActionGauge;
 
+    // 左スティック
     StickLeft_Script m_leftStick;
+    // 右スティック
     StickRight_Script m_rightStick;
 
     /// <summary>
@@ -63,75 +65,71 @@ public class AttackDrum_Script : Drum_Script
         }
 
         // 内側を同時に叩いていたら
-        if (m_rightStick.DoubleInHitFlag == true)
+        if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_IN_HIT) == true)
         {
             // ノーツ生成
             m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_IN_HIT);
-
-            m_rightStick.DoubleInHitFlag = false;
+            // 内側を同時に叩いた判定フラグを伏せる
+            m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_IN_HIT);
         }
         // 外側を同時に叩いていたら
-        else if (m_rightStick.DoubleOutHitFlag == true)
+        else if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_OUT_HIT) == true)
         {
             // ノーツ生成
             m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
-
-            m_rightStick.DoubleOutHitFlag = false;
+            // 外側を同時に叩いた判定フラグを伏せる
+            m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_OUT_HIT);
         }
 
         // 内側を同時に叩いていたら
-        if (m_leftStick.DoubleInHitFlag == true)
+        if (m_leftStick.HitPatternFlag.IsFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_IN_HIT) == true)
         {
             // ノーツ生成
             m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_IN_HIT);
-
-            m_leftStick.DoubleInHitFlag = false;
+            // 内側を同時に叩いた判定フラグを伏せる
+            m_leftStick.HitPatternFlag.OffFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_IN_HIT);
         }
         // 外側を同時に叩いていたら
-        else if (m_leftStick.DoubleOutHitFlag == true)
+        else if (m_leftStick.HitPatternFlag.IsFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_OUT_HIT) == true)
         {
             // ノーツ生成
             m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
-
-            m_leftStick.DoubleOutHitFlag = false;
+            // 外側を同時に叩いた判定フラグを伏せる
+            m_leftStick.HitPatternFlag.OffFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_OUT_HIT);
         }
 
         // 時間が0になったら
         if (m_leftStick.DoubleHitTime < 0)
         {
-            if (m_leftStick.InHitNotesFlag == true)
+            if (m_leftStick.InHitConnectFlag == true)
             {
                 // ノーツ生成
                 m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_IN_HIT);
             }
-            else if (m_leftStick.OutHitNotesFlag == true)
+            else if (m_leftStick.OutHitConnectFlag == true)
             {
                 // ノーツ生成
                 m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_OUT_HIT);
             }
 
-            if (m_rightStick.InHitNotesFlag == true)
+            if (m_rightStick.InHitConnectFlag == true)
             {
                 // ノーツ生成
                 m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_IN_HIT);
             }
-            else if (m_rightStick.OutHitNotesFlag == true)
+            else if (m_rightStick.OutHitConnectFlag == true)
             {
                 // ノーツ生成
                 m_notesActionGauge.InstantiateNotes(NotesActionGauge_Script.NOTES_TYPE.ONE_OUT_HIT);
             }
 
-            // 左スティックの状態を元に戻す
-            m_leftStick.LeftStickState = 0;
-            // 右スティックの状態を元に戻す
-            m_rightStick.RightStickState = 0;
             // 時間を初期化
             m_leftStick.DoubleHitTime = 0;
 
-            m_leftStick.InHitNotesFlag = false;
-            m_leftStick.OutHitNotesFlag = false;
-            m_rightStick.InHitNotesFlag = false;
-            m_rightStick.OutHitNotesFlag = false;
+            m_leftStick.InHitConnectFlag = false;
+            m_leftStick.OutHitConnectFlag = false;
+            m_rightStick.InHitConnectFlag = false;
+            m_rightStick.OutHitConnectFlag = false;
         }
 
         // 継続する
