@@ -25,6 +25,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             this.m_playerCreature.Execute();
             this.m_enemyCreature.Execute();
+            this.Result();
         }
     }
 
@@ -46,5 +47,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_enemyCreature.SetTarget(this.m_playerCreature);
 
         this.m_isSetting = true;
+    }
+
+    private void Result()
+    {
+        if (!this.m_playerCreature) Debug.Log("Lose");
+        else if (!this.m_enemyCreature) Debug.Log("Win");
     }
 }

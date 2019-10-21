@@ -71,4 +71,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         this.m_target = target;
     }
+
+    public void Dead()
+    {
+        if (this.m_hp <= 0) Destroy(this.gameObject);
+    }
 }
