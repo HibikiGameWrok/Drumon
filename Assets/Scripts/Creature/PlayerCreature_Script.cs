@@ -60,9 +60,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.CountTimer();
         if(this.m_rate != 0)
         {
-            this.Attack(this.m_rate);
-            this.m_timer = 0.0f;
-            this.m_rate = 0;
+            this.Attack();
         }
     }
 
@@ -71,11 +69,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer += Time.deltaTime;
     }
 
-    public void Attack(int rate)
+    public void Attack()
     {
-        int damage = (this.m_atk * rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
+        this.m_timer = 0.0f;
+        this.m_rate = 0;
     }
 
     public void Damage(int damage)

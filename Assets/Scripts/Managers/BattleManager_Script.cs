@@ -7,6 +7,9 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     private PlayerCreature_Script m_playerCreature;
     private EnemyCreature_Script m_enemyCreature;
 
+    private ICreature_Script m_nowMove;
+    private ICreature_Script m_nextMove;
+
     private bool m_isSetting;
 
     // Start is called before the first frame update
@@ -14,6 +17,9 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         this.m_playerCreature = null;
         this.m_enemyCreature = null;
+
+        this.m_nowMove = null;
+        this.m_nextMove = null;
 
         this.m_isSetting = false;
     }
@@ -25,13 +31,14 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             this.m_playerCreature.Execute();
             this.m_enemyCreature.Execute();
-            this.Result();
+            if (this.m_nowMove != null) this.Action();
         }
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
     {
         this.m_playerCreature = creature;
+        //AttackRecipeManeger_Script.Get.SetCreatureNameSearch(this.m_playerCreature);
         if (this.m_enemyCreature) this.SetTarget();
     }
 
@@ -49,9 +56,22 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_isSetting = true;
     }
 
-    private void Result()
+    public void SetActive(ICreature_Script creature)
     {
-        if (!this.m_playerCreature) Debug.Log("Lose");
-        else if (!this.m_enemyCreature) Debug.Log("Win");
+        
+    }
+
+    private void Action()
+    {
+        this.m_nowMove.Attack();
+        if (m_nextMove != null)
+        {
+            this.m_nowMove = this.m_nextMove;
+            this.m_nextMove = null;
+        }
+        else
+        {
+            this.m_nowMove = null;
+        }
     }
 }
