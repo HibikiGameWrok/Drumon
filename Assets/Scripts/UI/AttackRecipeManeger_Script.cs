@@ -24,10 +24,10 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     // CSVファイル
     TextAsset csvFile;
     // CSVの中身を入れるリスト;
-    List<string[]> csvDatas = new List<string[]>(); 
+    List<string[]> csvDatas = new List<string[]>();
 
     // モンスター
-    
+    PlayerCreature_Script m_pCreature_Script = null;
 
     void Start()
     {
@@ -54,14 +54,14 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     }
 
     // 前に出現しているクリーチャーがレシピに存在するか検索
-    public void SetCreatureNameSearch( creatureName)
+    public void SetCreatureNameSearch(PlayerCreature_Script creatureName)
     {
-        if()
-        {
+        //if(ここにシート名を入れる == creatureName)
+        //{
 
-        }
+        //}
     }
 
-    
+    // 
 
 }
