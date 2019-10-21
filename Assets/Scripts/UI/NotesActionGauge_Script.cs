@@ -3,7 +3,7 @@
 //
 //      Creater  @ Hibiki Yoshiyasu
 //
-//      Day      @ 2019 / 10 / 16      
+//      Day      @ 2019 / 10 / 16 (Wednesday)    
 //
 using System.Collections;
 using System.Collections.Generic;
