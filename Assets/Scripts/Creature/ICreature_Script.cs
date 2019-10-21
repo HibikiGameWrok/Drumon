@@ -7,4 +7,5 @@
     void Heal();
     CharactorData GetData();
     void SetTarget(ICreature_Script target);
+    void Dead();
 }
