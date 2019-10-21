@@ -1,19 +1,19 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      HealDrum_Scripts.cs						    |
-//				 											|
-//  brief:    回復用のドラムクラスのスクリプト		        |
-//              Heal Drum class  				            |
-//															|
-//  date:	2019.10.9										|
-//															|
-//  author: Renya Fukuyama									|
+//  file:      HealDrum_Scripts.cs						            |
+//				 											                    |
+//  brief:    回復用のドラムクラスのスクリプト		            |
+//              Heal Drum class  				                        |
+//															                    |
+//  date:	2019.10.9										            |
+//															                    |
+//  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
 
 // using
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 // 回復用のドラムクラスの定義
 public class HealDrum_Script : Drum_Script
@@ -72,8 +72,9 @@ public class HealDrum_Script : Drum_Script
     /// </summary>
     public override bool isActive
     {
+        // 取得する
         get { return m_isActive; }
-
+        // 設定する
         set { m_isActive = value; }
     }
 
