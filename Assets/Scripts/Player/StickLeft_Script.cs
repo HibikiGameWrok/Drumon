@@ -195,8 +195,6 @@ public class StickLeft_Script : MonoBehaviour
             m_doubleHitTime--;
         }
 
-        m_healHitFlag = false;
-
         // 内側を叩いた判定フラグを伏せる
         m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.IN_HIT);
         // 外側を叩いた判定フラグを伏せる
