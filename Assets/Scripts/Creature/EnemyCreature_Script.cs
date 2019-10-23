@@ -66,6 +66,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         this.m_hp -= damage;
         if (this.m_hp < 0) this.m_hp = 0;
+        this.Dead();
     }
 
     public void Heal()

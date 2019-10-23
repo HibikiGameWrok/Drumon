@@ -19,8 +19,8 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     // Start is called before the first frame update
     void Start()
     {
-        this.m_playerCreature = null;
-        this.m_enemyCreature = null;
+        //this.m_playerCreature = null;
+        //this.m_enemyCreature = null;
 
         this.m_nowMove = null;
         this.m_nextMove = null;
@@ -28,6 +28,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_isSetting = false;
 
         this.m_attackSpan = 0.0f;
+        this.SetTarget();
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
             this.m_playerCreature.Execute();
             this.m_enemyCreature.Execute();
-            if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
+            if (!this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
     }
