@@ -13,26 +13,32 @@ using UnityEngine;
 public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeger_Script>
 {
     // 列のデータタイプ
-    enum Data_Column_Type
+    public enum Data_Column : int
     {
-        ATK_NAME,
+        ATK_NAME = 0,
         ATK_ELEMENT,
         ATK_NOTES,
         ATK_RATE,
     }
 
     // CSVファイル
-    TextAsset csvFile;
+    private TextAsset csvFile;
     // CSVの中身を入れるリスト;
-    List<string[]> csvDatas = new List<string[]>();
+    private List<string[]> csvDatas = new List<string[]>();
 
-    // モンスター
-    PlayerCreature_Script m_pCreature_Script = null;
+    // クリーチャーについてのスクリプト保持変数
+    private PlayerCreature_Script m_pCreature_Script = null;
 
-    void Start()
+    // シートを出す為の前に出ているクリーチャーの名前を保持する変数
+    private string m_sheetCreatureName = "noen";
+
+    public void CSVLoadFile(PlayerCreature_Script pCreature)
     {
+        // 変数に保持
+        m_sheetCreatureName = pCreature.Name;
+
         // Resouces下のCSV読み込み
-        csvFile = Resources.Load("Excel/CreatureAttackCSV") as TextAsset; 
+        csvFile = Resources.Load("Excel/"+ m_sheetCreatureName + "CSV") as TextAsset; 
         StringReader reader = new StringReader(csvFile.text);
 
         // , で分割しつつ一行ずつ読み込み
@@ -44,24 +50,24 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         }
 
         // デバッグ用中身を確認する処理
-        //for (int i = 1; i < csvDatas.Count; i++)
-        //{
-        //    for (int j = 0; j < csvDatas[i].Length; j++) 
-        //    {
-        //        Debug.Log(csvDatas[i][j]);
-        //    }
-        //}
+        for (int i = 1; i < csvDatas.Count; i++)
+        {
+            for (int j = 0; j < csvDatas[i].Length; j++)
+            {
+                Debug.Log(csvDatas[i][j].ToString());
+            }
+        }
     }
 
-    // 前に出現しているクリーチャーがレシピに存在するか検索
-    public void SetCreatureNameSearch(PlayerCreature_Script creatureName)
+    // 現在のノーツと攻撃する為のノーツが合っているか見比べる
+    public void MatchAttackRecipe()
     {
-        //if(ここにシート名を入れる == creatureName)
-        //{
-
-        //}
+        // マッチした場合にレートを一時的に保持する変数
+        string matchRate = "";
+        for (int i = 1; i < csvDatas.Count; i++)
+        {
+            matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+            m_pCreature_Script.Rate = int.Parse(matchRate);
+        }
     }
-
-    // 
-
 }
