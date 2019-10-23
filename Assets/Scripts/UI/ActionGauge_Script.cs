@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotesActionGauge_Script : MonoBehaviour
+public class ActionGauge_Script: MonoBehaviour
 {
     // ゲージの最小値
     public const int MIN_GAUGE = 4;
@@ -25,7 +25,11 @@ public class NotesActionGauge_Script : MonoBehaviour
 
     // ゲージの進行を可視化する為のハンドル
     private Transform m_childHandle = null;
-    
+    public Vector3 HandlePos
+    {
+        get { return m_childHandle.transform.position; }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,5 +65,14 @@ public class NotesActionGauge_Script : MonoBehaviour
                 m_finishFlag = true;
             }
         }
+    }
+
+    // UI初期化
+    public void ResetGauge()
+    {
+        // 子を初期位置に戻す
+        m_childHandle.transform.position = new Vector3(this.transform.position.x - MIN_GAUGE, this.transform.position.y, this.transform.position.z);
+        // 終了フラグを初期化
+        m_finishFlag = false;
     }
 }
