@@ -22,7 +22,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     }
 
     // CSVファイル
-    private TextAsset csvFile;
+    private TextAsset csvFile = null;
     // CSVの中身を入れるリスト;
     private List<string[]> csvDatas = new List<string[]>();
 
@@ -31,6 +31,19 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
 
     // シートを出す為の前に出ているクリーチャーの名前を保持する変数
     private string m_sheetCreatureName = null;
+
+    // NotesManagerオブジェクトを取得
+    private GameObject m_notesManager = null;
+    // NotesManagerオブジェクト内にアタッチされているScriptを取得
+    private NotesManager_Script m_notesManagerScript = null;
+
+    void Start()
+    {
+        // ノーツ管理オブジェクトを取得
+        m_notesManager = GameObject.Find("NotesManager");
+        // ノーツ管理オブジェクトにアタッチされたScriptを取得
+        m_notesManagerScript = m_notesManager.GetComponent<NotesManager_Script>();
+    }
 
     public void CSVLoadFile(PlayerCreature_Script pCreature)
     {
@@ -62,12 +75,19 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     // 現在のノーツと攻撃する為のノーツが合っているか見比べる
     public void MatchAttackRecipe()
     {
+        // マッチしたか比較する為のノーツレシピを保持する変数
+        string mathcAttackNotes = null;
         // マッチした場合にレートを一時的に保持する変数
         string matchRate = null;
+
         for (int i = 1; i < csvDatas.Count; i++)
         {
-            matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
-            m_pCreature_Script.Rate = int.Parse(matchRate);
+            mathcAttackNotes = csvDatas[i][(int)Data_Column.ATK_NOTES];
+            if (m_notesManagerScript.SearchInstanceNotes() == int.Parse(mathcAttackNotes))
+            {
+                matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                m_pCreature_Script.Rate = int.Parse(matchRate);
+            }
         }
     }
 }
