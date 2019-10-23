@@ -96,10 +96,14 @@ public class HealDrum_Script : Drum_Script
     {
         if (col.gameObject.tag == "Stick")
         {
+            if (isActive == false)
+            {
+                // 回復用のドラムに変更する
+                m_manager.ChangeDrum(/*m_manager.HealDrum*/GetComponent<HealDrum_Script>());
+            }
+
             // アクティブにする
             isActive = true;
-            // 回復用のドラムに変更する
-            m_manager.ChangeDrum(/*m_manager.HealDrum*/GetComponent<HealDrum_Script>());
         }
     }
 
