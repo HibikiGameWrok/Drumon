@@ -17,7 +17,7 @@ public class NotesManager_Script : MonoBehaviour
     private string m_childNumSequence;
 
     // 生成された子の名前の数字列だけを取得する関数
-    public string SearchInstanceNotes()
+    public int SearchInstanceNotes()
     {
         // 子を全て検索
         foreach (Transform child in transform)
@@ -27,6 +27,6 @@ public class NotesManager_Script : MonoBehaviour
         }
         
         // 生成された子の順で並べられた数字の文字列を返す(1~4で最大8桁)
-        return m_childNumSequence;
+        return int.Parse(m_childNumSequence);
     }
 }
