@@ -21,8 +21,13 @@ public class NotesInstanceReceive_Script : MonoBehaviour
     // ノーツの生成数を保持する変数
     private int m_notesCount = 0;
 
+    // ActionGaugeUIオブジェクトの取得用変数
+    private GameObject m_actionGauge = null;
+    // ActionGaugeScriptを取得用変数
+    private ActionGauge_Script m_actionGaugeScript = null;
+
     // ノーツをまとめる親オブジェクト
-    private Transform m_notesManager = null;
+    private GameObject m_notesManager = null;
     // ノーツをまとめる親オブジェクトにアタッチしているスクリプトを取得
     private NotesManager_Script m_notesmanager_script = null;
     // ノーツプレハブ
@@ -31,8 +36,13 @@ public class NotesInstanceReceive_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 取得
+        m_actionGauge = GameObject.Find("ActionGauge");
+        m_actionGaugeScript = m_actionGauge.GetComponent<ActionGauge_Script>();
+
+
         // 子のノーツを管理している親オブジェクトを取得
-        m_notesManager = this.transform.Find("NotesManager");
+        m_notesManager = GameObject.Find("NotesManager");
         // 子のオブジェクトにアタッチしているScriptを取得
         m_notesmanager_script = m_notesManager.GetComponent<NotesManager_Script>();
         // プレハブを取得
@@ -56,8 +66,8 @@ public class NotesInstanceReceive_Script : MonoBehaviour
         if (m_notesCount < MAX_INS_NOTES)
         {
             // ハンドルの位置にプレハブを生成
-            //GameObject InsNotes = (GameObject)Instantiate(m_prefabNotes, m_childHandle.transform.position, Quaternion.identity);
-            //InsNotes.transform.parent = m_notesManager.transform;
+            GameObject InsNotes = (GameObject)Instantiate(m_prefabNotes, m_actionGaugeScript.HandlePos, Quaternion.identity);
+            InsNotes.transform.parent = m_notesManager.transform;
             // ノーツの数を増加
             m_notesCount++;
         }
@@ -84,11 +94,7 @@ public class NotesInstanceReceive_Script : MonoBehaviour
         {
             GameObject.Destroy(n.gameObject);
         }
-
-        //// 子を初期位置に戻す
-        //m_childHandle.transform.position = new Vector3(this.transform.position.x - MIN_GAUGE, this.transform.position.y, this.transform.position.z);
-        //// 終了フラグを初期化
-        //m_finishFlag = false;
+        m_actionGaugeScript.ResetGauge();
     }
 
     // デバッグ用キーによってノーツを出す
