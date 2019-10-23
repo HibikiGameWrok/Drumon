@@ -64,6 +64,64 @@ public class AttackDrum_Script : Drum_Script
             return false;
         }
 
+        // 継続する
+        return true;
+    }
+
+
+    /// <summary>
+    /// 終了処理
+    /// </summary>
+    public override void Dispose()
+    {
+        // 非アクティブにする
+        isActive = false;
+    }
+
+
+    /// <summary>
+    /// アクティブフラグのプロパティ
+    /// </summary>
+    public override bool isActive
+    {
+        // 取得する
+        get { return m_isActive; }
+        // 設定する
+        set { m_isActive = value; }
+    }
+
+
+    /// <summary>
+    /// 衝突を検出した時の処理
+    /// </summary>
+    /// <param name="other">当たったオブジェクト</param>
+    public void OnTriggerEnter(Collider other)
+    {
+        // スティックに当たったら処理をする
+        if (other.tag == "Stick")
+        { 
+            // アクティブにする
+            isActive = true;
+            // このドラムを現在のドラムにする
+            m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
+        }
+    }
+
+    /// <summary>
+    /// 衝突したオブジェクトが離れた時の処理
+    /// </summary>
+    /// <param name="other">当たっていたオブジェクト</param>
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.tag == "Stick")
+        {
+            Debug.Log("nonononononono");
+        }
+    }
+
+    // ノーツの生成
+    public void GenerateNotes()
+    {
         // 内側を同時に叩いていたら
         if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_IN_HIT) == true)
         {
@@ -130,60 +188,6 @@ public class AttackDrum_Script : Drum_Script
             m_leftStick.OutHitConnectFlag = false;
             m_rightStick.InHitConnectFlag = false;
             m_rightStick.OutHitConnectFlag = false;
-        }
-
-        // 継続する
-        return true;
-    }
-
-
-    /// <summary>
-    /// 終了処理
-    /// </summary>
-    public override void Dispose()
-    {
-        // 非アクティブにする
-        isActive = false;
-    }
-
-
-    /// <summary>
-    /// アクティブフラグのプロパティ
-    /// </summary>
-    public override bool isActive
-    {
-        // 取得する
-        get { return m_isActive; }
-        // 設定する
-        set { m_isActive = value; }
-    }
-
-
-    /// <summary>
-    /// 衝突を検出した時の処理
-    /// </summary>
-    /// <param name="other">当たったオブジェクト</param>
-    public void OnTriggerEnter(Collider other)
-    {
-        // スティックに当たったら処理をする
-        if (other.tag == "Stick")
-        { 
-            // アクティブにする
-            isActive = true;
-            // このドラムを現在のドラムにする
-            m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
-        }
-    }
-
-    /// <summary>
-    /// 衝突したオブジェクトが離れた時の処理
-    /// </summary>
-    /// <param name="other">当たっていたオブジェクト</param>
-    public void OnTriggerExit(Collider col)
-    {
-        if (col.tag == "Stick")
-        {
-            Debug.Log("nonononononono");
         }
     }
 }
