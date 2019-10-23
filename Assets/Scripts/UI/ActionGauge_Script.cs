@@ -25,6 +25,7 @@ public class ActionGauge_Script: MonoBehaviour
 
     // ゲージの進行を可視化する為のハンドル
     private Transform m_childHandle = null;
+    // ハンドルの座標を取得できるプロパティ(ハンドルの座標を元にノーツを生成)
     public Vector3 HandlePos
     {
         get { return m_childHandle.transform.position; }
