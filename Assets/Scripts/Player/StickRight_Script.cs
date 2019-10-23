@@ -46,6 +46,9 @@ public class StickRight_Script : MonoBehaviour
     // 当たった数
     private int m_hitNum;
 
+    // 回復ドラムを叩いたフラグ
+    private bool m_healHitFlag;
+
     AudioSource audioSource;
     // 内側を叩いた音
     [SerializeField]
@@ -53,6 +56,9 @@ public class StickRight_Script : MonoBehaviour
     // 外側を叩いた音
     [SerializeField]
     private AudioClip m_outHitSE;
+    // 回復ドラムを叩いた音
+    [SerializeField]
+    private AudioClip m_healHitSE;
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +89,8 @@ public class StickRight_Script : MonoBehaviour
         m_outHitConnectFlag = false;
         m_hitFlag = false;
         m_hitNum = 0;
+
+        m_healHitFlag = false;
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -164,6 +172,14 @@ public class StickRight_Script : MonoBehaviour
                 m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.DOUBLE_OUT_HIT);
             }
         }
+        // 回復ドラムを叩いたら
+        else if (m_healHitFlag == true)
+        {
+            // 振動させる
+            OVRHaptics.RightChannel.Preempt(m_vibClip);
+            // 音を鳴らす
+            audioSource.PlayOneShot(m_healHitSE);
+        }
 
         // 右スティックで叩いたら
         if (m_inHitConnectFlag == true || m_outHitConnectFlag == true)
@@ -188,16 +204,21 @@ public class StickRight_Script : MonoBehaviour
         if (m_hitFlag == false)
         {
             // 内側を叩いたら
-            if (collision.gameObject.name == "InDrum")
+            if (collision.gameObject.tag == "AttackInDrum")
             {
                 // 内側を叩いた判定フラグを立てる
                 m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
             }
             // 外側を叩いたら
-            else if (collision.gameObject.name == "OutDrum")
+            else if (collision.gameObject.tag == "AttackOutDrum")
             {
                 // 外側を叩いた判定フラグを立てる
                 m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
+            }
+            // 回復ドラムを叩いたら
+            else if (collision.gameObject.tag == "HealDrum")
+            {
+                m_healHitFlag = true;
             }
         }
     }
@@ -216,14 +237,23 @@ public class StickRight_Script : MonoBehaviour
         set { m_hitPatternFlag = value; }
     }
 
+    // 内側を叩いて同時叩き可能フラグのプロパティ
     public bool InHitConnectFlag
     {
         get { return m_inHitConnectFlag; }
         set { m_inHitConnectFlag = value; }
     }
+    // 外側を叩いて同時叩き可能フラグのプロパティ
     public bool OutHitConnectFlag
     {
         get { return m_outHitConnectFlag; }
         set { m_outHitConnectFlag = value; }
+    }
+
+    // 回復ドラムを叩いたフラグのプロパティ
+    public bool HealHitFlag
+    {
+        get { return m_healHitFlag; }
+        set { m_healHitFlag = value; }
     }
 }

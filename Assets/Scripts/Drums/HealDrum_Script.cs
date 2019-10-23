@@ -20,6 +20,13 @@ public class HealDrum_Script : Drum_Script
 {
 
     // メンバ変数
+    // 左スティック
+    StickLeft_Script m_leftStick;
+    // 右スティック
+    StickRight_Script m_rightStick;
+
+    // 叩かれた回数
+    private int m_healCount;
 
     /// <summary>
     /// デフォルト関数
@@ -36,6 +43,11 @@ public class HealDrum_Script : Drum_Script
     {
         // 親オブジェクトを入れる
         m_manager = manager;
+
+        m_leftStick = FindObjectOfType<StickLeft_Script>();
+        m_rightStick = FindObjectOfType<StickRight_Script>();
+
+        m_healCount = 0;
     }
 
 
@@ -50,6 +62,14 @@ public class HealDrum_Script : Drum_Script
         {
             // 変更する
             return false;
+        }
+
+        // 回復ドラムが叩かれたら
+        if (m_leftStick.HealHitFlag == true || m_rightStick.HealHitFlag == true)
+        {
+            m_healCount++;
+            m_leftStick.HealHitFlag = false;
+            m_rightStick.HealHitFlag = false;
         }
 
         // 継続する
