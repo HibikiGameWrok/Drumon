@@ -184,6 +184,8 @@ public class StickLeft_Script : MonoBehaviour
             OVRHaptics.LeftChannel.Preempt(m_vibClip);
             // 音を鳴らす
             audioSource.PlayOneShot(m_healHitSE);
+
+            Debug.Log("Heal");
         }
 
         // 左スティックで叩いたら
@@ -192,6 +194,8 @@ public class StickLeft_Script : MonoBehaviour
             // 時間を計る
             m_doubleHitTime--;
         }
+
+        m_healHitFlag = false;
 
         // 内側を叩いた判定フラグを伏せる
         m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.IN_HIT);

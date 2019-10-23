@@ -19,6 +19,7 @@ using UnityEngine;
 public class AttackDrum_Script : Drum_Script
 {
     // メンバ変数
+
     GameObject m_musicalScore;
     NotesActionGauge_Script m_notesActionGauge;
 
@@ -95,10 +96,10 @@ public class AttackDrum_Script : Drum_Script
     /// 衝突を検出した時の処理
     /// </summary>
     /// <param name="other">当たったオブジェクト</param>
-    public void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(Collision other)
     {
         // スティックに当たったら処理をする
-        if (other.tag == "Stick")
+        if (other.gameObject.tag == "Stick")
         { 
             // アクティブにする
             isActive = true;
@@ -111,15 +112,15 @@ public class AttackDrum_Script : Drum_Script
     /// 衝突したオブジェクトが離れた時の処理
     /// </summary>
     /// <param name="other">当たっていたオブジェクト</param>
-    public void OnTriggerExit(Collider col)
+    public void OnCollisionExit(Collision col)
     {
-        if (col.tag == "Stick")
+        if (col.gameObject.tag == "Stick")
         {
             Debug.Log("nonononononono");
         }
     }
 
-    // ノーツの生成
+    // ノーツの生成処理
     public void GenerateNotes()
     {
         // 内側を同時に叩いていたら
