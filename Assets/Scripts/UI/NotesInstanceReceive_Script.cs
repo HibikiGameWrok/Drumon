@@ -36,8 +36,9 @@ public class NotesInstanceReceive_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 取得
+        // ActionGaugeUIオブジェクトを取得
         m_actionGauge = GameObject.Find("ActionGauge");
+        // オブジェクト内のアタッチされたScriptを取得
         m_actionGaugeScript = m_actionGauge.GetComponent<ActionGauge_Script>();
 
 
