@@ -30,7 +30,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     private PlayerCreature_Script m_pCreature_Script = null;
 
     // シートを出す為の前に出ているクリーチャーの名前を保持する変数
-    private string m_sheetCreatureName = "noen";
+    private string m_sheetCreatureName = null;
 
     public void CSVLoadFile(PlayerCreature_Script pCreature)
     {
@@ -63,7 +63,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     public void MatchAttackRecipe()
     {
         // マッチした場合にレートを一時的に保持する変数
-        string matchRate = "";
+        string matchRate = null;
         for (int i = 1; i < csvDatas.Count; i++)
         {
             matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
