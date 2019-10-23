@@ -16,6 +16,13 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private ICreature_Script m_target;
 
+    private bool m_atkFlag;
+
+    public bool AtkFlag
+    {
+        get { return m_atkFlag; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +34,17 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer = 0.0f;
 
         this.m_target = null;
+
+        this.m_atkFlag = false;
     }
 
     public void Execute()
     {
         this.CountTimer();
+        if (this.m_timer >= 5.0f) this.m_atkFlag = true;
         if (this.m_target != null && this.m_timer >= 5.0f)
         {
             this.Attack();
-            
         }
     }
 
@@ -50,6 +59,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
+        this.m_atkFlag = false;
     }
 
     public void Damage(int damage)

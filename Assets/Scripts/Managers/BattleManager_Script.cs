@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 {
+    [SerializeField]
     private PlayerCreature_Script m_playerCreature;
+    [SerializeField]
     private EnemyCreature_Script m_enemyCreature;
 
     private ICreature_Script m_nowMove;
     private ICreature_Script m_nextMove;
 
     private bool m_isSetting;
+
+    private float m_attackSpan;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +26,8 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_nextMove = null;
 
         this.m_isSetting = false;
+
+        this.m_attackSpan = 0.0f;
     }
 
     // Update is called once per frame
@@ -29,16 +35,18 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         if (m_isSetting)
         {
+            this.m_attackSpan -= Time.deltaTime;
+
             this.m_playerCreature.Execute();
             this.m_enemyCreature.Execute();
-            if (this.m_nowMove != null) this.Action();
+            if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
+            if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
     {
         this.m_playerCreature = creature;
-        //AttackRecipeManeger_Script.Get.SetCreatureNameSearch(this.m_playerCreature);
         if (this.m_enemyCreature) this.SetTarget();
     }
 
@@ -58,7 +66,10 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     public void SetActive(ICreature_Script creature)
     {
-        
+        if (this.m_nowMove == creature || this.m_nextMove == creature) return;
+
+        if(this.m_nowMove != null) this.m_nowMove = creature;
+        else this.m_nextMove = creature;
     }
 
     private void Action()
@@ -73,5 +84,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             this.m_nowMove = null;
         }
+
+        this.m_attackSpan = 3.0f;
     }
 }
