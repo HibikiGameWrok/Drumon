@@ -36,6 +36,7 @@ public class HealProsperityUI_Script : MonoBehaviour
     private float m_nowPoint = 0;
     public float NowPoint
     {
+        get { return this.m_nowPoint; }
         set { this.m_nowPoint = value; }
     }
 
