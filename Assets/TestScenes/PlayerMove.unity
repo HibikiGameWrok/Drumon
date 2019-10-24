@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 29218505}
   - component: {fileID: 29218504}
   - component: {fileID: 29218507}
+  - component: {fileID: 29218508}
   m_Layer: 0
   m_Name: OutDrum
   m_TagString: AttackOutDrum
@@ -346,6 +347,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &29218508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29218502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980246938b5f00d42a31887195b2fb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &204909010
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +595,18 @@ PrefabInstance:
     - target: {fileID: 5071093324381853552, guid: deca0e79b79487741a826084af26fb14,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090750647, guid: deca0e79b79487741a826084af26fb14, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1599349435, guid: deca0e79b79487741a826084af26fb14, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 751048487, guid: deca0e79b79487741a826084af26fb14, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1572,6 +1597,7 @@ GameObject:
   - component: {fileID: 1133832377}
   - component: {fileID: 1133832376}
   - component: {fileID: 1133832379}
+  - component: {fileID: 1133832380}
   m_Layer: 0
   m_Name: InDrum
   m_TagString: AttackInDrum
@@ -1669,6 +1695,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1133832380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133832374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980246938b5f00d42a31887195b2fb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1231058152 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5071093323800986881, guid: deca0e79b79487741a826084af26fb14,
@@ -2145,7 +2183,7 @@ PrefabInstance:
     - target: {fileID: 8105674847656258295, guid: ab0530ea424b8f244b10b582dea6c17b,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Stick
       objectReference: {fileID: 0}
     - target: {fileID: 6002726515869472897, guid: ab0530ea424b8f244b10b582dea6c17b,
         type: 3}
@@ -2247,7 +2285,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4541806410948505466, guid: ab0530ea424b8f244b10b582dea6c17b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7399028638012182306, guid: ab0530ea424b8f244b10b582dea6c17b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795743586318170038, guid: ab0530ea424b8f244b10b582dea6c17b,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2256,6 +2304,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857223298397003466, guid: ab0530ea424b8f244b10b582dea6c17b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8857223298770330986, guid: ab0530ea424b8f244b10b582dea6c17b,
         type: 3}
