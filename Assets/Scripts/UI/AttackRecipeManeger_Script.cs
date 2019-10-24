@@ -51,7 +51,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_sheetCreatureName = pCreature.Name;
 
         // Resouces下のCSV読み込み
-        csvFile = Resources.Load("Excel/"+ m_sheetCreatureName + "CSV") as TextAsset; 
+        csvFile = Resources.Load("CSV/"+ m_sheetCreatureName + "CSV") as TextAsset; 
         StringReader reader = new StringReader(csvFile.text);
 
         // , で分割しつつ一行ずつ読み込み

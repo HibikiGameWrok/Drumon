@@ -6,6 +6,12 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 {
     [SerializeField]
     private PlayerCreature_Script m_playerCreature;
+
+    public PlayerCreature_Script PlayerCreature
+    {
+        get { return m_playerCreature; }
+    }
+
     [SerializeField]
     private EnemyCreature_Script m_enemyCreature;
 
@@ -40,9 +46,12 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
             this.m_playerCreature.Execute();
             this.m_enemyCreature.Execute();
-            if (!this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
+            if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
+            if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
             this.JudgeResult();
+
+            Debug.Log(m_playerCreature.Rate);
         }
     }
 
@@ -70,7 +79,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         if (this.m_nowMove == creature || this.m_nextMove == creature) return;
 
-        if(this.m_nowMove != null) this.m_nowMove = creature;
+        if(this.m_nowMove == null) this.m_nowMove = creature;
         else this.m_nextMove = creature;
     }
 
