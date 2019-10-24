@@ -71,16 +71,29 @@ public class HealProsperityUI_Script : MonoBehaviour
         SetNowValue();
     }
 
+
     // UIに値を設定する関数
     private void SetSliderEdgeValue()
     {
         m_hpSlider.maxValue = this.m_maxPoint;
         m_hpSlider.minValue = this.m_minPoint;
     }
+    // UIに値を設定する関数
+    public void SetSliderEdgeValue(float max,float min)
+    {
+        m_hpSlider.maxValue = this.m_maxPoint = max;
+        m_hpSlider.minValue = this.m_minPoint = min;
+    }
+
 
     // UIの現在の値を設定する関数
     private void SetNowValue()
     {
         m_hpSlider.value = this.m_nowPoint;
+    }
+    // UIの現在の値を設定する関数
+    public void SetNowValue(float now)
+    {
+        m_hpSlider.value = this.m_nowPoint = now;
     }
 }
