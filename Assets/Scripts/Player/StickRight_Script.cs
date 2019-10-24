@@ -195,7 +195,7 @@ public class StickRight_Script : MonoBehaviour
     }
 
     // 当たり判定
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         // カウントアップ
         m_hitNum++;
@@ -224,7 +224,7 @@ public class StickRight_Script : MonoBehaviour
     }
 
     // 当たり判定を抜けた処理
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collision)
     {
         // カウントダウン
         m_hitNum--;
