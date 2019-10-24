@@ -24,6 +24,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private bool m_atkFlag;
 
+    private GameObject m_healProsperityUI;
+    private HealProsperityUI_Script m_healProsperityUIScript;
+
     public bool AtkFlag
     {
         get { return m_atkFlag; }
@@ -42,11 +45,16 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_target = null;
 
         this.m_atkFlag = false;
+
+        m_healProsperityUI = GameObject.Find("ESlider");
+        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+
     }
 
     public void Execute()
     {
         this.CountTimer();
+        m_healProsperityUIScript.NowPoint = m_hp;
         if (this.m_timer >= 5.0f) this.m_atkFlag = true;
     }
 
