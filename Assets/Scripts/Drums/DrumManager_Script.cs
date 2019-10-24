@@ -70,6 +70,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // 現状は何もしない
     }
 
+
     // Update is called once per frame
     void Update()
     {
