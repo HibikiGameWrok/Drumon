@@ -22,6 +22,10 @@ public class ActionGauge_Script: MonoBehaviour
 
     // 行動ゲージが終わったか
     private bool m_finishFlag = false;
+    public bool FinishFlag
+    {
+        get { return m_finishFlag; }
+    }
 
     // ゲージの進行を可視化する為のハンドル
     private Transform m_childHandle = null;
