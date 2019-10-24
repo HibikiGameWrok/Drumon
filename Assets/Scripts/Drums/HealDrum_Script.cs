@@ -92,14 +92,14 @@ public class HealDrum_Script : Drum_Script
     /// 当たり判定の検出をする
     /// </summary>
     /// <param name="col">衝突した相手</param>
-    public void OnCollisionEnter(Collision col)
+    public void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Stick")
         {
             if (isActive == false)
             {
                 // 回復用のドラムに変更する
-                m_manager.ChangeDrum(/*m_manager.HealDrum*/GetComponent<HealDrum_Script>());
+                m_manager.ChangeDrum(GetComponent<HealDrum_Script>());
             }
 
             // アクティブにする
@@ -112,7 +112,7 @@ public class HealDrum_Script : Drum_Script
     /// 当たり判定から外れた時
     /// </summary>
     /// <param name="col">衝突した相手</param>
-    public void OnCollisionExit(Collision col)
+    public void OnTriggerExit(Collider col)
     {
         if (col.gameObject.tag == "Stick")
         {

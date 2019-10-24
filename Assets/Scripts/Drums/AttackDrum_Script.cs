@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      AttackDrum_Scripts.cs					            |
-//				 											                    |
-//  brief:    攻撃用のドラムクラスのスクリプト		            | 
-//              Attack Drum class  				                    |
-//															                    |
-//  date:	2019.10.9										            |
-//															                    |
-//  author: Renya Fukuyama									    |
+//  file:      AttackDrum_Scripts.cs					    |
+//				 											|
+//  brief:    攻撃用のドラムクラスのスクリプト		        | 
+//              Attack Drum class  				            |
+//															|
+//  date:	2019.10.9										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
@@ -96,15 +96,19 @@ public class AttackDrum_Script : Drum_Script
     /// 衝突を検出した時の処理
     /// </summary>
     /// <param name="other">当たったオブジェクト</param>
-    public void OnCollisionEnter(Collision other)
+    public void OnTriggerEnter(Collider other)
     {
         // スティックに当たったら処理をする
         if (other.gameObject.tag == "Stick")
-        { 
-            // アクティブにする
-            isActive = true;
-            // このドラムを現在のドラムにする
-            m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
+        {
+            if (isActive == false)
+            {
+                // このドラムを現在のドラムにする
+                m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
+
+                // アクティブにする
+                isActive = true;
+            }
         }
     }
 
@@ -112,7 +116,7 @@ public class AttackDrum_Script : Drum_Script
     /// 衝突したオブジェクトが離れた時の処理
     /// </summary>
     /// <param name="other">当たっていたオブジェクト</param>
-    public void OnCollisionExit(Collision col)
+    public void OnTriggerExit(Collider col)
     {
         if (col.gameObject.tag == "Stick")
         {
