@@ -99,7 +99,7 @@ public class AttackDrum_Script : Drum_Script
     public void OnTriggerEnter(Collider other)
     {
         // スティックに当たったら処理をする
-        if (other.gameObject.tag == "Stick")
+        //if (other.gameObject.tag == "Stick")
         {
             if (isActive == false)
             {

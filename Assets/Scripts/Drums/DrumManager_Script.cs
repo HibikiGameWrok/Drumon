@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      DrumManger_Script.cs		                        |
-//				 											                    |
-//  brief:    ドラムマネージャーのスクリプト				    |
-//              Drums 	Manager Class		                        |
-//															                    |
-//  date:	2019.10.11										        |
-//															                    |
-//  author: Renya Fukuyama									    |
+//  file:      DrumManger_Script.cs		                    |
+//				 											|
+//  brief:    ドラムマネージャーのスクリプト				|
+//              Drums 	Manager Class		                |
+//															|
+//  date:	2019.10.11										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
