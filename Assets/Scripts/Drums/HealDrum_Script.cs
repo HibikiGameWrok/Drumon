@@ -28,6 +28,8 @@ public class HealDrum_Script : Drum_Script
     // HPUI
     private HealProsperityUI_Script m_healProsperityUI;
 
+    private PlayerCreature_Script m_playerCreature;
+
     /// <summary>
     /// デフォルト関数
     /// </summary>
@@ -47,6 +49,7 @@ public class HealDrum_Script : Drum_Script
         m_leftStick = FindObjectOfType<StickLeft_Script>();
         m_rightStick = FindObjectOfType<StickRight_Script>();
         m_healProsperityUI = FindObjectOfType<HealProsperityUI_Script>();
+        m_playerCreature = BattleManager_Script.Get.PlayerCreature;
     }
 
 
@@ -62,6 +65,8 @@ public class HealDrum_Script : Drum_Script
             // 変更する
             return false;
         }
+
+        m_healProsperityUI.NowPoint = m_playerCreature.HP;
 
         // 継続する
         return true;
@@ -127,7 +132,7 @@ public class HealDrum_Script : Drum_Script
         if (m_leftStick.HealHitFlag == true || m_rightStick.HealHitFlag == true)
         {
             // HPを回復
-            m_healProsperityUI.NowPoint = m_healProsperityUI.NowPoint + 1.0f;
+            m_playerCreature.Heal();
 
             m_leftStick.HealHitFlag = false;
             m_rightStick.HealHitFlag = false;
