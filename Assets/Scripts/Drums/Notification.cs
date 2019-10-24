@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Notification : SingletonBase_Script<Notification>
 {
+
     private Notification() { }
 
+    /// <summary>
+    /// Notification/EventBus
+    /// </summary>
+    // メンバ変数
     public delegate void OnSomeEvent();
     event OnSomeEvent m_onSomeEvent;
-
 
     /// <summary>
     /// 通知購読解除
@@ -31,6 +35,9 @@ public class Notification : SingletonBase_Script<Notification>
         }
     }
 
+    /// <summary>
+    /// Notification/EventBus
+    /// </summary>
     public delegate void OnSomeEventWithArgs(string text);
     event OnSomeEventWithArgs m_onSomeEventWithArgs;
 
@@ -44,7 +51,7 @@ public class Notification : SingletonBase_Script<Notification>
         m_onSomeEventWithArgs += onEventWithArgs;
     }
 
-
+    
     /// <summary>
     /// 通知購読解除
     /// </summary>

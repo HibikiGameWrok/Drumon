@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.197
+      value: 1.469
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -835,6 +835,10 @@ PrefabInstance:
       propertyPath: PlayerController
       value: 
       objectReference: {fileID: 123008803}
+    - target: {fileID: 1601333735, guid: 56bd4f5e7507e5a41b8269f9f931f915, type: 3}
+      propertyPath: ThumbstickTeleportThreshold
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56bd4f5e7507e5a41b8269f9f931f915, type: 3}
 --- !u!4 &1845417759 stripped
