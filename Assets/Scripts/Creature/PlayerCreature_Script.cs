@@ -71,7 +71,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_atk * (100 / this.m_rate) / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
@@ -81,6 +81,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void Damage(int damage)
     {
         this.m_hp -= damage;
+        GetComponent<ParticleSystem>().Play();
         if (this.m_hp < 0) this.m_hp = 0;
         this.Dead();
     }

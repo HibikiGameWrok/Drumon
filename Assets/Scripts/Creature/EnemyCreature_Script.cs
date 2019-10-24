@@ -65,6 +65,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     public void Damage(int damage)
     {
         this.m_hp -= damage;
+        GetComponent<ParticleSystem>().Play();
         if (this.m_hp < 0) this.m_hp = 0;
         this.Dead();
     }
