@@ -26,7 +26,8 @@ public class HealDrum_Script : Drum_Script
     // 右スティック
     StickRight_Script m_rightStick;
     // HPUI
-    private HealProsperityUI_Script m_healProsperityUI;
+    private GameObject m_healProsperityUI;
+    private HealProsperityUI_Script m_healProsperityUIScript;
 
     private PlayerCreature_Script m_playerCreature;
 
@@ -48,7 +49,8 @@ public class HealDrum_Script : Drum_Script
 
         m_leftStick = FindObjectOfType<StickLeft_Script>();
         m_rightStick = FindObjectOfType<StickRight_Script>();
-        m_healProsperityUI = FindObjectOfType<HealProsperityUI_Script>();
+        m_healProsperityUI = GameObject.Find("PSlider");
+        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
     }
 
@@ -66,7 +68,7 @@ public class HealDrum_Script : Drum_Script
             return false;
         }
 
-        m_healProsperityUI.NowPoint = m_playerCreature.HP;
+        m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
 
         // 継続する
         return true;
