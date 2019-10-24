@@ -1,24 +1,13 @@
-﻿//
-//      FileName @ NoteActionGauge_Scrip.cs
-//
-//      Creater  @ Hibiki Yoshiyasu
-//
-//      Day      @ 2019 / 10 / 16      
-//
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotesActionGauge_Script : MonoBehaviour
+public class NotesInstanceReceive_Script : MonoBehaviour
 {
-    // ゲージの最小値
-    public const int MIN_GAUGE = 4;
-    // ゲージの最大値
-    public const int MAX_GAUGE = 4;
-
     // ノーツの生成最大値
     public const int MAX_INS_NOTES = 8;
 
+    // スティックの叩き方によって出すノーツの種類
     public enum NOTES_TYPE : int
     {
         NONE,               // 何もない
@@ -27,77 +16,46 @@ public class NotesActionGauge_Script : MonoBehaviour
         ONE_OUT_HIT,          // １スティックで外側を叩いた時
         DOUBLE_OUT_HIT,       // ２スティックで外側を叩いた時
     }
-
-    // 出すノーツの種類
     NOTES_TYPE m_notesType;
-
-    // ノーツの速度
-    [SerializeField]
-    private float m_notesVel = 0.01f;
 
     // ノーツの生成数を保持する変数
     private int m_notesCount = 0;
 
+    // ActionGaugeUIオブジェクトの取得用変数
+    private GameObject m_actionGauge = null;
+    // ActionGaugeScriptを取得用変数
+    private ActionGauge_Script m_actionGaugeScript = null;
 
-    // ゲージの進行を可視化する為のハンドル
-    private Transform m_childHandle = null;
     // ノーツをまとめる親オブジェクト
-    private Transform m_notesManager = null;
+    private GameObject m_notesManager = null;
     // ノーツをまとめる親オブジェクトにアタッチしているスクリプトを取得
     private NotesManager_Script m_notesmanager_script = null;
     // ノーツプレハブ
     private GameObject m_prefabNotes = null;
 
-
-
-    // 行動ゲージが終わったか
-    private bool m_finishFlag = false;
-
-
     // Start is called before the first frame update
     void Start()
     {
-        // 子のオブジェクトを取得
-        m_childHandle = this.transform.Find("Handle");
-        m_notesManager = this.transform.Find("NotesManager");
+        // ActionGaugeUIオブジェクトを取得
+        m_actionGauge = GameObject.Find("ActionGauge");
+        // オブジェクト内のアタッチされたScriptを取得
+        m_actionGaugeScript = m_actionGauge.GetComponent<ActionGauge_Script>();
+
+
+        // 子のノーツを管理している親オブジェクトを取得
+        m_notesManager = GameObject.Find("NotesManager");
         // 子のオブジェクトにアタッチしているScriptを取得
         m_notesmanager_script = m_notesManager.GetComponent<NotesManager_Script>();
         // プレハブを取得
         m_prefabNotes = (GameObject)Resources.Load("InsPrefab/NotesPrefab");
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        // ハンドルの動作処理
-        HandleMove();
-
         /// デバッグ用関数 ///
         KeyNotesinstace();
     }
-
-
-    // ハンドルの動作処理
-    private void HandleMove()
-    {
-        // 動作終了フラグが立ってないか
-        if (m_finishFlag == false)
-        {
-            // 背景画像の端までハンドルが到達しているか
-            if (m_childHandle.transform.position.x < (this.transform.position.x + MAX_GAUGE))
-            {
-                // x座標に加算、よって右方向へ移動
-                m_childHandle.transform.position += new Vector3(m_notesVel, 0, 0);
-            }
-            else
-            {
-                // 到達したならば動作終了フラグを立てる
-                m_finishFlag = true;
-            }
-        }
-    }
-
 
     // ドラムとスティックが当たると呼ばれる関数
     // 引数 : NOTES_TYPE type -- 叩き方
@@ -109,7 +67,7 @@ public class NotesActionGauge_Script : MonoBehaviour
         if (m_notesCount < MAX_INS_NOTES)
         {
             // ハンドルの位置にプレハブを生成
-            GameObject InsNotes = (GameObject)Instantiate(m_prefabNotes, m_childHandle.transform.position, Quaternion.identity);
+            GameObject InsNotes = (GameObject)Instantiate(m_prefabNotes, m_actionGaugeScript.HandlePos, Quaternion.identity);
             InsNotes.transform.parent = m_notesManager.transform;
             // ノーツの数を増加
             m_notesCount++;
@@ -126,7 +84,6 @@ public class NotesActionGauge_Script : MonoBehaviour
         m_prefabNotes = (GameObject)Resources.Load("InsPrefab/NotesPrefab" + (int)type);
     }
 
-
     // ノーツとゲージをリセットする
     // どこでも呼べるようにpublic化
     public void NotesReset()
@@ -138,13 +95,8 @@ public class NotesActionGauge_Script : MonoBehaviour
         {
             GameObject.Destroy(n.gameObject);
         }
-
-        // 子を初期位置に戻す
-        m_childHandle.transform.position = new Vector3(this.transform.position.x - MIN_GAUGE, this.transform.position.y, this.transform.position.z);
-        // 終了フラグを初期化
-        m_finishFlag = false;
+        m_actionGaugeScript.ResetGauge();
     }
-
 
     // デバッグ用キーによってノーツを出す
     private void KeyNotesinstace()

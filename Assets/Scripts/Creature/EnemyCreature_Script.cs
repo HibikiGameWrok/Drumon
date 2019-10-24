@@ -16,6 +16,13 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private ICreature_Script m_target;
 
+    private bool m_atkFlag;
+
+    public bool AtkFlag
+    {
+        get { return m_atkFlag; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +34,17 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer = 0.0f;
 
         this.m_target = null;
+
+        this.m_atkFlag = false;
     }
 
     public void Execute()
     {
         this.CountTimer();
+        if (this.m_timer >= 5.0f) this.m_atkFlag = true;
         if (this.m_target != null && this.m_timer >= 5.0f)
         {
-            this.Attack(1);
-            this.m_timer = 0.0f;
+            this.Attack();
         }
     }
 
@@ -44,17 +53,20 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer += Time.deltaTime;
     }
 
-    public void Attack(int rate)
+    public void Attack()
     {
-        int damage = (this.m_atk * rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_atk / 2) - (this.m_target.GetData().Def / 4);
 
         this.m_target.Damage(damage);
+        this.m_timer = 0.0f;
+        this.m_atkFlag = false;
     }
 
     public void Damage(int damage)
     {
         this.m_hp -= damage;
         if (this.m_hp < 0) this.m_hp = 0;
+        this.Dead();
     }
 
     public void Heal()
@@ -70,5 +82,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     public void SetTarget(ICreature_Script target)
     {
         this.m_target = target;
+    }
+
+    public void Dead()
+    {
+        if (this.m_hp <= 0) Destroy(this.gameObject);
     }
 }

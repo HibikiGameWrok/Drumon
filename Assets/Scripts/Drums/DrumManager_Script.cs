@@ -85,10 +85,13 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 if(result == true)
                 {
                     // 継続する
+
+                    // ノーツの生成処理
+                    m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
                 }
                 else
                 {
-         
+                    
                 }
             }
             // 回復用のドラムの処理
@@ -97,6 +100,9 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 if (result == true)
                 {
                     // 継続する
+
+                    // 回復処理
+                    m_healDrum.GetComponent<HealDrum_Script>().Heal();
                 }
                 else
                 {

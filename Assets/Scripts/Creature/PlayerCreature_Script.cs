@@ -11,6 +11,14 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     [SerializeField]
     private CharactorData m_data;
 
+    [SerializeField]
+    private string m_name;
+
+    public string Name
+    {
+        get { return this.m_name; }
+    }
+
     private int m_hp;
     private int m_atk;
     private int m_def;
@@ -18,7 +26,19 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private float m_timer;
 
+    public float Timer
+    {
+        get { return this.m_timer; }
+    }
+
     private ICreature_Script m_target;
+
+    private int m_rate;
+
+    public int Rate
+    {
+        set { m_rate = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,15 +51,16 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer = 0.0f;
 
         this.m_target = null;
+
+        m_rate = 0;
     }
 
     public void Execute()
     {
         this.CountTimer();
-        if(this.m_target != null && this.m_timer >= 5.0f)
+        if(this.m_rate != 0)
         {
-            this.Attack(1);
-            this.m_timer = 0.0f;
+            this.Attack();
         }
     }
 
@@ -48,17 +69,20 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer += Time.deltaTime;
     }
 
-    public void Attack(int rate)
+    public void Attack()
     {
-        int damage = (this.m_atk * rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
+        this.m_timer = 0.0f;
+        this.m_rate = 0;
     }
 
     public void Damage(int damage)
     {
         this.m_hp -= damage;
         if (this.m_hp < 0) this.m_hp = 0;
+        this.Dead();
     }
 
     public void Heal()
@@ -74,5 +98,10 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void SetTarget(ICreature_Script target)
     {
         this.m_target = target;
+    }
+
+    public void Dead()
+    {
+        if (this.m_hp <= 0) Destroy(this.gameObject);
     }
 }
