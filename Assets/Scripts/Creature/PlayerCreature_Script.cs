@@ -32,6 +32,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private float m_timer;
 
+    private GameObject m_healProsperityUI;
+    private HealProsperityUI_Script m_healProsperityUIScript;
+
     public float Timer
     {
         get { return this.m_timer; }
@@ -74,13 +77,17 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         m_attackRecipe = FindObjectOfType<AttackRecipeManeger_Script>();
         m_attackRecipe.CSVLoadFile(this);
+
+        m_healProsperityUI = GameObject.Find("PSlider");
+        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
     }
 
     public void Execute()
     {
         Debug.Log(m_hp);
         this.CountTimer();
-        if(this.m_rate != 0)
+        m_healProsperityUIScript.NowPoint = m_hp;
+        if (this.m_rate != 0)
         {
             this.m_atkFlag = true;
         }
@@ -93,7 +100,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_atk * (100 / this.m_rate) / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
