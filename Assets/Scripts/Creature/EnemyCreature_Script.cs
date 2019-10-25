@@ -8,6 +8,12 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private CharactorData m_data;
 
     private int m_hp;
+
+    public int HP
+    {
+        get { return this.m_hp; }
+    }
+
     private int m_atk;
     private int m_def;
     private CharactorData.ELEM m_elem;
@@ -15,6 +21,17 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private float m_timer;
 
     private ICreature_Script m_target;
+
+    private bool m_atkFlag;
+
+    public bool AtkFlag
+    {
+        get { return m_atkFlag; }
+    }
+
+    // HPUI
+    private GameObject m_healProsperityUI;
+    private HealProsperityUI_Script m_healProsperityUIScript;
 
     // Start is called before the first frame update
     void Start()
@@ -27,16 +44,18 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer = 0.0f;
 
         this.m_target = null;
+
+        this.m_atkFlag = false;
+
+        m_healProsperityUI = GameObject.Find("ESlider");
+        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
     }
 
     public void Execute()
     {
+        m_healProsperityUIScript.NowPoint = m_hp;
         this.CountTimer();
-        if (this.m_target != null && this.m_timer >= 5.0f)
-        {
-            this.Attack(1);
-            this.m_timer = 0.0f;
-        }
+        if (this.m_timer >= 5.0f) this.m_atkFlag = true;
     }
 
     public void CountTimer()
@@ -44,22 +63,26 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer += Time.deltaTime;
     }
 
-    public void Attack(int rate)
+    public void Attack()
     {
-        int damage = (this.m_atk * rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_atk / 2) - (this.m_target.GetData().Def / 4);
 
         this.m_target.Damage(damage);
+        this.m_timer = 0.0f;
+        this.m_atkFlag = false;
     }
 
     public void Damage(int damage)
     {
         this.m_hp -= damage;
+        GetComponent<ParticleSystem>().Play();
         if (this.m_hp < 0) this.m_hp = 0;
+        this.Dead();
     }
 
     public void Heal()
     {
-        this.m_hp = m_data.Hp / 100;
+        this.m_hp += m_data.Hp / 100;
     }
 
     public CharactorData GetData()
@@ -70,5 +93,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     public void SetTarget(ICreature_Script target)
     {
         this.m_target = target;
+    }
+
+    public void Dead()
+    {
+        if (this.m_hp <= 0) Destroy(this.gameObject);
     }
 }

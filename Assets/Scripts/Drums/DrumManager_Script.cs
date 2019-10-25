@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      DrumManger_Script.cs		                        |
-//				 											                    |
-//  brief:    ドラムマネージャーのスクリプト				    |
-//              Drums 	Manager Class		                        |
-//															                    |
-//  date:	2019.10.11										        |
-//															                    |
-//  author: Renya Fukuyama									    |
+//  file:      DrumManger_Script.cs		                    |
+//				 											|
+//  brief:    ドラムマネージャーのスクリプト				|
+//              Drums 	Manager Class		                |
+//															|
+//  date:	2019.10.11										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
@@ -36,6 +36,17 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     [SerializeField]
     private Drum_Script m_currentDrum;
 
+    // HPUI
+    private GameObject m_healProsperityUI;
+    private HealProsperityUI_Script m_healProsperityUIScript;
+    // プレイヤーモンスター
+    private PlayerCreature_Script m_playerCreature;
+
+    // 行動ゲージ
+    private GameObject m_actionGauge;
+    // 行動ゲージが終わったかのフラグ
+    private bool m_actionGaugeFinishFlag;
+
     /// <summary>
     /// Awake関数
     /// </summary>
@@ -61,6 +72,13 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_currentDrum = m_attackDrum;
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
+
+        m_healProsperityUI = GameObject.Find("PSlider");
+        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+
+        m_playerCreature = BattleManager_Script.Get.PlayerCreature;
+
+        m_actionGauge = GameObject.Find("ActionGauge");
     }
 
     
@@ -74,8 +92,14 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // Update is called once per frame
     void Update()
     {
-        if(m_currentDrum != null)
+        // プレイヤーモンスターのHPをUIに適用
+        m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
+        // 行動ゲージが終わったかのフラグの取得
+        m_actionGaugeFinishFlag = m_actionGauge.GetComponent<ActionGauge_Script>().FinishFlag;
+
+        if (m_currentDrum != null)
         {
+            Debug.Log(m_currentDrum);
             // 現在のドラムの処理を実行する
             bool result = m_currentDrum.Execute();
 
@@ -85,10 +109,13 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 if(result == true)
                 {
                     // 継続する
+
+                    // ノーツの生成処理
+                    m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
                 }
                 else
                 {
-         
+                    
                 }
             }
             // 回復用のドラムの処理
@@ -97,12 +124,27 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 if (result == true)
                 {
                     // 継続する
+
+                    // 回復処理
+                    m_healDrum.GetComponent<HealDrum_Script>().Heal();
                 }
                 else
                 {
 
                 }
             }
+        }
+
+        // 行動ゲージが終わったら
+        if (m_actionGaugeFinishFlag == true)
+        {
+            for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
+            {
+                // HPを回復
+                m_playerCreature.Heal();
+            }
+            // 回復ドラムを叩いた回数を初期化
+            m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
         }
 
 #if UNITY_EDITOR

@@ -14,7 +14,15 @@ public class StickRight_Script : MonoBehaviour
     // 同時に叩いた時のバイブの大きさ
     private const int DOUBLE_HIT_VIB_SIZE = 255;
     // 同時に叩ける時間
-    private const int DOUBLE_HIT_TIME = 5;
+    private const int DOUBLE_HIT_TIME = 3;
+
+    public enum HIT_PATTERN
+    {
+        IN_HIT = (1 << 0),          // 内側を叩いた判定(0001)
+        DOUBLE_IN_HIT = (1 << 1),   // 内側を同時に叩いた判定(0010)
+        OUT_HIT = (1 << 2),         // 外側を叩いた判定(0100)
+        DOUBLE_OUT_HIT = (1 << 3)   // 外側を同時に叩いた判定(1000)
+    }
 
 
     // バイブレーション
@@ -22,28 +30,24 @@ public class StickRight_Script : MonoBehaviour
     private OVRHapticsClip m_doubleHitVibClip;
     private byte[] m_vibration;
     private byte[] m_doubleHitVib;
-    // 右スティックの状態
-    private int m_rightStickState;
+
     // 左スティック
     private StickLeft_Script m_leftStick;
 
-    // 内側を叩く判定フラグ
-    private bool m_inHitFlag;
-    // 外側を叩く判定フラグ
-    private bool m_outHitFlag;
-    // 内側を叩いた時のノーツ生成フラグ
-    private bool m_inHitNotesFlag;
-    // 外側を叩いた時のノーツ生成フラグ
-    private bool m_outHitNotesFlag;
+    // 叩いた場所のフラグ管理
+    private Flag_Script m_hitPatternFlag;
+
+    // 内側を叩いて同時叩き可能フラグ
+    private bool m_inHitConnectFlag;
+    // 外側を叩いて同時叩き可能フラグ
+    private bool m_outHitConnectFlag;
     // 叩かれたかの判定フラグ
     private bool m_hitFlag;
     // 当たった数
     private int m_hitNum;
 
-    // 内側を同時に叩いたフラグ
-    private bool m_doubleInHitFlag;
-    // 外側を同時に叩いたフラグ
-    private bool m_doubleOutHitFlag;
+    // 回復ドラムを叩いたフラグ
+    private bool m_healHitFlag;
 
     AudioSource audioSource;
     // 内側を叩いた音
@@ -52,6 +56,9 @@ public class StickRight_Script : MonoBehaviour
     // 外側を叩いた音
     [SerializeField]
     private AudioClip m_outHitSE;
+    // 回復ドラムを叩いた音
+    [SerializeField]
+    private AudioClip m_healHitSE;
 
     // Start is called before the first frame update
     void Start()
@@ -74,18 +81,16 @@ public class StickRight_Script : MonoBehaviour
         m_doubleHitVibClip = new OVRHapticsClip(m_doubleHitVib, m_doubleHitVib.Length);
 
         // 初期化
-        m_rightStickState = 0;
         m_leftStick = FindObjectOfType<StickLeft_Script>();
 
-        m_inHitFlag = false;
-        m_outHitFlag = false;
-        m_inHitNotesFlag = false;
-        m_outHitNotesFlag = false;
+        m_hitPatternFlag = new Flag_Script();
+
+        m_inHitConnectFlag = false;
+        m_outHitConnectFlag = false;
         m_hitFlag = false;
         m_hitNum = 0;
 
-        m_doubleInHitFlag = false;
-        m_doubleOutHitFlag = false;
+        m_healHitFlag = false;
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -108,157 +113,153 @@ public class StickRight_Script : MonoBehaviour
     void Update()
     {
         // 内側に当たったら
-        if (m_inHitFlag == true)
+        if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
         {
             // 振動させる
             OVRHaptics.RightChannel.Preempt(m_vibClip);
-            // 右スティックの状態を叩いた状態に変更
-            m_rightStickState = 1;
+
             // 時間を代入
             m_leftStick.DoubleHitTime = DOUBLE_HIT_TIME;
             // 音を鳴らす
             audioSource.PlayOneShot(m_inHitSE);
 
-            m_inHitNotesFlag = true;
+            m_inHitConnectFlag = true;
 
             // 左スティックが叩いた状態だったら
-            if (m_leftStick.LeftStickState == 1 && m_leftStick.InHitNotesFlag == true)
+            if (m_leftStick.InHitConnectFlag == true)
             {
                 // 振動させる
                 OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
                 OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
 
-                // 右スティックの状態を元に戻す
-                m_rightStickState = 0;
-                // 左スティックの状態を元に戻す
-                m_leftStick.LeftStickState = 0;
                 // 時間を初期化
                 m_leftStick.DoubleHitTime = 0;
 
-                m_inHitNotesFlag = false;
-                m_leftStick.InHitNotesFlag = false;
+                m_inHitConnectFlag = false;
+                m_leftStick.InHitConnectFlag = false;
 
-                m_doubleInHitFlag = true;
+                // 内側を同時に叩いた判定フラグを立てる
+                m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.DOUBLE_IN_HIT);
             }
         }
         // 外側に当たったら
-        else
+        else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
         {
-            if (m_outHitFlag == true)
+            // 振動させる
+            OVRHaptics.RightChannel.Preempt(m_vibClip);
+
+            // 時間を代入
+            m_leftStick.DoubleHitTime = DOUBLE_HIT_TIME;
+            // 音を鳴らす
+            audioSource.PlayOneShot(m_outHitSE);
+
+            m_outHitConnectFlag = true;
+
+            // 左スティックが叩いた状態だったら
+            if (m_leftStick.OutHitConnectFlag == true)
             {
                 // 振動させる
-                OVRHaptics.RightChannel.Preempt(m_vibClip);
-                // 右スティックの状態を叩いた状態に変更
-                m_rightStickState = 1;
-                // 時間を代入
-                m_leftStick.DoubleHitTime = DOUBLE_HIT_TIME;
-                // 音を鳴らす
-                audioSource.PlayOneShot(m_outHitSE);
+                OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
+                OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
 
-                m_outHitNotesFlag = true;
+                // 時間を初期化
+                m_leftStick.DoubleHitTime = 0;
 
-                // 左スティックが叩いた状態だったら
-                if (m_leftStick.LeftStickState == 1 && m_leftStick.OutHitNotesFlag == true)
-                {
-                    // 振動させる
-                    OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
-                    OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
+                m_outHitConnectFlag = false;
+                m_leftStick.OutHitConnectFlag = false;
 
-                    // 右スティックの状態を元に戻す
-                    m_rightStickState = 0;
-                    // 左スティックの状態を元に戻す
-                    m_leftStick.LeftStickState = 0;
-                    // 時間を初期化
-                    m_leftStick.DoubleHitTime = 0;
-
-                    m_outHitNotesFlag = false;
-                    m_leftStick.OutHitNotesFlag = false;
-
-                    m_doubleOutHitFlag = true;
-                }
+                // 外側を同時に叩いた判定フラグを立てる
+                m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.DOUBLE_OUT_HIT);
             }
+        }
+        // 回復ドラムを叩いたら
+        else if (m_healHitFlag == true)
+        {
+            // 振動させる
+            OVRHaptics.RightChannel.Preempt(m_vibClip);
+            // 音を鳴らす
+            audioSource.PlayOneShot(m_healHitSE);
         }
 
         // 右スティックで叩いたら
-        if (m_rightStickState == 1)
+        if (m_inHitConnectFlag == true || m_outHitConnectFlag == true)
         {
             // 時間を計る
             m_leftStick.DoubleHitTime--;
         }
 
-        // 内側を叩く判定フラグを初期化
-        m_inHitFlag = false;
-        // 外側を叩く判定フラグを初期化
-        m_outHitFlag = false;
+        // 内側を叩いた判定フラグを伏せる
+        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.IN_HIT);
+        // 外側を叩いた判定フラグを伏せる
+        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
     }
 
     // 当たり判定
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
-        // カウントアップ
-        m_hitNum++;
-
-        // まだ当たっていなければ
-        if (m_hitFlag == false)
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum")
         {
-            // 内側を叩いたら
-            if (collision.gameObject.name == "InDrum")
+            // カウントアップ
+            m_hitNum++;
+
+            // まだ当たっていなければ
+            if (m_hitFlag == false)
             {
-                m_inHitFlag = true;
-            }
-            // 外側を叩いたら
-            else if (collision.gameObject.name == "OutDrum")
-            {
-                m_outHitFlag = true;
+                // 内側を叩いたら
+                if (collision.gameObject.tag == "AttackInDrum")
+                {
+                    // 内側を叩いた判定フラグを立てる
+                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
+                }
+                // 外側を叩いたら
+                else if (collision.gameObject.tag == "AttackOutDrum")
+                {
+                    // 外側を叩いた判定フラグを立てる
+                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
+                }
+                // 回復ドラムを叩いたら
+                else if (collision.gameObject.tag == "HealDrum")
+                {
+                    m_healHitFlag = true;
+                }
             }
         }
     }
 
     // 当たり判定を抜けた処理
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collision)
     {
-        // カウントダウン
-        m_hitNum--;
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum")
+        {
+            // カウントダウン
+            m_hitNum--;
+        }
     }
 
-    // 右スティックの状態のプロパティ
-    public int RightStickState
+    // 叩いた場所のフラグ管理のプロパティ
+    public Flag_Script HitPatternFlag
     {
-        get { return m_rightStickState; }
-        set { m_rightStickState = value; }
+        get { return m_hitPatternFlag; }
+        set { m_hitPatternFlag = value; }
     }
 
-    public bool InHitFlag
+    // 内側を叩いて同時叩き可能フラグのプロパティ
+    public bool InHitConnectFlag
     {
-        get { return m_inHitFlag; }
-        set { m_inHitFlag = value; }
+        get { return m_inHitConnectFlag; }
+        set { m_inHitConnectFlag = value; }
+    }
+    // 外側を叩いて同時叩き可能フラグのプロパティ
+    public bool OutHitConnectFlag
+    {
+        get { return m_outHitConnectFlag; }
+        set { m_outHitConnectFlag = value; }
     }
 
-    public bool OutHitFlag
+    // 回復ドラムを叩いたフラグのプロパティ
+    public bool HealHitFlag
     {
-        get { return m_outHitFlag; }
-        set { m_outHitFlag = value; }
-    }
-
-    public bool InHitNotesFlag
-    {
-        get { return m_inHitNotesFlag; }
-        set { m_inHitNotesFlag = value; }
-    }
-    public bool OutHitNotesFlag
-    {
-        get { return m_outHitNotesFlag; }
-        set { m_outHitNotesFlag = value; }
-    }
-
-    public bool DoubleInHitFlag
-    {
-        get { return m_doubleInHitFlag; }
-        set { m_doubleInHitFlag = value; }
-    }
-    public bool DoubleOutHitFlag
-    {
-        get { return m_doubleOutHitFlag; }
-        set { m_doubleOutHitFlag = value; }
+        get { return m_healHitFlag; }
+        set { m_healHitFlag = value; }
     }
 }
