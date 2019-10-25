@@ -39,8 +39,13 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // HPUI
     private GameObject m_healProsperityUI;
     private HealProsperityUI_Script m_healProsperityUIScript;
-
+    // プレイヤーモンスター
     private PlayerCreature_Script m_playerCreature;
+
+    // 行動ゲージ
+    private GameObject m_actionGauge;
+    // 行動ゲージが終わったかのフラグ
+    private bool m_actionGaugeFinishFlag;
 
     /// <summary>
     /// Awake関数
@@ -72,6 +77,8 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
 
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
+
+        m_actionGauge = GameObject.Find("ActionGauge");
     }
 
     
@@ -84,7 +91,11 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // Update is called once per frame
     void Update()
     {
+        // プレイヤーモンスターのHPをUIに適用
         m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
+        // 行動ゲージが終わったかのフラグの取得
+        m_actionGaugeFinishFlag = m_actionGauge.GetComponent<ActionGauge_Script>().FinishFlag;
+
         if (m_currentDrum != null)
         {
             Debug.Log(m_currentDrum);
@@ -115,14 +126,24 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
                     // 回復処理
                     m_healDrum.GetComponent<HealDrum_Script>().Heal();
-                    // HPを回復
-                    m_playerCreature.Heal();
                 }
                 else
                 {
 
                 }
             }
+        }
+
+        // 行動ゲージが終わったら
+        if (m_actionGaugeFinishFlag == true)
+        {
+            for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
+            {
+                // HPを回復
+                m_playerCreature.Heal();
+            }
+            // 回復ドラムを叩いた回数を初期化
+            m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
         }
 
 #if UNITY_EDITOR
