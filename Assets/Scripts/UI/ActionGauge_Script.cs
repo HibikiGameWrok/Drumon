@@ -29,23 +29,30 @@ public class ActionGauge_Script: MonoBehaviour
 
     // ゲージの進行を可視化する為のハンドル
     private Transform m_childHandle = null;
-    // ハンドルの座標を取得できるプロパティ(ハンドルの座標を元にノーツを生成)
+
+    // ハンドル座標を保持するVector
+    private Vector3 m_handlePos;
     public Vector3 HandlePos
     {
-        get { return m_childHandle.transform.position; }
+        get { return m_handlePos; }
     }
 
-    private NotesInstanceReceive_Script m_notesInstanceReceive;
-    private AttackRecipeManeger_Script m_attackRecipe;
+    private GameObject m_notesInstanceReceive = null;
+    private NotesInstanceReceive_Script m_notesInstanceReceiveScript = null;
+    private GameObject m_attackRecipe = null;
+    private AttackRecipeManeger_Script m_attackRecipeScript = null;
 
     // Start is called before the first frame update
     void Start()
     {
         // 子のオブジェクトを取得
         m_childHandle = this.transform.Find("Handle");
+        m_handlePos = this.transform.position;
 
-        m_notesInstanceReceive = FindObjectOfType<NotesInstanceReceive_Script>();
-        m_attackRecipe = FindObjectOfType<AttackRecipeManeger_Script>();
+        m_notesInstanceReceive = GameObject.Find("NotesInsetance");
+        m_notesInstanceReceiveScript = m_notesInstanceReceive.GetComponent<NotesInstanceReceive_Script>();
+        m_attackRecipe = GameObject.Find("AttackRecipeManeger");
+        m_attackRecipeScript = m_attackRecipe.GetComponent<AttackRecipeManeger_Script>();
     }
 
 
@@ -60,6 +67,13 @@ public class ActionGauge_Script: MonoBehaviour
     // ハンドルの動作処理
     private void HandleMove()
     {
+        // 動作終了フラグが立っていたら
+        if (m_finishFlag)
+        {
+            // ノーツとゲージをリセットする
+            m_notesInstanceReceiveScript.NotesReset();
+        }
+
         // 動作終了フラグが立ってないか
         if (m_finishFlag == false)
         {
@@ -74,8 +88,8 @@ public class ActionGauge_Script: MonoBehaviour
                 // 到達したならば動作終了フラグを立てる
                 m_finishFlag = true;
 
-                m_attackRecipe.MatchAttackRecipe();
-                m_notesInstanceReceive.NotesReset();
+                // 現在のノーツと攻撃する為のノーツが合っているか見比べる
+                m_attackRecipeScript.MatchAttackRecipe();
             }
         }
     }
