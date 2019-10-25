@@ -1,4 +1,4 @@
-﻿Shader "Unlit/ToonShader"
+﻿Shader "Unlit/ToonMetalShader"
 {
 	Properties
 	{
@@ -17,7 +17,9 @@
 		_RimAmount("Rim Amount", Range(0, 1)) = 0.716
 		_RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
 
-
+		[HDR]
+		_HighlightColor("Highlight Color", Color) = (1,0.5,0.5,1)
+		_HighlightVar("Highlight Variable", Range(-1, 1)) = 0.5
 
 			[HideInInspector] _Cutoff("", Float) = 0.5
 	}
@@ -64,8 +66,9 @@
 				float3 worldNormal : NORMAL;
 
 				float3 viewDir : TEXCOORD4;
+				float3 lightDir : TEXCOORD5;
 
-				SHADOW_COORDS(5)
+				SHADOW_COORDS(6)
 			};
 
 			sampler2D _MainTex;
@@ -81,6 +84,9 @@
 			float _RimAmount;
 			float _RimThreshold;
 
+			float4 _HighlightColor;
+			float _HighlightVar;
+
 			v2f vert(appdata v)
 			{
 				v2f o;
@@ -91,6 +97,7 @@
 				o.worldNormal = UnityObjectToWorldNormal(v.normal);
 
 				o.viewDir = WorldSpaceViewDir(v.vertex);
+				o.lightDir = WorldSpaceLightDir(v.vertex);
 
 				TRANSFER_SHADOW(o)
 
@@ -113,11 +120,6 @@ fixed4 col = tex2D(_MainTex, i.uv);
 
 			float shadow = SHADOW_ATTENUATION(i);
 
-			//float lightIntensity = NdotL > 0 ? 1 : 0;
-
-			//float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
-			//float lightIntensity = smoothstep(0 - 0.6, 0.1 - 0.6, NdotL/* * shadow*/);
-
 			float lightIntensity;
 			float NormalValToCheck = NdotL * shadow;
 			lightIntensity = smoothstep(0, 0.01, NormalValToCheck) * 0.8 + 0.2;
@@ -131,15 +133,6 @@ fixed4 col = tex2D(_MainTex, i.uv);
 				lightIntensity /= 2;
 			}
 
-			//if (NormalValToCheck > -0.29)
-			//{
-			//	lightIntensity = smoothstep(-0.15, -0.14, NormalValToCheck) * 0.333 + 0.333;
-			//}
-			//else
-			//{
-			//	lightIntensity = smoothstep(-0.3, -0.29, NormalValToCheck) * 0.333;
-			//}
-
 			float4 light = lightIntensity * _LightColor0;
 
 			float3 viewDir = normalize(i.viewDir);
@@ -147,7 +140,9 @@ fixed4 col = tex2D(_MainTex, i.uv);
 			float NdotH = dot(normal, halfVector);
 			float specularIntensity = pow(NdotH * lightIntensity, _Glossiness * _Glossiness);
 			float specularIntensitySmooth = smoothstep(0.005, 0.01, specularIntensity);
-			float4 specular = specularIntensitySmooth * _SpecularColor;
+			//float4 specular = specularIntensitySmooth * _SpecularColor;
+			float4 specular = specularIntensitySmooth * (1 - _Color * col);
+
 
 			float4 rimDot = 1 - dot(viewDir, normal);
 			//float rimIntensity = smoothstep(_RimAmount - 0.01, _RimAmount + 0.01, rimDot);
@@ -155,7 +150,10 @@ fixed4 col = tex2D(_MainTex, i.uv);
 			rimIntensity = smoothstep(_RimAmount - 0.01, _RimAmount + 0.01, rimIntensity);
 			float4 rim = rimIntensity * _RimColor;
 
-			return _Color * col * (_AmbientColor + light + specular + rim);
+			float hiLi = dot(i.lightDir, normal);
+			float4 highlightAlbedo = step(_HighlightVar, hiLi) * _HighlightColor;
+
+			return _Color * col * (_AmbientColor + light + specular + rim + highlightAlbedo);
 		}
 		ENDCG
 	}
