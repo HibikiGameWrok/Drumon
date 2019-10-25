@@ -20,7 +20,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private float m_timer;
 
-    private ICreature_Script m_target;
+    private ICreature_Script m_target = null;
 
     private bool m_atkFlag;
 
@@ -42,8 +42,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_elem = m_data.Elem;
 
         this.m_timer = 0.0f;
-
-        this.m_target = null;
 
         this.m_atkFlag = false;
 
