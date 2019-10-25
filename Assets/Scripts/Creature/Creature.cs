@@ -1,9 +1,9 @@
 ﻿//
-//   FileName @ Creature.cs
-//   
-//   Creater  @ Hibiki Yoshiyasu
+//      FileName @ Creture.cs
 //
-//   Day      @ 2019 / 10 / 15
+//      Creater  @ Hibiki Yoshiyasu
+//
+//      Day      @ 2019 / 10 / 16      
 //
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ public class Creature : MonoBehaviour
 {
     // キャラクターデータ
     [SerializeField]
-    private CharactorData m_charaData;
+    private CharactorData m_charaData = null;
 
     // データのプロパティ
     public CharactorData CharaData

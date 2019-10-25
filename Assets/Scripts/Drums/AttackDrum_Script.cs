@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      AttackDrum_Scripts.cs					            |
-//				 											                    |
-//  brief:    攻撃用のドラムクラスのスクリプト		            | 
-//              Attack Drum class  				                    |
-//															                    |
-//  date:	2019.10.9										            |
-//															                    |
-//  author: Renya Fukuyama									    |
+//  file:      AttackDrum_Scripts.cs					    |
+//				 											|
+//  brief:    攻撃用のドラムクラスのスクリプト		        | 
+//              Attack Drum class  				            |
+//															|
+//  date:	2019.10.9										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
@@ -19,6 +19,14 @@ using UnityEngine;
 public class AttackDrum_Script : Drum_Script
 {
     // メンバ変数
+
+    GameObject m_musicalScore;
+    NotesInstanceReceive_Script m_notesInsRec;
+
+    // 左スティック
+    StickLeft_Script m_leftStick;
+    // 右スティック
+    StickRight_Script m_rightStick;
 
     /// <summary>
     /// デフォルト関数
@@ -36,6 +44,12 @@ public class AttackDrum_Script : Drum_Script
     {
         // 親オブジェクトを入れる
         m_manager = manager;
+
+        m_musicalScore = GameObject.Find("NotesInsetance");
+        m_notesInsRec = m_musicalScore.GetComponent<NotesInstanceReceive_Script>();
+
+        m_leftStick = FindObjectOfType<StickLeft_Script>();
+        m_rightStick = FindObjectOfType<StickRight_Script>();
     }
 
     /// <summary>
@@ -85,15 +99,18 @@ public class AttackDrum_Script : Drum_Script
     public void OnTriggerEnter(Collider other)
     {
         // スティックに当たったら処理をする
-        if (other.tag == "Stick")
-        { 
-            // アクティブにする
-            isActive = true;
-            // このドラムを現在のドラムにする
-            m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
+        //if (other.gameObject.tag == "Stick")
+        {
+            if (isActive == false)
+            {
+                // このドラムを現在のドラムにする
+                m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
+
+                // アクティブにする
+                isActive = true;
+            }
         }
     }
-
 
     /// <summary>
     /// 衝突したオブジェクトが離れた時の処理
@@ -101,9 +118,81 @@ public class AttackDrum_Script : Drum_Script
     /// <param name="other">当たっていたオブジェクト</param>
     public void OnTriggerExit(Collider col)
     {
-        if (col.tag == "Stick")
+        if (col.gameObject.tag == "Stick")
         {
             Debug.Log("nonononononono");
+        }
+    }
+
+    // ノーツの生成処理
+    public void GenerateNotes()
+    {
+        // 内側を同時に叩いていたら
+        if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_IN_HIT) == true)
+        {
+            // ノーツ生成
+            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_IN_HIT);
+            // 内側を同時に叩いた判定フラグを伏せる
+            m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_IN_HIT);
+        }
+        // 外側を同時に叩いていたら
+        else if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_OUT_HIT) == true)
+        {
+            // ノーツ生成
+            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
+            // 外側を同時に叩いた判定フラグを伏せる
+            m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_OUT_HIT);
+        }
+
+        // 内側を同時に叩いていたら
+        if (m_leftStick.HitPatternFlag.IsFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_IN_HIT) == true)
+        {
+            // ノーツ生成
+            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_IN_HIT);
+            // 内側を同時に叩いた判定フラグを伏せる
+            m_leftStick.HitPatternFlag.OffFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_IN_HIT);
+        }
+        // 外側を同時に叩いていたら
+        else if (m_leftStick.HitPatternFlag.IsFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_OUT_HIT) == true)
+        {
+            // ノーツ生成
+            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
+            // 外側を同時に叩いた判定フラグを伏せる
+            m_leftStick.HitPatternFlag.OffFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_OUT_HIT);
+        }
+
+        // 時間が0になったら
+        if (m_leftStick.DoubleHitTime < 0)
+        {
+            if (m_leftStick.InHitConnectFlag == true)
+            {
+                // ノーツ生成
+                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_IN_HIT);
+            }
+            else if (m_leftStick.OutHitConnectFlag == true)
+            {
+                // ノーツ生成
+                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_OUT_HIT);
+            }
+
+            if (m_rightStick.InHitConnectFlag == true)
+            {
+                // ノーツ生成
+                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_IN_HIT);
+            }
+            else if (m_rightStick.OutHitConnectFlag == true)
+            {
+                // ノーツ生成
+                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_OUT_HIT);
+            }
+
+            // 時間を初期化
+            m_leftStick.DoubleHitTime = 0;
+
+            m_leftStick.InHitConnectFlag = false;
+            m_leftStick.OutHitConnectFlag = false;
+            m_rightStick.InHitConnectFlag = false;
+            m_rightStick.OutHitConnectFlag = false;
         }
     }
 }

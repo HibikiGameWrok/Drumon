@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // シングルトンベースクラスの定義
 public abstract class SingletonBase_Script<T> : MonoBehaviour where T : MonoBehaviour
 {

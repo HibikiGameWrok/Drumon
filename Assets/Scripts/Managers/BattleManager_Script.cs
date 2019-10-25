@@ -4,18 +4,37 @@ using UnityEngine;
 
 public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 {
+    [SerializeField]
     private PlayerCreature_Script m_playerCreature;
+
+    public PlayerCreature_Script PlayerCreature
+    {
+        get { return m_playerCreature; }
+    }
+
+    [SerializeField]
     private EnemyCreature_Script m_enemyCreature;
 
+    private ICreature_Script m_nowMove;
+    private ICreature_Script m_nextMove;
+
     private bool m_isSetting;
+
+    private float m_attackSpan;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.m_playerCreature = null;
-        this.m_enemyCreature = null;
+        //this.m_playerCreature = null;
+        //this.m_enemyCreature = null;
+
+        this.m_nowMove = null;
+        this.m_nextMove = null;
 
         this.m_isSetting = false;
+
+        this.m_attackSpan = 0.0f;
+        this.SetTarget();
     }
 
     // Update is called once per frame
@@ -23,8 +42,14 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         if (m_isSetting)
         {
+            this.m_attackSpan -= Time.deltaTime;
+
             this.m_playerCreature.Execute();
             this.m_enemyCreature.Execute();
+            if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
+            if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
+            if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
+            this.JudgeResult();
         }
     }
 
@@ -46,5 +71,37 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_enemyCreature.SetTarget(this.m_playerCreature);
 
         this.m_isSetting = true;
+    }
+
+    public void SetActive(ICreature_Script creature)
+    {
+        if (this.m_nowMove == creature || this.m_nextMove == creature) return;
+
+        if(this.m_nowMove == null) this.m_nowMove = creature;
+        else this.m_nextMove = creature;
+    }
+
+    private void Action()
+    {
+        this.m_nowMove.Attack();
+        if (m_nextMove != null)
+        {
+            this.m_nowMove = this.m_nextMove;
+            this.m_nextMove = null;
+        }
+        else
+        {
+            this.m_nowMove = null;
+        }
+
+        this.m_attackSpan = 3.0f;
+    }
+
+    private void JudgeResult()
+    {
+        if (!this.m_playerCreature)
+            this.m_isSetting = false;
+        else if(!this.m_enemyCreature)
+            this.m_isSetting = false;
     }
 }
