@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      DrumManger_Script.cs		                        |
-//				 											                    |
-//  brief:    ドラムマネージャーのスクリプト				    |
-//              Drums 	Manager Class		                        |
-//															                    |
-//  date:	2019.10.11										        |
-//															                    |
-//  author: Renya Fukuyama									    |
+//  file:      DrumManger_Script.cs		                    |
+//				 											|
+//  brief:    ドラムマネージャーのスクリプト				|
+//              Drums 	Manager Class		                |
+//															|
+//  date:	2019.10.11										|
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
@@ -36,6 +36,12 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     [SerializeField]
     private Drum_Script m_currentDrum;
 
+    // HPUI
+    private GameObject m_healProsperityUI;
+    private HealProsperityUI_Script m_healProsperityUIScript;
+
+    private PlayerCreature_Script m_playerCreature;
+
     /// <summary>
     /// Awake関数
     /// </summary>
@@ -61,6 +67,11 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_currentDrum = m_attackDrum;
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
+
+        m_healProsperityUI = GameObject.Find("PSlider");
+        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+
+        m_playerCreature = BattleManager_Script.Get.PlayerCreature;
     }
 
     
@@ -74,8 +85,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // Update is called once per frame
     void Update()
     {
-        if(m_currentDrum != null)
+        m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
+        if (m_currentDrum != null)
         {
+            Debug.Log(m_currentDrum);
             // 現在のドラムの処理を実行する
             bool result = m_currentDrum.Execute();
 
@@ -103,6 +116,8 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
                     // 回復処理
                     m_healDrum.GetComponent<HealDrum_Script>().Heal();
+                    // HPを回復
+                    m_playerCreature.Heal();
                 }
                 else
                 {

@@ -20,11 +20,20 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     }
 
     private int m_hp;
+
+    public int HP
+    {
+        get { return this.m_hp; }
+    }
+
     private int m_atk;
     private int m_def;
     private CharactorData.ELEM m_elem;
 
     private float m_timer;
+
+    private GameObject m_healProsperityUI;
+    private HealProsperityUI_Script m_healProsperityUIScript;
 
     public float Timer
     {
@@ -37,8 +46,18 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public int Rate
     {
+        get { return m_rate; }
         set { m_rate = value; }
     }
+
+    private bool m_atkFlag;
+
+    public bool AtkFlag
+    {
+        get { return m_atkFlag; }
+    }
+
+    private AttackRecipeManeger_Script m_attackRecipe;
 
     // Start is called before the first frame update
     void Start()
@@ -53,14 +72,24 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_target = null;
 
         m_rate = 0;
+
+        this.m_atkFlag = false;
+
+        m_attackRecipe = FindObjectOfType<AttackRecipeManeger_Script>();
+        m_attackRecipe.CSVLoadFile(this);
+
+        m_healProsperityUI = GameObject.Find("PSlider");
+        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
     }
 
     public void Execute()
     {
+        Debug.Log(m_hp);
         this.CountTimer();
-        if(this.m_rate != 0)
+        m_healProsperityUIScript.NowPoint = m_hp;
+        if (this.m_rate != 0)
         {
-            this.Attack();
+            this.m_atkFlag = true;
         }
     }
 
@@ -76,18 +105,21 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
         this.m_rate = 0;
+        this.m_atkFlag = false;
     }
 
     public void Damage(int damage)
     {
         this.m_hp -= damage;
+        GetComponent<ParticleSystem>().Play();
         if (this.m_hp < 0) this.m_hp = 0;
         this.Dead();
     }
 
     public void Heal()
     {
-        this.m_hp = m_data.Hp / 100 * HEAL_RATE;
+        this.m_hp += this.m_data.Hp / 100 * this.HEAL_RATE;
+        if (this.m_hp > this.m_data.Hp) this.m_hp = this.m_data.Hp;
     }
 
     public CharactorData GetData()

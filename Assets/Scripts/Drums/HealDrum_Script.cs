@@ -25,8 +25,6 @@ public class HealDrum_Script : Drum_Script
     StickLeft_Script m_leftStick;
     // 右スティック
     StickRight_Script m_rightStick;
-    // HPUI
-    private HealProsperityUI_Script m_healProsperityUI;
 
     /// <summary>
     /// デフォルト関数
@@ -46,7 +44,6 @@ public class HealDrum_Script : Drum_Script
 
         m_leftStick = FindObjectOfType<StickLeft_Script>();
         m_rightStick = FindObjectOfType<StickRight_Script>();
-        m_healProsperityUI = FindObjectOfType<HealProsperityUI_Script>();
     }
 
 
@@ -93,14 +90,14 @@ public class HealDrum_Script : Drum_Script
     /// 当たり判定の検出をする
     /// </summary>
     /// <param name="col">衝突した相手</param>
-    public void OnCollisionEnter(Collision col)
+    public void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Stick")
         {
             if (isActive == false)
             {
                 // 回復用のドラムに変更する
-                m_manager.ChangeDrum(/*m_manager.HealDrum*/GetComponent<HealDrum_Script>());
+                m_manager.ChangeDrum(GetComponent<HealDrum_Script>());
             }
 
             // アクティブにする
@@ -113,7 +110,7 @@ public class HealDrum_Script : Drum_Script
     /// 当たり判定から外れた時
     /// </summary>
     /// <param name="col">衝突した相手</param>
-    public void OnCollisionExit(Collision col)
+    public void OnTriggerExit(Collider col)
     {
         if (col.gameObject.tag == "Stick")
         {
@@ -127,9 +124,6 @@ public class HealDrum_Script : Drum_Script
         // 回復ドラムが叩かれたら
         if (m_leftStick.HealHitFlag == true || m_rightStick.HealHitFlag == true)
         {
-            // HPを回復
-            m_healProsperityUI.NowPoint = m_healProsperityUI.NowPoint + 1.0f;
-
             m_leftStick.HealHitFlag = false;
             m_rightStick.HealHitFlag = false;
 

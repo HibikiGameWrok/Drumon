@@ -33,6 +33,8 @@ public class NotesInstanceReceive_Script : MonoBehaviour
     // ノーツプレハブ
     private GameObject m_prefabNotes = null;
 
+    Vector3 notesPos; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class NotesInstanceReceive_Script : MonoBehaviour
         m_actionGauge = GameObject.Find("ActionGauge");
         // オブジェクト内のアタッチされたScriptを取得
         m_actionGaugeScript = m_actionGauge.GetComponent<ActionGauge_Script>();
-
+        notesPos = new Vector3(1.0f, m_actionGaugeScript.HandlePos.y, m_actionGaugeScript.HandlePos.z);
 
         // 子のノーツを管理している親オブジェクトを取得
         m_notesManager = GameObject.Find("NotesManager");
@@ -61,16 +63,19 @@ public class NotesInstanceReceive_Script : MonoBehaviour
     // 引数 : NOTES_TYPE type -- 叩き方
     public void InstantiateNotes(NOTES_TYPE type)
     {
-        // ノーツのプレハブタイプを設定しロードする
-        SetNotesPrefabPath(type);
-        // ノーツの現在の数が設定値に達成していなければ
-        if (m_notesCount < MAX_INS_NOTES)
+        if (m_actionGaugeScript.FinishFlag != true)
         {
-            // ハンドルの位置にプレハブを生成
-            GameObject InsNotes = (GameObject)Instantiate(m_prefabNotes, m_actionGaugeScript.HandlePos, Quaternion.identity);
-            InsNotes.transform.parent = m_notesManager.transform;
-            // ノーツの数を増加
-            m_notesCount++;
+            // ノーツのプレハブタイプを設定しロードする
+            SetNotesPrefabPath(type);
+            // ノーツの現在の数が設定値に達成していなければ
+            if (m_notesCount < MAX_INS_NOTES)
+            {
+                // ハンドルの位置にプレハブを生成
+                GameObject InsNotes = (GameObject)Instantiate(m_prefabNotes, new Vector3((notesPos.x * m_notesCount) - 3.3f, notesPos.y, notesPos.z), Quaternion.identity);
+                InsNotes.transform.parent = m_notesManager.transform;
+                // ノーツの数を増加
+                m_notesCount++;
+            }
         }
     }
 
