@@ -84,7 +84,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Execute()
     {
-        Debug.Log(m_hp);
         this.CountTimer();
         m_healProsperityUIScript.NowPoint = m_hp;
         if (this.m_rate != 0)

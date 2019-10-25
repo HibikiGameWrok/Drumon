@@ -50,8 +50,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
             this.JudgeResult();
-
-            Debug.Log(m_playerCreature.Rate);
         }
     }
 

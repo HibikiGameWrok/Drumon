@@ -1,19 +1,19 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      HealDrum_Scripts.cs						    |
-//				 											|
-//  brief:    回復用のドラムクラスのスクリプト		        |
-//              Heal Drum class  				            |
-//															|
-//  date:	2019.10.9										|
-//															|
-//  author: Renya Fukuyama									|
+//  file:      HealDrum_Scripts.cs						            |
+//				 											                    |
+//  brief:    回復用のドラムクラスのスクリプト		            |
+//              Heal Drum class  				                        |
+//															                    |
+//  date:	2019.10.9										            |
+//															                    |
+//  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
 
 // using
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 // 回復用のドラムクラスの定義
 public class HealDrum_Script : Drum_Script
@@ -25,6 +25,15 @@ public class HealDrum_Script : Drum_Script
     StickLeft_Script m_leftStick;
     // 右スティック
     StickRight_Script m_rightStick;
+    // 回復ドラムを叩いた回数
+    private int m_healCount;
+
+    // 回復ドラムを叩いた回数のプロパティ
+    public int HealCount
+    {
+        get { return m_healCount; }
+        set { m_healCount = value; }
+    }
 
     /// <summary>
     /// デフォルト関数
@@ -44,6 +53,8 @@ public class HealDrum_Script : Drum_Script
 
         m_leftStick = FindObjectOfType<StickLeft_Script>();
         m_rightStick = FindObjectOfType<StickRight_Script>();
+
+        m_healCount = 0;
     }
 
 
@@ -80,8 +91,9 @@ public class HealDrum_Script : Drum_Script
     /// </summary>
     public override bool isActive
     {
+        // 取得する
         get { return m_isActive; }
-
+        // 設定する
         set { m_isActive = value; }
     }
 
@@ -123,10 +135,11 @@ public class HealDrum_Script : Drum_Script
         // 回復ドラムが叩かれたら
         if (m_leftStick.HealHitFlag == true || m_rightStick.HealHitFlag == true)
         {
+            // カウントアップ
+            m_healCount++;
+            
             m_leftStick.HealHitFlag = false;
             m_rightStick.HealHitFlag = false;
-
-            Debug.Log("回復");
         }
     }
 }
