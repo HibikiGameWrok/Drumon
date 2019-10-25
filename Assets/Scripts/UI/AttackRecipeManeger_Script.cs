@@ -25,6 +25,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     private TextAsset csvFile = null;
     // CSVの中身を入れるリスト;
     private List<string[]> csvDatas = new List<string[]>();
+    
 
     // クリーチャーについてのスクリプト保持変数
     private PlayerCreature_Script m_pCreature_Script = null;
@@ -43,6 +44,8 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_notesManager = GameObject.Find("NotesManager");
         // ノーツ管理オブジェクトにアタッチされたScriptを取得
         m_notesManagerScript = m_notesManager.GetComponent<NotesManager_Script>();
+
+        m_pCreature_Script = BattleManager_Script.Get.PlayerCreature;
     }
 
     public void CSVLoadFile(PlayerCreature_Script pCreature)
@@ -51,7 +54,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_sheetCreatureName = pCreature.Name;
 
         // Resouces下のCSV読み込み
-        csvFile = Resources.Load("Excel/"+ m_sheetCreatureName + "CSV") as TextAsset; 
+        csvFile = Resources.Load("CSV/"+ m_sheetCreatureName + "CSV") as TextAsset; 
         StringReader reader = new StringReader(csvFile.text);
 
         // , で分割しつつ一行ずつ読み込み
@@ -76,17 +79,21 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     public void MatchAttackRecipe()
     {
         // マッチしたか比較する為のノーツレシピを保持する変数
-        string mathcAttackNotes = null;
+        string mathcAttackNotes = "00";
         // マッチした場合にレートを一時的に保持する変数
-        string matchRate = null;
+        string matchRate = "00";
 
         for (int i = 1; i < csvDatas.Count; i++)
         {
             mathcAttackNotes = csvDatas[i][(int)Data_Column.ATK_NOTES];
-            if (m_notesManagerScript.SearchInstanceNotes() == int.Parse(mathcAttackNotes))
+            if (System.Convert.ToInt32(mathcAttackNotes) != 0)
             {
-                matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
-                m_pCreature_Script.Rate = int.Parse(matchRate);
+                int attackNum = System.Convert.ToInt32(mathcAttackNotes);
+                if (m_notesManagerScript.SearchInstanceNotes() == attackNum)
+                {
+                    matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                    m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
+                }
             }
         }
     }

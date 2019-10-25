@@ -202,39 +202,45 @@ public class StickLeft_Script : MonoBehaviour
     }
 
     // 当たり判定
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
-        // カウントアップ
-        m_hitNum++;
-
-        // まだ当たっていなければ
-        if (m_hitFlag == false)
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum")
         {
-            // 内側を叩いたら
-            if (collision.gameObject.tag == "AttackInDrum")
+            // カウントアップ
+            m_hitNum++;
+
+            // まだ当たっていなければ
+            if (m_hitFlag == false)
             {
-                // 内側を叩いた判定フラグを立てる
-                m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
+                // 内側を叩いたら
+                if (collision.gameObject.tag == "AttackInDrum")
+                {
+                    // 内側を叩いた判定フラグを立てる
+                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
+                }
+                // 外側を叩いたら
+                else if (collision.gameObject.tag == "AttackOutDrum")
+                {
+                    // 外側を叩いた判定フラグを立てる
+                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
+                }
+                // 回復ドラムを叩いたら
+                else if (collision.gameObject.tag == "HealDrum")
+                {
+                    m_healHitFlag = true;
+                }
             }
-            // 外側を叩いたら
-            else if (collision.gameObject.tag == "AttackOutDrum")
-            {
-                // 外側を叩いた判定フラグを立てる
-                m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
-            }
-            // 回復ドラムを叩いたら
-            else if (collision.gameObject.tag == "HealDrum")
-            {
-                m_healHitFlag = true;
-            }
-        }
+        } 
     }
 
     // 当たり判定を抜けた処理
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collision)
     {
-        // カウントダウン
-        m_hitNum--;
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum")
+        {
+            // カウントダウン
+            m_hitNum--;
+        }
     }
 
     // 同時に叩ける時間のプロパティ

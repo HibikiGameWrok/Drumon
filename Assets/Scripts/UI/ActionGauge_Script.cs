@@ -22,6 +22,10 @@ public class ActionGauge_Script: MonoBehaviour
 
     // 行動ゲージが終わったか
     private bool m_finishFlag = false;
+    public bool FinishFlag
+    {
+        get { return m_finishFlag; }
+    }
 
     // ゲージの進行を可視化する為のハンドル
     private Transform m_childHandle = null;
@@ -31,12 +35,17 @@ public class ActionGauge_Script: MonoBehaviour
         get { return m_childHandle.transform.position; }
     }
 
+    private NotesInstanceReceive_Script m_notesInstanceReceive;
+    private AttackRecipeManeger_Script m_attackRecipe;
 
     // Start is called before the first frame update
     void Start()
     {
         // 子のオブジェクトを取得
         m_childHandle = this.transform.Find("Handle");
+
+        m_notesInstanceReceive = FindObjectOfType<NotesInstanceReceive_Script>();
+        m_attackRecipe = FindObjectOfType<AttackRecipeManeger_Script>();
     }
 
 
@@ -64,6 +73,9 @@ public class ActionGauge_Script: MonoBehaviour
             {
                 // 到達したならば動作終了フラグを立てる
                 m_finishFlag = true;
+
+                m_attackRecipe.MatchAttackRecipe();
+                m_notesInstanceReceive.NotesReset();
             }
         }
     }
