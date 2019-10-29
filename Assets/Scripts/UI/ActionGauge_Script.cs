@@ -12,9 +12,9 @@ using UnityEngine;
 public class ActionGauge_Script: MonoBehaviour
 {
     // ゲージの最小値
-    public const int MIN_GAUGE = 4;
+    public const float MIN_GAUGE = 1.2f;
     // ゲージの最大値
-    public const int MAX_GAUGE = 4;
+    public const float MAX_GAUGE = 1.2f;
 
     // ノーツの速度
     [SerializeField]
