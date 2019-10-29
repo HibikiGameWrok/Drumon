@@ -237,6 +237,26 @@ public class StickLeft_Script : MonoBehaviour
             // 音を鳴らす
             audioSource.PlayOneShot(m_healHitSE);
         }
+        // 選択ドラムを叩いたら
+        else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.SWITCH) == true)
+        {
+            // 内側に当たったら
+            if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
+            {
+                // 振動させる
+                OVRHaptics.LeftChannel.Preempt(m_vibClip);
+                // 音を鳴らす
+                audioSource.PlayOneShot(m_inHitSE);
+            }
+            // 外側に当たったら
+            else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
+            {
+                // 振動させる
+                OVRHaptics.LeftChannel.Preempt(m_vibClip);
+                // 音を鳴らす
+                audioSource.PlayOneShot(m_outHitSE);
+            }
+        }
 
         // 左スティックで叩いたら
         if (m_inHitConnectFlag == true || m_outHitConnectFlag == true)
@@ -256,7 +276,7 @@ public class StickLeft_Script : MonoBehaviour
     // 当たり判定
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum")
         {
             // カウントアップ
             m_hitNum++;
@@ -264,7 +284,7 @@ public class StickLeft_Script : MonoBehaviour
             // まだ当たっていなければ
             if (m_hitFlag == false)
             {
-                // 内側を叩いたら
+                // 攻撃ドラムの内側を叩いたら
                 if (collision.gameObject.tag == "AttackInDrum")
                 {
                     // 内側を叩いた判定フラグを立てる
@@ -272,7 +292,7 @@ public class StickLeft_Script : MonoBehaviour
                     // 攻撃ドラムを叩いた判定フラグを立てる
                     m_hitDrumFlag.OnFlag((uint)HIT_DRUM.ATTACK);
                 }
-                // 外側を叩いたら
+                // 攻撃ドラムの外側を叩いたら
                 else if (collision.gameObject.tag == "AttackOutDrum")
                 {
                     // 外側を叩いた判定フラグを立てる
@@ -287,6 +307,22 @@ public class StickLeft_Script : MonoBehaviour
                     // 回復ドラムを叩いた判定フラグを立てる
                     m_hitDrumFlag.OnFlag((uint)HIT_DRUM.HEAL);
                 }
+                // 選択ドラムの内側を叩いたら
+                else if (collision.gameObject.tag == "SwitchInDrum")
+                {
+                    // 内側を叩いた判定フラグを立てる
+                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
+                    // 選択ドラムを叩いた判定フラグを立てる
+                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
+                }
+                // 選択ドラムの外側を叩いたら
+                else if (collision.gameObject.tag == "SwitchOutDrum")
+                {
+                    // 外側を叩いた判定フラグを立てる
+                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
+                    // 選択ドラムを叩いた判定フラグを立てる
+                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
+                }
             }
         } 
     }
@@ -294,7 +330,7 @@ public class StickLeft_Script : MonoBehaviour
     // 当たり判定を抜けた処理
     void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum")
         {
             // カウントダウン
             m_hitNum--;
