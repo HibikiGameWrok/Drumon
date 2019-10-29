@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8452753081170796204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8452753081170796203}
+  - component: {fileID: 1473419405}
+  m_Layer: 0
+  m_Name: VFX_Peck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8452753081170796203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753081170796204}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1473419405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753081170796204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa6374d6c00e3a4981f9403ffe90cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_direction: 0
+  m_distance: 20
+  m_TimeInterval0: 0.2
+  m_TimeInterval1: 0.4
+  m_TimeInterval2: 0.4
+  AttackStreaks_Prefab: {fileID: 2349968461017896925, guid: 07e1258a8217b6244960a866b9c01ed9,
+    type: 3}
+  WindTunnel_Prefab: {fileID: 6766245955018053965, guid: 12ad64543aa64924ab2ea945055a59f7,
+    type: 3}
+  HitEffect0_Prefab: {fileID: 6334937309950282314, guid: 12508257e816eab4db299b8213233424,
+    type: 3}
+  HitEffect1_Prefab: {fileID: 6559652711695344103, guid: 8c7c446ff65fa404ea0c4c97e4c69ccc,
+    type: 3}
