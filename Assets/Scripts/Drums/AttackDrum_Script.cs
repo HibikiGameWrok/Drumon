@@ -98,17 +98,13 @@ public class AttackDrum_Script : Drum_Script
     /// <param name="other">当たったオブジェクト</param>
     public void OnTriggerEnter(Collider other)
     {
-        // スティックに当たったら処理をする
-        //if (other.gameObject.tag == "Stick")
+        if (isActive == false)
         {
-            if (isActive == false)
-            {
-                // このドラムを現在のドラムにする
-                m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
+            // このドラムを現在のドラムにする
+            m_manager.ChangeDrum(GetComponent<AttackDrum_Script>());
 
-                // アクティブにする
-                isActive = true;
-            }
+            // アクティブにする
+            isActive = true;
         }
     }
 
