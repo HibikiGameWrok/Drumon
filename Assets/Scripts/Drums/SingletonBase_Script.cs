@@ -42,7 +42,7 @@ public abstract class SingletonBase_Script<T> : MonoBehaviour where T : MonoBeha
                     Debug.LogError(t + "をアタッチしているGameObjectはありません。");
                 }
             }
-
+            // インスタンスを返す
             return m_instance;
         }
     }

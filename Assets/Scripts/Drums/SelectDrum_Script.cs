@@ -18,7 +18,7 @@ using UnityEngine;
 public class SelectDrum_Script : Drum_Script
 {
     // メンバ変数
-
+    
     /// <summary>
     /// デフォルト関数
     /// </summary>
