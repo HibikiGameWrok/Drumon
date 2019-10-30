@@ -16,26 +16,33 @@ public class TimeStandard_Script : MonoBehaviour
 
     // 経過時間を保持
     private float m_nowTimer = 0.0f;
-
-    // 最大カウント値
-    [SerializeField]
-    private float m_maxTimer = 10.0f;
     // タイマーを取得するプロパティ
     public float NowTimer
     {
         get { return m_nowTimer; }
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    // 最大カウント値
+    [SerializeField]
+    private float m_maxTimer = 10.0f;
+    // 最大値を設定するプロパティ
+    public float MaxTimer
     {
+        set { m_maxTimer = value; }
+    }
 
+    // 停止フラグ
+    private bool m_stopFlag = false;
+    public bool StopFlag
+    {
+        get { return m_stopFlag;  }
+        set { m_stopFlag = value; }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if((TimerMax() != true) || (m_stopFlag != true))
         // タイマーを更新
         m_nowTimer += Time.deltaTime;
     }
@@ -45,7 +52,7 @@ public class TimeStandard_Script : MonoBehaviour
     {
         if (m_nowTimer >= m_maxTimer)
         {
-            return true;
+            return true; // 最大値に達した
         }
         return false;
     }
