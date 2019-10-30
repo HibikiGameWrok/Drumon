@@ -69,7 +69,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_switchDrum.Initialize(this);
 
         // 現在のドラムを攻撃用のドラムにする
-        m_currentDrum = m_attackDrum;
+        m_currentDrum = m_switchDrum;
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
 
@@ -139,6 +139,11 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 if (result == true)
                 {
                     // 継続する
+
+                    // UIの表示
+                    m_switchDrum.GetComponent<SwitchDrum_Script>().OpenUI();
+                    // UIの非表示
+                    m_switchDrum.GetComponent<SwitchDrum_Script>().CloseUI();
                 }
                 else
                 {

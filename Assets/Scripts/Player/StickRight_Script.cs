@@ -236,6 +236,22 @@ public class StickRight_Script : MonoBehaviour
                 OVRHaptics.LeftChannel.Preempt(m_vibClip);
                 // 音を鳴らす
                 audioSource.PlayOneShot(m_inHitSE);
+
+                // UIが表示されていなければ
+                if (m_leftStick.OpenUIFlag == false)
+                {
+                    // UIの表示フラグを立てる
+                    m_leftStick.OpenUIFlag = true;
+                }
+                // UIが表示されていたら
+                else
+                {
+                    if (m_leftStick.SelectCount == 6)
+                    {
+                        // UIの表示フラグを伏せる
+                        m_leftStick.OpenUIFlag = false;
+                    }
+                }
             }
             // 外側に当たったら
             else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
@@ -244,6 +260,25 @@ public class StickRight_Script : MonoBehaviour
                 OVRHaptics.LeftChannel.Preempt(m_vibClip);
                 // 音を鳴らす
                 audioSource.PlayOneShot(m_outHitSE);
+
+                // UIが表示されていなければ
+                if (m_leftStick.OpenUIFlag == false)
+                {
+                    // UIの表示フラグを立てる
+                    m_leftStick.OpenUIFlag = true;
+                }
+                // UIが表示されていたら
+                else
+                {
+                    if (m_leftStick.SelectCount < 6)
+                    {
+                        m_leftStick.SelectCount++;
+                    }
+                    else if (m_leftStick.SelectCount >= 6)
+                    {
+                        m_leftStick.SelectCount = 0;
+                    }
+                }
             }
         }
 
@@ -260,6 +295,8 @@ public class StickRight_Script : MonoBehaviour
         m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
         // 攻撃ドラムを叩いた判定フラグを伏せる
         m_hitDrumFlag.OffFlag((uint)HIT_DRUM.ATTACK);
+        // 選択ドラムを叩いた判定フラグを伏せる
+        m_hitDrumFlag.OffFlag((uint)HIT_DRUM.SWITCH);
     }
 
     // 当たり判定

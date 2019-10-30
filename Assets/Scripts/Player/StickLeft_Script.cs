@@ -89,6 +89,24 @@ public class StickLeft_Script : MonoBehaviour
     // 当たった数
     private int m_hitNum;
 
+    // 選択カーソルの位置
+    private int m_selectCount;
+    // 選択カーソルの位置
+    public int SelectCount
+    {
+        get { return m_selectCount; }
+        set { m_selectCount = value; }
+    }
+
+    // UIの表示フラグ
+    private bool m_openUIFlag;
+    // UIの表示フラグのプロパティ
+    public bool OpenUIFlag
+    {
+        get { return m_openUIFlag; }
+        set { m_openUIFlag = value; }
+    }
+
     // 回復ドラムを叩いたフラグ
     //private bool m_healHitFlag;
     // 回復ドラムを叩いたフラグのプロパティ
@@ -141,6 +159,10 @@ public class StickLeft_Script : MonoBehaviour
         m_hitFlag = false;
 
         m_hitNum = 0;
+
+        m_selectCount = 0;
+
+        m_openUIFlag = false;
 
         //m_healHitFlag = false;
 
@@ -247,6 +269,22 @@ public class StickLeft_Script : MonoBehaviour
                 OVRHaptics.LeftChannel.Preempt(m_vibClip);
                 // 音を鳴らす
                 audioSource.PlayOneShot(m_inHitSE);
+
+                // UIが表示されていなければ
+                if (m_openUIFlag == false)
+                {
+                    // UIの表示フラグを立てる
+                    m_openUIFlag = true;
+                }
+                // UIが表示されていたら
+                else
+                {
+                    if (m_selectCount == 6)
+                    {
+                        // UIの表示フラグを伏せる
+                        m_openUIFlag = false;
+                    }
+                }
             }
             // 外側に当たったら
             else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
@@ -255,6 +293,25 @@ public class StickLeft_Script : MonoBehaviour
                 OVRHaptics.LeftChannel.Preempt(m_vibClip);
                 // 音を鳴らす
                 audioSource.PlayOneShot(m_outHitSE);
+
+                // UIが表示されていなければ
+                if (m_openUIFlag == false)
+                {
+                    // UIの表示フラグを立てる
+                    m_openUIFlag = true;
+                }
+                // UIが表示されていたら
+                else
+                {
+                    if (m_selectCount > 0)
+                    {
+                        m_selectCount--;
+                    }
+                    else if (m_selectCount <= 0)
+                    {
+                        m_selectCount = 6;
+                    }
+                }
             }
         }
 
