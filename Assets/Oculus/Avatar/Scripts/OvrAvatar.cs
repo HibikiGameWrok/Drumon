@@ -177,8 +177,9 @@ public class OvrAvatar : MonoBehaviour
     internal ovrAvatarLookAndFeelVersion FallbackLookAndFeelVersion = ovrAvatarLookAndFeelVersion.One;
 #if AVATAR_INTERNAL
     public AvatarControllerBlend BlendController;
-    public UnityEvent AssetsDoneLoading = new UnityEvent();
 #endif
+    public UnityEngine.Events.UnityEvent AssetsDoneLoading = new UnityEngine.Events.UnityEvent();
+
 
     // Avatar packets
     public class PacketEventArgs : EventArgs
