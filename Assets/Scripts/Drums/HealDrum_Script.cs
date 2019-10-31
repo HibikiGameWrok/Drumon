@@ -14,7 +14,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 // 回復用のドラムクラスの定義
 public class HealDrum_Script : Drum_Script
 {
@@ -22,9 +21,9 @@ public class HealDrum_Script : Drum_Script
     // メンバ変数
 
     // 左スティック
-    StickLeft_Script m_leftStick;
+    private StickLeft_Script m_leftStick;
     // 右スティック
-    StickRight_Script m_rightStick;
+    private StickRight_Script m_rightStick;
     // 回復ドラムを叩いた回数
     private int m_healCount;
 
@@ -133,14 +132,11 @@ public class HealDrum_Script : Drum_Script
     public void Heal()
     {
         // 回復ドラムが叩かれたら
-        //if (m_leftStick.HealHitFlag == true || m_rightStick.HealHitFlag == true)
         if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true)
         {
             // カウントアップ
             m_healCount++;
 
-            //m_leftStick.HealHitFlag = false;
-            //m_rightStick.HealHitFlag = false;
             // 回復ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
             m_rightStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);

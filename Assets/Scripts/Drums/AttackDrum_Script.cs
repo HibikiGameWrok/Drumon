@@ -20,13 +20,13 @@ public class AttackDrum_Script : Drum_Script
 {
     // メンバ変数
 
-    GameObject m_musicalScore;
-    NotesInstanceReceive_Script m_notesInsRec;
+    private GameObject m_musicalScore;
+    private NotesInstanceReceive_Script m_notesInsRec;
 
     // 左スティック
-    StickLeft_Script m_leftStick;
+    private StickLeft_Script m_leftStick;
     // 右スティック
-    StickRight_Script m_rightStick;
+    private StickRight_Script m_rightStick;
 
     /// <summary>
     /// デフォルト関数
@@ -165,7 +165,7 @@ public class AttackDrum_Script : Drum_Script
                 // ノーツ生成
                 m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_IN_HIT);
             }
-            else if (m_leftStick.OutHitConnectFlag == true)
+            if (m_leftStick.OutHitConnectFlag == true)
             {
                 // ノーツ生成
                 m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_OUT_HIT);
@@ -176,7 +176,7 @@ public class AttackDrum_Script : Drum_Script
                 // ノーツ生成
                 m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_IN_HIT);
             }
-            else if (m_rightStick.OutHitConnectFlag == true)
+            if (m_rightStick.OutHitConnectFlag == true)
             {
                 // ノーツ生成
                 m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_OUT_HIT);

@@ -90,12 +90,12 @@ public class StickLeft_Script : MonoBehaviour
     private int m_hitNum;
 
     // 選択カーソルの位置
-    private int m_selectCount;
-    // 選択カーソルの位置
-    public int SelectCount
+    private int m_pickCount;
+    // 選択カーソルの位置のプロパティ
+    public int PickCount
     {
-        get { return m_selectCount; }
-        set { m_selectCount = value; }
+        get { return m_pickCount; }
+        set { m_pickCount = value; }
     }
 
     // UIの表示フラグ
@@ -107,16 +107,16 @@ public class StickLeft_Script : MonoBehaviour
         set { m_openUIFlag = value; }
     }
 
-    // 回復ドラムを叩いたフラグ
-    //private bool m_healHitFlag;
-    // 回復ドラムを叩いたフラグのプロパティ
-    //public bool HealHitFlag
-    //{
-    //    get { return m_healHitFlag; }
-    //    set { m_healHitFlag = value; }
-    //}
+    // モンスターの変更フラグ
+    private bool m_creatureChengeFlag;
+    // モンスターの変更フラグのプロパティ
+    public bool CreatureChengeFlag
+    {
+        get { return m_creatureChengeFlag; }
+        set { m_creatureChengeFlag = value; }
+    }
 
-    AudioSource audioSource;
+    private AudioSource audioSource;
     // 内側を叩いた音
     [SerializeField]
     private AudioClip m_inHitSE;
@@ -160,11 +160,11 @@ public class StickLeft_Script : MonoBehaviour
 
         m_hitNum = 0;
 
-        m_selectCount = 0;
+        m_pickCount = 0;
 
         m_openUIFlag = false;
 
-        //m_healHitFlag = false;
+        m_creatureChengeFlag = false;
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -251,7 +251,6 @@ public class StickLeft_Script : MonoBehaviour
             }
         }
         // 回復ドラムを叩いたら
-        //else if (m_healHitFlag == true)
         else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.HEAL) == true)
         {
             // 振動させる
@@ -279,8 +278,16 @@ public class StickLeft_Script : MonoBehaviour
                 // UIが表示されていたら
                 else
                 {
-                    if (m_selectCount == 6)
+                    // 選択カーソルの位置がBackだったら     
+                    if (m_pickCount == 6)
                     {
+                        // UIの表示フラグを伏せる
+                        m_openUIFlag = false;
+                    }
+                    else
+                    {
+                        // モンスターの変更フラグを立てる
+                        m_creatureChengeFlag = true;
                         // UIの表示フラグを伏せる
                         m_openUIFlag = false;
                     }
@@ -303,13 +310,13 @@ public class StickLeft_Script : MonoBehaviour
                 // UIが表示されていたら
                 else
                 {
-                    if (m_selectCount > 0)
+                    if (m_pickCount > 0)
                     {
-                        m_selectCount--;
+                        m_pickCount--;
                     }
-                    else if (m_selectCount <= 0)
+                    else if (m_pickCount <= 0)
                     {
-                        m_selectCount = 6;
+                        m_pickCount = 6;
                     }
                 }
             }
@@ -360,7 +367,6 @@ public class StickLeft_Script : MonoBehaviour
                 // 回復ドラムを叩いたら
                 else if (collision.gameObject.tag == "HealDrum")
                 {
-                    //m_healHitFlag = true;
                     // 回復ドラムを叩いた判定フラグを立てる
                     m_hitDrumFlag.OnFlag((uint)HIT_DRUM.HEAL);
                 }
