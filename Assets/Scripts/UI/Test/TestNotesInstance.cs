@@ -63,6 +63,9 @@ public class TestNotesInstance : MonoBehaviour
 
             // 親子関係を設定
             m_notesPrefab.transform.parent = this.transform;
+
+            // 親のScaleに合わせてプレハブの大きさを変える
+            m_notesPrefab.transform.localScale = m_notesPrefab.transform.lossyScale * this.transform.localScale.x;
         }
     }
 
@@ -72,6 +75,7 @@ public class TestNotesInstance : MonoBehaviour
     {
         // ResourcesファイルからPrefabデータを設定(末尾の番号によってデータが変わる)
         m_notesPrefab = (GameObject)Resources.Load(NOTES_NAME_PATH + num);
+
         return m_notesPrefab;
     }
 
@@ -79,10 +83,13 @@ public class TestNotesInstance : MonoBehaviour
     // 生成する度にX座標を「＋」方向へずらす処理　(カウント参照)
     private float SetInsPosX(int notesCount)
     {
-        float addValue = 0.237f * notesCount;
+        // 生成する度にずらす
+        float addValue = (0.237f * notesCount) * this.transform.parent.localScale.x;
 
+        // X座標へずらす計算
         m_instancePos.x = this.transform.position.x + addValue;
 
+        // 計算した変数を返す
         return m_instancePos.x;
     }
 
