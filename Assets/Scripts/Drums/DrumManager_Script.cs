@@ -25,12 +25,12 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // 回復用のドラム
     [SerializeField]
     private Drum_Script m_healDrum;
-    // メニューセレクト用のドラム
+    // 選択用のドラム
     [SerializeField]
     private Drum_Script m_switchDrum;
-    // キャプチャ用のドラム
-    //
-    //
+    // 捕獲用のドラム
+    [SerializeField]
+    private Drum_Script m_captureDrum;
 
     // 現在のドラム
     [SerializeField]
@@ -67,6 +67,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_switchDrum = GameObject.FindGameObjectWithTag("SwitchDrum").GetComponent<SwitchDrum_Script>();
         // 初期化する
         m_switchDrum.Initialize(this);
+        // 捕獲用のドラムを生成する
+        m_captureDrum = GameObject.FindGameObjectWithTag("CaptureDrum").GetComponent<CaptureDrum_Script>();
+        // 初期化する
+        m_captureDrum.Initialize(this);
 
         // 現在のドラムを攻撃用のドラムにする
         m_currentDrum = m_attackDrum;
@@ -154,6 +158,19 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
                 }
             }
+            // 捕獲用のドラムの処理
+            else if (m_currentDrum == m_captureDrum)
+            {
+                if (result == true)
+                {
+                    // 継続する
+
+                }
+                else
+                {
+
+                }
+            }
         }
 
         // 行動ゲージが終わったら
@@ -196,6 +213,12 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             // 選択用のドラムを解放する
             m_switchDrum.Dispose();
             m_switchDrum = null;
+        }
+        if (m_captureDrum != null)
+        {
+            // 捕獲用のドラムを解放する
+            m_captureDrum.Dispose();
+            m_captureDrum = null;
         }
     }
 
@@ -258,6 +281,17 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         get
         {
             return m_switchDrum;
+        }
+    }
+
+    /// <summary>
+    /// 選択用のドラムを取得する
+    /// </summary>
+    public Drum_Script CaptureDrum
+    {
+        get
+        {
+            return m_captureDrum;
         }
     }
 }

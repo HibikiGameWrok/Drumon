@@ -30,6 +30,7 @@ public class StickLeft_Script : MonoBehaviour
         ATTACK = (1 << 0),  // 攻撃ドラムを叩いた判定(0001)
         HEAL = (1 << 1),    // 回復ドラムを叩いた判定(0010)
         SWITCH = (1 << 2),  // 選択ドラムを叩いた判定(0100)
+        CAPTURE = (1 << 3)  // 捕獲ドラムを叩いた判定(1000)
     }
 
 
@@ -321,6 +322,14 @@ public class StickLeft_Script : MonoBehaviour
                 }
             }
         }
+        // 捕獲ドラムを叩いたら
+        else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.CAPTURE) == true)
+        {
+            // 振動させる
+            OVRHaptics.LeftChannel.Preempt(m_vibClip);
+            // 音を鳴らす
+            audioSource.PlayOneShot(m_healHitSE);
+        }
 
         // 左スティックで叩いたら
         if (m_inHitConnectFlag == true || m_outHitConnectFlag == true)
@@ -340,7 +349,7 @@ public class StickLeft_Script : MonoBehaviour
     // 当たり判定
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum")
         {
             // カウントアップ
             m_hitNum++;
@@ -386,6 +395,12 @@ public class StickLeft_Script : MonoBehaviour
                     // 選択ドラムを叩いた判定フラグを立てる
                     m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
                 }
+                // 捕獲ドラムを叩いたら
+                else if (collision.gameObject.tag == "CaptureDrum")
+                {
+                    // 捕獲ドラムを叩いた判定フラグを立てる
+                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM.CAPTURE);
+                }
             }
         } 
     }
@@ -393,7 +408,7 @@ public class StickLeft_Script : MonoBehaviour
     // 当たり判定を抜けた処理
     void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum")
         {
             // カウントダウン
             m_hitNum--;
