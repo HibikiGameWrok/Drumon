@@ -10,6 +10,7 @@ public class TestNotesInstance : MonoBehaviour
     // ノーツ生成の最大値
     private const int MAX_NOTES = 8;
 
+    // 生成するノーツの種類
     private enum NOTES_TYPE : int
     {
         NONE = 0,
@@ -17,8 +18,8 @@ public class TestNotesInstance : MonoBehaviour
         DON_NOTE,
         KA_NOTE,
         KAN_NOTE,
+        NOTES_COUNT,
     }
-
 
     // ノーツプレハブを保持
     private GameObject m_notesPrefab = null;
@@ -35,29 +36,34 @@ public class TestNotesInstance : MonoBehaviour
         // 親の座標を基準とする
         m_instancePos = this.transform.position;
 
-        // 全４種分のノーツを４つ生成
-        for (int i = 1; i < 4 + 1; i++)
+        for (int j = 0; j < MAX_NOTES; j++)
         {
-            InstanceNotes(i);
+            // 全４種分のノーツを４つ生成
+            for (int i = 1; i < (int)NOTES_TYPE.NOTES_COUNT; i++)
+            {
+                InstanceNotes(i);
+            }
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     
     // ノーツプレハブを番号によって生成する関数
     public void InstanceNotes(int num)
     {
-        m_notesPrefab = Instantiate(
-            SetLodeNotesPrefab(num),
-            new Vector3(m_instancePos.x, SetInsPositionY(num), m_instancePos.z),
-            Quaternion.identity) as GameObject;
+        // 最大値よりも少なければ
+        if (m_countnNotes < MAX_NOTES)
+        {
+            // プレハブ生成
+            m_notesPrefab = Instantiate(
+                SetLodeNotesPrefab(num),
+                new Vector3(SetInsPosX(m_countnNotes), SetInsPosY(num), m_instancePos.z),
+                Quaternion.identity) as GameObject;
 
-        m_notesPrefab.transform.parent = this.transform;
+            // カウントアップ
+            UPCountNotes();
+
+            // 親子関係を設定
+            m_notesPrefab.transform.parent = this.transform;
+        }
     }
 
     
@@ -70,24 +76,42 @@ public class TestNotesInstance : MonoBehaviour
     }
 
 
-    // ノーツの種類によって生成座標のY座標を設定
-    private float SetInsPositionY(int num)
+    // 生成する度にX座標を「＋」方向へずらす処理　(カウント参照)
+    private float SetInsPosX(int notesCount)
     {
-        float subValue = 0.1f;
-        switch(num)
+        float addValue = 0.237f * notesCount;
+
+        m_instancePos.x = this.transform.position.x + addValue;
+
+        return m_instancePos.x;
+    }
+
+
+    // ノーツの種類によって生成座標のY座標を設定　(ノーツの種類参照)
+    private float SetInsPosY(int notesNum)
+    {
+        // 基準値からY座標を下にずらす為の変数
+        float subValue = 0.092f * this.transform.parent.localScale.y;
+
+        // 叩かれ方によってY座標を変更する
+        switch(notesNum)
         {
+            // 内側を１本のスティックで叩いた時
             case (int)NOTES_TYPE.DO_NOTE:
                 m_instancePos.y = this.transform.position.y;
                 break;
 
+            // 内側を２本のスティックで叩いた時
             case (int)NOTES_TYPE.DON_NOTE:
                 m_instancePos.y = this.transform.position.y - subValue;
                 break;
 
+            // 外側を１本のスティックで叩いた時
             case (int)NOTES_TYPE.KA_NOTE:
                 m_instancePos.y = this.transform.position.y - subValue * 2;
                 break;
 
+            // 外側を２本のスティックで叩いた時
             case (int)NOTES_TYPE.KAN_NOTE:
                 m_instancePos.y = this.transform.position.y - subValue * 3;
                 break;
@@ -98,4 +122,20 @@ public class TestNotesInstance : MonoBehaviour
         return m_instancePos.y;
     }
 
+
+    // ノーツが生成される度にカウントをする処理
+    private void UPCountNotes()
+    {
+        if(m_countnNotes < MAX_NOTES)
+        {
+            m_countnNotes++;
+        }
+    }
+
+
+    // カウントをリセットする
+    public void ResetCount()
+    {
+        m_countnNotes = 0;
+    }
 }
