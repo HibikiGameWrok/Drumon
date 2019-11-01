@@ -42,9 +42,11 @@ public class TimeStandard_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((TimerMax() != true) || (m_stopFlag != true))
-        // タイマーを更新
-        m_nowTimer += Time.deltaTime;
+        if ((TimerMax() != true) || (m_stopFlag != true))
+        {
+            // タイマーを更新
+            m_nowTimer += Time.deltaTime;
+        }
     }
 
     // タイムが設定値まで達した時にフラグを返す関数
@@ -52,7 +54,8 @@ public class TimeStandard_Script : MonoBehaviour
     {
         if (m_nowTimer >= m_maxTimer)
         {
-            return true; // 最大値に達した
+            TimerReset();
+            return true;  // 最大値に達した
         }
         return false;
     }
