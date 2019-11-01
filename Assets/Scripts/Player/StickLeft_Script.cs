@@ -15,7 +15,7 @@ public class StickLeft_Script : MonoBehaviour
     // 同時に叩いた時のバイブの大きさ
     private const int DOUBLE_HIT_VIB_SIZE = 255;
     // 同時に叩ける時間
-    private const int DOUBLE_HIT_TIME = 3;
+    private const int DOUBLE_HIT_TIME = 5;
 
     public enum HIT_PATTERN
     {
