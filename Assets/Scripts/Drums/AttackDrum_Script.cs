@@ -20,13 +20,14 @@ public class AttackDrum_Script : Drum_Script
 {
     // メンバ変数
 
-    GameObject m_musicalScore;
-    NotesInstanceReceive_Script m_notesInsRec;
+    private GameObject m_musicalScore;
+    private Transform m_notesManager;
+    private TestNotesInstance m_notesInsRec;
 
     // 左スティック
-    StickLeft_Script m_leftStick;
+    private StickLeft_Script m_leftStick;
     // 右スティック
-    StickRight_Script m_rightStick;
+    private StickRight_Script m_rightStick;
 
     /// <summary>
     /// デフォルト関数
@@ -45,8 +46,9 @@ public class AttackDrum_Script : Drum_Script
         // 親オブジェクトを入れる
         m_manager = manager;
 
-        m_musicalScore = GameObject.Find("NotesInsetance");
-        m_notesInsRec = m_musicalScore.GetComponent<NotesInstanceReceive_Script>();
+        m_musicalScore = GameObject.Find("MusicScore");
+        m_notesManager = m_musicalScore.transform.Find("NotesManager");
+        m_notesInsRec = m_notesManager.GetComponent<TestNotesInstance>();
 
         m_leftStick = FindObjectOfType<StickLeft_Script>();
         m_rightStick = FindObjectOfType<StickRight_Script>();
@@ -127,7 +129,7 @@ public class AttackDrum_Script : Drum_Script
         if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_IN_HIT) == true)
         {
             // ノーツ生成
-            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_IN_HIT);
+            m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.DON_NOTE);
             // 内側を同時に叩いた判定フラグを伏せる
             m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_IN_HIT);
         }
@@ -135,7 +137,7 @@ public class AttackDrum_Script : Drum_Script
         else if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_OUT_HIT) == true)
         {
             // ノーツ生成
-            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
+            m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.KAN_NOTE);
             // 外側を同時に叩いた判定フラグを伏せる
             m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN.DOUBLE_OUT_HIT);
         }
@@ -144,7 +146,7 @@ public class AttackDrum_Script : Drum_Script
         if (m_leftStick.HitPatternFlag.IsFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_IN_HIT) == true)
         {
             // ノーツ生成
-            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_IN_HIT);
+            m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.DON_NOTE);
             // 内側を同時に叩いた判定フラグを伏せる
             m_leftStick.HitPatternFlag.OffFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_IN_HIT);
         }
@@ -152,7 +154,7 @@ public class AttackDrum_Script : Drum_Script
         else if (m_leftStick.HitPatternFlag.IsFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_OUT_HIT) == true)
         {
             // ノーツ生成
-            m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.DOUBLE_OUT_HIT);
+            m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.KAN_NOTE);
             // 外側を同時に叩いた判定フラグを伏せる
             m_leftStick.HitPatternFlag.OffFlag((uint)StickLeft_Script.HIT_PATTERN.DOUBLE_OUT_HIT);
         }
@@ -163,23 +165,23 @@ public class AttackDrum_Script : Drum_Script
             if (m_leftStick.InHitConnectFlag == true)
             {
                 // ノーツ生成
-                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_IN_HIT);
+                m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.DO_NOTE);
             }
-            else if (m_leftStick.OutHitConnectFlag == true)
+            if (m_leftStick.OutHitConnectFlag == true)
             {
                 // ノーツ生成
-                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_OUT_HIT);
+                m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.KA_NOTE);
             }
 
             if (m_rightStick.InHitConnectFlag == true)
             {
                 // ノーツ生成
-                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_IN_HIT);
+                m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.DO_NOTE);
             }
-            else if (m_rightStick.OutHitConnectFlag == true)
+            if (m_rightStick.OutHitConnectFlag == true)
             {
                 // ノーツ生成
-                m_notesInsRec.InstantiateNotes(NotesInstanceReceive_Script.NOTES_TYPE.ONE_OUT_HIT);
+                m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.KA_NOTE);
             }
 
             // 時間を初期化

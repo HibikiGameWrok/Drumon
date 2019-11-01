@@ -29,6 +29,7 @@ public class StickRight_Script : MonoBehaviour
         ATTACK = (1 << 0),  // 攻撃ドラムを叩いた判定(0001)
         HEAL = (1 << 1),    // 回復ドラムを叩いた判定(0010)
         SWITCH = (1 << 2),  // 選択ドラムを叩いた判定(0100)
+        CAPTURE = (1 << 3)  // 捕獲ドラムを叩いた判定(1000)
     }
 
 
@@ -80,16 +81,7 @@ public class StickRight_Script : MonoBehaviour
     // 当たった数
     private int m_hitNum;
 
-    // 回復ドラムを叩いたフラグ
-    //private bool m_healHitFlag;
-    //// 回復ドラムを叩いたフラグのプロパティ
-    //public bool HealHitFlag
-    //{
-    //    get { return m_healHitFlag; }
-    //    set { m_healHitFlag = value; }
-    //}
-
-    AudioSource audioSource;
+    private AudioSource audioSource;
     // 内側を叩いた音
     [SerializeField]
     private AudioClip m_inHitSE;
@@ -130,8 +122,6 @@ public class StickRight_Script : MonoBehaviour
         m_outHitConnectFlag = false;
         m_hitFlag = false;
         m_hitNum = 0;
-
-        //m_healHitFlag = false;
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -218,7 +208,6 @@ public class StickRight_Script : MonoBehaviour
             }
         }
         // 回復ドラムを叩いたら
-        //else if (m_healHitFlag == true)
         else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.HEAL) == true)
         {
             // 振動させる
@@ -246,8 +235,16 @@ public class StickRight_Script : MonoBehaviour
                 // UIが表示されていたら
                 else
                 {
-                    if (m_leftStick.SelectCount == 6)
+                    // 選択カーソルの位置がBackだったら     
+                    if (m_leftStick.PickCount == 6)
                     {
+                        // UIの表示フラグを伏せる
+                        m_leftStick.OpenUIFlag = false;
+                    }
+                    else
+                    {
+                        // モンスターの変更フラグを立てる
+                        m_leftStick.CreatureChengeFlag = true;
                         // UIの表示フラグを伏せる
                         m_leftStick.OpenUIFlag = false;
                     }
@@ -270,16 +267,27 @@ public class StickRight_Script : MonoBehaviour
                 // UIが表示されていたら
                 else
                 {
-                    if (m_leftStick.SelectCount < 6)
+                    if (m_leftStick.PickCount < 6)
                     {
-                        m_leftStick.SelectCount++;
+                        m_leftStick.PickCount++;
                     }
-                    else if (m_leftStick.SelectCount >= 6)
+                    else if (m_leftStick.PickCount >= 6)
                     {
-                        m_leftStick.SelectCount = 0;
+                        m_leftStick.PickCount = 0;
                     }
                 }
             }
+        }
+        // 捕獲ドラムを叩いたら
+        else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.CAPTURE) == true)
+        {
+            // 振動させる
+            OVRHaptics.LeftChannel.Preempt(m_vibClip);
+            // 音を鳴らす
+            audioSource.PlayOneShot(m_healHitSE);
+
+            // 捕獲ドラムを叩いた判定フラグを伏せる
+            m_hitDrumFlag.OffFlag((uint)HIT_DRUM.CAPTURE);
         }
 
         // 右スティックで叩いたら
@@ -295,14 +303,13 @@ public class StickRight_Script : MonoBehaviour
         m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
         // 攻撃ドラムを叩いた判定フラグを伏せる
         m_hitDrumFlag.OffFlag((uint)HIT_DRUM.ATTACK);
-        // 選択ドラムを叩いた判定フラグを伏せる
-        m_hitDrumFlag.OffFlag((uint)HIT_DRUM.SWITCH);
+
     }
 
     // 当たり判定
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum")
         {
             // カウントアップ
             m_hitNum++;
@@ -329,7 +336,6 @@ public class StickRight_Script : MonoBehaviour
                 // 回復ドラムを叩いたら
                 else if (collision.gameObject.tag == "HealDrum")
                 {
-                    //m_healHitFlag = true;
                     // 回復ドラムを叩いた判定フラグを立てる
                     m_hitDrumFlag.OnFlag((uint)HIT_DRUM.HEAL);
                 }
@@ -349,6 +355,12 @@ public class StickRight_Script : MonoBehaviour
                     // 選択ドラムを叩いた判定フラグを立てる
                     m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
                 }
+                // 捕獲ドラムを叩いたら
+                else if (collision.gameObject.tag == "CaptureDrum")
+                {
+                    // 捕獲ドラムを叩いた判定フラグを立てる
+                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM.CAPTURE);
+                }
             }
         }
     }
@@ -356,7 +368,7 @@ public class StickRight_Script : MonoBehaviour
     // 当たり判定を抜けた処理
     void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum")
         {
             // カウントダウン
             m_hitNum--;

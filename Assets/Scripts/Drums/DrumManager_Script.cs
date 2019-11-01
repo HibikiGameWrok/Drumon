@@ -25,12 +25,12 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // 回復用のドラム
     [SerializeField]
     private Drum_Script m_healDrum;
-    // メニューセレクト用のドラム
+    // 選択用のドラム
     [SerializeField]
     private Drum_Script m_switchDrum;
-    // キャプチャ用のドラム
-    //
-    //
+    // 捕獲用のドラム
+    [SerializeField]
+    private Drum_Script m_captureDrum;
 
     // 現在のドラム
     [SerializeField]
@@ -42,10 +42,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // プレイヤーモンスター
     private PlayerCreature_Script m_playerCreature;
 
-    // 行動ゲージ
-    private GameObject m_actionGauge;
+    // タイマーオブジェクト
+    private GameObject m_timerObject;
     // 行動ゲージが終わったかのフラグ
-    private bool m_actionGaugeFinishFlag;
+    private bool m_gaugeFinishFlag;
 
     /// <summary>
     /// Awake関数
@@ -67,9 +67,13 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_switchDrum = GameObject.FindGameObjectWithTag("SwitchDrum").GetComponent<SwitchDrum_Script>();
         // 初期化する
         m_switchDrum.Initialize(this);
+        // 捕獲用のドラムを生成する
+        m_captureDrum = GameObject.FindGameObjectWithTag("CaptureDrum").GetComponent<CaptureDrum_Script>();
+        // 初期化する
+        m_captureDrum.Initialize(this);
 
         // 現在のドラムを攻撃用のドラムにする
-        m_currentDrum = m_switchDrum;
+        m_currentDrum = m_attackDrum;
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
 
@@ -78,7 +82,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
 
-        m_actionGauge = GameObject.Find("ActionGauge");
+        m_timerObject = GameObject.Find("Timer");
     }
 
     
@@ -95,7 +99,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // プレイヤーモンスターのHPをUIに適用
         m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
         // 行動ゲージが終わったかのフラグの取得
-        m_actionGaugeFinishFlag = m_actionGauge.GetComponent<ActionGauge_Script>().FinishFlag;
+        m_gaugeFinishFlag = m_timerObject.GetComponent<TimeStandard_Script>().TimerMax();
 
         if (m_currentDrum != null)
         {
@@ -144,6 +148,23 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                     m_switchDrum.GetComponent<SwitchDrum_Script>().OpenUI();
                     // UIの非表示
                     m_switchDrum.GetComponent<SwitchDrum_Script>().CloseUI();
+                    // カーソルの移動
+                    m_switchDrum.GetComponent<SwitchDrum_Script>().MoveCursor();
+                    // モンスターの変更
+                    m_switchDrum.GetComponent<SwitchDrum_Script>().ChengeCreature();
+                }
+                else
+                {
+
+                }
+            }
+            // 捕獲用のドラムの処理
+            else if (m_currentDrum == m_captureDrum)
+            {
+                if (result == true)
+                {
+                    // 継続する
+
                 }
                 else
                 {
@@ -153,7 +174,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         }
 
         // 行動ゲージが終わったら
-        if (m_actionGaugeFinishFlag == true)
+        if (m_gaugeFinishFlag == true)
         {
             for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
             {
@@ -192,6 +213,12 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             // 選択用のドラムを解放する
             m_switchDrum.Dispose();
             m_switchDrum = null;
+        }
+        if (m_captureDrum != null)
+        {
+            // 捕獲用のドラムを解放する
+            m_captureDrum.Dispose();
+            m_captureDrum = null;
         }
     }
 
@@ -254,6 +281,17 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         get
         {
             return m_switchDrum;
+        }
+    }
+
+    /// <summary>
+    /// 選択用のドラムを取得する
+    /// </summary>
+    public Drum_Script CaptureDrum
+    {
+        get
+        {
+            return m_captureDrum;
         }
     }
 }
