@@ -285,6 +285,9 @@ public class StickRight_Script : MonoBehaviour
             OVRHaptics.LeftChannel.Preempt(m_vibClip);
             // 音を鳴らす
             audioSource.PlayOneShot(m_healHitSE);
+
+            // 捕獲ドラムを叩いた判定フラグを伏せる
+            m_hitDrumFlag.OffFlag((uint)HIT_DRUM.CAPTURE);
         }
 
         // 右スティックで叩いたら

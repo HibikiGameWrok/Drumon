@@ -42,10 +42,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // プレイヤーモンスター
     private PlayerCreature_Script m_playerCreature;
 
-    // 行動ゲージ
-    private GameObject m_actionGauge;
+    // タイマーオブジェクト
+    private GameObject m_timerObject;
     // 行動ゲージが終わったかのフラグ
-    private bool m_actionGaugeFinishFlag;
+    private bool m_gaugeFinishFlag;
 
     /// <summary>
     /// Awake関数
@@ -82,7 +82,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
 
-        m_actionGauge = GameObject.Find("ActionGauge");
+        m_timerObject = GameObject.Find("Timer");
     }
 
     
@@ -99,7 +99,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // プレイヤーモンスターのHPをUIに適用
         m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
         // 行動ゲージが終わったかのフラグの取得
-        m_actionGaugeFinishFlag = m_actionGauge.GetComponent<ActionGauge_Script>().FinishFlag;
+        m_gaugeFinishFlag = m_timerObject.GetComponent<TimeStandard_Script>().TimerMax();
 
         if (m_currentDrum != null)
         {
@@ -174,7 +174,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         }
 
         // 行動ゲージが終わったら
-        if (m_actionGaugeFinishFlag == true)
+        if (m_gaugeFinishFlag == true)
         {
             for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
             {

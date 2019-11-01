@@ -58,12 +58,14 @@ public class SwitchDrum_Script : Drum_Script
         m_leftStick = FindObjectOfType<StickLeft_Script>();
         m_rightStick = FindObjectOfType<StickRight_Script>();
 
-        m_cursorUIPos = new Vector3(0.7f, 1.3f, 0.5f);
+        m_cursorUIPos = m_backgroundUI.transform.position + new Vector3(0.0f, 0.3f, 0.0f);
 
         // UIを非アクティブにする
         m_backgroundUI.gameObject.SetActive(false);
 
         m_activeUIFlag = false;
+
+       
     }
 
     /// <summary>
