@@ -38,6 +38,9 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     // NotesManagerオブジェクト内にアタッチされているScriptを取得
     private NotesManager_Script m_notesManagerScript = null;
 
+    // TestNotesInstanceスクリプトを取得
+    private TestNotesInstance m_testNotesInstance = null;
+
     void Start()
     {
         // ノーツ管理オブジェクトを取得
@@ -48,7 +51,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
             // ノーツ管理オブジェクトにアタッチされたScriptを取得
             m_notesManagerScript = m_notesManager.GetComponent<NotesManager_Script>();
         }
-
+        m_testNotesInstance = m_notesManager.GetComponent<TestNotesInstance>();
         m_pCreature_Script = BattleManager_Script.Get.PlayerCreature;
     }
 
@@ -90,10 +93,11 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         for (int i = 1; i < csvDatas.Count; i++)
         {
             mathcAttackNotes = csvDatas[i][(int)Data_Column.ATK_NOTES];
+
             if (System.Convert.ToInt32(mathcAttackNotes) != 0)
             {
                 int attackNum = System.Convert.ToInt32(mathcAttackNotes);
-                if (m_notesManagerScript.SearchInstanceNotes() == attackNum)
+                if (m_testNotesInstance.SearchInstanceNotes() == attackNum)
                 {
                     matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
                     m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
