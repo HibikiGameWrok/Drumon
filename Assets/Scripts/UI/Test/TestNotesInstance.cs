@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class TestNotesInstance : MonoBehaviour
@@ -24,28 +25,41 @@ public class TestNotesInstance : MonoBehaviour
     // ノーツプレハブを保持
     private GameObject m_notesPrefab = null;
 
+    // タイムオブジェクトを保持
+    private GameObject m_timer = null;
+    // タイムScriptを取得
+    private TimeStandard_Script m_timeStandard_Script = null;
+
+    // 子のノーツプレハブから数字を保持する変数
+    private string m_childNumSequence = "00";
+ 
     // 生成された数を保持
     private int m_countnNotes = 0; 
 
     // 生成座標を保持
     private Vector3 m_instancePos;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        m_timer = GameObject.Find("Timer");
+        m_timeStandard_Script = m_timer.GetComponent<TimeStandard_Script>();
+
         // 親の座標を基準とする
         m_instancePos = this.transform.position;
-
-        //for (int j = 0; j < MAX_NOTES; j++)
-        //{
-        //    // 全４種分のノーツを４つ生成
-        //    for (int i = 1; i < (int)NOTES_TYPE.NOTES_COUNT; i++)
-        //    {
-        //        InstanceNotes(i);
-        //    }
-        //}
     }
-    
+
+    void Update()
+    {
+        if(m_timeStandard_Script.TimerMax() == true)
+        {
+            ResetNotes();
+            ResetCount();
+        }
+        InputTest();
+    }
+
     // ノーツプレハブを番号によって生成する関数
     public void InstanceNotes(int num)
     {
@@ -139,10 +153,55 @@ public class TestNotesInstance : MonoBehaviour
         }
     }
 
+    // 生成されたノーツの末尾の番号を数列に変換
+    public int SearchInstanceNotes()
+    {
+        m_childNumSequence = "00000000";
+        // 子を全て検索
+        foreach (Transform child in transform)
+        {
+            // 生成された子の順で名前の数字の部分だけを文字列に代入
+            m_childNumSequence += Regex.Replace(child.ToString(), @"[^0-9]", "");
+        }
+        int attackNum = System.Convert.ToInt32(m_childNumSequence);
+
+        // 生成された子の順で並べられた数字の文字列を返す(1~4で最大8桁)
+        return attackNum;
+    }
+
 
     // カウントをリセットする
     public void ResetCount()
     {
         m_countnNotes = 0;
+    }
+
+    // 生成したノーツをリセットする
+    public void ResetNotes()
+    { 
+        foreach(Transform n in this.gameObject.transform)
+        {
+            GameObject.Destroy(n.gameObject);
+        }
+    }
+
+    private void InputTest()
+    {
+        if (Input.GetKeyDown(KeyCode.A)) 
+        {
+            InstanceNotes(1);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            InstanceNotes(2);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            InstanceNotes(3);
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            InstanceNotes(4);
+        }
     }
 }

@@ -32,8 +32,11 @@ public class TestMoveTimeUI_Script : MonoBehaviour
         m_sliderCompnent = m_childSlider.GetComponent<Slider>();
 
         /*  後で消す                                                                     */
-        m_timerObject = GameObject.Find("Timer");
-        m_timeStandardScript = m_timerObject.GetComponent<TimeStandard_Script>();
+        if (GameObject.Find("Timer") != null)
+        {
+            m_timerObject = GameObject.Find("Timer");
+            m_timeStandardScript = m_timerObject.GetComponent<TimeStandard_Script>();
+        }
         /*                                                                      */
 
         m_sliderCompnent.minValue = m_minValue;
@@ -45,7 +48,10 @@ public class TestMoveTimeUI_Script : MonoBehaviour
     void Update()
     {
         /*   後で消す                                       */
-        m_sliderCompnent.value = m_timeStandardScript.NowTimer;
+        if (m_timerObject != null)
+        {
+            m_sliderCompnent.value = m_timeStandardScript.NowTimer;
+        }
         /*                                                  */
     }
 
