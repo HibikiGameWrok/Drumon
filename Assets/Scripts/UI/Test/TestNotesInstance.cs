@@ -30,6 +30,10 @@ public class TestNotesInstance : MonoBehaviour
     // タイムScriptを取得
     private TimeStandard_Script m_timeStandard_Script = null;
 
+    // 仮でレシピマネージャーを取得(後で消す)
+    private GameObject m_attackRecipeManager = null;
+    private AttackRecipeManeger_Script m_attackRecipeManagerScript = null;
+
     // 子のノーツプレハブから数字を保持する変数
     private string m_childNumSequence = "00";
  
@@ -46,6 +50,10 @@ public class TestNotesInstance : MonoBehaviour
         m_timer = GameObject.Find("Timer");
         m_timeStandard_Script = m_timer.GetComponent<TimeStandard_Script>();
 
+        // 後で消す
+        m_attackRecipeManager = GameObject.Find("AttackRecipeManeger");
+        m_attackRecipeManagerScript = m_attackRecipeManager.GetComponent<AttackRecipeManeger_Script>();
+
         // 親の座標を基準とする
         m_instancePos = this.transform.position;
     }
@@ -54,6 +62,7 @@ public class TestNotesInstance : MonoBehaviour
     {
         if(m_timeStandard_Script.TimerMax() == true)
         {
+            m_attackRecipeManagerScript.MatchAttackRecipe();
             ResetNotes();
             ResetCount();
         }
