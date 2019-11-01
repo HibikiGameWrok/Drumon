@@ -11,7 +11,7 @@ public class TestNotesInstance : MonoBehaviour
     private const int MAX_NOTES = 8;
 
     // 生成するノーツの種類
-    private enum NOTES_TYPE : int
+    public enum NOTES_TYPE : int
     {
         NONE = 0,
         DO_NOTE,
@@ -36,14 +36,14 @@ public class TestNotesInstance : MonoBehaviour
         // 親の座標を基準とする
         m_instancePos = this.transform.position;
 
-        for (int j = 0; j < MAX_NOTES; j++)
-        {
-            // 全４種分のノーツを４つ生成
-            for (int i = 1; i < (int)NOTES_TYPE.NOTES_COUNT; i++)
-            {
-                InstanceNotes(i);
-            }
-        }
+        //for (int j = 0; j < MAX_NOTES; j++)
+        //{
+        //    // 全４種分のノーツを４つ生成
+        //    for (int i = 1; i < (int)NOTES_TYPE.NOTES_COUNT; i++)
+        //    {
+        //        InstanceNotes(i);
+        //    }
+        //}
     }
     
     // ノーツプレハブを番号によって生成する関数
