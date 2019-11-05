@@ -41,6 +41,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     private HealProsperityUI_Script m_healProsperityUIScript;
     // プレイヤーモンスター
     private PlayerCreature_Script m_playerCreature;
+    private EnemyCreature_Script m_enemyCreature;
 
     // タイマーオブジェクト
     private GameObject m_timerObject;
@@ -60,9 +61,9 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // 初期化する
         m_attackDrum.Initialize(this);
         // 回復用のドラムを生成する
-        m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
+        //m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
         // 初期化する
-        m_healDrum.Initialize(this);
+        //m_healDrum.Initialize(this);
         // 選択用のドラムを生成する
         m_switchDrum = GameObject.FindGameObjectWithTag("SwitchDrum").GetComponent<SwitchDrum_Script>();
         // 初期化する
@@ -81,6 +82,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
 
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
+        m_enemyCreature = BattleManager_Script.Get.EnemyCreature;
 
         m_timerObject = GameObject.Find("Timer");
     }
@@ -164,6 +166,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 if (result == true)
                 {
                     // 継続する
+                    m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
 
                 }
                 else
@@ -183,6 +186,12 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             }
             // 回復ドラムを叩いた回数を初期化
             m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
+
+            if(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
+            {
+                m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
+                m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount = 0;
+            }
         }
 
 #if UNITY_EDITOR

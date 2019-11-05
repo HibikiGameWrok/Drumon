@@ -15,6 +15,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     [SerializeField]
     private EnemyCreature_Script m_enemyCreature;
 
+    public EnemyCreature_Script EnemyCreature
+    {
+        get { return m_enemyCreature; }
+    }
+
     private ICreature_Script m_nowMove;
     private ICreature_Script m_nextMove;
 
