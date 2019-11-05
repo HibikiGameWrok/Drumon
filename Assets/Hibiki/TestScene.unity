@@ -1378,7 +1378,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: 14cb75fda6db67341b1bf63a0835c22b, type: 2}
+      objectReference: {fileID: 2100000, guid: d55343bd239c8be4e8a715d471522c49, type: 2}
     - target: {fileID: 6159839242255629834, guid: 5139b32f89c47e643b89c8571aee707b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1588,7 +1588,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eaa0162c8f03c6c4996e91bd15449417, type: 2}
+  - {fileID: 2100000, guid: e0f75767f5116084196af46207ae1f55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2014,6 +2014,18 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1857142813, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857142813, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 494664169, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2570164037610894769, guid: 37bce05ab15bb374f94b8db5cf54334b,
         type: 3}
       propertyPath: m_Camera
@@ -2025,18 +2037,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 267645735, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1857142813, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1857142813, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 494664169, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 494664170, guid: 37bce05ab15bb374f94b8db5cf54334b, type: 3}
@@ -2331,6 +2331,18 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1599349435, guid: deca0e79b79487741a826084af26fb14, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 751048487, guid: deca0e79b79487741a826084af26fb14, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 751048487, guid: deca0e79b79487741a826084af26fb14, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5071093323800986882, guid: deca0e79b79487741a826084af26fb14,
         type: 3}
       propertyPath: m_Camera
@@ -2344,21 +2356,9 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 751048487, guid: deca0e79b79487741a826084af26fb14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 751048487, guid: deca0e79b79487741a826084af26fb14, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1599349434, guid: deca0e79b79487741a826084af26fb14, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1599349435, guid: deca0e79b79487741a826084af26fb14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1599349436, guid: deca0e79b79487741a826084af26fb14, type: 3}
       propertyPath: m_Enabled

@@ -11,6 +11,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Assertions;
+using UnityEngine.XR;
 
 /// <summary>
 /// When this component is enabled, the player will be able to aim and trigger teleport behavior using Avatar Touch controllers.
@@ -22,11 +23,13 @@ public class TeleportInputHandlerAvatarTouch : TeleportInputHandlerHMD
 	/// </summary>
 	[Tooltip("This needs to be assigned a reference to the OvrAvatar for the local player. The code will search for an avatar if this is null, but it's suggested to assign it in the editor.")]
 	public OvrAvatar Avatar;
+    public OvrAvatarTouchController leftcontroller;
+    public OvrAvatarTouchController rightcontroller;
 
-	/// <summary>
-	/// The avatar touch input handler supports three different modes for controlling teleports.
-	/// </summary>
-	public enum InputModes
+    /// <summary>
+    /// The avatar touch input handler supports three different modes for controlling teleports.
+    /// </summary>
+    public enum InputModes
 	{
 		/// <summary>
 		/// Touching a capacitive button will start the aiming, and pressing that button will trigger the teleport.
@@ -274,7 +277,9 @@ public class TeleportInputHandlerAvatarTouch : TeleportInputHandlerHMD
 		{
 			sourceController = InitiatingController;
 		}
-		Transform t = (sourceController == OVRInput.Controller.LTouch) ? Avatar.ControllerLeft.transform : Avatar.ControllerRight.transform;
-		aimRay = new Ray(t.position, t.forward);
+
+        //Transform t = (sourceController == OVRInput.Controller.LTouch) ? Avatar.ControllerLeft.transform : Avatar.ControllerRight.transform;
+        Transform t = (sourceController == OVRInput.Controller.LTouch) ? leftcontroller.transform : rightcontroller.transform;
+        aimRay = new Ray(t.position, t.forward);
 	}
 }

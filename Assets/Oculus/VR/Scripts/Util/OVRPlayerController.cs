@@ -433,44 +433,44 @@ public class OVRPlayerController : MonoBehaviour
 				euler.y += Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
 #endif
 
-			if (SnapRotation)
-			{
-				if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) ||
-					(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
-				{
-					if (ReadyToSnapTurn)
-					{
-						euler.y -= RotationRatchet;
-						ReadyToSnapTurn = false;
-					}
-				}
-				else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
-					(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
-				{
-					if (ReadyToSnapTurn)
-					{
-						euler.y += RotationRatchet;
-						ReadyToSnapTurn = false;
-					}
-				}
-				else
-				{
-					ReadyToSnapTurn = true;
-				}
-			}
-			else
-			{
-				Vector2 secondaryAxis = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
-				if (RotationEitherThumbstick)
-				{
-					Vector2 altSecondaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-					if (secondaryAxis.sqrMagnitude < altSecondaryAxis.sqrMagnitude)
-					{
-						secondaryAxis = altSecondaryAxis;
-					}
-				}
-				euler.y += secondaryAxis.x * rotateInfluence;
-			}
+			//if (SnapRotation)
+			//{
+			//	if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) ||
+			//		(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
+			//	{
+			//		if (ReadyToSnapTurn)
+			//		{
+			//			euler.y -= RotationRatchet;
+			//			ReadyToSnapTurn = false;
+			//		}
+			//	}
+			//	else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
+			//		(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
+			//	{
+			//		if (ReadyToSnapTurn)
+			//		{
+			//			euler.y += RotationRatchet;
+			//			ReadyToSnapTurn = false;
+			//		}
+			//	}
+			//	else
+			//	{
+			//		ReadyToSnapTurn = true;
+			//	}
+			//}
+			//else
+			//{
+			//	Vector2 secondaryAxis = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+			//	if (RotationEitherThumbstick)
+			//	{
+			//		Vector2 altSecondaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+			//		if (secondaryAxis.sqrMagnitude < altSecondaryAxis.sqrMagnitude)
+			//		{
+			//			secondaryAxis = altSecondaryAxis;
+			//		}
+			//	}
+			//	euler.y += secondaryAxis.x * rotateInfluence;
+			//}
 
 			transform.rotation = Quaternion.Euler(euler);
 		}

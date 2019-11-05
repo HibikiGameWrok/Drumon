@@ -126,6 +126,19 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         return this.m_data;
     }
 
+    public void ChangeData(CharactorData data)
+    {
+        if(m_data != data)
+        {
+            m_data = data;
+
+            this.m_hp = m_data.Hp;
+            this.m_atk = m_data.Atk;
+            this.m_def = m_data.Def;
+            this.m_elem = m_data.Elem;
+        }
+    }
+
     public void SetTarget(ICreature_Script target)
     {
         this.m_target = target;
