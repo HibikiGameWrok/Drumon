@@ -14,7 +14,7 @@ public class StickRight_Script : MonoBehaviour
     // 同時に叩いた時のバイブの大きさ
     private const int DOUBLE_HIT_VIB_SIZE = 255;
     // 同時に叩ける時間
-    private const int DOUBLE_HIT_TIME = 3;
+    private const int DOUBLE_HIT_TIME = 5;
 
     public enum HIT_PATTERN
     {
@@ -222,7 +222,7 @@ public class StickRight_Script : MonoBehaviour
             if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
             {
                 // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_vibClip);
+                OVRHaptics.RightChannel.Preempt(m_vibClip);
                 // 音を鳴らす
                 audioSource.PlayOneShot(m_inHitSE);
 
@@ -254,7 +254,7 @@ public class StickRight_Script : MonoBehaviour
             else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
             {
                 // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_vibClip);
+                OVRHaptics.RightChannel.Preempt(m_vibClip);
                 // 音を鳴らす
                 audioSource.PlayOneShot(m_outHitSE);
 
@@ -282,7 +282,7 @@ public class StickRight_Script : MonoBehaviour
         else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.CAPTURE) == true)
         {
             // 振動させる
-            OVRHaptics.LeftChannel.Preempt(m_vibClip);
+            OVRHaptics.RightChannel.Preempt(m_vibClip);
             // 音を鳴らす
             audioSource.PlayOneShot(m_healHitSE);
 
