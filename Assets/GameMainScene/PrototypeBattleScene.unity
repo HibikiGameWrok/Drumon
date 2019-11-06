@@ -513,15 +513,15 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1955073728605068490, guid: 9872cb8c88e79c144bfed5e52a47e699,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3407333599871506694, guid: 9872cb8c88e79c144bfed5e52a47e699,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1955073728605068490, guid: 9872cb8c88e79c144bfed5e52a47e699,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9872cb8c88e79c144bfed5e52a47e699, type: 3}
@@ -15145,7 +15145,7 @@ PrefabInstance:
     - target: {fileID: 6281927354704233949, guid: 5d377e9f6aab27a4aa64866e6f527234,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: CaptureDrum
       objectReference: {fileID: 0}
     - target: {fileID: 6783177930714429176, guid: 5d377e9f6aab27a4aa64866e6f527234,
         type: 3}
@@ -15280,7 +15280,7 @@ PrefabInstance:
     - target: {fileID: 6783177931031778274, guid: 5d377e9f6aab27a4aa64866e6f527234,
         type: 3}
       propertyPath: m_TagString
-      value: CaptureDrum
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d377e9f6aab27a4aa64866e6f527234, type: 3}
@@ -15356,7 +15356,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167205789}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0efad9dfbbecaf142b1a0e17dd4b7d60, type: 3}
   m_Name: 
@@ -17314,7 +17314,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828686870}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0efad9dfbbecaf142b1a0e17dd4b7d60, type: 3}
   m_Name: 
