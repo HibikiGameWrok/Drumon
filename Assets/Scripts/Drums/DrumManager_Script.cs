@@ -179,13 +179,17 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // 行動ゲージが終わったら
         if (m_gaugeFinishFlag == true)
         {
-            for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
+
+            if (m_healDrum != null)
             {
-                // HPを回復
-                m_playerCreature.Heal();
+                for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
+                {
+                    // HPを回復
+                    m_playerCreature.Heal();
+                }
+                // 回復ドラムを叩いた回数を初期化
+                m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
             }
-            // 回復ドラムを叩いた回数を初期化
-            m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
 
             if(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
