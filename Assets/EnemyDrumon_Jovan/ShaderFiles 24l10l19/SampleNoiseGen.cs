@@ -8,29 +8,29 @@ using System.Collections;
 public class SampleNoiseGen : MonoBehaviour
 {
     // Width and height of the texture in pixels.
-    public int pixWidth;
-    public int pixHeight;
+    public int pixWidth = 0;
+    public int pixHeight = 0;
 
     // The origin of the sampled area in the plane.
-    public float xOrg;
-    public float yOrg;
+    public float xOrg = 0.0f;
+    public float yOrg = 0.0f;
 
     // The number of cycles of the basic noise pattern that are repeated
     // over the width and height of the texture.
-    public float scale = 1.0F;
+    public float scale = 1.0f;
 
     [SerializeField]
-    private Texture2D noiseTex0;
-    private Texture2D noiseTex1;
-    private Vector2 noiseOffset0;
-    private Vector2 noiseOffset1;
+    private Texture2D noiseTex0 = null;
+    private Texture2D noiseTex1 = null;
+    private Vector2 noiseOffset0 = Vector2.zero;
+    private Vector2 noiseOffset1 = Vector2.zero;
 
     private Color[] pix;
 
     private float timer = 0;
 
     [SerializeField]
-    private Renderer targetrenderer;
+    private Renderer targetrenderer = null;
 
     void Start()
     {
