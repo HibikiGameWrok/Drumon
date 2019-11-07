@@ -17,7 +17,7 @@ public class CharactorData : ScriptableObject
     };
 
     [SerializeField]
-    private int hp;
+    private int hp = 0;
 
     public int Hp
     {
@@ -25,7 +25,7 @@ public class CharactorData : ScriptableObject
     }
 
     [SerializeField]
-    private int atk;
+    private int atk = 0;
 
     public int Atk
     {
@@ -33,7 +33,7 @@ public class CharactorData : ScriptableObject
     }
 
     [SerializeField]
-    private int def;
+    private int def = 0;
 
     public int Def
     {
@@ -50,7 +50,7 @@ public class CharactorData : ScriptableObject
     //}
 
     [SerializeField]
-    private ELEM elem;
+    private ELEM elem = 0;
 
     public ELEM Elem
     {

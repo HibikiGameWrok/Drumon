@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 {
     [SerializeField]
-    private CharactorData m_data;
+    private CharactorData m_data = null;
 
     private int m_hp;
 
