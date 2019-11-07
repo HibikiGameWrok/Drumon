@@ -54,7 +54,6 @@ public class TimeStandard_Script : MonoBehaviour
     {
         if (m_nowTimer >= m_maxTimer)
         {
-            TimerReset();
             return true;  // 最大値に達した
         }
         return false;

@@ -235,19 +235,24 @@ public class StickRight_Script : MonoBehaviour
                 // UIが表示されていたら
                 else
                 {
+                    // モンスターの変更フラグを立てる
+                    m_leftStick.CreatureChengeFlag = true;
+                    // UIの表示フラグを伏せる
+                    m_leftStick.OpenUIFlag = false;
+
                     // 選択カーソルの位置がBackだったら     
-                    if (m_leftStick.PickCount == 6)
-                    {
-                        // UIの表示フラグを伏せる
-                        m_leftStick.OpenUIFlag = false;
-                    }
-                    else
-                    {
-                        // モンスターの変更フラグを立てる
-                        m_leftStick.CreatureChengeFlag = true;
-                        // UIの表示フラグを伏せる
-                        m_leftStick.OpenUIFlag = false;
-                    }
+                    //if (m_leftStick.PickCount == 6)
+                    //{
+                    //    // UIの表示フラグを伏せる
+                    //    m_leftStick.OpenUIFlag = false;
+                    //}
+                    //else
+                    //{
+                    //    // モンスターの変更フラグを立てる
+                    //    m_leftStick.CreatureChengeFlag = true;
+                    //    // UIの表示フラグを伏せる
+                    //    m_leftStick.OpenUIFlag = false;
+                    //}
                 }
             }
             // 外側に当たったら
@@ -267,14 +272,14 @@ public class StickRight_Script : MonoBehaviour
                 // UIが表示されていたら
                 else
                 {
-                    if (m_leftStick.PickCount < 6)
-                    {
-                        m_leftStick.PickCount++;
-                    }
-                    else if (m_leftStick.PickCount >= 6)
-                    {
-                        m_leftStick.PickCount = 0;
-                    }
+                    //if (m_leftStick.PickCount < 6)
+                    //{
+                    //    m_leftStick.PickCount++;
+                    //}
+                    //else if (m_leftStick.PickCount >= 6)
+                    //{
+                    //    m_leftStick.PickCount = 0;
+                    //}
                 }
             }
         }
@@ -287,7 +292,7 @@ public class StickRight_Script : MonoBehaviour
             audioSource.PlayOneShot(m_healHitSE);
 
             // 捕獲ドラムを叩いた判定フラグを伏せる
-            m_hitDrumFlag.OffFlag((uint)HIT_DRUM.CAPTURE);
+            //m_hitDrumFlag.OffFlag((uint)HIT_DRUM.CAPTURE);
         }
 
         // 右スティックで叩いたら
@@ -303,7 +308,6 @@ public class StickRight_Script : MonoBehaviour
         m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
         // 攻撃ドラムを叩いた判定フラグを伏せる
         m_hitDrumFlag.OffFlag((uint)HIT_DRUM.ATTACK);
-
     }
 
     // 当たり判定
