@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class SwitchDrum_Script : Drum_Script
 {
-    private GameObject m_selectUIC;
-    private Transform m_backgroundUI;
-    private Transform m_cursorUI;
-    private Transform[] m_text;
-    private string[] m_creatureName;
+    //private GameObject m_selectUIC;
+    //private Transform m_backgroundUI;
+    //private Transform m_cursorUI;
+    //private Transform[] m_text;
+    //private string[] m_creatureName;
 
     [SerializeField]
     private GameObject m_playerCreature;
@@ -23,6 +23,9 @@ public class SwitchDrum_Script : Drum_Script
 
     // UIのアクティブフラグ
     private bool m_activeUIFlag;
+
+    private GameObject m_switchUIC;
+    private Transform m_image;
 
     // Start is called before the first frame update
     void Start()
@@ -39,33 +42,36 @@ public class SwitchDrum_Script : Drum_Script
         // 親オブジェクトを入れる
         m_manager = manager;
 
-        m_selectUIC = GameObject.Find("SelectUI Canvas");
-        m_backgroundUI = m_selectUIC.transform.Find("BackgroundUI");
-        m_cursorUI = m_backgroundUI.transform.Find("CursorUI");
-        m_text = new Transform[6];
-        m_creatureName = new string[6];
+        //m_selectUIC = GameObject.Find("SelectUI Canvas");
+        //m_backgroundUI = m_selectUIC.transform.Find("BackgroundUI");
+        //m_cursorUI = m_backgroundUI.transform.Find("CursorUI");
+        //m_text = new Transform[6];
+        //m_creatureName = new string[6];
 
-        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
-        {
-            m_text[i] = m_backgroundUI.transform.Find("Text" + (i + 1));
+        //for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+        //{
+        //    m_text[i] = m_backgroundUI.transform.Find("Text" + (i + 1));
 
-            if (CreatureList_Script.Get.List.DataList[i] != null)
-            {
-                m_creatureName[i] = CreatureList_Script.Get.List.DataList[i].name;
-            }
-        }
+        //    if (CreatureList_Script.Get.List.DataList[i] != null)
+        //    {
+        //        m_creatureName[i] = CreatureList_Script.Get.List.DataList[i].name;
+        //    }
+        //}
 
         m_leftStick = FindObjectOfType<StickLeft_Script>();
         m_rightStick = FindObjectOfType<StickRight_Script>();
 
-        m_cursorUIPos = m_backgroundUI.transform.position + new Vector3(0.0f, 0.3f, 0.0f);
+        //m_cursorUIPos = m_backgroundUI.transform.position + new Vector3(0.0f, 0.3f, 0.0f);
+
+        m_switchUIC = GameObject.Find("SwitchUI Canvas");
+        m_image = m_switchUIC.transform.Find("SwitchUI");
+        // UIを非アクティブにする
+        m_image.gameObject.SetActive(false);
 
         // UIを非アクティブにする
-        m_backgroundUI.gameObject.SetActive(false);
+        //m_backgroundUI.gameObject.SetActive(false);
 
         m_activeUIFlag = false;
-
-       
     }
 
     /// <summary>
@@ -140,18 +146,19 @@ public class SwitchDrum_Script : Drum_Script
         if (m_leftStick.OpenUIFlag == true && m_activeUIFlag == false)
         {
             // アクティブにする
-            m_backgroundUI.gameObject.SetActive(true);
+            //m_backgroundUI.gameObject.SetActive(true);
+            m_image.gameObject.SetActive(true);
             m_activeUIFlag = true;
 
-            for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
-            {
-                if (m_creatureName[i] != null)
-                {
-                    // テキストに名前を入れる
-                    Text text = m_text[i].GetComponent<Text>();
-                    text.text = m_creatureName[i];
-                }
-            }
+            //for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+            //{
+            //    if (m_creatureName[i] != null)
+            //    {
+            //        // テキストに名前を入れる
+            //        Text text = m_text[i].GetComponent<Text>();
+            //        text.text = m_creatureName[i];
+            //    }
+            //}
         }
     }
 
@@ -162,19 +169,47 @@ public class SwitchDrum_Script : Drum_Script
         if (m_leftStick.OpenUIFlag == false && m_activeUIFlag == true)
         {
             // 非アクティブにする
-            m_backgroundUI.transform.gameObject.SetActive(false);
+            //m_backgroundUI.transform.gameObject.SetActive(false);
+            m_image.gameObject.SetActive(false);
             m_activeUIFlag = false;
         }
     }
 
-    // カーソルの移動
-    public void MoveCursor()
+    // マークの変更
+    public void ChangeMark()
     {
         // 左スティックで外側を叩いたら
         if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.SWITCH) == true)
         {
             // カーソルの移動
-            m_cursorUI.transform.position = new Vector3(m_cursorUIPos.x, m_cursorUIPos.y - (m_leftStick.PickCount * 0.1f), m_cursorUIPos.z);
+            //m_cursorUI.transform.position = new Vector3(m_cursorUIPos.x, m_cursorUIPos.y - (m_leftStick.PickCount * 0.1f), m_cursorUIPos.z);
+
+            m_leftStick.PickCount--;
+
+            if (m_leftStick.PickCount >= 0)
+            {
+                if (CreatureList_Script.Get.List.DataList[m_leftStick.PickCount] != null)
+                {
+                    Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                    Image image = m_image.GetComponent<Image>();
+                    image.sprite = sprite;
+                }
+            }
+            else
+            {
+                for (int i = CreatureList_Script.Get.List.DataList.Length - 1; i > 0; i--)
+                {
+                    m_leftStick.PickCount = i;
+                    if (CreatureList_Script.Get.List.DataList[i] != null)
+                    {
+                        break;
+                    }
+                }
+
+                Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                Image image = m_image.GetComponent<Image>();
+                image.sprite = sprite;
+            }
 
             // 選択ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.SWITCH);
@@ -183,7 +218,27 @@ public class SwitchDrum_Script : Drum_Script
         if (m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.SWITCH) == true)
         {
             // カーソルの移動
-            m_cursorUI.transform.position = new Vector3(m_cursorUIPos.x, m_cursorUIPos.y - (m_leftStick.PickCount * 0.1f), m_cursorUIPos.z);
+            //m_cursorUI.transform.position = new Vector3(m_cursorUIPos.x, m_cursorUIPos.y - (m_leftStick.PickCount * 0.1f), m_cursorUIPos.z);
+
+            m_leftStick.PickCount++;
+
+            if (CreatureList_Script.Get.List.DataList[m_leftStick.PickCount] != null)
+            {
+                if (m_leftStick.PickCount <= CreatureList_Script.Get.List.DataList.Length)
+                {
+                    Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                    Image image = m_image.GetComponent<Image>();
+                    image.sprite = sprite;
+                }
+            }
+            else
+            {
+                m_leftStick.PickCount = 0;
+
+                Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                Image image = m_image.GetComponent<Image>();
+                image.sprite = sprite;
+            }
 
             // 選択ドラムを叩いた判定フラグを伏せる
             m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.SWITCH);
