@@ -104,14 +104,14 @@ public class CaptureDrum_Script : Drum_Script
     public void Capture()
     {
         // 回復ドラムが叩かれたら
-        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE) == true)
+        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM2.CAPTURE) == true)
         {
             // カウントアップ
             m_captureCount++;
 
             // 回復ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
-            m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE);
+            m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM2.CAPTURE);
         }
     }
 

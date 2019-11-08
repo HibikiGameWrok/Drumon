@@ -74,7 +74,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_captureDrum.Initialize(this);
 
         // 現在のドラムを攻撃用のドラムにする
-        m_currentDrum = m_attackDrum;
+        m_currentDrum = m_switchDrum;
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
 

@@ -178,7 +178,7 @@ public class SwitchDrum_Script : Drum_Script
                 m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.SWITCH);
             }
             // 右スティックで外側を叩いたら
-            if (m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.SWITCH) == true)
+            if (m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM2.SWITCH) == true)
             {
                 m_leftStick.PickCount++;
 
@@ -201,7 +201,7 @@ public class SwitchDrum_Script : Drum_Script
                 }
 
                 // 選択ドラムを叩いた判定フラグを伏せる
-                m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.SWITCH);
+                m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM2.SWITCH);
             }
         }
     }
