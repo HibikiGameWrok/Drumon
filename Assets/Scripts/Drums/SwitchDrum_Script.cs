@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SwitchDrum_Script : Drum_Script
 {
+    // プレイヤーのモンスター
     [SerializeField]
     private GameObject m_playerCreature = null;
 
@@ -16,7 +17,9 @@ public class SwitchDrum_Script : Drum_Script
     // UIのアクティブフラグ
     private bool m_activeUIFlag;
 
+    // スイッチドラムのUIキャンバス
     private GameObject m_switchUIC;
+    // アイコン
     private Transform m_icon;
 
     // Start is called before the first frame update
@@ -143,13 +146,14 @@ public class SwitchDrum_Script : Drum_Script
             // 左スティックで外側を叩いたら
             if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.SWITCH) == true)
             {
+                // カウントダウン
                 m_leftStick.PickCount--;
 
                 if (m_leftStick.PickCount >= 0)
                 {
                     if (CreatureList_Script.Get.List.DataList[m_leftStick.PickCount] != null)
                     {
-                        Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                        Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
                         Image image = m_icon.GetComponent<Image>();
                         image.sprite = sprite;
                     }
@@ -165,7 +169,7 @@ public class SwitchDrum_Script : Drum_Script
                         }
                     }
 
-                    Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                    Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
                     Image image = m_icon.GetComponent<Image>();
                     image.sprite = sprite;
                 }
@@ -182,7 +186,7 @@ public class SwitchDrum_Script : Drum_Script
                 {
                     if (m_leftStick.PickCount <= CreatureList_Script.Get.List.DataList.Length)
                     {
-                        Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                        Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
                         Image image = m_icon.GetComponent<Image>();
                         image.sprite = sprite;
                     }
@@ -191,7 +195,7 @@ public class SwitchDrum_Script : Drum_Script
                 {
                     m_leftStick.PickCount = 0;
 
-                    Sprite sprite = Resources.Load<Sprite>("UI/TestSwitch/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
+                    Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_leftStick.PickCount].name + " Icon");
                     Image image = m_icon.GetComponent<Image>();
                     image.sprite = sprite;
                 }

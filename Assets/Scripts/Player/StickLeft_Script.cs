@@ -90,9 +90,9 @@ public class StickLeft_Script : MonoBehaviour
     // 当たった数
     private int m_hitNum;
 
-    // 選択されているマーク
+    // 選択されているアイコン
     private int m_pickCount;
-    // 選択されているマークのプロパティ
+    // 選択されているアイコンのプロパティ
     public int PickCount
     {
         get { return m_pickCount; }
