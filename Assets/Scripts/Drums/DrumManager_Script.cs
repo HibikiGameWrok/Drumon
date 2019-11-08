@@ -46,7 +46,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // タイマーオブジェクト
     private GameObject m_timerObject;
     // 行動ゲージが終わったかのフラグ
-    private bool m_gaugeFinishFlag;
+    private bool m_gaugeFinishFlag = false;
 
     /// <summary>
     /// Awake関数
@@ -151,7 +151,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                     // UIの非表示
                     m_switchDrum.GetComponent<SwitchDrum_Script>().CloseUI();
                     // カーソルの移動
-                    m_switchDrum.GetComponent<SwitchDrum_Script>().MoveCursor();
+                    m_switchDrum.GetComponent<SwitchDrum_Script>().ChangeMark();
                     // モンスターの変更
                     m_switchDrum.GetComponent<SwitchDrum_Script>().ChengeCreature();
                 }
@@ -189,6 +189,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 }
                 // 回復ドラムを叩いた回数を初期化
                 m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
+                m_timerObject.GetComponent<TimeStandard_Script>().TimerReset();
             }
 
             if(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
