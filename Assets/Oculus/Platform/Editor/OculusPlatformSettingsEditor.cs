@@ -1,3 +1,5 @@
+#pragma warning disable 618
+
 namespace Oculus.Platform
 {
   using System;
