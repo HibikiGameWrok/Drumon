@@ -8,9 +8,9 @@ public class DropletSpawner_Script : MonoBehaviour
     public float TimerMax = 0.5f;
 
     [SerializeField]
-    private GameObject m_dropletPrefab;
+    private GameObject m_dropletPrefab = null;
 
-    private GameObject m_dropletReference;
+    private GameObject m_dropletReference = null;
 
     // Start is called before the first frame update
     void Start()

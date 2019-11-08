@@ -6,13 +6,13 @@ using UnityEngine;
 public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 {
     [SerializeField, Range(1,100)]
-    private int HEAL_RATE;
+    private int HEAL_RATE = 0;
 
     [SerializeField]
     private CharactorData m_data;
 
     [SerializeField]
-    private string m_name;
+    private string m_name = null;
 
     public string Name
     {

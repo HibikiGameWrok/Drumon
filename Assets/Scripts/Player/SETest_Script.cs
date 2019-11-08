@@ -5,9 +5,9 @@ using UnityEngine;
 public class SETest_Script : MonoBehaviour
 {
     [SerializeField]
-    private AudioClip m_donSE;
+    private AudioClip m_donSE = null;
 
-    AudioSource audioSource;
+    private AudioSource audioSource = null;
 
     // Start is called before the first frame update
     void Start()

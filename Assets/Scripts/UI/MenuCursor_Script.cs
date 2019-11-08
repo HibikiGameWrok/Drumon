@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MenuCursor_Script : MonoBehaviour
 {
     [SerializeField]
-    private Text[] m_textList;
+    private Text[] m_textList = null;
 
     private int m_selectNum;
 

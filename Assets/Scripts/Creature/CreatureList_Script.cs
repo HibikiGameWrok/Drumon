@@ -5,7 +5,7 @@ using UnityEngine;
 public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 {
     [SerializeField]
-    private PlayerBox_Script m_list;
+    private PlayerBox_Script m_list = null;
 
     public PlayerBox_Script List
     {

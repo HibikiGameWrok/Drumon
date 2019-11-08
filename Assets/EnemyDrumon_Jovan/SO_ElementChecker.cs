@@ -15,9 +15,9 @@ public class SO_ElementChecker : ScriptableObject
     };
 
     [SerializeField]
-    private float m_multiplierSuperEffective;
+    private float m_multiplierSuperEffective = 0.0f;
     [SerializeField]
-    private float m_multiplierNotEffective;
+    private float m_multiplierNotEffective = 0.0f;
 
     public float CompareElement(int _defensive, int _offensive)
     {

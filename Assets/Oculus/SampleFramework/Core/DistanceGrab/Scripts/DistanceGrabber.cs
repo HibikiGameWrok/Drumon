@@ -30,7 +30,7 @@ namespace OculusSampleFramework
 
         // Radius of sphere used in spherecast from hand along forward ray to find target object.
         [SerializeField]
-        float m_spherecastRadius;
+        float m_spherecastRadius = 0.0f;
 
         // Distance below which no-snap objects won't be teleported, but will instead be left
         // where they are in relation to the hand.
@@ -61,13 +61,13 @@ namespace OculusSampleFramework
 
         // Objects can be distance grabbed up to this distance from the hand.
         [SerializeField]
-        float m_maxGrabDistance;
+        float m_maxGrabDistance = 0.0f;
 
         // Only allow grabbing objects in this layer.
         [SerializeField]
-        int m_grabObjectsInLayer;
+        int m_grabObjectsInLayer = 0;
         [SerializeField]
-        int m_obstructionLayer;
+        int m_obstructionLayer = 0;
 
         [SerializeField]
         GameObject m_player;
