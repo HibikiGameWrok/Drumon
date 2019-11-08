@@ -110,7 +110,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
             this.m_atkFlag = true;
         }
 
-        CreatureList_Script.Get.Add(this);
-        Destroy(this.gameObject);
+        //CreatureList_Script.Get.Add(this);
+        //Destroy(this.gameObject);
     }
 }
