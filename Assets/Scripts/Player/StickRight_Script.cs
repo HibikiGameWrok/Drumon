@@ -84,13 +84,13 @@ public class StickRight_Script : MonoBehaviour
     private AudioSource audioSource;
     // 内側を叩いた音
     [SerializeField]
-    private AudioClip m_inHitSE;
+    private AudioClip m_inHitSE = null;
     // 外側を叩いた音
     [SerializeField]
-    private AudioClip m_outHitSE;
+    private AudioClip m_outHitSE = null;
     // 回復ドラムを叩いた音
     [SerializeField]
-    private AudioClip m_healHitSE;
+    private AudioClip m_healHitSE = null;
 
     // Start is called before the first frame update
     void Start()
