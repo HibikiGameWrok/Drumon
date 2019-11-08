@@ -189,8 +189,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             //    }
             //    // 回復ドラムを叩いた回数を初期化
             //    m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
-            //}
-            m_timerObject.GetComponent<TimeStandard_Script>().TimerReset();
+            //
 
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {

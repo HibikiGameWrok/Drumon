@@ -132,14 +132,14 @@ public class HealDrum_Script : Drum_Script
     public void Heal()
     {
         // 回復ドラムが叩かれたら
-        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true)
+        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true || m_rightStick.HitDrumFlag2.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true)
         {
             // カウントアップ
             m_healCount++;
 
             // 回復ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
-            m_rightStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
+            m_rightStick.HitDrumFlag2.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
         }
     }
 }

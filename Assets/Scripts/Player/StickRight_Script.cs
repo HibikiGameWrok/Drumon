@@ -43,22 +43,22 @@ public class StickRight_Script : MonoBehaviour
     private StickLeft_Script m_leftStick;
 
     // 叩いた場所のフラグ管理
-    private Flag_Script m_hitPatternFlag;
+    private Flag_Script m_hitPatternFlag2;
 
     // 叩いた場所のフラグ管理のプロパティ
-    public Flag_Script HitPatternFlag
+    public Flag_Script HitPatternFlag2
     {
-        get { return m_hitPatternFlag; }
-        set { m_hitPatternFlag = value; }
+        get { return m_hitPatternFlag2; }
+        set { m_hitPatternFlag2 = value; }
     }
 
     // 叩いたドラムのフラグ管理
-    private Flag_Script m_hitDrumFlag;
+    private Flag_Script m_hitDrumFlag2;
     // 叩いたドラムのフラグ管理のプロパティ
-    public Flag_Script HitDrumFlag
+    public Flag_Script HitDrumFlag2
     {
-        get { return m_hitDrumFlag; }
-        set { m_hitDrumFlag = value; }
+        get { return m_hitDrumFlag2; }
+        set { m_hitDrumFlag2 = value; }
     }
 
     // 内側を叩いて同時叩き可能フラグ
@@ -116,8 +116,8 @@ public class StickRight_Script : MonoBehaviour
         // 初期化
         m_leftStick = FindObjectOfType<StickLeft_Script>();
 
-        m_hitPatternFlag = new Flag_Script();
-        m_hitDrumFlag = new Flag_Script();
+        m_hitPatternFlag2 = new Flag_Script();
+        m_hitDrumFlag2 = new Flag_Script();
 
         m_inHitConnectFlag = false;
         m_outHitConnectFlag = false;
@@ -145,10 +145,10 @@ public class StickRight_Script : MonoBehaviour
     void Update()
     {
         // 攻撃ドラムを叩いたら
-        if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM2.ATTACK) == true)
+        if (m_hitDrumFlag2.IsFlag((uint)HIT_DRUM2.ATTACK) == true)
         {
             // 内側に当たったら
-            if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN2.IN_HIT) == true)
+            if (m_hitPatternFlag2.IsFlag((uint)HIT_PATTERN2.IN_HIT) == true)
             {
                 // 振動させる
                 OVRHaptics.RightChannel.Preempt(m_vibClip);
@@ -174,11 +174,11 @@ public class StickRight_Script : MonoBehaviour
                     m_leftStick.InHitConnectFlag = false;
 
                     // 内側を同時に叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN2.DOUBLE_IN_HIT);
+                    m_hitPatternFlag2.OnFlag((uint)HIT_PATTERN2.DOUBLE_IN_HIT);
                 }
             }
             // 外側に当たったら
-            else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN2.OUT_HIT) == true)
+            else if (m_hitPatternFlag2.IsFlag((uint)HIT_PATTERN2.OUT_HIT) == true)
             {
                 // 振動させる
                 OVRHaptics.RightChannel.Preempt(m_vibClip);
@@ -204,15 +204,15 @@ public class StickRight_Script : MonoBehaviour
                     m_leftStick.OutHitConnectFlag = false;
 
                     // 外側を同時に叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN2.DOUBLE_OUT_HIT);
+                    m_hitPatternFlag2.OnFlag((uint)HIT_PATTERN2.DOUBLE_OUT_HIT);
                 }
             }
         }
         // 選択ドラムを叩いたら
-        else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM2.SWITCH) == true)
+        else if (m_hitDrumFlag2.IsFlag((uint)HIT_DRUM2.SWITCH) == true)
         {
             // 内側に当たったら
-            if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN2.IN_HIT) == true)
+            if (m_hitPatternFlag2.IsFlag((uint)HIT_PATTERN2.IN_HIT) == true)
             {
                 // 振動させる
                 OVRHaptics.RightChannel.Preempt(m_vibClip);
@@ -249,7 +249,7 @@ public class StickRight_Script : MonoBehaviour
                 }
             }
             // 外側に当たったら
-            else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN2.OUT_HIT) == true)
+            else if (m_hitPatternFlag2.IsFlag((uint)HIT_PATTERN2.OUT_HIT) == true)
             {
                 // 振動させる
                 OVRHaptics.RightChannel.Preempt(m_vibClip);
@@ -277,7 +277,7 @@ public class StickRight_Script : MonoBehaviour
             }
         }
         // 捕獲ドラムを叩いたら
-        else if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM2.CAPTURE) == true)
+        else if (m_hitDrumFlag2.IsFlag((uint)HIT_DRUM2.CAPTURE) == true)
         {
             // 振動させる
             OVRHaptics.RightChannel.Preempt(m_vibClip);
@@ -296,11 +296,11 @@ public class StickRight_Script : MonoBehaviour
         }
 
         // 内側を叩いた判定フラグを伏せる
-        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN2.IN_HIT);
+        m_hitPatternFlag2.OffFlag((uint)HIT_PATTERN2.IN_HIT);
         // 外側を叩いた判定フラグを伏せる
-        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN2.OUT_HIT);
+        m_hitPatternFlag2.OffFlag((uint)HIT_PATTERN2.OUT_HIT);
         // 攻撃ドラムを叩いた判定フラグを伏せる
-        m_hitDrumFlag.OffFlag((uint)HIT_DRUM2.ATTACK);
+        m_hitDrumFlag2.OffFlag((uint)HIT_DRUM2.ATTACK);
     }
 
     // 当たり判定
@@ -318,45 +318,45 @@ public class StickRight_Script : MonoBehaviour
                 if (collision.gameObject.tag == "AttackInDrum")
                 {
                     // 内側を叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN2.IN_HIT);
+                    m_hitPatternFlag2.OnFlag((uint)HIT_PATTERN2.IN_HIT);
                     // 攻撃ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM2.ATTACK);
+                    m_hitDrumFlag2.OnFlag((uint)HIT_DRUM2.ATTACK);
                 }
                 // 攻撃ドラムの外側を叩いたら
                 else if (collision.gameObject.tag == "AttackOutDrum")
                 {
                     // 外側を叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN2.OUT_HIT);
+                    m_hitPatternFlag2.OnFlag((uint)HIT_PATTERN2.OUT_HIT);
                     // 攻撃ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM2.ATTACK);
+                    m_hitDrumFlag2.OnFlag((uint)HIT_DRUM2.ATTACK);
                 }
                 // 回復ドラムを叩いたら
                 else if (collision.gameObject.tag == "HealDrum")
                 {
                     // 回復ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM2.HEAL);
+                    m_hitDrumFlag2.OnFlag((uint)HIT_DRUM2.HEAL);
                 }
                 // 選択ドラムの内側を叩いたら
                 else if (collision.gameObject.tag == "SwitchInDrum")
                 {
                     // 内側を叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN2.IN_HIT);
+                    m_hitPatternFlag2.OnFlag((uint)HIT_PATTERN2.IN_HIT);
                     // 選択ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM2.SWITCH);
+                    m_hitDrumFlag2.OnFlag((uint)HIT_DRUM2.SWITCH);
                 }
                 // 選択ドラムの外側を叩いたら
                 else if (collision.gameObject.tag == "SwitchOutDrum")
                 {
                     // 外側を叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN2.OUT_HIT);
+                    m_hitPatternFlag2.OnFlag((uint)HIT_PATTERN2.OUT_HIT);
                     // 選択ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM2.SWITCH);
+                    m_hitDrumFlag2.OnFlag((uint)HIT_DRUM2.SWITCH);
                 }
                 // 捕獲ドラムを叩いたら
                 else if (collision.gameObject.tag == "CaptureDrum")
                 {
                     // 捕獲ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM2.CAPTURE);
+                    m_hitDrumFlag2.OnFlag((uint)HIT_DRUM2.CAPTURE);
                 }
             }
         }

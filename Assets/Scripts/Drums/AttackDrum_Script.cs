@@ -126,20 +126,20 @@ public class AttackDrum_Script : Drum_Script
     public void GenerateNotes()
     {
         // 内側を同時に叩いていたら
-        if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_IN_HIT) == true)
+        if (m_rightStick.HitPatternFlag2.IsFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_IN_HIT) == true)
         {
             // ノーツ生成
             m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.DON_NOTE);
             // 内側を同時に叩いた判定フラグを伏せる
-            m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_IN_HIT);
+            m_rightStick.HitPatternFlag2.OffFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_IN_HIT);
         }
         // 外側を同時に叩いていたら
-        else if (m_rightStick.HitPatternFlag.IsFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_OUT_HIT) == true)
+        else if (m_rightStick.HitPatternFlag2.IsFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_OUT_HIT) == true)
         {
             // ノーツ生成
             m_notesInsRec.InstanceNotes((int)TestNotesInstance.NOTES_TYPE.KAN_NOTE);
             // 外側を同時に叩いた判定フラグを伏せる
-            m_rightStick.HitPatternFlag.OffFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_OUT_HIT);
+            m_rightStick.HitPatternFlag2.OffFlag((uint)StickRight_Script.HIT_PATTERN2.DOUBLE_OUT_HIT);
         }
 
         // 内側を同時に叩いていたら

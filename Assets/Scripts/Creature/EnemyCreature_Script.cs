@@ -100,17 +100,17 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Capture(int hitNum)
     {
-        if (100 - (m_hp / 2) + hitNum > 140)
-        {
-            CreatureList_Script.Get.Add(this);
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            this.m_atkFlag = true;
-        }
+        //if (100 - (m_hp / 2) + hitNum > 140)
+        //{
+        //    CreatureList_Script.Get.Add(this);
+        //    Destroy(this.gameObject);
+        //}
+        //else
+        //{
+        //    this.m_atkFlag = true;
+        //}
 
-        //CreatureList_Script.Get.Add(this);
-        //Destroy(this.gameObject);
+        CreatureList_Script.Get.Add(this);
+        Destroy(this.gameObject);
     }
 }

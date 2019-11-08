@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class StickLeft_Script : MonoBehaviour
+public class Stick_Script : MonoBehaviour
 {
     // 定数
     // バイブの長さ
@@ -33,15 +32,12 @@ public class StickLeft_Script : MonoBehaviour
         CAPTURE = (1 << 3)  // 捕獲ドラムを叩いた判定(1000)
     }
 
-
     // バイブレーション
     private OVRHapticsClip m_vibClip;
     private OVRHapticsClip m_doubleHitVibClip;
     private byte[] m_vibration;
     private byte[] m_doubleHitVib;
 
-    // 右スティック
-    private StickRight_Script m_rightStick;
     // 同時に叩ける時間
     private int m_doubleHitTime;
     // 同時に叩ける時間のプロパティ
@@ -128,31 +124,6 @@ public class StickLeft_Script : MonoBehaviour
     [SerializeField]
     private AudioClip m_healHitSE = null;
 
-    //private bool m_switchHit;
-    //public bool SwitchHit
-    //{
-    //    get { return m_switchHit; }
-    //    set { m_switchHit = value; }
-    //}
-    //private bool m_switchInHit;
-    //public bool SwitchInHit
-    //{
-    //    get { return m_switchInHit; }
-    //    set { m_switchInHit = value; }
-    //}
-    //private bool m_switchOutHit;
-    //public bool SwitchOutHit
-    //{
-    //    get { return m_switchOutHit; }
-    //    set { m_switchOutHit = value; }
-    //}
-    //private bool m_captureHit;
-    //public bool CaptureHit
-    //{
-    //    get { return m_captureHit; }
-    //    set { m_captureHit = value; }
-    //}
-
     // Start is called before the first frame update
     void Start()
     {
@@ -175,7 +146,6 @@ public class StickLeft_Script : MonoBehaviour
 
         // 初期化
         m_doubleHitTime = 0;
-        m_rightStick = FindObjectOfType<StickRight_Script>();
 
         m_hitPatternFlag = new Flag_Script();
         m_hitDrumFlag = new Flag_Script();
@@ -186,18 +156,13 @@ public class StickLeft_Script : MonoBehaviour
 
         m_hitNum = 0;
 
-        //m_pickCount = 0;
+        m_pickCount = 0;
 
         m_openUIFlag = false;
 
         m_creatureChengeFlag = false;
 
         audioSource = GetComponent<AudioSource>();
-
-        //m_switchInHit = false;
-        //m_switchOutHit = false;
-        //m_captureHit = false;
-        //m_switchHit = false;
     }
 
     private void FixedUpdate()
@@ -217,163 +182,171 @@ public class StickLeft_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 攻撃ドラムを叩いたら
-        if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.ATTACK) == true)
-        {
-            // 内側を叩いたら
-            if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
-            {
-                // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_vibClip);
+        //if (this.gameObject.name == "DistanceGrabHandLeft")
+        //{
 
-                // 時間を代入
-                m_doubleHitTime = DOUBLE_HIT_TIME;
-                // 音を鳴らす
-                audioSource.PlayOneShot(m_inHitSE);
+        //}
+        //else if (this.gameObject.name == "DistanceGrabHandRight")
+        //{
 
-                m_inHitConnectFlag = true;
+        //}
+        //// 攻撃ドラムを叩いたら
+        //if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.ATTACK) == true)
+        //{
+        //    // 内側を叩いたら
+        //    if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
+        //    {
+        //        // 振動させる
+        //        OVRHaptics.LeftChannel.Preempt(m_vibClip);
 
-                // 右スティックが叩いた状態だったら
-                if (m_rightStick.InHitConnectFlag == true)
-                {
-                    // 振動させる
-                    OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
-                    OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
+        //        // 時間を代入
+        //        m_doubleHitTime = DOUBLE_HIT_TIME;
+        //        // 音を鳴らす
+        //        audioSource.PlayOneShot(m_inHitSE);
 
-                    // 時間を初期化
-                    m_doubleHitTime = 0;
+        //        m_inHitConnectFlag = true;
 
-                    m_inHitConnectFlag = false;
-                    m_rightStick.InHitConnectFlag = false;
+        //        // 右スティックが叩いた状態だったら
+        //        if (m_rightStick.InHitConnectFlag == true)
+        //        {
+        //            // 振動させる
+        //            OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
+        //            OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
 
-                    // 内側を同時に叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.DOUBLE_IN_HIT);
-                }
-            }
-            // 外側を叩いたら
-            else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
-            {
-                // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_vibClip);
+        //            // 時間を初期化
+        //            m_doubleHitTime = 0;
 
-                // 時間を代入
-                m_doubleHitTime = DOUBLE_HIT_TIME;
-                // 音を鳴らす
-                audioSource.PlayOneShot(m_outHitSE);
+        //            m_inHitConnectFlag = false;
+        //            m_rightStick.InHitConnectFlag = false;
 
-                m_outHitConnectFlag = true;
+        //            // 内側を同時に叩いた判定フラグを立てる
+        //            m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.DOUBLE_IN_HIT);
+        //        }
+        //    }
+        //    // 外側を叩いたら
+        //    else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
+        //    {
+        //        // 振動させる
+        //        OVRHaptics.LeftChannel.Preempt(m_vibClip);
 
-                // 右スティックが叩いた状態だったら
-                if (m_rightStick.OutHitConnectFlag == true)
-                {
-                    // 振動させる
-                    OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
-                    OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
+        //        // 時間を代入
+        //        m_doubleHitTime = DOUBLE_HIT_TIME;
+        //        // 音を鳴らす
+        //        audioSource.PlayOneShot(m_outHitSE);
 
-                    // 時間を初期化
-                    m_doubleHitTime = 0;
+        //        m_outHitConnectFlag = true;
 
-                    m_outHitConnectFlag = false;
-                    m_rightStick.OutHitConnectFlag = false;
+        //        // 右スティックが叩いた状態だったら
+        //        if (m_rightStick.OutHitConnectFlag == true)
+        //        {
+        //            // 振動させる
+        //            OVRHaptics.LeftChannel.Preempt(m_doubleHitVibClip);
+        //            OVRHaptics.RightChannel.Preempt(m_doubleHitVibClip);
 
-                    // 外側を同時に叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.DOUBLE_OUT_HIT);
-                }
-            }
-        }
-        // 選択ドラムを叩いたら
-        else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.SWITCH) == true)
-        {
-            // 内側に当たったら
-            if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
-            {
-                // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_vibClip);
-                // 音を鳴らす
-                audioSource.PlayOneShot(m_inHitSE);
+        //            // 時間を初期化
+        //            m_doubleHitTime = 0;
 
-                // UIが表示されていなければ
-                if (m_openUIFlag == false)
-                {
-                    // UIの表示フラグを立てる
-                    m_openUIFlag = true;
-                }
-                // UIが表示されていたら
-                else
-                {
-                    // モンスターの変更フラグを立てる
-                    m_creatureChengeFlag = true;
-                    // UIの表示フラグを伏せる
-                    m_openUIFlag = false;
+        //            m_outHitConnectFlag = false;
+        //            m_rightStick.OutHitConnectFlag = false;
 
-                    // 選択カーソルの位置がBackだったら     
-                    //if (m_pickCount == 6)
-                    //{
-                    //    // UIの表示フラグを伏せる
-                    //    m_openUIFlag = false;
-                    //}
-                    //else
-                    //{
-                    //    // モンスターの変更フラグを立てる
-                    //    m_creatureChengeFlag = true;
-                    //    // UIの表示フラグを伏せる
-                    //    m_openUIFlag = false;
-                    //}
-                }
-            }
-            // 外側に当たったら
-            else if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
-            {
-                // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_vibClip);
-                // 音を鳴らす
-                this.audioSource.PlayOneShot(m_outHitSE);
+        //            // 外側を同時に叩いた判定フラグを立てる
+        //            m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.DOUBLE_OUT_HIT);
+        //        }
+        //    }
+        //}
+        //// 選択ドラムを叩いたら
+        //else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.SWITCH) == true)
+        //{
+        //    // 内側に当たったら
+        //    if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
+        //    {
+        //        // 振動させる
+        //        OVRHaptics.LeftChannel.Preempt(m_vibClip);
+        //        // 音を鳴らす
+        //        audioSource.PlayOneShot(m_inHitSE);
 
-                // UIが表示されていなければ
-                if (m_openUIFlag == false)
-                {
-                    // UIの表示フラグを立てる
-                    m_openUIFlag = true;
-                }
-                // UIが表示されていたら
-                else
-                {
-                    //if (m_pickCount > 0)
-                    //{
-                    //    m_pickCount--;
-                    //}
-                    //else if (m_pickCount <= 0)
-                    //{
-                    //    m_pickCount = 6;
-                    //}
-                }
-            }
-        }
-        // 捕獲ドラムを叩いたら
-        else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.CAPTURE) == true)
-        {
-            // 振動させる
-            OVRHaptics.LeftChannel.Preempt(m_vibClip);
-            // 音を鳴らす
-            this.audioSource.PlayOneShot(m_healHitSE);
+        //        // UIが表示されていなければ
+        //        if (m_openUIFlag == false)
+        //        {
+        //            // UIの表示フラグを立てる
+        //            m_openUIFlag = true;
+        //        }
+        //        // UIが表示されていたら
+        //        else
+        //        {
+        //            // モンスターの変更フラグを立てる
+        //            m_creatureChengeFlag = true;
+        //            // UIの表示フラグを伏せる
+        //            m_openUIFlag = false;
 
-            // 捕獲ドラムを叩いた判定フラグを伏せる
-            //m_hitDrumFlag.OffFlag((uint)HIT_DRUM.CAPTURE);
-        }
+        //            // 選択カーソルの位置がBackだったら     
+        //            //if (m_pickCount == 6)
+        //            //{
+        //            //    // UIの表示フラグを伏せる
+        //            //    m_openUIFlag = false;
+        //            //}
+        //            //else
+        //            //{
+        //            //    // モンスターの変更フラグを立てる
+        //            //    m_creatureChengeFlag = true;
+        //            //    // UIの表示フラグを伏せる
+        //            //    m_openUIFlag = false;
+        //            //}
+        //        }
+        //    }
+        //    // 外側に当たったら
+        //    else if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
+        //    {
+        //        // 振動させる
+        //        OVRHaptics.LeftChannel.Preempt(m_vibClip);
+        //        // 音を鳴らす
+        //        this.audioSource.PlayOneShot(m_outHitSE);
 
-        // 左スティックで叩いたら
-        if (m_inHitConnectFlag == true || m_outHitConnectFlag == true)
-        {
-            // 時間を計る
-            m_doubleHitTime--;
-        }
+        //        // UIが表示されていなければ
+        //        if (m_openUIFlag == false)
+        //        {
+        //            // UIの表示フラグを立てる
+        //            m_openUIFlag = true;
+        //        }
+        //        // UIが表示されていたら
+        //        else
+        //        {
+        //            //if (m_pickCount > 0)
+        //            //{
+        //            //    m_pickCount--;
+        //            //}
+        //            //else if (m_pickCount <= 0)
+        //            //{
+        //            //    m_pickCount = 6;
+        //            //}
+        //        }
+        //    }
+        //}
+        //// 捕獲ドラムを叩いたら
+        //else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.CAPTURE) == true)
+        //{
+        //    // 振動させる
+        //    OVRHaptics.LeftChannel.Preempt(m_vibClip);
+        //    // 音を鳴らす
+        //    this.audioSource.PlayOneShot(m_healHitSE);
 
-        // 内側を叩いた判定フラグを伏せる
-        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.IN_HIT);
-        // 外側を叩いた判定フラグを伏せる
-        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
-        // 攻撃ドラムを叩いた判定フラグを伏せる
-        m_hitDrumFlag.OffFlag((uint)HIT_DRUM.ATTACK);
+        //    // 捕獲ドラムを叩いた判定フラグを伏せる
+        //    //m_hitDrumFlag.OffFlag((uint)HIT_DRUM.CAPTURE);
+        //}
+
+        //// 左スティックで叩いたら
+        //if (m_inHitConnectFlag == true || m_outHitConnectFlag == true)
+        //{
+        //    // 時間を計る
+        //    m_doubleHitTime--;
+        //}
+
+        //// 内側を叩いた判定フラグを伏せる
+        //m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.IN_HIT);
+        //// 外側を叩いた判定フラグを伏せる
+        //m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
+        //// 攻撃ドラムを叩いた判定フラグを伏せる
+        //m_hitDrumFlag.OffFlag((uint)HIT_DRUM.ATTACK);
     }
 
     // 当たり判定
@@ -437,7 +410,7 @@ public class StickLeft_Script : MonoBehaviour
                     //m_captureHit = true;
                 }
             }
-        } 
+        }
     }
 
     // 当たり判定を抜けた処理
