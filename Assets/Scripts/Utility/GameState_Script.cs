@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      GameScene_Scripts.cs					            |
+//  file:      GameState_Scripts.cs					                |
 //				 											                    |
-//  brief:    ゲームシーンを登録するスクリプト		            | 
-//              Add GameScene Script			                    |
+//  brief:    ゲームの状態を登録するスクリプト		            | 
+//              Add GameState Script			                    |
 //															                    |
 //  date:	2019.11.1										            |
 //															                    |
@@ -10,11 +10,11 @@
 /*----------------------------------------------------------*/
 
 /// <summary>
-/// ゲームシーンを登録する
-/// シーン名は完全一致で記述する
+/// メインシーンのゲームの状態を登録する
 /// </summary>
-public enum GameScenes
+public enum GameState
 {
-    Title,  
-    Main,
+   Initialize,
+   Explore,
+   Battle,
 }

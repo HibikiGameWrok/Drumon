@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*----------------------------------------------------------*/
+//  file:      Drum_Script.cs					                        |
+//				 											                    |
+//  brief:    ドラムの基底クラスのスクリプト				    |
+//              Drum base class 				                        |
+//															                    |
+//  date:	2019.10.9										            |
+//															                    |
+//  author: Renya Fukuyama									    |
+/*----------------------------------------------------------*/
+
+// using
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +19,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class TransitionController : MonoBehaviour
+// トランジションコントローラークラスの定義
+public class TransitionController_Script : MonoBehaviour
 {
     [SerializeField]
     private Image m_coverImage;
