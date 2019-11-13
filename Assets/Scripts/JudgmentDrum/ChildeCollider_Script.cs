@@ -27,7 +27,7 @@ public class ChildeCollider_Script : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         // スティックに当たったら
-        if (collider.tag == "Stick")
+        if (collider.tag == "StickLeft" || collider.tag == "StickRight")
         {
             // 攻撃ドラムだったら
             if (this.tag == "AttackInDrum" || this.tag == "AttackOutDrum")
