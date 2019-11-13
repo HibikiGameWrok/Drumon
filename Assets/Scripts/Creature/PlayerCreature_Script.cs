@@ -9,7 +9,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     private int HEAL_RATE = 0;
 
     [SerializeField]
-    private CharactorData m_data;
+    private CharactorData m_data = null;
 
     [SerializeField]
     private string m_name = null;
@@ -40,7 +40,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         get { return this.m_timer; }
     }
 
-    private ICreature_Script m_target;
+    private ICreature_Script m_target = null;
 
     private int m_rate;
 
@@ -68,8 +68,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_elem = m_data.Elem;
 
         this.m_timer = 0.0f;
-
-        this.m_target = null;
 
         m_rate = 0;
 
