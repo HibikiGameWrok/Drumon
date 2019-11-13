@@ -21,8 +21,8 @@ public class SubScene : MonoBehaviour
         Observable.Timer(TimeSpan.FromSeconds(m_timeSpan))
             .Subscribe(_ =>
             {
+                SceneManager.UnloadSceneAsync("SampleBattle");
                 TransitionManager_Script.StartTransition(m_nextScene);
-                //SceneManager.UnloadScene("SampleBattle");
             }).AddTo(this);
     }
 }

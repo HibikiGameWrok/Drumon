@@ -19,7 +19,7 @@ public class SampleMain : MonoBehaviour
     {
         await TransitionManager_Script.OnTransitionFinishedAsync();
 
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
+        /**/SceneManager.sceneUnloaded += OnSceneUnloaded;
 
         m_button.OnClickAsObservable()
             .Subscribe(_ =>
@@ -28,9 +28,7 @@ public class SampleMain : MonoBehaviour
                 {
                     obj.SetActive(false);
                 }
-                Application.LoadLevelAdditive("SampleBattle");
-                
-                //TransitionManager_Script.StartTransition(m_nextSceneName);
+                TransitionManager_Script.StartTransition(m_nextSceneName,LoadSceneMode.Additive);
             });
     }
 
