@@ -21,6 +21,7 @@ public class TestOVRCameraFollowing : MonoBehaviour
     {
         if (XRDevice.isPresent)
         {
+            OVRManager.display.RecenterPose();
             m_localAvatar = GameObject.Find("LocalAvatarWithGrab");
             m_oVRCameraRig = m_localAvatar.transform.FindChild("OVRCameraRig");
             m_trackingSpace = m_oVRCameraRig.transform.FindChild("TrackingSpace");
@@ -37,6 +38,13 @@ public class TestOVRCameraFollowing : MonoBehaviour
         if (XRDevice.isPresent)
         {
             this.transform.position = new Vector3(this.transform.position.x,m_centerEyeAnchor.transform.position.y - m_distanceY, this.transform.position.z);
+
+        }
+        // Rキーで位置トラッキングをリセットする
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            OVRManager.display.RecenterPose();
+            m_distanceY = Mathf.Abs(m_centerEyeAnchor.transform.position.y) * this.transform.position.y;
         }
     }
 }
