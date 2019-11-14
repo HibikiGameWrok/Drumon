@@ -26,7 +26,7 @@ public class TestOVRCameraFollowing : MonoBehaviour
             m_trackingSpace = m_oVRCameraRig.transform.FindChild("TrackingSpace");
             m_centerEyeAnchor = m_trackingSpace.transform.FindChild("CenterEyeAnchor");
 
-            m_distanceY = m_spaceY - Mathf.Abs(m_centerEyeAnchor.transform.position.y);
+            m_distanceY = Mathf.Abs(m_centerEyeAnchor.transform.position.y) * this.transform.position.y;
         }
     }
 
