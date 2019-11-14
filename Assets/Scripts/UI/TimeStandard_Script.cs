@@ -62,7 +62,10 @@ public class TimeStandard_Script : MonoBehaviour
     // タイマーをリセット
     public void TimerReset()
     {
-        // タイマーを初期化
-        m_nowTimer = ZERO_TIME;
+        if (TimerMax() == true)
+        {
+            // タイマーを初期化
+            m_nowTimer = ZERO_TIME;
+        }
     }
 }

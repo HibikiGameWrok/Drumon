@@ -74,7 +74,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_captureDrum.Initialize(this);
 
         // 現在のドラムを攻撃用のドラムにする
-        m_currentDrum = m_switchDrum;
+        m_currentDrum = m_attackDrum;
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
 
@@ -189,8 +189,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             //    }
             //    // 回復ドラムを叩いた回数を初期化
             //    m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
-            //}
-            m_timerObject.GetComponent<TimeStandard_Script>().TimerReset();
+            //
 
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {

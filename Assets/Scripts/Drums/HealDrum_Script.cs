@@ -1,145 +1,145 @@
-﻿/*----------------------------------------------------------*/
-//  file:      HealDrum_Scripts.cs						            |
-//				 											                    |
-//  brief:    回復用のドラムクラスのスクリプト		            |
-//              Heal Drum class  				                        |
-//															                    |
-//  date:	2019.10.9										            |
-//															                    |
-//  author: Renya Fukuyama									    |
-/*----------------------------------------------------------*/
+﻿///*----------------------------------------------------------*/
+////  file:      HealDrum_Scripts.cs						            |
+////				 											                    |
+////  brief:    回復用のドラムクラスのスクリプト		            |
+////              Heal Drum class  				                        |
+////															                    |
+////  date:	2019.10.9										            |
+////															                    |
+////  author: Renya Fukuyama									    |
+///*----------------------------------------------------------*/
 
-// using
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//// using
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-// 回復用のドラムクラスの定義
-public class HealDrum_Script : Drum_Script
-{
+//// 回復用のドラムクラスの定義
+//public class HealDrum_Script : Drum_Script
+//{
 
-    // メンバ変数
+//    // メンバ変数
 
-    // 左スティック
-    private StickLeft_Script m_leftStick;
-    // 右スティック
-    private StickRight_Script m_rightStick;
-    // 回復ドラムを叩いた回数
-    private int m_healCount;
+//    // 左スティック
+//    private StickLeft_Script m_leftStick;
+//    // 右スティック
+//    private StickRight_Script m_rightStick;
+//    // 回復ドラムを叩いた回数
+//    private int m_healCount;
 
-    // 回復ドラムを叩いた回数のプロパティ
-    public int HealCount
-    {
-        get { return m_healCount; }
-        set { m_healCount = value; }
-    }
+//    // 回復ドラムを叩いた回数のプロパティ
+//    public int HealCount
+//    {
+//        get { return m_healCount; }
+//        set { m_healCount = value; }
+//    }
 
-    /// <summary>
-    /// デフォルト関数
-    /// </summary>
-    void Start()
-    {
-        // 何もしない
-    }
+//    /// <summary>
+//    /// デフォルト関数
+//    /// </summary>
+//    void Start()
+//    {
+//        // 何もしない
+//    }
 
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
-    public override void Initialize(DrumManager_Script manager)
-    {
-        // 親オブジェクトを入れる
-        m_manager = manager;
+//    /// <summary>
+//    /// 初期化処理
+//    /// </summary>
+//    public override void Initialize(DrumManager_Script manager)
+//    {
+//        // 親オブジェクトを入れる
+//        m_manager = manager;
 
-        m_leftStick = FindObjectOfType<StickLeft_Script>();
-        m_rightStick = FindObjectOfType<StickRight_Script>();
+//        m_leftStick = FindObjectOfType<StickLeft_Script>();
+//        m_rightStick = FindObjectOfType<StickRight_Script>();
 
-        m_healCount = 0;
-    }
-
-
-    /// <summary>
-    /// 実行する
-    /// </summary>
-    /// <returns>true=継続する false=ドラムを変更する</returns>
-    public override bool Execute()
-    {
-        // アクティブでないなら
-        if(isActive == false)
-        {
-            // 変更する
-            return false;
-        }
-
-        // 継続する
-        return true;
-    }
+//        m_healCount = 0;
+//    }
 
 
-    /// <summary>
-    /// 終了処理
-    /// </summary>
-    public override void Dispose()
-    {        
-        // 非アクティブにする
-        isActive = false;
-    }
+//    /// <summary>
+//    /// 実行する
+//    /// </summary>
+//    /// <returns>true=継続する false=ドラムを変更する</returns>
+//    public override bool Execute()
+//    {
+//        // アクティブでないなら
+//        if(isActive == false)
+//        {
+//            // 変更する
+//            return false;
+//        }
+
+//        // 継続する
+//        return true;
+//    }
 
 
-    /// <summary>
-    /// アクティブフラグのプロパティ
-    /// </summary>
-    public override bool isActive
-    {
-        // 取得する
-        get { return m_isActive; }
-        // 設定する
-        set { m_isActive = value; }
-    }
-
-    /// <summary>
-    /// 当たり判定の検出をする
-    /// </summary>
-    /// <param name="col">衝突した相手</param>
-    public void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.tag == "Stick")
-        {
-            if (isActive == false)
-            {
-                // 回復用のドラムに変更する
-                m_manager.ChangeDrum(GetComponent<HealDrum_Script>());
-            }
-
-            // アクティブにする
-            isActive = true;
-        }
-    }
+//    /// <summary>
+//    /// 終了処理
+//    /// </summary>
+//    public override void Dispose()
+//    {        
+//        // 非アクティブにする
+//        isActive = false;
+//    }
 
 
-    /// <summary>
-    /// 当たり判定から外れた時
-    /// </summary>
-    /// <param name="col">衝突した相手</param>
-    public void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "Stick")
-        {
-            Debug.Log("nonononononono");
-        }
-    }
+//    /// <summary>
+//    /// アクティブフラグのプロパティ
+//    /// </summary>
+//    public override bool isActive
+//    {
+//        // 取得する
+//        get { return m_isActive; }
+//        // 設定する
+//        set { m_isActive = value; }
+//    }
 
-    // 回復処理
-    public void Heal()
-    {
-        // 回復ドラムが叩かれたら
-        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true)
-        {
-            // カウントアップ
-            m_healCount++;
+//    /// <summary>
+//    /// 当たり判定の検出をする
+//    /// </summary>
+//    /// <param name="col">衝突した相手</param>
+//    public void OnTriggerEnter(Collider col)
+//    {
+//        if (col.gameObject.tag == "Stick")
+//        {
+//            if (isActive == false)
+//            {
+//                // 回復用のドラムに変更する
+//                m_manager.ChangeDrum(GetComponent<HealDrum_Script>());
+//            }
 
-            // 回復ドラムを叩いた判定フラグを伏せる
-            m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
-            m_rightStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
-        }
-    }
-}
+//            // アクティブにする
+//            isActive = true;
+//        }
+//    }
+
+
+//    /// <summary>
+//    /// 当たり判定から外れた時
+//    /// </summary>
+//    /// <param name="col">衝突した相手</param>
+//    public void OnTriggerExit(Collider col)
+//    {
+//        if (col.gameObject.tag == "Stick")
+//        {
+//            Debug.Log("nonononononono");
+//        }
+//    }
+
+//    // 回復処理
+//    public void Heal()
+//    {
+//        // 回復ドラムが叩かれたら
+//        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true || m_rightStick.HitDrumFlag2.IsFlag((uint)StickLeft_Script.HIT_DRUM.HEAL) == true)
+//        {
+//            // カウントアップ
+//            m_healCount++;
+
+//            // 回復ドラムを叩いた判定フラグを伏せる
+//            m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
+//            m_rightStick.HitDrumFlag2.OffFlag((uint)StickLeft_Script.HIT_DRUM.HEAL);
+//        }
+//    }
+//}

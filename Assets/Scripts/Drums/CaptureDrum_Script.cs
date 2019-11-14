@@ -10,6 +10,7 @@ public class CaptureDrum_Script : Drum_Script
     private StickLeft_Script m_leftStick;
     // 右スティック
     private StickRight_Script m_rightStick;
+    //private Stick_Script m_stick;
 
     // 捕獲ドラムを叩いた回数
     private int m_captureCount;
@@ -34,8 +35,9 @@ public class CaptureDrum_Script : Drum_Script
         // 親オブジェクトを入れる
         m_manager = manager;
 
-        m_leftStick = FindObjectOfType<StickLeft_Script>();
-        m_rightStick = FindObjectOfType<StickRight_Script>();
+        m_leftStick = GameObject.FindGameObjectWithTag("StickLeft").GetComponent<StickLeft_Script>();
+        m_rightStick = GameObject.FindGameObjectWithTag("StickRight").GetComponent<StickRight_Script>();
+        //m_stick = FindObjectOfType<Stick_Script>();
 
         m_captureCount = 0;
     }
@@ -87,7 +89,7 @@ public class CaptureDrum_Script : Drum_Script
     /// <param name="col">衝突した相手</param>
     public void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Stick")
+        if (col.gameObject.tag == "StickLeft" || col.gameObject.tag == "StickRight")
         {
             if (isActive == false)
             {
@@ -97,22 +99,36 @@ public class CaptureDrum_Script : Drum_Script
 
             // アクティブにする
             isActive = true;
+
+            //m_stick = GameObject.FindGameObjectWithTag(col.gameObject.tag).GetComponent<Stick_Script>();
         }
     }
 
     // 捕獲処理
     public void Capture()
     {
-        // 回復ドラムが叩かれたら
-        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM2.CAPTURE) == true)
+        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE) == true)
         {
             // カウントアップ
             m_captureCount++;
 
             // 回復ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
-            m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM2.CAPTURE);
+            m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE);
+            //m_leftStick.CaptureHit = false;
         }
+
+        // 捕獲ドラムが叩かれたら
+        //if (m_stick.LeftHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true || m_stick.RightHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true)
+        //{
+        //    // カウントアップ
+        //    m_captureCount++;
+
+        //    // 捕獲ドラムを叩いた判定フラグを伏せる
+        //    m_stick.LeftHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
+        //    m_stick.RightHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
+        //    //m_leftStick.CaptureHit = false;
+        //}
     }
 
     /// <summary>

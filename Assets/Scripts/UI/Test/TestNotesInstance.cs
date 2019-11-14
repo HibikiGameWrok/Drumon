@@ -65,6 +65,7 @@ public class TestNotesInstance : MonoBehaviour
             m_attackRecipeManagerScript.MatchAttackRecipe();
             ResetNotes();
             ResetCount();
+            m_timeStandard_Script.TimerReset();
         }
         InputTest();
     }
