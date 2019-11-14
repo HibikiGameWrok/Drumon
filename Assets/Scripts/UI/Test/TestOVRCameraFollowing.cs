@@ -14,7 +14,6 @@ public class TestOVRCameraFollowing : MonoBehaviour
 
     [SerializeField]
     private float m_spaceY = 0.0f;
-    private float m_distanceY = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +25,6 @@ public class TestOVRCameraFollowing : MonoBehaviour
             m_oVRCameraRig = m_localAvatar.transform.FindChild("OVRCameraRig");
             m_trackingSpace = m_oVRCameraRig.transform.FindChild("TrackingSpace");
             m_centerEyeAnchor = m_trackingSpace.transform.FindChild("CenterEyeAnchor");
-
-            m_distanceY = Mathf.Abs(m_centerEyeAnchor.transform.position.y) * this.transform.position.y;
         }
     }
 
@@ -37,14 +34,8 @@ public class TestOVRCameraFollowing : MonoBehaviour
         // Oculus Riftが接続されているならば
         if (XRDevice.isPresent)
         {
-            this.transform.position = new Vector3(this.transform.position.x,m_centerEyeAnchor.transform.position.y - m_distanceY, this.transform.position.z);
+            this.transform.position = new Vector3(this.transform.position.x, Mathf.Abs(m_centerEyeAnchor.transform.position.y) - m_spaceY, this.transform.position.z);
 
-        }
-        // Rキーで位置トラッキングをリセットする
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            OVRManager.display.RecenterPose();
-            m_distanceY = Mathf.Abs(m_centerEyeAnchor.transform.position.y) * this.transform.position.y;
         }
     }
 }
