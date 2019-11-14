@@ -43,34 +43,34 @@ public class StickLeft_Script : Stick_Script
     // Update is called once per frame
     void Update()
     {
-        // 攻撃ドラムを叩いたら
-        if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.ATTACK) == true)
-        {
-            // 内側を叩いたら
-            if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
-            {
-            }
-            // 外側を叩いたら
-            else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
-            {
-            }
-        }
-        // 選択ドラムを叩いたら
-        else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.SWITCH) == true)
-        {
-            // 内側に当たったら
-            if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
-            {
-            }
-            // 外側に当たったら
-            else if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
-            {
-            }
-        }
-        // 捕獲ドラムを叩いたら
-        else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.CAPTURE) == true)
-        {
-        }
+        //// 攻撃ドラムを叩いたら
+        //if (m_hitDrumFlag.IsFlag((uint)HIT_DRUM.ATTACK) == true)
+        //{
+        //    // 内側を叩いたら
+        //    if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
+        //    {
+        //    }
+        //    // 外側を叩いたら
+        //    else if (m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
+        //    {
+        //    }
+        //}
+        //// 選択ドラムを叩いたら
+        //else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.SWITCH) == true)
+        //{
+        //    // 内側に当たったら
+        //    if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.IN_HIT) == true)
+        //    {
+        //    }
+        //    // 外側に当たったら
+        //    else if (this.m_hitPatternFlag.IsFlag((uint)HIT_PATTERN.OUT_HIT) == true)
+        //    {
+        //    }
+        //}
+        //// 捕獲ドラムを叩いたら
+        //else if (this.m_hitDrumFlag.IsFlag((uint)HIT_DRUM.CAPTURE) == true)
+        //{
+        //}
     }
 
     // 当たり判定
