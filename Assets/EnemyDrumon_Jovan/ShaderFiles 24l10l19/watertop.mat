@@ -5,8 +5,7 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_Name: watertop
   m_Shader: {fileID: 4800000, guid: 3200809c8c69bea4fb6d64f875600ba6, type: 3}
   m_ShaderKeywords: 
@@ -73,7 +72,6 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FinalRippleMagnifier: 0.5
     - _Foam: 2.16
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -84,8 +82,9 @@ Material:
     - _MyNoiseProgress: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RippleSpread: 6
-    - _Scale: 0.168
+    - _RippleHeightScale: 0.6
+    - _RippleSpread: 10
+    - _Scale: 0.104
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 0.5
