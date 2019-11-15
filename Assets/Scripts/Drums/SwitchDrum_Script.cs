@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class SwitchDrum_Script : Drum_Script
 {
@@ -192,7 +191,7 @@ public class SwitchDrum_Script : Drum_Script
                     {
                         if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
                         {
-                            Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name + " Icon");
+                            Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                             Image image = m_icon.GetComponent<Image>();
                             image.sprite = sprite;
                         }
@@ -208,7 +207,7 @@ public class SwitchDrum_Script : Drum_Script
                             }
                         }
 
-                        Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name + " Icon");
+                        Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                         Image image = m_icon.GetComponent<Image>();
                         image.sprite = sprite;
                     }
@@ -227,7 +226,7 @@ public class SwitchDrum_Script : Drum_Script
                     {
                         if (m_stickManagerScript.PickCount <= CreatureList_Script.Get.List.DataList.Length)
                         {
-                            Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name + " Icon");
+                            Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                             Image image = m_icon.GetComponent<Image>();
                             image.sprite = sprite;
                         }
@@ -236,7 +235,7 @@ public class SwitchDrum_Script : Drum_Script
                     {
                         m_stickManagerScript.PickCount = 0;
 
-                        Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name + " Icon");
+                        Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                         Image image = m_icon.GetComponent<Image>();
                         image.sprite = sprite;
                     }

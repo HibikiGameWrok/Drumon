@@ -143,6 +143,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         }
 
         GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+
+        if(!obj) obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx");
         obj = Instantiate(obj, this.transform.position, this.transform.rotation);
         obj.transform.parent = this.gameObject.transform;
     }
