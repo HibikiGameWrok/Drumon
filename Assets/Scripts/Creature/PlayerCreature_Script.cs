@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 {
@@ -26,8 +24,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private float m_timer;
 
-    private GameObject m_healProsperityUI;
-    private HealProsperityUI_Script m_healProsperityUIScript;
+    private GameObject m_healProsperityUI = null;
+    private HealProsperityUI_Script m_healProsperityUIScript = null;
 
     public float Timer
     {
@@ -61,6 +59,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_rate = 0;
 
         this.m_atkFlag = false;
+
+        CreatePrefab();
 
         m_attackRecipe = FindObjectOfType<AttackRecipeManeger_Script>();
         m_attackRecipe.CSVLoadFile(this);
@@ -104,8 +104,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Heal()
     {
-        this.m_data.Hp += this.m_data.Hp / 100 * this.HEAL_RATE;
-        if (this.m_data.Hp > this.m_data.Hp) this.m_data.Hp = this.m_data.Hp;
+        this.m_data.Hp += this.HEAL_RATE;
+        //if (this.m_data.Hp > this.m_data.Hp) this.m_data.Hp = this.m_data.Hp;
     }
 
     public CharactorData GetData()
@@ -118,6 +118,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         if(m_data != data)
         {
             m_data = data;
+            CreatePrefab();
         }
     }
 
@@ -133,6 +134,16 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private void CreatePrefab()
     {
+        if(this.transform.childCount != 0)
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject);
+            }
+        }
 
+        GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+        obj = Instantiate(obj, this.transform.position, this.transform.rotation);
+        obj.transform.parent = this.gameObject.transform;
     }
 }

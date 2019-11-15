@@ -32,7 +32,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         //this.m_playerCreature = null;
         //this.m_enemyCreature = null;
-
         this.m_nowMove = null;
         this.m_nextMove = null;
 

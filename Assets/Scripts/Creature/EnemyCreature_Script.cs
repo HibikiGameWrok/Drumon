@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 {
@@ -69,7 +68,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Heal()
     {
-        this.m_data.Hp += m_data.Hp / 100;
+        this.m_data.Hp += 10;
     }
 
     public CharactorData GetData()
@@ -89,22 +88,29 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Capture(int hitNum)
     {
-        //if (100 - (m_hp / 2) + hitNum > 140)
-        //{
-        //    CreatureList_Script.Get.Add(this);
-        //    Destroy(this.gameObject);
-        //}
-        //else
-        //{
-        //    this.m_atkFlag = true;
-        //}
-
-        CreatureList_Script.Get.Add(this);
-        Destroy(this.gameObject);
+        if (100 - (this.m_data.Hp / 2) + hitNum > 140)
+        {
+            CreatureList_Script.Get.Add(this);
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            this.m_atkFlag = true;
+        }
     }
 
     private void CreatePrefab()
     {
+        if (this.transform.childCount != 0)
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject);
+            }
+        }
 
+        GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+        obj = Instantiate(obj, this.transform.position, this.transform.rotation);
+        obj.transform.parent = this.gameObject.transform;
     }
 }
