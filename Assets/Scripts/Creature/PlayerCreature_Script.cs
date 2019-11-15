@@ -19,16 +19,10 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         get { return this.m_name; }
     }
 
-    private int m_hp;
-
     public int HP
     {
-        get { return this.m_hp; }
+        get { return this.m_data.Hp; }
     }
-
-    private int m_atk;
-    private int m_def;
-    private CharactorData.ELEM m_elem;
 
     private float m_timer;
 
@@ -62,11 +56,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     // Start is called before the first frame update
     void Start()
     {
-        this.m_hp = m_data.Hp;
-        this.m_atk = m_data.Atk;
-        this.m_def = m_data.Def;
-        this.m_elem = m_data.Elem;
-
         this.m_timer = 0.0f;
 
         m_rate = 0;
@@ -83,7 +72,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void Execute()
     {
         this.CountTimer();
-        m_healProsperityUIScript.NowPoint = m_hp;
+        m_healProsperityUIScript.NowPoint = m_data.Hp;
         if (this.m_rate != 0)
         {
             this.m_atkFlag = true;
@@ -97,7 +86,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_data.Atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
@@ -107,16 +96,16 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Damage(int damage)
     {
-        this.m_hp -= damage;
+        this.m_data.Hp -= damage;
         GetComponent<ParticleSystem>().Play();
-        if (this.m_hp < 0) this.m_hp = 0;
+        if (this.m_data.Hp < 0) this.m_data.Hp = 0;
         this.Dead();
     }
 
     public void Heal()
     {
-        this.m_hp += this.m_data.Hp / 100 * this.HEAL_RATE;
-        if (this.m_hp > this.m_data.Hp) this.m_hp = this.m_data.Hp;
+        this.m_data.Hp += this.m_data.Hp / 100 * this.HEAL_RATE;
+        if (this.m_data.Hp > this.m_data.Hp) this.m_data.Hp = this.m_data.Hp;
     }
 
     public CharactorData GetData()
@@ -129,11 +118,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         if(m_data != data)
         {
             m_data = data;
-
-            this.m_hp = m_data.Hp;
-            this.m_atk = m_data.Atk;
-            this.m_def = m_data.Def;
-            this.m_elem = m_data.Elem;
         }
     }
 
@@ -144,6 +128,11 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_hp <= 0) Destroy(this.gameObject);
+        if (this.m_data.Hp <= 0) Destroy(this.gameObject);
+    }
+
+    private void CreatePrefab()
+    {
+
     }
 }
