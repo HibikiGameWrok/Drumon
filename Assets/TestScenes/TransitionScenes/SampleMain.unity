@@ -132,6 +132,8 @@ GameObject:
   - component: {fileID: 130665942}
   - component: {fileID: 130665944}
   - component: {fileID: 130665945}
+  - component: {fileID: 130665947}
+  - component: {fileID: 130665946}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -202,6 +204,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nextScene: SampleResult
   m_button: {fileID: 259815733}
+--- !u!114 &130665946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130665941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df91152abacc3248adfb55719d72197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_readyTimer:
+    value: 3
+--- !u!114 &130665947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130665941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b175e0359cb1c4e49b7d0a33a451c95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_director: {fileID: 130665946}
 --- !u!1 &259815731
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,7 +932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1438969500
 MonoBehaviour:
   m_ObjectHideFlags: 0

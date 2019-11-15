@@ -15,6 +15,8 @@
 public enum GameState
 {
    Initialize,
+   Ready,
    Explore,
    Battle,
+   Result,
 }
