@@ -12,6 +12,10 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     [SerializeField]
     private string m_name = null;
 
+    private Animator m_anim = null;
+    private AnimatorStateInfo m_animState;
+    private float m_length;
+
     public string Name
     {
         get { return this.m_name; }
@@ -71,12 +75,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Execute()
     {
-        this.CountTimer();
+        //this.CountTimer();
         m_healProsperityUIScript.NowPoint = m_data.Hp;
         if (this.m_rate != 0)
         {
             this.m_atkFlag = true;
         }
+        this.Dead();
     }
 
     public void CountTimer()
@@ -89,7 +94,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         int damage = (this.m_data.Atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
-        this.m_timer = 0.0f;
+        //this.m_timer = 0.0f;
         this.m_rate = 0;
         this.m_atkFlag = false;
     }
@@ -99,7 +104,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_data.Hp -= damage;
         GetComponent<ParticleSystem>().Play();
         if (this.m_data.Hp < 0) this.m_data.Hp = 0;
-        this.Dead();
     }
 
     public void Heal()
@@ -129,7 +133,22 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.Hp <= 0) Destroy(this.gameObject);
+        if (this.m_data.Hp <= 0 && m_length == 0.0f)
+        {
+            m_anim.SetBool("IsDeath", true);
+            m_length = m_animState.length;
+
+            if(m_length == 0.0f) Destroy(this.gameObject);
+        }
+
+        if (m_length != 0.0f)
+        {
+            CountTimer();
+            if (m_length < m_timer)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     private void CreatePrefab()
@@ -147,5 +166,10 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         if(!obj) obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx");
         obj = Instantiate(obj, this.transform.position, this.transform.rotation);
         obj.transform.parent = this.gameObject.transform;
+
+        this.m_anim = obj.GetComponent<Animator>();
+        this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
+        this.m_length = 0.0f;
+        this.m_timer = 0.0f;
     }
 }
