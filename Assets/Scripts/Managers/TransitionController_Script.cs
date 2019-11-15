@@ -57,9 +57,19 @@ public class TransitionController_Script : MonoBehaviour
 
         StartCoroutine(TransitionCoroutine(nextSceneName));
     }
+    public void TransitionStart(string nextSceneName,LoadSceneMode mode = LoadSceneMode.Single)
+    {
+        // 既にシーン遷移中なら何もしない
+        if (m_isTransferring.Value)
+            return;
+
+        m_isTransferring.Value = true;
+
+        StartCoroutine(TransitionCoroutine(nextSceneName,mode));
+    }
 
 
-    private IEnumerator TransitionCoroutine(string nextSceneName)
+    private IEnumerator TransitionCoroutine(string nextSceneName,LoadSceneMode mode = LoadSceneMode.Single)
     {
         var time = m_transitionSeconds;
 
@@ -78,7 +88,7 @@ public class TransitionController_Script : MonoBehaviour
         m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
 
         // 画面が隠し終わったらシーン遷移する
-        yield return SceneManager.LoadSceneAsync(nextSceneName);
+        yield return SceneManager.LoadSceneAsync(nextSceneName,mode);
 
         // 徐々に画面を戻す
         time = m_transitionSeconds;
@@ -97,6 +107,7 @@ public class TransitionController_Script : MonoBehaviour
         // シーン遷移完了
         m_isTransferring.Value = false;
     }
+
 
     private Color OverrideColorAlpha(Color c, float a)
     {

@@ -17,30 +17,16 @@ public class SampleMain : MonoBehaviour
     // Start is called before the first frame update
     private async void Start()
     {
+        // シーン遷移が終わるまで待つ場合はOnTransitionFinishedAsyncをawaitする
         await TransitionManager_Script.OnTransitionFinishedAsync();
-
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
 
         m_button.OnClickAsObservable()
             .Subscribe(_ =>
             {
-                foreach (GameObject obj in gameObjectsTohidden)
-                {
-                    obj.SetActive(false);
-                }
-                Application.LoadLevelAdditive("SampleBattle");
-                
-                //TransitionManager_Script.StartTransition(m_nextSceneName);
+                TransitionManager_Script.StartTransition(
+                    m_nextSceneName,
+                    LoadSceneMode.Additive
+                    );
             });
-    }
-
-    private void OnSceneUnloaded(Scene current)
-    {
-        Debug.Log("OnSceneUnloaded" + current.name);
-
-        foreach(GameObject obj in gameObjectsTohidden)
-        {
-            obj.SetActive(true);
-        }
     }
 }

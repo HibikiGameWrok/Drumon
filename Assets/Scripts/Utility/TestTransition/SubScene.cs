@@ -10,7 +10,7 @@ public class SubScene : MonoBehaviour
     [SerializeField]
     private string m_nextScene;
     [SerializeField]
-    private int m_timeSpan = 3;
+    private double m_timeSpan = 3;
 
     // Start is called before the first frame update
     private async void Start()
@@ -22,7 +22,6 @@ public class SubScene : MonoBehaviour
             .Subscribe(_ =>
             {
                 TransitionManager_Script.StartTransition(m_nextScene);
-                //SceneManager.UnloadScene("SampleBattle");
             }).AddTo(this);
     }
 }
