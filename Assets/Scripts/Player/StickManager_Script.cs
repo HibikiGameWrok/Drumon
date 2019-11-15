@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class StickManager_Script : MonoBehaviour
 {
@@ -85,23 +86,26 @@ public class StickManager_Script : MonoBehaviour
     // 攻撃ドラムの同時に叩いた処理
     void DoubleHitAttackDrum()
     {
-        if (m_leftStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.ATTACK) == true && m_rightStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.ATTACK) == true)
+        if (XRDevice.isPresent)
         {
-            // 内側
-            if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true && m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
+            if (m_leftStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.ATTACK) == true && m_rightStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.ATTACK) == true)
             {
-                m_doubleInHitFlag = true;
-                // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_leftStick.DoubleHitVibClip);
-                OVRHaptics.RightChannel.Preempt(m_rightStick.DoubleHitVibClip);
-            }
-            // 外側
-            else if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true && m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
-            {
-                m_doubleOutHitFlag = true;
-                // 振動させる
-                OVRHaptics.LeftChannel.Preempt(m_leftStick.DoubleHitVibClip);
-                OVRHaptics.RightChannel.Preempt(m_rightStick.DoubleHitVibClip);
+                // 内側
+                if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true && m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
+                {
+                    m_doubleInHitFlag = true;
+                    // 振動させる
+                    OVRHaptics.LeftChannel.Preempt(m_leftStick.DoubleHitVibClip);
+                    OVRHaptics.RightChannel.Preempt(m_rightStick.DoubleHitVibClip);
+                }
+                // 外側
+                else if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true && m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
+                {
+                    m_doubleOutHitFlag = true;
+                    // 振動させる
+                    OVRHaptics.LeftChannel.Preempt(m_leftStick.DoubleHitVibClip);
+                    OVRHaptics.RightChannel.Preempt(m_rightStick.DoubleHitVibClip);
+                }
             }
         }
     }
@@ -109,32 +113,35 @@ public class StickManager_Script : MonoBehaviour
     // 選択ドラムを叩いた処理
     void HitSwitchDrum()
     {
-        if (m_leftStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.SWITCH) == true || m_rightStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.SWITCH) == true)
+        if (XRDevice.isPresent)
         {
-            // 内側
-            if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true || m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
+            if (m_leftStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.SWITCH) == true || m_rightStick.HitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.SWITCH) == true)
             {
-                // UIが表示されていなければ
-                if (m_openUIFlag == false)
+                // 内側
+                if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true || m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
                 {
-                    // UIの表示フラグを立てる
-                    m_openUIFlag = true;
+                    // UIが表示されていなければ
+                    if (m_openUIFlag == false)
+                    {
+                        // UIの表示フラグを立てる
+                        m_openUIFlag = true;
+                    }
+                    // UIが表示されていたら
+                    else
+                    {
+                        // UIの表示フラグを伏せる
+                        m_openUIFlag = false;
+                    }
                 }
-                // UIが表示されていたら
-                else
+                // 外側
+                else if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true || m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
                 {
-                    // UIの表示フラグを伏せる
-                    m_openUIFlag = false;
-                }
-            }
-            // 外側
-            else if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true || m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
-            {
-                // UIが表示されていなければ
-                if (m_openUIFlag == false)
-                {
-                    // UIの表示フラグを立てる
-                    m_openUIFlag = true;
+                    // UIが表示されていなければ
+                    if (m_openUIFlag == false)
+                    {
+                        // UIの表示フラグを立てる
+                        m_openUIFlag = true;
+                    }
                 }
             }
         }

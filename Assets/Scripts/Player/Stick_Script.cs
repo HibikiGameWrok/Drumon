@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.XR;
 
 public abstract class Stick_Script : MonoBehaviour
 {
@@ -93,21 +94,24 @@ public abstract class Stick_Script : MonoBehaviour
     // バイブの初期化
     protected void InitialVibration()
     {
-        // バイブの長さ
-        m_vibration = new byte[VIB_LENGTH];
-        // 同時に叩いた時のバイブの長さ
-        m_doubleHitVib = new byte[DOUBLE_HIT_VIB_LENGTH];
-        for (int i = 0; i < m_vibration.Length; i++)
+        if (XRDevice.isPresent)
         {
-            // バイブの大きさ
-            m_vibration[i] = VIB_SIZE;
+            // バイブの長さ
+            m_vibration = new byte[VIB_LENGTH];
+            // 同時に叩いた時のバイブの長さ
+            m_doubleHitVib = new byte[DOUBLE_HIT_VIB_LENGTH];
+            for (int i = 0; i < m_vibration.Length; i++)
+            {
+                // バイブの大きさ
+                m_vibration[i] = VIB_SIZE;
+            }
+            for (int i = 0; i < m_doubleHitVib.Length; i++)
+            {
+                // 同時に叩いた時のバイブの大きさ
+                m_doubleHitVib[i] = DOUBLE_HIT_VIB_SIZE;
+            }
+            m_vibClip = new OVRHapticsClip(m_vibration, m_vibration.Length);
+            m_doubleHitVibClip = new OVRHapticsClip(m_doubleHitVib, m_doubleHitVib.Length);
         }
-        for (int i = 0; i < m_doubleHitVib.Length; i++)
-        {
-            // 同時に叩いた時のバイブの大きさ
-            m_doubleHitVib[i] = DOUBLE_HIT_VIB_SIZE;
-        }
-        m_vibClip = new OVRHapticsClip(m_vibration, m_vibration.Length);
-        m_doubleHitVibClip = new OVRHapticsClip(m_doubleHitVib, m_doubleHitVib.Length);
     }
 }

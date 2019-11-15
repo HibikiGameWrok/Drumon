@@ -13,7 +13,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR;
 
 // ドラムマネージャーの定義
 public class DrumManager_Script : SingletonBase_Script<DrumManager_Script> 
@@ -114,10 +114,13 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             {
                 if(result == true)
                 {
-                    // 継続する
+                    if (XRDevice.isPresent)
+                    {
+                        // 継続する
 
-                    // ノーツの生成処理
-                    m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                        // ノーツの生成処理
+                        m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                    }
                 }
                 else
                 {
