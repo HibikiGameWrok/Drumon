@@ -33,8 +33,8 @@ public class RippleManager_Script : MonoBehaviour {
     private WaterRipple[] ripple;
     public int rippleAmount = 0;
 
-    [Range(0, 40)]
-    public int MaxRippleAmount = 16;
+    [Range(0, 70)]
+    public int MaxRippleAmount = 40;
 
     public float NextRippleDist = 1; //This system is not good at the moment, swap it out at some point
 
@@ -46,7 +46,6 @@ public class RippleManager_Script : MonoBehaviour {
             ripple[i] = new WaterRipple();
         }
 
-        WaterTopMaterial_Ref = GetComponent<MeshRenderer>();
         //WaterTopMaterial_Ref.material.SetTexture("_RenderTexture", texture);
     }
 	
