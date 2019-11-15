@@ -46,12 +46,12 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             this.m_attackSpan -= Time.deltaTime;
 
+            if (this.JudgeResult()) return;
             this.m_playerCreature.Execute();
             this.m_enemyCreature.Execute();
             if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
-            this.JudgeResult();
         }
     }
 
@@ -99,11 +99,19 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_attackSpan = 3.0f;
     }
 
-    private void JudgeResult()
+    private bool JudgeResult()
     {
         if (!this.m_playerCreature)
+        {
             this.m_isSetting = false;
-        else if(!this.m_enemyCreature)
+            return true;
+        }
+        else if (!this.m_enemyCreature)
+        {
             this.m_isSetting = false;
+            return true;
+        }
+
+        return false;
     }
 }
