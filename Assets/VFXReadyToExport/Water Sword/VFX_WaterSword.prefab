@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3869350509615923044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3869350509615923050}
+  - component: {fileID: 3869350509615923051}
+  m_Layer: 0
+  m_Name: VFX_WaterSword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3869350509615923050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869350509615923044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -44.8, y: -3.53, z: -51.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3869350509615923051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869350509615923044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96dbee346e6975647983430fa06db833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sword_Prefab: {fileID: 784073531990558509, guid: cdda9b5146a03bb4891197779dff2815,
+    type: 3}
+  Slash1_Prefab: {fileID: 4197370470330690388, guid: c784c01778d91cc43afca3c495ba3cde,
+    type: 3}
+  Slash2_Prefab: {fileID: 2027566607624806406, guid: f6eddaf287876234f96f00b913c480b5,
+    type: 3}
+  Impact_Prefab: {fileID: 3686917679836976994, guid: 152947f86e636a94ba61e98197b82962,
+    type: 3}
+  timerMax: 0.9

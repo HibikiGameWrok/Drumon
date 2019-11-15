@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class GrassManager_Script : MonoBehaviour {
 
-    Renderer[] AllGrassRenderers;
-    private float variable = 100;
+    Renderer[] AllGrassRenderers = null;
+    //private float variable = 100.0f;
     public float Speed = 0.15f;
 
     public int pixWidth = 100;
     public int pixHeight = 100;
-    public float xOrg = 0;
-    public float yOrg = 0;
-    public float scale = -20;
-    private Texture2D noiseTex;
-    private Color[] pix;
+    public float xOrg = 0.0f;
+    public float yOrg = 0.0f;
+    public float scale = -20.0f;
+    private Texture2D noiseTex = null;
+    private Color[] pix = null;
 
-    private GameObject PlayerReference;
+    private GameObject PlayerReference = null;
 
     // Use this for initialization
     void Start () {

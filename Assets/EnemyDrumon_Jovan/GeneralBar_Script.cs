@@ -7,7 +7,7 @@ public class GeneralBar_Script : MonoBehaviour
 {
 
     [SerializeField]
-    private Image BarImage;
+    private Image BarImage = null;
 
     void Awake()
     {

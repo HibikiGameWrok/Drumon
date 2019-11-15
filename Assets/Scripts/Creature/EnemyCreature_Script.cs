@@ -1,22 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 {
     [SerializeField]
-    private CharactorData m_data;
-
-    private int m_hp;
+    private CharactorData m_data = null;
 
     public int HP
     {
-        get { return this.m_hp; }
+        get { return this.m_data.Hp; }
     }
-
-    private int m_atk;
-    private int m_def;
-    private CharactorData.ELEM m_elem;
 
     private float m_timer;
 
@@ -36,11 +29,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     // Start is called before the first frame update
     void Start()
     {
-        this.m_hp = m_data.Hp;
-        this.m_atk = m_data.Atk;
-        this.m_def = m_data.Def;
-        this.m_elem = m_data.Elem;
-
         this.m_timer = 0.0f;
 
         this.m_atkFlag = false;
@@ -51,9 +39,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Execute()
     {
-        m_healProsperityUIScript.NowPoint = m_hp;
+        m_healProsperityUIScript.NowPoint = m_data.Hp;
         this.CountTimer();
-        if (this.m_timer >= 5.0f) this.m_atkFlag = true;
+        if (this.m_timer >= 10.0f) this.m_atkFlag = true;
     }
 
     public void CountTimer()
@@ -63,7 +51,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_atk / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_data.Atk / 2) - (this.m_target.GetData().Def / 4);
 
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
@@ -72,15 +60,15 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Damage(int damage)
     {
-        this.m_hp -= damage;
+        this.m_data.Hp -= damage;
         GetComponent<ParticleSystem>().Play();
-        if (this.m_hp < 0) this.m_hp = 0;
+        if (this.m_data.Hp < 0) this.m_data.Hp = 0;
         this.Dead();
     }
 
     public void Heal()
     {
-        this.m_hp += m_data.Hp / 100;
+        this.m_data.Hp += 10;
     }
 
     public CharactorData GetData()
@@ -95,6 +83,34 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_hp <= 0) Destroy(this.gameObject);
+        if (this.m_data.Hp <= 0) Destroy(this.gameObject);
+    }
+
+    public void Capture(int hitNum)
+    {
+        if (100 - (this.m_data.Hp / 2) + hitNum > 140)
+        {
+            CreatureList_Script.Get.Add(this);
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            this.m_atkFlag = true;
+        }
+    }
+
+    private void CreatePrefab()
+    {
+        if (this.transform.childCount != 0)
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject);
+            }
+        }
+
+        GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+        obj = Instantiate(obj, this.transform.position, this.transform.rotation);
+        obj.transform.parent = this.gameObject.transform;
     }
 }

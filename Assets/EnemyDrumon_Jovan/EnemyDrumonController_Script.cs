@@ -15,29 +15,29 @@ public class EnemyDrumonController_Script : MonoBehaviour
     };
 
     [SerializeField]
-    private SO_ElementChecker elementChecker;
+    private SO_ElementChecker elementChecker = null;
 
     [SerializeField]
-    private SO_EnemyDrumon_Script data;
+    private SO_EnemyDrumon_Script data = null;
 
     [SerializeField]
-    private GameEvent AttackNormal_Event;
+    private GameEvent AttackNormal_Event = null;
     [SerializeField]
-    private GameEvent AttackSpecial_Event;
+    private GameEvent AttackSpecial_Event = null;
     [SerializeField]
-    private GameEvent BoostAttack_Event;
+    private GameEvent BoostAttack_Event = null;
     [SerializeField]
-    private GameEvent BoostDefense_Event;
+    private GameEvent BoostDefense_Event = null;
 
     [SerializeField]
-    private GameObject WaitGaugePrefab;
-    private GeneralBar_Script WaitGaugeReference;
+    private GameObject WaitGaugePrefab = null;
+    private GeneralBar_Script WaitGaugeReference = null;
 
     [SerializeField]
-    private GameObject HPGaugePrefab;
-    private GeneralBar_Script HPGaugeReference;
+    private GameObject HPGaugePrefab = null;
+    private GeneralBar_Script HPGaugeReference = null;
 
-    private int m_hpCurrent;
+    private int m_hpCurrent = 0;
     private float m_waitTimer = 0.0f; //Time taken for an Action to be taken
     private float m_actionTimer = 0.0f; //Time taken for an Action to finish
     private bool m_actionTaken = false;
@@ -47,7 +47,7 @@ public class EnemyDrumonController_Script : MonoBehaviour
     private bool m_chargingSpecialAttack = false;
 
     private delegate void EnemyDrumonAction();
-    private EnemyDrumonAction Action;
+    private EnemyDrumonAction Action = null;
 
     //Function : Start
     void Start()

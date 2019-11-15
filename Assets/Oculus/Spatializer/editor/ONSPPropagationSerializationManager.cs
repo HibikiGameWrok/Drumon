@@ -34,7 +34,7 @@ public enum PlayModeState
 
 class ONSPPropagationSerializationManager
 {
-    private static PlayModeState _currentState = PlayModeState.Stopped;
+    //private static PlayModeState _currentState = PlayModeState.Stopped;
 
     static ONSPPropagationSerializationManager()
     {

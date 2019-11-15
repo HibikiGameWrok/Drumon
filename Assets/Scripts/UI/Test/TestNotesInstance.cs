@@ -65,6 +65,7 @@ public class TestNotesInstance : MonoBehaviour
             m_attackRecipeManagerScript.MatchAttackRecipe();
             ResetNotes();
             ResetCount();
+            m_timeStandard_Script.TimerReset();
         }
         InputTest();
     }
@@ -121,14 +122,14 @@ public class TestNotesInstance : MonoBehaviour
     private float SetInsPosY(int notesNum)
     {
         // 基準値からY座標を下にずらす為の変数
-        float subValue = 0.092f * this.transform.parent.localScale.y;
+        float subValue = (0.092f * this.transform.parent.localScale.y) * (notesNum - 1.000f);
 
         // 叩かれ方によってY座標を変更する
         switch(notesNum)
         {
             // 内側を１本のスティックで叩いた時
             case (int)NOTES_TYPE.DO_NOTE:
-                m_instancePos.y = this.transform.position.y;
+                m_instancePos.y = this.transform.position.y - subValue;
                 break;
 
             // 内側を２本のスティックで叩いた時
@@ -138,12 +139,12 @@ public class TestNotesInstance : MonoBehaviour
 
             // 外側を１本のスティックで叩いた時
             case (int)NOTES_TYPE.KA_NOTE:
-                m_instancePos.y = this.transform.position.y - subValue * 2;
+                m_instancePos.y = this.transform.position.y - subValue;
                 break;
 
             // 外側を２本のスティックで叩いた時
             case (int)NOTES_TYPE.KAN_NOTE:
-                m_instancePos.y = this.transform.position.y - subValue * 3;
+                m_instancePos.y = this.transform.position.y - subValue;
                 break;
 
             default:

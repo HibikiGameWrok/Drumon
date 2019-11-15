@@ -35,8 +35,6 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
 
     // NotesManagerオブジェクトを取得
     private GameObject m_notesManager = null;
-    // NotesManagerオブジェクト内にアタッチされているScriptを取得
-    private NotesManager_Script m_notesManagerScript = null;
 
     // TestNotesInstanceスクリプトを取得
     private TestNotesInstance m_testNotesInstance = null;
@@ -46,11 +44,6 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         // ノーツ管理オブジェクトを取得
         m_notesManager = GameObject.Find("NotesManager");
 
-        if (m_notesManager.GetComponent<NotesManager_Script>() != null)
-        {
-            // ノーツ管理オブジェクトにアタッチされたScriptを取得
-            m_notesManagerScript = m_notesManager.GetComponent<NotesManager_Script>();
-        }
         m_testNotesInstance = m_notesManager.GetComponent<TestNotesInstance>();
         m_pCreature_Script = BattleManager_Script.Get.PlayerCreature;
     }
@@ -77,7 +70,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         {
             for (int j = 0; j < csvDatas[i].Length; j++)
             {
-                Debug.Log(csvDatas[i][j].ToString());
+                //Debug.Log(csvDatas[i][j].ToString());
             }
         }
     }

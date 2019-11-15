@@ -19,6 +19,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.VR;
 using Debug = UnityEngine.Debug;
 
+#pragma warning disable 618
 
 /// <summary>
 /// The LocomotionTeleport class controls and centralizes functionality for the various types 

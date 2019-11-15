@@ -1,46 +1,42 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 {
     [SerializeField, Range(1,100)]
-    private int HEAL_RATE;
+    private int HEAL_RATE = 0;
 
     [SerializeField]
-    private CharactorData m_data;
+    private CharactorData m_data = null;
 
     [SerializeField]
-    private string m_name;
+    private string m_name = null;
+
+    private Animator m_anim = null;
+    private AnimatorStateInfo m_animState;
+    private float m_length;
 
     public string Name
     {
         get { return this.m_name; }
     }
 
-    private int m_hp;
-
     public int HP
     {
-        get { return this.m_hp; }
+        get { return this.m_data.Hp; }
     }
-
-    private int m_atk;
-    private int m_def;
-    private CharactorData.ELEM m_elem;
 
     private float m_timer;
 
-    private GameObject m_healProsperityUI;
-    private HealProsperityUI_Script m_healProsperityUIScript;
+    private GameObject m_healProsperityUI = null;
+    private HealProsperityUI_Script m_healProsperityUIScript = null;
 
     public float Timer
     {
         get { return this.m_timer; }
     }
 
-    private ICreature_Script m_target;
+    private ICreature_Script m_target = null;
 
     private int m_rate;
 
@@ -62,18 +58,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     // Start is called before the first frame update
     void Start()
     {
-        this.m_hp = m_data.Hp;
-        this.m_atk = m_data.Atk;
-        this.m_def = m_data.Def;
-        this.m_elem = m_data.Elem;
-
         this.m_timer = 0.0f;
-
-        this.m_target = null;
 
         m_rate = 0;
 
         this.m_atkFlag = false;
+
+        CreatePrefab();
 
         m_attackRecipe = FindObjectOfType<AttackRecipeManeger_Script>();
         m_attackRecipe.CSVLoadFile(this);
@@ -84,12 +75,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Execute()
     {
-        this.CountTimer();
-        m_healProsperityUIScript.NowPoint = m_hp;
+        //this.CountTimer();
+        m_healProsperityUIScript.NowPoint = m_data.Hp;
         if (this.m_rate != 0)
         {
             this.m_atkFlag = true;
         }
+        this.Dead();
     }
 
     public void CountTimer()
@@ -99,26 +91,25 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_data.Atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
-        this.m_timer = 0.0f;
+        //this.m_timer = 0.0f;
         this.m_rate = 0;
         this.m_atkFlag = false;
     }
 
     public void Damage(int damage)
     {
-        this.m_hp -= damage;
+        this.m_data.Hp -= damage;
         GetComponent<ParticleSystem>().Play();
-        if (this.m_hp < 0) this.m_hp = 0;
-        this.Dead();
+        if (this.m_data.Hp < 0) this.m_data.Hp = 0;
     }
 
     public void Heal()
     {
-        this.m_hp += this.m_data.Hp / 100 * this.HEAL_RATE;
-        if (this.m_hp > this.m_data.Hp) this.m_hp = this.m_data.Hp;
+        this.m_data.Hp += this.HEAL_RATE;
+        //if (this.m_data.Hp > this.m_data.Hp) this.m_data.Hp = this.m_data.Hp;
     }
 
     public CharactorData GetData()
@@ -131,11 +122,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         if(m_data != data)
         {
             m_data = data;
-
-            this.m_hp = m_data.Hp;
-            this.m_atk = m_data.Atk;
-            this.m_def = m_data.Def;
-            this.m_elem = m_data.Elem;
+            CreatePrefab();
         }
     }
 
@@ -146,6 +133,43 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_hp <= 0) Destroy(this.gameObject);
+        if (this.m_data.Hp <= 0 && m_length == 0.0f)
+        {
+            m_anim.SetBool("IsDeath", true);
+            m_length = m_animState.length;
+
+            if(m_length == 0.0f) Destroy(this.gameObject);
+        }
+
+        if (m_length != 0.0f)
+        {
+            CountTimer();
+            if (m_length < m_timer)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
+    private void CreatePrefab()
+    {
+        if(this.transform.childCount != 0)
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject);
+            }
+        }
+
+        GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+
+        if(!obj) obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx");
+        obj = Instantiate(obj, this.transform.position, this.transform.rotation);
+        obj.transform.parent = this.gameObject.transform;
+
+        this.m_anim = obj.GetComponent<Animator>();
+        this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
+        this.m_length = 0.0f;
+        this.m_timer = 0.0f;
     }
 }

@@ -7,6 +7,8 @@ using UnityEditorInternal;
 using UnityEngine;
 using VRTK;
 
+#pragma warning disable 618
+
 [InitializeOnLoad]
 public sealed class VRTK_UpdatePrompt : EditorWindow
 {

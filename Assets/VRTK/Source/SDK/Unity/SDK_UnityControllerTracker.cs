@@ -1,4 +1,7 @@
 ﻿// Unity SDK Controller Tracker|SDK_Unity|005
+
+#pragma warning disable 618
+
 namespace VRTK
 {
     using UnityEngine;
