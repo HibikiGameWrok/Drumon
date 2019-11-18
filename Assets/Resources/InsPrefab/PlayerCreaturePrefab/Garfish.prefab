@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 2861842392780620943}
   - component: {fileID: 5277459825222183413}
   m_Layer: 0
-  m_Name: GarFish
+  m_Name: Garfish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291433197955004060}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 0376436c0e26aad4b82d936c02034ec8, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 1482218dfddf562488a4419b96ac3eff, type: 3}
   m_Controller: {fileID: 9100000, guid: bc0761d0ee784b34aa88c18c2bb9c0ec, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -658,8 +658,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79fe446f050974f409df76a8e1df1888, type: 2}
-  - {fileID: -4183539106887052083, guid: bfda73c21edeee340a1feba04d288aff, type: 3}
+  - {fileID: 2100000, guid: 20e27330b3719364b923fadaf779ef73, type: 2}
+  - {fileID: 2100000, guid: 20e27330b3719364b923fadaf779ef73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -684,7 +684,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -2790382867102769388, guid: bfda73c21edeee340a1feba04d288aff, type: 3}
+  m_Mesh: {fileID: -2790382867102769388, guid: 1482218dfddf562488a4419b96ac3eff, type: 3}
   m_Bones:
   - {fileID: 8465821295173786674}
   - {fileID: 3896451544957229642}
