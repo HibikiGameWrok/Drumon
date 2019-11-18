@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UniRx;
 
 
@@ -36,10 +37,21 @@ public class TransitionManager_Script
     /// <summary>
     /// 次のシーンへ遷移する
     /// </summary>
-    /// <param name="nextSceneName"></param>
+    /// <param name="nextSceneName">次のシーンの名前</param>
     public static void StartTransition(string nextSceneName)
     {
         Controller.TransitionStart(nextSceneName);
+    }
+
+
+    /// <summary>
+    /// 次のシーンへ遷移する
+    /// </summary>
+    /// <param name="nextSceneName">次のシーンの名前</param>
+    /// <param name="mode">遷移前のシーンを残すか</param>
+    public static void StartTransition(string nextSceneName, LoadSceneMode mode)
+    {
+        Controller.TransitionStart(nextSceneName, mode);
     }
 
 

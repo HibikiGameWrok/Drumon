@@ -22,6 +22,7 @@ public class CharactorData : ScriptableObject
     public int Hp
     {
         get { return hp; }
+        set { hp = value; }
     }
 
     [SerializeField]

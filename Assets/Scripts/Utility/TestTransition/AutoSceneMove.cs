@@ -9,7 +9,7 @@ public class AutoSceneMove : MonoBehaviour
     [SerializeField]
     private string m_nextScene;
     [SerializeField]
-    private int m_timeSpan = 3;
+    private double m_timeSpan = 3;
 
     // Start is called before the first frame update
     private async void Start()

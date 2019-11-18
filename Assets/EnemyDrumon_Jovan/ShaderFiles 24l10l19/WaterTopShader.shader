@@ -14,7 +14,7 @@
 		_Foam("Foamline Thickness", Range(0,10)) = 8
 
 		_RippleSpread("Ripple Spread", Range(0, 100)) = 10
-		_FinalRippleMagnifier("Final Ripple Magnifier", Range(0, 2)) = 1
+		_RippleHeightScale("Ripple Height Scale", Range(0, 3)) = 1
 
 		//_MyNoise0("the2", 2D) = "white" {}
 	}
@@ -65,9 +65,7 @@
 				float _Speed, _Amount, _Height, _Foam, _Scale;//
 				float4 _FoamC;
 
-				float _FinalRippleMagnifier;
-
-				float4 Ripples[40];
+				float4 Ripples[70];
 				int RipplesAmount = 0;
 
 				sampler2D _MyNoise0, _MyNoise1;
@@ -75,6 +73,7 @@
 				float2 _MyNoiseOffset0, _MyNoiseOffset1;
 
 				float _RippleSpread;
+				float _RippleHeightScale;
 
 				fixed4 triplanar(float3 blendNormal, float4 texturex, float4 texturey, float4 texturez)
 				{
@@ -158,11 +157,11 @@
 									//Blend near the end
 									if (o.tDist >= 0.9 * _RippleSpread && Val > 0)
 									{
-										o.addCol += lerp(-Val, Val, (_RippleSpread - o.tDist) / (0.1 * _RippleSpread));
+										o.addCol += _RippleHeightScale * lerp(-Val, Val, (_RippleSpread - o.tDist) / (0.1 * _RippleSpread));
 									}
 									else
 									{
-										o.addCol += Val;
+										o.addCol += _RippleHeightScale * Val;
 									}
 
 								//if (debugcount == 1)
@@ -217,9 +216,10 @@
 					{
 						o.addCol = 0;
 					}
-					
-					o.addCol *= _FinalRippleMagnifier;
-					v.vertex.y += o.addCol;
+					else
+					{
+						v.vertex.y += o.addCol;
+					}
 
 					o.vertex = UnityObjectToClipPos(v.vertex);
 
