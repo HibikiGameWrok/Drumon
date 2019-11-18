@@ -41,7 +41,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         m_healProsperityUIScript.NowPoint = m_data.Hp;
         this.CountTimer();
-        if (this.m_timer >= 5.0f) this.m_atkFlag = true;
+        if (this.m_timer >= 10.0f) this.m_atkFlag = true;
     }
 
     public void CountTimer()
