@@ -24,37 +24,61 @@ public class GameStateManager : MonoBehaviour
     // 定数
     private static readonly string BATTLE_SCENE = "SampleBattle";
     private static readonly string TITLE_SCENE = "SampleTitle";
+    private static readonly string RESULT_SCENE = "SampleResult";
 
     [SerializeField]
     private GameDirector m_director;
+
+    
     // ゲームステート
     private ReactiveProperty<GameState> m_gameState = new ReactiveProperty<GameState>(GameState.Initialize);
     // 現在のゲームステート
     public IReadOnlyReactiveProperty<GameState> CurrentState => m_gameState;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
         // ゲームが開始したら探索パート
-        //m_director.ReadyTimer
-        //    .FirstOrDefault(x => x == 0)
-        //    .Subscribe(_ => m_gameState.SetValueAndForceNotify(GameState.Explore));
+        m_director.ReadyTimer
+            .FirstOrDefault(x => x == 0)
+            .Subscribe(_ => 
+            {
+                m_gameState.SetValueAndForceNotify(GameState.Explore);
+                Debug.Log(m_gameState.Value);
+            });
 
         // プレイヤーがドラモンに接触したらバトルパート
-        m_director.ReadyTimer
-       .FirstOrDefault(x => x == 0)
-       .Subscribe(_ =>
-       {
-           m_gameState.SetValueAndForceNotify(GameState.Battle);
-           MoveToBattleScene();
-        });
+        m_director.Player.Value.IsEncounter
+            .Where(_ => m_director.Player.Value.IsEncounter.Value == true 
+                                &&  m_gameState.Value == GameState.Explore)
+            .Subscribe(_ =>
+            {
+                m_gameState.SetValueAndForceNotify(GameState.Battle);
+                MoveToBattleScene();
+            });
 
         // バトルパートが終了したら探索パートに戻る
+        m_director.BattleTimer
+            .Where(_ => m_gameState.Value == GameState.Battle)
+            .FirstOrDefault(x => x == 0)
+            .Subscribe(_ =>
+            {
+                Debug.Log(m_gameState.Value);
+                m_gameState.SetValueAndForceNotify(GameState.Explore);
+                MoveToMainScene();
+            });
 
         // 目的を達成したらリザルト
-
-        // リザルト終了でタイトル画面へ
+        m_director.Button
+            .OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                m_gameState.SetValueAndForceNotify(GameState.Result);
+                MoveToResultScene();
+                Destroy(m_director.Test.Value.gameObject);
+            });
 
 
         InitializeAsync().Forget();
@@ -74,18 +98,39 @@ public class GameStateManager : MonoBehaviour
         m_director.CountDownStart();
     }
 
+
+    /// <summary>
+    /// タイトルシーンへ
+    /// </summary>
     public void MoveToTitleScene()
     {
         TransitionManager_Script.StartTransition(TITLE_SCENE, LoadSceneMode.Single);
     }
 
+
+    /// <summary>
+    /// バトルシーンへ
+    /// </summary>
     public void MoveToBattleScene()
     {
         TransitionManager_Script.StartTransition(BATTLE_SCENE, LoadSceneMode.Additive);
     }
 
+
+    /// <summary>
+    /// メインシーンへ
+    /// </summary>
     public void MoveToMainScene()
     {
         TransitionManager_Script.StartTransition("SampleMain", LoadSceneMode.Single);
+    }
+
+    
+    /// <summary>
+    /// リザルトシーンへ
+    /// </summary>
+    public void MoveToResultScene()
+    {
+        TransitionManager_Script.StartTransition(RESULT_SCENE, LoadSceneMode.Single);
     }
 }
