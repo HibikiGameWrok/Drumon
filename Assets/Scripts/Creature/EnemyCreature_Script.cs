@@ -12,6 +12,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     }
 
     private float m_timer;
+    private float m_animTimer;
 
     private ICreature_Script m_target = null;
 
@@ -22,6 +23,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         get { return m_atkFlag; }
     }
 
+    private Animator m_anim = null;
+    private AnimatorStateInfo m_animState;
+    private float m_length;
+
     // HPUI
     private GameObject m_healProsperityUI;
     private HealProsperityUI_Script m_healProsperityUIScript;
@@ -30,8 +35,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     void Start()
     {
         this.m_timer = 0.0f;
+        this.m_animTimer = 0.0f;
 
         this.m_atkFlag = false;
+
+        CreatePrefab();
 
         m_healProsperityUI = GameObject.Find("ESlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
@@ -42,6 +50,24 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_healProsperityUIScript.NowPoint = m_data.Hp;
         this.CountTimer();
         if (this.m_timer >= 10.0f) this.m_atkFlag = true;
+
+        this.Dead();
+
+        if (m_length != 0.0f)
+        {
+            this.m_animTimer += Time.deltaTime;
+            if (m_length < this.m_animTimer)
+            {
+                if (m_data.Hp != 0)
+                {
+                    m_anim.SetBool("IsAttack", false);
+                    this.m_length = 0.0f;
+                    this.m_animTimer = 0.0f;
+                }
+                else
+                    Destroy(this.gameObject);
+            }
+        }
     }
 
     public void CountTimer()
@@ -56,6 +82,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
         this.m_atkFlag = false;
+
+        m_anim.SetBool("IsAttack", true);
+        m_length = m_animState.length;
     }
 
     public void Damage(int damage)
@@ -83,7 +112,13 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.Hp <= 0) Destroy(this.gameObject);
+        if (this.m_data.Hp <= 0 && m_length == 0.0f)
+        {
+            m_anim.SetBool("IsDeath", true);
+            m_length = m_animState.length;
+
+            if (m_length == 0.0f) Destroy(this.gameObject);
+        }
     }
 
     public void Capture(int hitNum)
@@ -110,7 +145,15 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         }
 
         GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+
+        if (!obj) obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx");
         obj = Instantiate(obj, this.transform.position, this.transform.rotation);
         obj.transform.parent = this.gameObject.transform;
+
+        this.m_anim = obj.GetComponent<Animator>();
+        this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
+        this.m_length = 0.0f;
+        this.m_timer = 0.0f;
+        this.m_animTimer = 0.0f;
     }
 }

@@ -116,8 +116,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         m_anim.SetBool("IsAttack", true);
         m_length = m_animState.length;
-
-        if (m_length == 0.0f) Destroy(this.gameObject);
     }
 
     public void Damage(int damage)
