@@ -82,6 +82,22 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             this.m_atkFlag = true;
         }
         this.Dead();
+
+        if (m_length != 0.0f)
+        {
+            CountTimer();
+            if (m_length < m_timer)
+            {
+                if (m_data.Hp != 0)
+                {
+                    m_anim.SetBool("IsAttack", false);
+                    this.m_length = 0.0f;
+                    this.m_timer = 0.0f;
+                }
+                else
+                    Destroy(this.gameObject);
+            }
+        }
     }
 
     public void CountTimer()
@@ -97,6 +113,11 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         //this.m_timer = 0.0f;
         this.m_rate = 0;
         this.m_atkFlag = false;
+
+        m_anim.SetBool("IsAttack", true);
+        m_length = m_animState.length;
+
+        if (m_length == 0.0f) Destroy(this.gameObject);
     }
 
     public void Damage(int damage)
@@ -139,15 +160,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             m_length = m_animState.length;
 
             if(m_length == 0.0f) Destroy(this.gameObject);
-        }
-
-        if (m_length != 0.0f)
-        {
-            CountTimer();
-            if (m_length < m_timer)
-            {
-                Destroy(this.gameObject);
-            }
         }
     }
 
