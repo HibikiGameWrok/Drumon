@@ -52,22 +52,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         if (this.m_timer >= 10.0f) this.m_atkFlag = true;
 
         this.Dead();
-
-        if (m_length != 0.0f)
-        {
-            this.m_animTimer += Time.deltaTime;
-            if (m_length < this.m_animTimer)
-            {
-                if (m_data.Hp != 0)
-                {
-                    m_anim.SetBool("IsAttack", false);
-                    this.m_length = 0.0f;
-                    this.m_animTimer = 0.0f;
-                }
-                else
-                    Destroy(this.gameObject);
-            }
-        }
     }
 
     public void CountTimer()
@@ -83,16 +67,15 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer = 0.0f;
         this.m_atkFlag = false;
 
-        m_anim.SetBool("IsAttack", true);
-        m_length = m_animState.length;
+        m_anim.SetTrigger("Attack");
     }
 
     public void Damage(int damage)
     {
         this.m_data.Hp -= damage;
         GetComponent<ParticleSystem>().Play();
+        m_anim.SetTrigger("Damage");
         if (this.m_data.Hp < 0) this.m_data.Hp = 0;
-        this.Dead();
     }
 
     public void Heal()
@@ -114,10 +97,18 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         if (this.m_data.Hp <= 0 && m_length == 0.0f)
         {
-            m_anim.SetBool("IsDeath", true);
+            m_anim.SetTrigger("Death");
             m_length = m_animState.length;
 
             if (m_length == 0.0f) Destroy(this.gameObject);
+        }
+        else if(m_length != 0.0f)
+        {
+            this.m_animTimer += Time.deltaTime;
+            if (m_length < this.m_animTimer)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
