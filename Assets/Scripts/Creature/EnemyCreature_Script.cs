@@ -97,7 +97,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         if (this.m_data.Hp <= 0 && m_length == 0.0f)
         {
-            m_anim.SetTrigger("Death");
+            m_anim.SetTrigger("IsDeath");
             m_length = m_animState.length;
 
             if (m_length == 0.0f) Destroy(this.gameObject);

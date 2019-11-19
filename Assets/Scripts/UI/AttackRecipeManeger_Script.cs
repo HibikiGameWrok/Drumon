@@ -37,14 +37,14 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     private GameObject m_notesManager = null;
 
     // TestNotesInstanceスクリプトを取得
-    private TestNotesInstance m_testNotesInstance = null;
+    private NotesInstance_Script m_testNotesInstance = null;
 
     void Start()
     {
         // ノーツ管理オブジェクトを取得
         m_notesManager = GameObject.Find("NotesManager");
 
-        m_testNotesInstance = m_notesManager.GetComponent<TestNotesInstance>();
+        m_testNotesInstance = m_notesManager.GetComponent<NotesInstance_Script>();
         m_pCreature_Script = BattleManager_Script.Get.PlayerCreature;
     }
 

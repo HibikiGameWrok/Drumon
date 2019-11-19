@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class TestNotesInstance : MonoBehaviour
+public class NotesInstance_Script : MonoBehaviour
 {
     // プレハブの名前を定数化
     private const string NOTES_NAME_PATH = "InsPrefab/NotePrefab";
@@ -28,7 +28,7 @@ public class TestNotesInstance : MonoBehaviour
     // タイムオブジェクトを保持
     private GameObject m_timer = null;
     // タイムScriptを取得
-    private TimeStandard_Script m_timeStandard_Script = null;
+    private AccelerationTime_Script m_timeStandard_Script = null;
 
     // 仮でレシピマネージャーを取得(後で消す)
     private GameObject m_attackRecipeManager = null;
@@ -48,7 +48,7 @@ public class TestNotesInstance : MonoBehaviour
     void Start()
     {
         m_timer = GameObject.Find("Timer");
-        m_timeStandard_Script = m_timer.GetComponent<TimeStandard_Script>();
+        m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
 
         // 後で消す
         m_attackRecipeManager = GameObject.Find("AttackRecipeManeger");

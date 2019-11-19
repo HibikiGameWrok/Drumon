@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeStandard_Script : MonoBehaviour
+public class AccelerationTime_Script : MonoBehaviour
 {
     // 初期化定数
     private const float ZERO_TIME = 0.0f;

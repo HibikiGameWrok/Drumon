@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestMoveTimeUI_Script : MonoBehaviour
+public class MoveTimeUI_Script : MonoBehaviour
 {
     // 子を保持する変数
     private Transform m_childSlider = null;
@@ -13,7 +13,7 @@ public class TestMoveTimeUI_Script : MonoBehaviour
     // タイマーオブジェクト（後で消す）
     private GameObject m_timerObject = null;
     // タイマーオブジェクトにアタッチしているスクリプト
-    private TimeStandard_Script m_timeStandardScript = null;
+    private AccelerationTime_Script m_timeStandardScript = null;
 
     [SerializeField]
     private float m_maxValue = 10.0f;
@@ -35,7 +35,7 @@ public class TestMoveTimeUI_Script : MonoBehaviour
         if (GameObject.Find("Timer") != null)
         {
             m_timerObject = GameObject.Find("Timer");
-            m_timeStandardScript = m_timerObject.GetComponent<TimeStandard_Script>();
+            m_timeStandardScript = m_timerObject.GetComponent<AccelerationTime_Script>();
         }
         /*                                                                      */
 

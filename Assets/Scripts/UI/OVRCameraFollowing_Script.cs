@@ -5,7 +5,7 @@ using UnityEngine.XR;
 
 #pragma warning disable 618
 
-public class TestOVRCameraFollowing : MonoBehaviour
+public class OVRCameraFollowing_Script : MonoBehaviour
 {
     private GameObject m_localAvatar = null;
     private Transform m_oVRCameraRig = null;
