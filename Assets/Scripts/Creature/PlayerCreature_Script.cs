@@ -94,15 +94,17 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         int damage = (this.m_data.Atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
         
         this.m_target.Damage(damage);
-        //this.m_timer = 0.0f;
         this.m_rate = 0;
         this.m_atkFlag = false;
+
+        m_anim.SetTrigger("Attack");
     }
 
     public void Damage(int damage)
     {
         this.m_data.Hp -= damage;
         GetComponent<ParticleSystem>().Play();
+        m_anim.SetTrigger("Damage");
         if (this.m_data.Hp < 0) this.m_data.Hp = 0;
     }
 
@@ -135,16 +137,15 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         if (this.m_data.Hp <= 0 && m_length == 0.0f)
         {
-            m_anim.SetBool("IsDeath", true);
+            m_anim.SetTrigger("Death");
             m_length = m_animState.length;
 
-            if(m_length == 0.0f) Destroy(this.gameObject);
+            if (m_length == 0.0f) Destroy(this.gameObject);
         }
-
-        if (m_length != 0.0f)
+        else if (m_length != 0.0f)
         {
-            CountTimer();
-            if (m_length < m_timer)
+            this.m_timer += Time.deltaTime;
+            if (m_length < this.m_timer)
             {
                 Destroy(this.gameObject);
             }
