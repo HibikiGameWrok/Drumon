@@ -36,7 +36,7 @@ public class EnemyHit_Script : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("LoadSceneTest2", LoadSceneMode.Additive);
+            SceneManager.LoadScene("TestBattleScene", LoadSceneMode.Additive);
 
             m_enemyScript = m_enemyCreature.EnemyCreatureObj.GetComponent<EnemyCreature_Script>();
             m_enemyScript.SetData(m_data);
