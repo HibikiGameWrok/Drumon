@@ -14,7 +14,7 @@ public class ButtonAction : MonoBehaviour
             .Where(_ => OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
             .Subscribe(_ =>
             {
-                TransitionManager_Script.StartTransition("SampleMain");
+                TransitionManager_Script.StartTransition("");
             });
        
     }
