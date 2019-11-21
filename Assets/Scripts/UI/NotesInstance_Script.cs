@@ -6,7 +6,7 @@ using UnityEngine;
 public class NotesInstance_Script : MonoBehaviour
 {
     // プレハブの名前を定数化
-    private const string NOTES_NAME_PATH = "InsPrefab/NotePrefab";
+    private const string NOTES_NAME_PATH = "InsPrefab/Notes/NotePrefab";
 
     // ノーツ生成の最大値
     private const int MAX_NOTES = 8;
@@ -35,7 +35,7 @@ public class NotesInstance_Script : MonoBehaviour
     private AttackRecipeManeger_Script m_attackRecipeManagerScript = null;
 
     // 子のノーツプレハブから数字を保持する変数
-    private string m_childNumSequence = "00";
+    private string m_childNumSequence = "0";
  
     // 生成された数を保持
     private int m_countnNotes = 0; 
@@ -79,7 +79,7 @@ public class NotesInstance_Script : MonoBehaviour
             // プレハブ生成
             m_notesPrefab = Instantiate(
                 SetLodeNotesPrefab(num),
-                new Vector3(SetInsPosX(m_countnNotes), SetInsPosY(num), m_instancePos.z),
+                new Vector3(SetInsPosX(m_countnNotes), m_instancePos.y, m_instancePos.z),
                 Quaternion.identity) as GameObject;
 
             // カウントアップ
@@ -97,8 +97,10 @@ public class NotesInstance_Script : MonoBehaviour
     // 生成するノーツプレハブの番号を設定し返す関数
     private GameObject SetLodeNotesPrefab(int num)
     {
+        // 1から３の値までの値をランダムで出す
+        int rand = Random.Range(1, 3 + 1);
         // ResourcesファイルからPrefabデータを設定(末尾の番号によってデータが変わる)
-        m_notesPrefab = (GameObject)Resources.Load(NOTES_NAME_PATH + num);
+        m_notesPrefab = (GameObject)Resources.Load(NOTES_NAME_PATH + num + "_" + rand);
 
         return m_notesPrefab;
     }
@@ -108,7 +110,7 @@ public class NotesInstance_Script : MonoBehaviour
     private float SetInsPosX(int notesCount)
     {
         // 生成する度にずらす
-        float addValue = (0.237f * notesCount) * this.transform.parent.localScale.x;
+        float addValue = (6.5f * notesCount) * this.transform.parent.localScale.x * m_notesPrefab.transform.localScale.x;
 
         // X座標へずらす計算
         m_instancePos.x = this.transform.position.x + addValue;
@@ -166,13 +168,19 @@ public class NotesInstance_Script : MonoBehaviour
     // 生成されたノーツの末尾の番号を数列に変換
     public int SearchInstanceNotes()
     {
-        m_childNumSequence = "00000000";
+        m_childNumSequence = "";
         // 子を全て検索
         foreach (Transform child in transform)
         {
-            // 生成された子の順で名前の数字の部分だけを文字列に代入
-            m_childNumSequence += Regex.Replace(child.ToString(), @"[^0-9]", "");
+            // 子の名前を取得
+            string childName = child.ToString();
+            // 子の種類番号(アンダーバー以降の二文字)を消す
+            childName = childName.Remove(childName.IndexOf("_"), childName.Length - childName.LastIndexOf("_"));
+
+            // 生成された子の順で名前の[_]前の数字の部分だけを文字列に代入
+            m_childNumSequence += Regex.Replace(childName, @"[^1-4]", "");
         }
+        Debug.Log(m_childNumSequence);
         int attackNum = System.Convert.ToInt32(m_childNumSequence);
 
         // 生成された子の順で並べられた数字の文字列を返す(1~4で最大8桁)
