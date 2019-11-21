@@ -71,6 +71,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         m_healProsperityUI = GameObject.Find("PSlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+
+        m_healProsperityUIScript.MaxPoint = m_data.Hp;
     }
 
     public void Execute()
