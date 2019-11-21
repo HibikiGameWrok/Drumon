@@ -59,14 +59,14 @@ public class GameStateManager : MonoBehaviour
                 MoveToBattleScene();
             });
 
-        // バトルパートが終了したら探索パートに戻る
+        // バトルパートのカウントダウン開始
         m_gameState
             .Where(_ => m_gameState.Value == GameState.Battle)
             .Subscribe(_ =>
             {
                 m_director.BattleResultCountDonwStart();
             });
-
+        // バトルが終了したか
         m_director.IsBattleFinish
            .Where(_ => m_director.IsBattleFinish.Value == true)
            .Subscribe(_ =>

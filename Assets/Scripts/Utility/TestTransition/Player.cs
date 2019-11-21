@@ -6,14 +6,18 @@ using UniRx.Triggers;
 
 public class Player : MonoBehaviour
 {
+    // 移動速度
     [SerializeField]
     private float m_speed = 2.0f;
 
+    // rigidbodyコンポーネント
     private Rigidbody m_rigidbody;
 
+    // エンカウントしたか
     [SerializeField]
     private BoolReactiveProperty m_isEncounter = new BoolReactiveProperty(false);
 
+    // エンカウントプロパティ
     public IReadOnlyReactiveProperty<bool> IsEncounter => m_isEncounter;
 
     // Start is called before the first frame update
@@ -31,7 +35,7 @@ public class Player : MonoBehaviour
         this.OnCollisionEnterAsObservable()
             .Select(hit => hit.gameObject.tag)
             .Where(tag => tag == "HealDrum")
-            .Select(_ => GameObject.FindObjectOfType<Player>())
+            .Select(_ => FindObjectOfType<Player>())
             .Subscribe(_ => m_isEncounter.Value = true);
     }
 
