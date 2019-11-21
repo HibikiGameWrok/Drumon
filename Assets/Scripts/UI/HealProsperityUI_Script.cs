@@ -25,7 +25,7 @@ public class HealProsperityUI_Script : MonoBehaviour
 
     [SerializeField]
     // スライダー最大値
-    private float m_maxPoint = 100;
+    private float m_maxPoint = 0;
     public float MaxPoint
     {
         set { this.m_maxPoint = value; }
@@ -49,7 +49,7 @@ public class HealProsperityUI_Script : MonoBehaviour
         }
         m_hpSlider.minValue = this.m_minPoint;
         m_hpSlider.maxValue = this.m_maxPoint;
-        m_hpSlider.value = this.m_nowPoint = this.m_maxPoint;
+        m_hpSlider.value = this.m_maxPoint;
     }
 
     // 開始関数
@@ -61,7 +61,7 @@ public class HealProsperityUI_Script : MonoBehaviour
         }
         m_hpSlider.minValue = this.m_minPoint;
         m_hpSlider.maxValue = this.m_maxPoint;
-        m_hpSlider.value = this.m_nowPoint = this.m_maxPoint;
+        m_hpSlider.value = this.m_maxPoint;
     }
 
     // 更新関数
