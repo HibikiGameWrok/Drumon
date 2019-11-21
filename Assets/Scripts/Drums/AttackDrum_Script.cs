@@ -32,6 +32,17 @@ public class AttackDrum_Script : Drum_Script
     private GameObject m_stickManager;
     private StickManager_Script m_stickManagerScript;
 
+    // 内側のドラム
+    private Transform m_inDrum;
+    // 外側のドラム
+    private Transform m_outDrum;
+
+    // マテリアル
+    [SerializeField]
+    private Material[] m_drumMaterials;
+    private Renderer m_inDrumRender;
+    private Renderer m_outDrumRender;
+
     /// <summary>
     /// デフォルト関数
     /// </summary>
@@ -57,6 +68,12 @@ public class AttackDrum_Script : Drum_Script
         m_rightStick = GameObject.FindGameObjectWithTag("StickRight").GetComponent<StickRight_Script>();
         m_stickManager = GameObject.Find("StickManeger");
         m_stickManagerScript = m_stickManager.GetComponent<StickManager_Script>();
+
+        m_inDrum = this.gameObject.transform.Find("BattleInDrum");
+        m_outDrum = this.gameObject.transform.Find("BattleOutDrum");
+
+        m_inDrumRender = m_inDrum.GetComponent<Renderer>();
+        m_outDrumRender = m_outDrum.GetComponent<Renderer>();
     }
 
     /// <summary>
@@ -98,6 +115,19 @@ public class AttackDrum_Script : Drum_Script
         set { m_isActive = value; }
     }
 
+    // 内側に当たった処理
+    public void InHit()
+    {
+        // マテリアル変更
+        m_inDrumRender.sharedMaterial = m_drumMaterials[1];
+    }
+
+    // 外側に当たった処理
+    public void OutHit()
+    {
+        // マテリアル変更
+        m_outDrumRender.sharedMaterial = m_drumMaterials[2];
+    }
 
     /// <summary>
     /// 衝突を検出した時の処理

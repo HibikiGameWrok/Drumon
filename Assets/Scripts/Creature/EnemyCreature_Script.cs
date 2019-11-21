@@ -31,6 +31,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private GameObject m_healProsperityUI;
     private HealProsperityUI_Script m_healProsperityUIScript;
 
+    //private GameObject m_enemyHit;
+    //private EnemyHit_Script m_enemyHitScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_animTimer = 0.0f;
 
         this.m_atkFlag = false;
+
+        //m_enemyHit = GameObject.Find("Enemy");
+        //m_enemyHitScript = m_enemyHit.GetComponent<EnemyHit_Script>();
+
+        //this.m_data = m_enemyHitScript.GetData();
 
         CreatePrefab();
 
@@ -86,6 +94,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     public CharactorData GetData()
     {
         return this.m_data;
+    }
+
+    public void SetData(CharactorData data)
+    {
+        this.m_data = data;
     }
 
     public void SetTarget(ICreature_Script target)
