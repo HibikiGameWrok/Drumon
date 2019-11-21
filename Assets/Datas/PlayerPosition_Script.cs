@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "", menuName = "PlayerPos")]
 public class PlayerPosition_Script : ScriptableObject
 {
-
     private Vector3 position = new Vector3(0, 0, 0);
 
     public Vector3 Position
