@@ -7,7 +7,8 @@ public class EnemyHit_Script : MonoBehaviour
 {
     [SerializeField]
     private CharactorData m_data = null;
-    private GameObject m_enemy;
+    [SerializeField]
+    private EnemyCreature m_enemyCreature;
     private EnemyCreature_Script m_enemyScript;
 
     // Start is called before the first frame update
@@ -20,17 +21,14 @@ public class EnemyHit_Script : MonoBehaviour
     void Update()
     {
         //--------------------------
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SceneManager.LoadScene("LoadSceneTest2", LoadSceneMode.Additive);
-            m_enemy = GameObject.Find("EnemyCreature");
-            m_enemyScript = m_enemy.GetComponent<EnemyCreature_Script>();
-            m_enemyScript.SetData(m_data);
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SceneManager.UnloadSceneAsync("LoadSceneTest2");
-        }
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    SceneManager.LoadScene("LoadSceneTest2", LoadSceneMode.Additive);
+        //}
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    SceneManager.UnloadSceneAsync("LoadSceneTest2");
+        //}
         //--------------------------
     }
 
@@ -39,11 +37,9 @@ public class EnemyHit_Script : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             SceneManager.LoadScene("LoadSceneTest2", LoadSceneMode.Additive);
+
+            m_enemyScript = m_enemyCreature.EnemyCreatureObj.GetComponent<EnemyCreature_Script>();
+            m_enemyScript.SetData(m_data);
         }
     }
-
-    //public CharactorData GetData()
-    //{
-    //    return this.m_data;
-    //}
 }
