@@ -29,6 +29,11 @@ public class TransitionManager_Script
         var r = Resources.Load("TransitionController");
         var o = UnityEngine.Object.Instantiate(r) as GameObject;
         UnityEngine.Object.DontDestroyOnLoad(o);
+
+        var canvas = o.GetComponent<Canvas>();
+        canvas.worldCamera = GameObject.Find("CenterEyeAnchor")
+                                                            .GetComponent<Camera>();
+        
         return o.GetComponent<TransitionController_Script>();
     });
 

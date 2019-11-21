@@ -8,7 +8,8 @@ public class GameDirector : MonoBehaviour
     private IntReactiveProperty m_readyTimer = new IntReactiveProperty(3);
     [SerializeField]
     private IntReactiveProperty m_battleTimer = new IntReactiveProperty(10);
-
+    [SerializeField]
+    private BoolReactiveProperty m_isBattleFinish = new BoolReactiveProperty(false);
     [SerializeField]
     private UnityEngine.UI.Button m_button;
 
@@ -20,6 +21,7 @@ public class GameDirector : MonoBehaviour
 
     public IReadOnlyReactiveProperty<int> ReadyTimer => m_readyTimer;
     public IReadOnlyReactiveProperty<int> BattleTimer => m_battleTimer;
+    public IReadOnlyReactiveProperty<bool> IsBattleFinish => m_isBattleFinish;
     public UnityEngine.UI.Button Button => m_button;
 
     public IReadOnlyReactiveProperty<Player> Player => m_player;
@@ -30,9 +32,14 @@ public class GameDirector : MonoBehaviour
         m_test.Value = GameObject.Find("Stage").GetComponent<TestSingletonObject>();    
     }
 
-    public void CountDownStart()
+    public void InitilaizeCountDownStart()
     {
         StartCoroutine(CountCoroutine());
+    }
+
+    public void BattleResultCountDonwStart()
+    {
+        StartCoroutine(CountDownBattleResult());
     }
 
     private IEnumerator CountCoroutine()
@@ -45,11 +52,20 @@ public class GameDirector : MonoBehaviour
             m_readyTimer.SetValueAndForceNotify(m_readyTimer.Value - 1);
             yield return new WaitForSecondsRealtime(1);
         }
-        
-        while(m_battleTimer.Value > 0)
+    }
+
+    private IEnumerator CountDownBattleResult()
+    {
+        while (m_battleTimer.Value > 0)
         {
             m_battleTimer.Value--;
             yield return new WaitForSecondsRealtime(1);
+        }
+
+        if(m_battleTimer.Value <= 0)
+        {
+            m_isBattleFinish.Value = true;
+            yield return null;
         }
     }
 }

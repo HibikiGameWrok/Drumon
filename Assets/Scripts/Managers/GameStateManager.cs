@@ -59,16 +59,21 @@ public class GameStateManager : MonoBehaviour
                 MoveToBattleScene();
             });
 
-        // バトルパートが終了したら探索パートに戻る
-        m_director.BattleTimer
+        // バトルパートのカウントダウン開始
+        m_gameState
             .Where(_ => m_gameState.Value == GameState.Battle)
-            .FirstOrDefault(x => x == 0)
             .Subscribe(_ =>
             {
-                Debug.Log(m_gameState.Value);
-                m_gameState.SetValueAndForceNotify(GameState.Explore);
-                MoveToMainScene();
+                m_director.BattleResultCountDonwStart();
             });
+        // バトルが終了したか
+        m_director.IsBattleFinish
+           .Where(_ => m_director.IsBattleFinish.Value == true)
+           .Subscribe(_ =>
+           {
+               m_gameState.SetValueAndForceNotify(GameState.Explore);
+               MoveToMainScene();
+           });
 
         // 目的を達成したらリザルト
         m_director.Button
@@ -95,7 +100,7 @@ public class GameStateManager : MonoBehaviour
         m_gameState.SetValueAndForceNotify(GameState.Ready);
 
         // カウントダウン開始
-        m_director.CountDownStart();
+        m_director.InitilaizeCountDownStart();
     }
 
 

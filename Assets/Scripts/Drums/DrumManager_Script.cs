@@ -22,9 +22,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // 攻撃用のドラム 
     [SerializeField]
     private Drum_Script m_attackDrum;
-    // 回復用のドラム
-    [SerializeField]
-    private Drum_Script m_healDrum;
     // 選択用のドラム
     [SerializeField]
     private Drum_Script m_switchDrum;
@@ -127,21 +124,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                     
                 }
             }
-            // 回復用のドラムの処理
-            //else if(m_currentDrum == m_healDrum)
-            //{
-            //    if (result == true)
-            //    {
-            //        // 継続する
-
-            //        // 回復処理
-            //        m_healDrum.GetComponent<HealDrum_Script>().Heal();
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
             // 選択用のドラムの処理
             else if (m_currentDrum == m_switchDrum)
             {
@@ -182,18 +164,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // 行動ゲージが終わったら
         if (m_gaugeFinishFlag == true)
         {
-
-            //if (m_healDrum != null)
-            //{
-            //    for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
-            //    {
-            //        // HPを回復
-            //        m_playerCreature.Heal();
-            //    }
-            //    // 回復ドラムを叩いた回数を初期化
-            //    m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
-            //
-
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
                 m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
@@ -218,12 +188,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             m_attackDrum.Dispose();
             m_attackDrum = null;
         }
-        //if (m_healDrum != null)
-        //{
-        //    // 回復用のドラムを解放する
-        //    m_healDrum.Dispose();
-        //    m_healDrum = null;
-        //}
         if (m_switchDrum != null)
         {
             // 選択用のドラムを解放する
@@ -276,18 +240,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             return m_attackDrum;
         }
     }
-
-
-    /// <summary>
-    /// 回復用のドラムを取得する
-    /// </summary>
-    //public Drum_Script HealDrum
-    //{
-    //    get
-    //    {
-    //        return m_healDrum;
-    //    }
-    //}
 
     /// <summary>
     /// 選択用のドラムを取得する
