@@ -1995,17 +1995,17 @@ PrefabInstance:
     - target: {fileID: 2861842392780620943, guid: b2efd0a85e0b11e4cb8738a7aff8cb84,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.36
+      value: -19.28
       objectReference: {fileID: 0}
     - target: {fileID: 2861842392780620943, guid: b2efd0a85e0b11e4cb8738a7aff8cb84,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.165
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 2861842392780620943, guid: b2efd0a85e0b11e4cb8738a7aff8cb84,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.15
+      value: -12.82
       objectReference: {fileID: 0}
     - target: {fileID: 2861842392780620943, guid: b2efd0a85e0b11e4cb8738a7aff8cb84,
         type: 3}
@@ -10279,6 +10279,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_data: {fileID: 11400000, guid: 68d0ea2d2762e9b48a8237efd16659db, type: 2}
   m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
+  m_walkSpeed: 1
+  m_waitTime: 5
 --- !u!54 &1184145095
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10293,8 +10295,26 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!143 &1184145096
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184145090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.8
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &1188963532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13206,7 +13226,7 @@ PrefabInstance:
     - target: {fileID: 2915682437345718215, guid: 5271f552a90947f49ac04cc3958865ef,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.02
+      value: -19.35
       objectReference: {fileID: 0}
     - target: {fileID: 2915682437345718215, guid: 5271f552a90947f49ac04cc3958865ef,
         type: 3}
@@ -15106,6 +15126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_data: {fileID: 11400000, guid: fd3891bff5a8cb34aa23e46563e1234e, type: 2}
   m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
+  m_walkSpeed: 1
+  m_waitTime: 5
 --- !u!54 &1876840552
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15122,6 +15144,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!143 &1876840553
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876840547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1001 &1890118866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16522,7 +16562,7 @@ PrefabInstance:
     - target: {fileID: 894573657286909547, guid: 42a68a5a2eebcea48946c02fb83630fc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 3.89
       objectReference: {fileID: 0}
     - target: {fileID: 894573657286909547, guid: 42a68a5a2eebcea48946c02fb83630fc,
         type: 3}
@@ -16532,7 +16572,7 @@ PrefabInstance:
     - target: {fileID: 894573657286909547, guid: 42a68a5a2eebcea48946c02fb83630fc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -26.08
       objectReference: {fileID: 0}
     - target: {fileID: 894573657286909547, guid: 42a68a5a2eebcea48946c02fb83630fc,
         type: 3}
