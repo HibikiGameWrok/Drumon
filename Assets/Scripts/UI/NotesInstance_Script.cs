@@ -54,16 +54,21 @@ public class NotesInstance_Script : MonoBehaviour
         m_attackRecipeManager = GameObject.Find("AttackRecipeManeger");
         m_attackRecipeManagerScript = m_attackRecipeManager.GetComponent<AttackRecipeManeger_Script>();
 
-        // 親の座標を基準とする
-        m_instancePos = this.transform.localPosition;
     }
 
     void Update()
     {
-        if(m_timeStandard_Script.TimerMax() == true)
+        // 親の座標を基準とする
+        m_instancePos = this.transform.parent.position;
+
+        //行動タイムがMAXになったら
+        if (m_timeStandard_Script.TimerMax() == true)
         {
+            // 出ているノーツが攻撃レシピと同じか
             m_attackRecipeManagerScript.MatchAttackRecipe();
+            // ノーツリセット
             ResetNotes();
+            // カウントリセット
             ResetCount();
             m_timeStandard_Script.TimerReset();
         }
