@@ -37,14 +37,14 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     private GameObject m_notesManager = null;
 
     // TestNotesInstanceスクリプトを取得
-    private NotesInstance_Script m_testNotesInstance = null;
+    private NotesInstance_Script m_notesInstance = null;
 
     void Start()
     {
         // ノーツ管理オブジェクトを取得
         m_notesManager = GameObject.Find("NotesManager");
 
-        m_testNotesInstance = m_notesManager.GetComponent<NotesInstance_Script>();
+        m_notesInstance = m_notesManager.GetComponent<NotesInstance_Script>();
         m_pCreature_Script = BattleManager_Script.Get.PlayerCreature;
     }
 
@@ -85,15 +85,24 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
 
         for (int i = 1; i < csvDatas.Count; i++)
         {
+            // i = 行,Data_Column.ATK_NOTES = 列
             mathcAttackNotes = csvDatas[i][(int)Data_Column.ATK_NOTES];
-
-            if (System.Convert.ToInt32(mathcAttackNotes) != 0)
+            int attackNum = System.Convert.ToInt32(mathcAttackNotes);
+            if (attackNum != 0)
             {
-                int attackNum = System.Convert.ToInt32(mathcAttackNotes);
-                if (m_testNotesInstance.SearchInstanceNotes() == attackNum)
+                // 生成されたノーツの番号とCSVのデータを比較
+                if (m_notesInstance.SearchInstanceNotes() == attackNum)
                 {
-                    matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
-                    m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
+                    // 一致していたレシピが回復でなければ攻撃
+                    if (csvDatas[i][(int)Data_Column.ATK_NAME] != "HEAL")
+                    {
+                        matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                        m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
+                    }
+                    else
+                    {
+                        m_pCreature_Script.Heal();
+                    }
                 }
             }
         }
