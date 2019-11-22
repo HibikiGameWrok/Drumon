@@ -55,7 +55,7 @@ public class NotesInstance_Script : MonoBehaviour
         m_attackRecipeManagerScript = m_attackRecipeManager.GetComponent<AttackRecipeManeger_Script>();
 
         // 親の座標を基準とする
-        m_instancePos = this.transform.position;
+        m_instancePos = this.transform.localPosition;
     }
 
     void Update()
