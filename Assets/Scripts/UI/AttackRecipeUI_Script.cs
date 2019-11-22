@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
+#pragma warning disable 618
 
 public class AttackRecipeUI_Script : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
     private Transform m_canvas = null;
 
     // レシピのノーツを保管する親オブジェクト
-    private Transform m_AbilitySheetObject = null;
+    private Transform []m_AbilitySheetObject = new Transform[4];
 
     // テキストを取得
     private GameObject []m_textObject = new GameObject[MAX_COUNT_OBJECT];
@@ -57,6 +58,10 @@ public class AttackRecipeUI_Script : MonoBehaviour
     {
         // 子のCanvasを取得
         m_canvas = this.transform.GetChild(0);
+        for (int i = 1; i < 5; i++)
+        {
+            m_AbilitySheetObject[i] = this.transform.FindChild("Ability" + i);
+        }
         LoadCSVFile();
         SetChildTextObject();
         UIReflect();
@@ -111,20 +116,23 @@ public class AttackRecipeUI_Script : MonoBehaviour
 
     private void UIReflect()
     {
-        for(int i = 1; i < MAX_COUNT_OBJECT; i++)
+        for (int num = 0; num < 5; num++)
         {
-            //1文字ずつ列挙する
-            for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
+            for (int i = 1; i < MAX_COUNT_OBJECT; i++)
             {
-                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j,1));
-                //プレハブ生成
-                m_notesPrefab = Instantiate(
-                   SetLodeNotesPrefab(stringNotesNum),
-                   new Vector3(0, 0, 0),
-                   Quaternion.identity) as GameObject;
+                //1文字ずつ列挙する
+                for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
+                {
+                    int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+                    //プレハブ生成
+                    m_notesPrefab = Instantiate(
+                       SetLodeNotesPrefab(stringNotesNum),
+                       m_AbilitySheetObject[num].transform.localPosition,
+                       Quaternion.identity) as GameObject;
 
-                // 子として配置
-
+                    // 子として配置
+                    m_notesPrefab.transform.parent = m_AbilitySheetObject[num].transform;
+                }
             }
         }
     }
