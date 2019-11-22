@@ -7,6 +7,7 @@
 //
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.IO;
 using UnityEngine;
 
@@ -54,7 +55,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_sheetCreatureName = pCreature.Name;
 
         // Resouces下のCSV読み込み
-        csvFile = Resources.Load("CSV/"+ m_sheetCreatureName + "CSV") as TextAsset; 
+        csvFile = Resources.Load("CSV/"+ Regex.Replace(m_sheetCreatureName, @"[^a-z,A-Z]", "") + "CSV") as TextAsset; 
         StringReader reader = new StringReader(csvFile.text);
 
         // , で分割しつつ一行ずつ読み込み
