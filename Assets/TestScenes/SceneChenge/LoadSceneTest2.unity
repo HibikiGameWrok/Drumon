@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HEAL_RATE: 1
-  m_data: {fileID: 11400000, guid: 94b234ef159cbb944a9cf915219c5bff, type: 2}
+  m_data: {fileID: 0}
   m_name: testmon
 --- !u!199 &411585873
 ParticleSystemRenderer:
@@ -5528,6 +5528,16 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6110131442448336304, guid: 719e6031e4be2e648a4ea74e58b4e565,
+        type: 3}
+      propertyPath: m_maxValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951834703105457817, guid: 719e6031e4be2e648a4ea74e58b4e565,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 719e6031e4be2e648a4ea74e58b4e565, type: 3}
 --- !u!1 &702107239 stripped
@@ -5868,7 +5878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72de68cde14e164298a54d457bcb98d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: d08885fb042eb15408d5f286ff77b614, type: 2}
+  m_data: {fileID: 0}
 --- !u!199 &1140890803
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -10794,7 +10804,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_data
       value: 
-      objectReference: {fileID: 11400000, guid: 68d0ea2d2762e9b48a8237efd16659db,
+      objectReference: {fileID: 11400000, guid: 82d578db5158bae44bfedafe60ec3aa6,
         type: 2}
     - target: {fileID: 4367398710700518060, guid: dc2f9307306b54d4b8f19775bde6a02d,
         type: 3}
@@ -11073,6 +11083,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerCreature: {fileID: 748869789}
   m_enemyCreature: {fileID: 1121366117}
+  m_isFinish:
+    value: 0
 --- !u!4 &1377609410
 Transform:
   m_ObjectHideFlags: 0
@@ -11154,6 +11166,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 714901661457122353, guid: 436e49ee506431f42a3d5a27e6618db6,
+        type: 3}
+      propertyPath: m_data
+      value: 
+      objectReference: {fileID: 11400000, guid: 68d0ea2d2762e9b48a8237efd16659db,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 436e49ee506431f42a3d5a27e6618db6, type: 3}
 --- !u!1 &1852421102
