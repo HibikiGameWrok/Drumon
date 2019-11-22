@@ -1,0 +1,26 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UniRx;
+
+public class IyaGoScene : MonoBehaviour
+{
+    [SerializeField]
+    private BattleManager_Script m_battleManager = null;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // バトルマネージャーを取得する
+        m_battleManager = BattleManager_Script.Get;
+
+        // バトルが終了したらトランジション
+        m_battleManager.IsFinish
+            .Where(_ => m_battleManager.IsFinish.Value == true)
+            .Subscribe(_ =>
+            {
+                TransitionManager_Script.StartTransition("SampleTitle", LoadSceneMode.Single);
+            }).AddTo(gameObject);
+    }
+}
