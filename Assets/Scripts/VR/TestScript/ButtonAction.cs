@@ -15,7 +15,7 @@ public class ButtonAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 TransitionManager_Script.StartTransition("TestSearchScene");
-            });
+            }).AddTo(gameObject);
        
     }
 }
