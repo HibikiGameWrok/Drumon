@@ -38,7 +38,7 @@ public class EnemyHit_Script : MonoBehaviour
         {
             //SceneManager.LoadScene("TestBattleScene", LoadSceneMode.Additive);
             // LoadSceneModeで現在のシーンに展開するか決める
-            TransitionManager_Script.StartTransition("TestBattleScene");
+            TransitionManager_Script.StartTransition("TestBattleScene",LoadSceneMode.Additive);
 
             m_enemyScript = m_enemyCreature.EnemyCreatureObj.GetComponent<EnemyCreature_Script>();
             m_enemyScript.SetData(m_data);
