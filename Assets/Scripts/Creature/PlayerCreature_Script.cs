@@ -18,7 +18,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public string Name
     {
-        get { return this.m_name; }
+        get { return this.m_data.name; }
     }
 
     public int HP
