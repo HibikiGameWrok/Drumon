@@ -8,6 +8,15 @@ using UnityEngine.UI;
 
 public class AttackRecipeUI_Script : MonoBehaviour
 {
+    // 列のデータタイプ
+    public enum Data_Column : int
+    {
+        ATK_NAME = 0,
+        ATK_ELEMENT,
+        ATK_NOTES,
+        ATK_RATE,
+    }
+
     // 設定するフォントのファイルパス
     private const string FILEPATH_FONT = "Fonts/DrumonFont-Regular";
     // 設定するフォントのサイズ
@@ -17,6 +26,9 @@ public class AttackRecipeUI_Script : MonoBehaviour
     private const string INS_OBJECT_NAME = "AttackNameText";
     // Textがアタッチされたオブジェクトの生成数
     private const int MAX_COUNT_OBJECT = 5 + 1;
+
+    // プレハブのファイルパス
+    private const string FILEPATH_NOTES = "InsPrefab/RecipeNotes/NotePrefab";
 
     // 取得するべき物
     // 前にでているクリーチャーの名前
@@ -31,22 +43,27 @@ public class AttackRecipeUI_Script : MonoBehaviour
     // 子のオブジェクト
     private Transform m_canvas = null;
 
+    // レシピのノーツを保管する親オブジェクト
+    private Transform m_AbilitySheetObject = null;
+
     // テキストを取得
     private GameObject []m_textObject = new GameObject[MAX_COUNT_OBJECT];
+
+    // ノーツプレハブを保持
+    private GameObject m_notesPrefab = null;
 
     // 攻撃の名前を保持
     string m_attackName = "none";
 
-    // 攻撃のノーツ列を保持
-    int m_attackNotesNum = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         // 子のCanvasを取得
         m_canvas = this.transform.GetChild(0);
-
+        LoadCSVFile();
         SetChildTextObject();
+        UIReflect();
     }
 
     // Update is called once per frame
@@ -64,13 +81,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
             m_textObject[i].AddComponent<Text>();
             m_textObject[i].transform.SetParent(m_canvas.transform);
             SettingTextProperty(i);
-        }
-
-
-        //テストでテキストに文字を入力
-        for (int i = 1; i < MAX_COUNT_OBJECT; i++)
-        {
-            m_textObject[i].GetComponent<Text>().text = "ここに攻撃の名前が入る";
+            m_textObject[i].GetComponent<Text>().text = csvDatas[i][(int)Data_Column.ATK_NAME];
         }
     }
 
@@ -79,6 +90,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
         m_textObject[num].GetComponent<Text>().font = Resources.Load<Font>(FILEPATH_FONT);
         m_textObject[num].GetComponent<Text>().fontSize = FONT_SIZE;
         m_textObject[num].GetComponent<Text>().rectTransform.sizeDelta = new Vector2(330.0f, 30.0f);
+        m_textObject[num].GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
         m_textObject[num].transform.localPosition = new Vector3(0.0f,250.0f - 75.0f * num,0.0f);
         m_textObject[num].transform.rotation = m_canvas.transform.rotation;
         m_textObject[num].transform.localScale = Vector3.one;
@@ -103,6 +115,31 @@ public class AttackRecipeUI_Script : MonoBehaviour
 
     private void UIReflect()
     {
+        for(int i = 1; i < MAX_COUNT_OBJECT -1; i++)
+        {
+            //1文字ずつ列挙する
+            for (int j = 0; i < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; i++)
+            {
+                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+                //プレハブ生成
+                m_notesPrefab = Instantiate(
+                   SetLodeNotesPrefab(stringNotesNum),
+                   new Vector3(0, 0, 0),
+                   Quaternion.identity) as GameObject;
 
+                // 子として配置
+
+            }
+        }
     }
+
+    // 生成するノーツプレハブの番号を設定し返す関数
+    private GameObject SetLodeNotesPrefab(int num)
+    {
+        // ResourcesファイルからPrefabデータを設定(末尾の番号によってデータが変わる)
+        m_notesPrefab = (GameObject)Resources.Load(FILEPATH_NOTES + num);
+
+        return m_notesPrefab;
+    }
+
 }
