@@ -52,10 +52,6 @@ public class AttackRecipeUI_Script : MonoBehaviour
     // ノーツプレハブを保持
     private GameObject m_notesPrefab = null;
 
-    // 攻撃の名前を保持
-    string m_attackName = "none";
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -115,12 +111,12 @@ public class AttackRecipeUI_Script : MonoBehaviour
 
     private void UIReflect()
     {
-        for(int i = 1; i < MAX_COUNT_OBJECT -1; i++)
+        for(int i = 1; i < MAX_COUNT_OBJECT; i++)
         {
             //1文字ずつ列挙する
-            for (int j = 0; i < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; i++)
+            for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
             {
-                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j,1));
                 //プレハブ生成
                 m_notesPrefab = Instantiate(
                    SetLodeNotesPrefab(stringNotesNum),
