@@ -168,7 +168,7 @@ public class NotesInstance_Script : MonoBehaviour
     // 生成されたノーツの末尾の番号を数列に変換
     public int SearchInstanceNotes()
     {
-        m_childNumSequence = "";
+        m_childNumSequence = "0";
         // 子を全て検索
         foreach (Transform child in transform)
         {
@@ -179,10 +179,16 @@ public class NotesInstance_Script : MonoBehaviour
 
             // 生成された子の順で名前の[_]前の数字の部分だけを文字列に代入
             m_childNumSequence += Regex.Replace(childName, @"[^1-4]", "");
+
+            m_childNumSequence = m_childNumSequence.Replace("0", "");
         }
         Debug.Log(m_childNumSequence);
-        int attackNum = System.Convert.ToInt32(m_childNumSequence);
 
+        int attackNum = 0;
+        if (m_childNumSequence != "")
+        {
+            attackNum = System.Convert.ToInt32(m_childNumSequence);
+        }
         // 生成された子の順で並べられた数字の文字列を返す(1~4で最大8桁)
         return attackNum;
     }
