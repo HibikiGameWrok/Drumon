@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
+#pragma warning disable 618
 
 public class AttackRecipeUI_Script : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
     // 設定するフォントのファイルパス
     private const string FILEPATH_FONT = "Fonts/DrumonFont-Regular";
     // 設定するフォントのサイズ
-    private const int FONT_SIZE = 29;
+    private const int FONT_SIZE = 24;
 
     // 生成するオブジェクト名
     private const string INS_OBJECT_NAME = "AttackNameText";
@@ -44,7 +45,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
     private Transform m_canvas = null;
 
     // レシピのノーツを保管する親オブジェクト
-    private Transform m_AbilitySheetObject = null;
+    private Transform []m_AbilitySheetObject = new Transform[5];
 
     // テキストを取得
     private GameObject []m_textObject = new GameObject[MAX_COUNT_OBJECT];
@@ -57,15 +58,22 @@ public class AttackRecipeUI_Script : MonoBehaviour
     {
         // 子のCanvasを取得
         m_canvas = this.transform.GetChild(0);
+        // ノーツを保管するオブジェクトを取得
+        for (int i = 0; i < 5; i++)
+        {
+            m_AbilitySheetObject[i] = this.transform.FindChild("Ability" + 5);
+        }
+
         LoadCSVFile();
         SetChildTextObject();
+
+
         UIReflect();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
+    { 
     }
 
     private void SetChildTextObject()
@@ -81,17 +89,18 @@ public class AttackRecipeUI_Script : MonoBehaviour
         }
     }
 
+    // 生成するオブジェクトのTextコンポーネントを設定する関数
     private void SettingTextProperty(int num)
     {
         m_textObject[num].GetComponent<Text>().font = Resources.Load<Font>(FILEPATH_FONT);
         m_textObject[num].GetComponent<Text>().fontSize = FONT_SIZE;
         m_textObject[num].GetComponent<Text>().rectTransform.sizeDelta = new Vector2(330.0f, 30.0f);
         m_textObject[num].GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-        m_textObject[num].transform.localPosition = new Vector3(0.0f,250.0f - 75.0f * num,0.0f);
+        m_textObject[num].transform.localPosition = new Vector3(0.0f,120.0f - 39.0f * num,0.0f);
         m_textObject[num].transform.rotation = m_canvas.transform.rotation;
         m_textObject[num].transform.localScale = Vector3.one;
     }
-
+    // CSVを読み込む
     public void LoadCSVFile()
     {
         // 現在出ているクリチャーの名前を戦闘管理オブジェクトから取得
@@ -109,22 +118,25 @@ public class AttackRecipeUI_Script : MonoBehaviour
         }
     }
 
+    // UIを反映
     private void UIReflect()
     {
-        for(int i = 1; i < MAX_COUNT_OBJECT; i++)
+        for (int i = 1; i < MAX_COUNT_OBJECT; i++)
         {
             //1文字ずつ列挙する
             for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
             {
-                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j,1));
-                //プレハブ生成
+                // ノーツの表示が重ならない様にX軸だけずらす処理
+                Vector3 notePos = new Vector3(m_AbilitySheetObject[i - 1].transform.position.x + 0.05f * j, m_AbilitySheetObject[i - 1].transform.position.y, m_AbilitySheetObject[i - 1].transform.position.z);
+                
+                // 8桁の数字を１桁ずつ見る
+                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+                //見た１桁の数字によってプレハブ生成
                 m_notesPrefab = Instantiate(
                    SetLodeNotesPrefab(stringNotesNum),
-                   new Vector3(0, 0, 0),
-                   Quaternion.identity) as GameObject;
-
-                // 子として配置
-
+                   notePos,
+                   Quaternion.identity,
+                   m_AbilitySheetObject[i - 1].transform) as GameObject;
             }
         }
     }
