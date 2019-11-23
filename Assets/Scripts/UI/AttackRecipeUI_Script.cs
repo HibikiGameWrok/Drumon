@@ -141,17 +141,19 @@ public class AttackRecipeUI_Script : MonoBehaviour
 
     public void haneiUI()
     {
-        if(m_notesPrefab != null)
+        for (int i = 0; i < 5; i++)
         {
-            Destroy(m_notesPrefab);
-            m_notesPrefab = null;
+            if (m_AbilitySheetObject[i] != null)
+            {
+                m_notesPrefab = null;
+                // 子のオブジェクトが生成されていないのであれば削除
+                foreach (Transform n in m_AbilitySheetObject[i].transform)
+                {
+                    GameObject.Destroy(n.gameObject);
+                }
+            }
         }
-        // 子のCanvasを取得
-        if (m_canvas == null)
-        {
-            m_canvas = this.transform.GetChild(0);
-        }
-        // アビリティシートモデルを取得
+        // アビリティシートのノーツ保持オブジェクトを取得
         for (int i = 0; i < 5; i++)
         {
             if (m_AbilitySheetObject[i] == null)
@@ -159,6 +161,12 @@ public class AttackRecipeUI_Script : MonoBehaviour
                 m_AbilitySheetObject[i] = this.transform.Find("Ability" + (i + 1));
             }
         }
+        // 子のCanvasを取得
+        if (m_canvas == null)
+        {
+            m_canvas = this.transform.GetChild(0);
+        }
+
         // CSVファイルを前に出ているクリーチャーによって取得
         LoadCSVFile();
         SetChildTextObject();
