@@ -21,7 +21,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
     // 設定するフォントのファイルパス
     private const string FILEPATH_FONT = "Fonts/DrumonFont-Regular";
     // 設定するフォントのサイズ
-    private const int FONT_SIZE = 29;
+    private const int FONT_SIZE = 24;
 
     // 生成するオブジェクト名
     private const string INS_OBJECT_NAME = "AttackNameText";
@@ -45,7 +45,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
     private Transform m_canvas = null;
 
     // レシピのノーツを保管する親オブジェクト
-    private Transform []m_AbilitySheetObject = new Transform[4];
+    private Transform []m_AbilitySheetObject = new Transform[5];
 
     // テキストを取得
     private GameObject []m_textObject = new GameObject[MAX_COUNT_OBJECT];
@@ -56,15 +56,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 子のCanvasを取得
-        m_canvas = this.transform.GetChild(0);
-        for (int i = 1; i < 5; i++)
-        {
-            m_AbilitySheetObject[i] = this.transform.FindChild("Ability" + i);
-        }
-        LoadCSVFile();
-        SetChildTextObject();
-        UIReflect();
+        haneiUI();
     }
 
     // Update is called once per frame
@@ -92,7 +84,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
         m_textObject[num].GetComponent<Text>().fontSize = FONT_SIZE;
         m_textObject[num].GetComponent<Text>().rectTransform.sizeDelta = new Vector2(330.0f, 30.0f);
         m_textObject[num].GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-        m_textObject[num].transform.localPosition = new Vector3(0.0f,250.0f - 75.0f * num,0.0f);
+        m_textObject[num].transform.localPosition = new Vector3(0.0f,120.0f - 39.0f * num,0.0f);
         m_textObject[num].transform.rotation = m_canvas.transform.rotation;
         m_textObject[num].transform.localScale = Vector3.one;
     }
@@ -116,23 +108,21 @@ public class AttackRecipeUI_Script : MonoBehaviour
 
     private void UIReflect()
     {
-        for (int num = 0; num < 5; num++)
+        for (int i = 1; i < MAX_COUNT_OBJECT; i++)
         {
-            for (int i = 1; i < MAX_COUNT_OBJECT; i++)
+            //1文字ずつ列挙する
+            for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
             {
-                //1文字ずつ列挙する
-                for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
-                {
-                    int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
-                    //プレハブ生成
-                    m_notesPrefab = Instantiate(
-                       SetLodeNotesPrefab(stringNotesNum),
-                       m_AbilitySheetObject[num].transform.localPosition,
-                       Quaternion.identity) as GameObject;
+                Vector3 notePos = new Vector3(m_AbilitySheetObject[i - 1].transform.position.x + 0.05f * j, m_AbilitySheetObject[i - 1].transform.position.y, m_AbilitySheetObject[i - 1].transform.position.z);
 
-                    // 子として配置
-                    m_notesPrefab.transform.parent = m_AbilitySheetObject[num].transform;
-                }
+                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+                //プレハブ生成
+                m_notesPrefab = Instantiate(
+                   SetLodeNotesPrefab(stringNotesNum),
+                   notePos,
+                   new Quaternion(0.0f,0.0f,0.0f,0.0f),
+                   m_AbilitySheetObject[i - 1].transform) as GameObject;
+
             }
         }
     }
@@ -146,4 +136,16 @@ public class AttackRecipeUI_Script : MonoBehaviour
         return m_notesPrefab;
     }
 
+    public void haneiUI()
+    {
+        // 子のCanvasを取得
+        m_canvas = this.transform.GetChild(0);
+        for (int i = 0; i < 5; i++)
+        {
+            m_AbilitySheetObject[i] = this.transform.Find("Ability" + (i + 1));
+        }
+        LoadCSVFile();
+        SetChildTextObject();
+        UIReflect();
+    }
 }
