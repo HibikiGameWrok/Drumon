@@ -59,7 +59,7 @@ public class NotesInstance_Script : MonoBehaviour
     void Update()
     {
         // 親の座標を基準とする
-        m_instancePos = this.transform.position;
+        m_instancePos = this.transform.parent.position;
 
         //行動タイムがMAXになったら
         if (m_timeStandard_Script.TimerMax() == true)
