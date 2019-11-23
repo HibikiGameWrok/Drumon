@@ -70,9 +70,12 @@ public class AttackRecipeUI_Script : MonoBehaviour
         // 定数の数分オブジェクトをTextをアタッチして生成する
         for (int i = 1; i < MAX_COUNT_OBJECT; i++)
         {
-            m_textObject[i] = new GameObject(INS_OBJECT_NAME + i);
-            m_textObject[i].AddComponent<Text>();
-            m_textObject[i].transform.SetParent(m_canvas.transform);
+            if (m_textObject[i] == null)
+            {
+                m_textObject[i] = new GameObject(INS_OBJECT_NAME + i);
+                m_textObject[i].AddComponent<Text>();
+                m_textObject[i].transform.SetParent(m_canvas.transform);
+            }
             SettingTextProperty(i);
             m_textObject[i].GetComponent<Text>().text = csvDatas[i][(int)Data_Column.ATK_NAME];
         }
@@ -116,13 +119,13 @@ public class AttackRecipeUI_Script : MonoBehaviour
                 Vector3 notePos = new Vector3(m_AbilitySheetObject[i - 1].transform.position.x + 0.05f * j, m_AbilitySheetObject[i - 1].transform.position.y, m_AbilitySheetObject[i - 1].transform.position.z);
 
                 int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+
                 //プレハブ生成
                 m_notesPrefab = Instantiate(
                    SetLodeNotesPrefab(stringNotesNum),
                    notePos,
-                   new Quaternion(0.0f,0.0f,0.0f,0.0f),
+                   new Quaternion(0.0f, 0.0f, 0.0f, 0.0f),
                    m_AbilitySheetObject[i - 1].transform) as GameObject;
-
             }
         }
     }
@@ -138,12 +141,25 @@ public class AttackRecipeUI_Script : MonoBehaviour
 
     public void haneiUI()
     {
+        if(m_notesPrefab != null)
+        {
+            Destroy(m_notesPrefab);
+            m_notesPrefab = null;
+        }
         // 子のCanvasを取得
-        m_canvas = this.transform.GetChild(0);
+        if (m_canvas == null)
+        {
+            m_canvas = this.transform.GetChild(0);
+        }
+        // アビリティシートモデルを取得
         for (int i = 0; i < 5; i++)
         {
-            m_AbilitySheetObject[i] = this.transform.Find("Ability" + (i + 1));
+            if (m_AbilitySheetObject[i] == null)
+            {
+                m_AbilitySheetObject[i] = this.transform.Find("Ability" + (i + 1));
+            }
         }
+        // CSVファイルを前に出ているクリーチャーによって取得
         LoadCSVFile();
         SetChildTextObject();
         UIReflect();
