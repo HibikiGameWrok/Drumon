@@ -22,9 +22,9 @@ public class OVRCameraFollowing_Script : MonoBehaviour
         {
             OVRManager.display.RecenterPose();
             m_localAvatar = GameObject.Find("LocalAvatarWithGrab");
-            m_oVRCameraRig = m_localAvatar.transform.FindChild("OVRCameraRig");
-            m_trackingSpace = m_oVRCameraRig.transform.FindChild("TrackingSpace");
-            m_centerEyeAnchor = m_trackingSpace.transform.FindChild("CenterEyeAnchor");
+            m_oVRCameraRig = m_localAvatar.transform.Find("OVRCameraRig");
+            m_trackingSpace = m_oVRCameraRig.transform.Find("TrackingSpace");
+            m_centerEyeAnchor = m_trackingSpace.transform.Find("CenterEyeAnchor");
         }
     }
 
