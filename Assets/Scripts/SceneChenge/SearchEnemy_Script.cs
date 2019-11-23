@@ -41,10 +41,11 @@ public class SearchEnemy_Script : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("TestBattleScene", LoadSceneMode.Additive);
-
             m_enemyScript = m_enemyCreature.EnemyCreatureObj.GetComponent<EnemyCreature_Script>();
             m_enemyScript.SetData(m_data);
+            Destroy(gameObject);
+
+            SceneManager.LoadScene("TestBattleScene", LoadSceneMode.Additive);
         }
     }
 
