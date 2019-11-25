@@ -10,10 +10,12 @@ public class IyaGoScene : MonoBehaviour
     private BattleManager_Script m_battleManager = null;
 
     // Start is called before the first frame update
-    void Start()
+    private async void Start()
     {
         // バトルマネージャーを取得する
         m_battleManager = BattleManager_Script.Get;
+
+        await TransitionManager_Script.OnTransitionFinishedAsync();
 
         // バトルが終了したらトランジション
         m_battleManager.IsFinish
