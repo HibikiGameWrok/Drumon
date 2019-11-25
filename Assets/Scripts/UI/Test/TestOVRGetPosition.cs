@@ -26,9 +26,9 @@ public class TestOVRGetPosition : MonoBehaviour
     void Update()
     {
         // Oculus Riftが接続されているならば
-        if (XRDevice.isPresent)
-        {
-            Debug.Log("CenterPos : " + m_parentObject.transform.TransformPoint(this.transform.position));
-        }
+        //if (XRDevice.isPresent)
+        //{
+        //    Debug.Log("CenterPos : " + m_parentObject.transform.TransformPoint(this.transform.position));
+        //}
     }
 }
