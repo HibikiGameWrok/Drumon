@@ -54,9 +54,9 @@ public class SwitchDrum_Script : Drum_Script
         m_rightStick = GameObject.FindGameObjectWithTag("StickRight").GetComponent<StickRight_Script>();
         m_stickManager = GameObject.Find("StickManeger");
         m_stickManagerScript = m_stickManager.GetComponent<StickManager_Script>();
-        m_abilitySheet_Wood = GameObject.Find("AbilitySheet_Wood");
-        m_recipeNote = m_abilitySheet_Wood.transform.Find("recipeNote");
-        m_recipeUI_Script = m_recipeNote.GetComponent<AttackRecipeUI_Script>();
+        //m_abilitySheet_Wood = GameObject.Find("AbilitySheet_Wood");
+        //m_recipeNote = m_abilitySheet_Wood.transform.Find("recipeNote");
+        //m_recipeUI_Script = m_recipeNote.GetComponent<AttackRecipeUI_Script>();
 
         m_switchUIC = GameObject.Find("SwitchUI Canvas");
         m_icon = m_switchUIC.transform.Find("SwitchUI");
@@ -275,7 +275,7 @@ public class SwitchDrum_Script : Drum_Script
                     m_playerCreature.GetComponent<PlayerCreature_Script>().ChangeData(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount]);
 
                     // UI反映
-                    m_recipeUI_Script.haneiUI();
+                    //m_recipeUI_Script.haneiUI();
                 }
             }
             // モンスターの変更フラグを伏せる
