@@ -146,6 +146,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
             if (m_AbilitySheetObject[i] != null)
             {
                 m_notesPrefab = null;
+                csvFile = null;
                 // 子のオブジェクトが生成されていないのであれば削除
                 foreach (Transform n in m_AbilitySheetObject[i].transform)
                 {
