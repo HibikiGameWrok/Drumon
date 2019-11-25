@@ -45,7 +45,14 @@ public class SearchEnemy_Script : MonoBehaviour
             m_enemyScript.SetData(m_data);
             Destroy(gameObject);
 
-            SceneManager.LoadScene("TestBattleScene", LoadSceneMode.Additive);
+            if (this.gameObject.tag == "Tutorial")
+            {
+                SceneManager.LoadScene("TutorialTestScene", LoadSceneMode.Additive);
+            }
+            else
+            {
+                SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
+            }
         }
     }
 
