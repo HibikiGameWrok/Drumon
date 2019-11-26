@@ -7,7 +7,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     private int HEAL_RATE = 0;
 
     [SerializeField]
-    private CharactorData m_data = null;
+    private CreatureData m_data = null;
 
     [SerializeField]
     private string m_name = null;
@@ -23,7 +23,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public int HP
     {
-        get { return this.m_data.Hp; }
+        get { return this.m_data.data.hp; }
     }
 
     private float m_timer;
@@ -72,13 +72,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_healProsperityUI = GameObject.Find("PSlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
 
-        m_healProsperityUIScript.MaxPoint = m_data.Hp;
+        m_healProsperityUIScript.MaxPoint = m_data.data.hp;
     }
 
     public void Execute()
     {
         //this.CountTimer();
-        m_healProsperityUIScript.NowPoint = m_data.Hp;
+        m_healProsperityUIScript.NowPoint = m_data.data.hp;
         if (this.m_rate != 0)
         {
             this.m_atkFlag = true;
@@ -93,7 +93,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.Atk * this.m_rate / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_data.data.atk * this.m_rate / 2) - (this.m_target.GetData().data.def / 4);
         
         this.m_target.Damage(damage);
         this.m_rate = 0;
@@ -104,24 +104,24 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Damage(int damage)
     {
-        this.m_data.Hp -= damage;
+        this.m_data.data.hp -= damage;
         GetComponent<ParticleSystem>().Play();
         m_anim.SetTrigger("Damage");
-        if (this.m_data.Hp < 0) this.m_data.Hp = 0;
+        if (this.m_data.data.hp < 0) this.m_data.data.hp = 0;
     }
 
     public void Heal()
     {
-        this.m_data.Hp += this.HEAL_RATE;
+        this.m_data.data.hp += this.HEAL_RATE;
         //if (this.m_data.Hp > this.m_data.Hp) this.m_data.Hp = this.m_data.Hp;
     }
 
-    public CharactorData GetData()
+    public CreatureData GetData()
     {
         return this.m_data;
     }
 
-    public void ChangeData(CharactorData data)
+    public void ChangeData(CreatureData data)
     {
         if(m_data != data)
         {
@@ -137,7 +137,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.Hp <= 0 && m_length == 0.0f)
+        if (this.m_data.data.hp <= 0 && m_length == 0.0f)
         {
             m_anim.SetTrigger("Death");
             m_length = m_animState.length;
