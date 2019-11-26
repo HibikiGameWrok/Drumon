@@ -33,7 +33,7 @@ public class SwitchDrum_Script : Drum_Script
 
     private Transform m_recipeNote = null;
 
-    private AttackRecipeUI_Script m_recipeUI_Script = null;
+    private AttackRecipeNotesUI_Script m_recipeUI_Script = null;
 
     // Start is called before the first frame update
     void Start()
