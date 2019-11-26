@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UnityEngine.UI;
 
 public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Script>
 {
@@ -43,8 +44,18 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     // チュートリアルキャンバス
     private GameObject m_tutorialCanvas;
+    // テキストの配列
+    private GameObject[] m_textArray;
     // バトルシーケンステキスト
-    private Transform m_explainBattleSequenceText;
+    private GameObject m_explainBattleSequenceText;
+    // ドラモン説明テキスト
+    private GameObject m_explainDrumonText;
+    // HP説明テキスト
+    private GameObject m_explainHPText;
+    // 現在のテキスト
+    private Text m_text;
+    // 現在の説明テキスト数
+    private int m_curentNum = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +74,13 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
 
         m_tutorialCanvas = GameObject.Find("TutorialCanvas");
-        m_explainBattleSequenceText = m_tutorialCanvas.transform.Find("ExplainBattleSequenceText");
+        m_explainBattleSequenceText = m_tutorialCanvas.transform.Find("ExplainBattleSequenceText").gameObject;
+        m_explainDrumonText = m_tutorialCanvas.transform.Find("ExplainDrumonText").gameObject;
+        m_explainHPText = m_tutorialCanvas.transform.Find("ExplainHPText").gameObject;
+
+        m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText };
+
+        m_text = m_textArray[0].GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -87,7 +104,36 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
         else
         {
-            m_timeStandard_Script.StopFlag = false;
+            //m_timeStandard_Script.StopFlag = false;
+
+            // 文字を小さくする
+            m_text.fontSize -= 10;
+        }
+
+        // ボタンが押されたら
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            m_tutorialModeFlag = false;
+        }
+
+        // 文字が消えたら
+        if (m_text.fontSize <= 0)
+        {
+            m_tutorialModeFlag = true;
+
+            // 現在のテキストを非アクティブ化
+            m_textArray[m_curentNum].SetActive(false);
+            // カウントアップ
+            m_curentNum++;
+
+            if (m_textArray[m_curentNum] != null)
+            {
+                // 次のテキストをアクティブ化
+                m_textArray[m_curentNum].SetActive(true);
+
+                // 次のテキストに変える
+                m_text = m_textArray[m_curentNum].GetComponent<Text>();
+            }
         }
 
 
