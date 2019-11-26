@@ -18,13 +18,6 @@ public class AttackRecipeUI_Script : MonoBehaviour
         ATK_RATE,
     }
 
-    // 設定するフォントのファイルパス
-    private const string FILEPATH_FONT = "Fonts/DrumonFont-Regular";
-    // 設定するフォントのサイズ
-    private const int FONT_SIZE = 24;
-
-    // 生成するオブジェクト名
-    private const string INS_OBJECT_NAME = "AttackNameText";
     // Textがアタッチされたオブジェクトの生成数
     private const int MAX_COUNT_OBJECT = 5 + 1;
 
@@ -56,7 +49,7 @@ public class AttackRecipeUI_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        haneiUI();
+       
     }
 
     // Update is called once per frame
@@ -65,32 +58,6 @@ public class AttackRecipeUI_Script : MonoBehaviour
         
     }
 
-    private void SetChildTextObject()
-    {
-        // 定数の数分オブジェクトをTextをアタッチして生成する
-        for (int i = 1; i < MAX_COUNT_OBJECT; i++)
-        {
-            if (m_textObject[i] == null)
-            {
-                m_textObject[i] = new GameObject(INS_OBJECT_NAME + i);
-                m_textObject[i].AddComponent<Text>();
-                m_textObject[i].transform.SetParent(m_canvas.transform);
-            }
-            SettingTextProperty(i);
-            m_textObject[i].GetComponent<Text>().text = csvDatas[i][(int)Data_Column.ATK_NAME];
-        }
-    }
-
-    private void SettingTextProperty(int num)
-    {
-        m_textObject[num].GetComponent<Text>().font = Resources.Load<Font>(FILEPATH_FONT);
-        m_textObject[num].GetComponent<Text>().fontSize = FONT_SIZE;
-        m_textObject[num].GetComponent<Text>().rectTransform.sizeDelta = new Vector2(330.0f, 30.0f);
-        m_textObject[num].GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-        m_textObject[num].transform.localPosition = new Vector3(0.0f,120.0f - 39.0f * num,0.0f);
-        m_textObject[num].transform.rotation = m_canvas.transform.rotation;
-        m_textObject[num].transform.localScale = Vector3.one;
-    }
 
     public void LoadCSVFile()
     {
@@ -139,38 +106,4 @@ public class AttackRecipeUI_Script : MonoBehaviour
         return m_notesPrefab;
     }
 
-    public void haneiUI()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            if (m_AbilitySheetObject[i] != null)
-            {
-                m_notesPrefab = null;
-                csvFile = null;
-                // 子のオブジェクトが生成されていないのであれば削除
-                foreach (Transform n in m_AbilitySheetObject[i].transform)
-                {
-                    GameObject.Destroy(n.gameObject);
-                }
-            }
-        }
-        // アビリティシートのノーツ保持オブジェクトを取得
-        for (int i = 0; i < 5; i++)
-        {
-            if (m_AbilitySheetObject[i] == null)
-            {
-                m_AbilitySheetObject[i] = this.transform.Find("Ability" + (i + 1));
-            }
-        }
-        // 子のCanvasを取得
-        if (m_canvas == null)
-        {
-            m_canvas = this.transform.GetChild(0);
-        }
-
-        // CSVファイルを前に出ているクリーチャーによって取得
-        LoadCSVFile();
-        SetChildTextObject();
-        UIReflect();
-    }
 }
