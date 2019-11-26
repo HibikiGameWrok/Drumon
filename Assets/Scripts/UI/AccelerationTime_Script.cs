@@ -42,8 +42,11 @@ public class AccelerationTime_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((TimerMax() != true) || (m_stopFlag != true))
-        {
+        //if (TimerMax() != true)
+        //{
+
+        if (m_stopFlag != true)
+        { 
             // タイマーを更新
             m_nowTimer += Time.deltaTime;
         }
