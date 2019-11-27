@@ -652,11 +652,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicScore
       objectReference: {fileID: 0}
-    - target: {fileID: 1493617470422822420, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2513357093995043847, guid: 6d4528afdacf0524cb53823192793cb4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -712,55 +707,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2513357093995043847, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513357093995043847, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513357093995043847, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 226955793931872775, guid: 6d4528afdacf0524cb53823192793cb4,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7465710596106876699, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2729295825219162707, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2729295825219162707, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2729295825219162707, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2729295825219162707, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2729295825219162707, guid: 6d4528afdacf0524cb53823192793cb4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d4528afdacf0524cb53823192793cb4, type: 3}
@@ -1160,7 +1110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1624140804
 Light:
   m_ObjectHideFlags: 0
