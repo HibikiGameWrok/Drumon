@@ -22,10 +22,12 @@ using UnityEngine.SceneManagement;
 public class GameStateManager : MonoBehaviour
 {
     // 定数
+    [SerializeField]
     private static readonly string BATTLE_SCENE = "SampleBattle";
     private static readonly string TITLE_SCENE = "SampleTitle";
     private static readonly string RESULT_SCENE = "SampleResult";
 
+    [Tooltip("GameDirector")]
     [SerializeField]
     private GameDirector m_director;
 
@@ -34,7 +36,6 @@ public class GameStateManager : MonoBehaviour
     private ReactiveProperty<GameState> m_gameState = new ReactiveProperty<GameState>(GameState.Initialize);
     // 現在のゲームステート
     public IReadOnlyReactiveProperty<GameState> CurrentState => m_gameState;
-
 
 
     // Start is called before the first frame update
@@ -89,6 +90,12 @@ public class GameStateManager : MonoBehaviour
         InitializeAsync().Forget();
     }
 
+
+    /// <summary>
+    /// 初期化処理
+    /// 非同期で行う
+    /// </summary>
+    /// <returns></returns>
     private async UniTaskVoid  InitializeAsync()
     {
         m_gameState.SetValueAndForceNotify(GameState.Initialize);

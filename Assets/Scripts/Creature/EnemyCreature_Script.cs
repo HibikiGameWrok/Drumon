@@ -4,15 +4,14 @@ using System.Text.RegularExpressions;
 public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 {
     [SerializeField]
-    private CharactorData m_data = null;
+    private CreatureData m_data = null;
 
     public int HP
     {
-        get { return this.m_data.Hp; }
+        get { return this.m_data.data.hp; }
     }
 
     private float m_timer;
-    private float m_animTimer;
 
     private ICreature_Script m_target = null;
 
@@ -25,7 +24,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
-    private float m_length;
 
     // HPUI
     private GameObject m_healProsperityUI;
@@ -38,7 +36,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     void Start()
     {
         this.m_timer = 0.0f;
-        this.m_animTimer = 0.0f;
 
         this.m_atkFlag = false;
 
@@ -55,7 +52,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Execute()
     {
-        m_healProsperityUIScript.NowPoint = m_data.Hp;
+        m_healProsperityUIScript.NowPoint = m_data.data.hp;
         this.CountTimer();
         if (this.m_timer >= 10.0f) this.m_atkFlag = true;
 
@@ -69,7 +66,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.Atk / 2) - (this.m_target.GetData().Def / 4);
+        int damage = (this.m_data.data.atk / 2) - (this.m_target.GetData().data.def / 4);
 
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
@@ -80,23 +77,23 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Damage(int damage)
     {
-        this.m_data.Hp -= damage;
+        this.m_data.data.hp -= damage;
         GetComponent<ParticleSystem>().Play();
         m_anim.SetTrigger("Damage");
-        if (this.m_data.Hp < 0) this.m_data.Hp = 0;
+        if (this.m_data.data.hp < 0) this.m_data.data.hp = 0;
     }
 
     public void Heal()
     {
-        this.m_data.Hp += 10;
+        this.m_data.data.hp += 10;
     }
 
-    public CharactorData GetData()
+    public CreatureData GetData()
     {
         return this.m_data;
     }
 
-    public void SetData(CharactorData data)
+    public void SetData(CreatureData data)
     {
         this.m_data = data;
     }
@@ -108,26 +105,16 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.Hp <= 0 && m_length == 0.0f)
+        if (this.m_data.data.hp <= 0)
         {
-            m_anim.SetTrigger("IsDeath");
-            m_length = m_animState.length;
-
-            if (m_length == 0.0f) Destroy(this.gameObject);
-        }
-        else if(m_length != 0.0f)
-        {
-            this.m_animTimer += Time.deltaTime;
-            if (m_length < this.m_animTimer)
-            {
-                Destroy(this.gameObject);
-            }
+            m_anim.SetTrigger("Death");
+            Destroy(this.gameObject, m_animState.length);
         }
     }
 
     public void Capture(int hitNum)
     {
-        if (100 - (this.m_data.Hp / 2) + hitNum > 140)
+        if (100 - (this.m_data.data.hp / 2) + hitNum > 140)
         {
             CreatureList_Script.Get.Add(this);
             Destroy(this.gameObject);
@@ -140,14 +127,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private void CreatePrefab()
     {
-        if (this.transform.childCount != 0)
-        {
-            for (int i = 0; i < this.transform.childCount; i++)
-            {
-                GameObject.Destroy(this.transform.GetChild(i).gameObject);
-            }
-        }
-
         GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
 
         if (!obj) obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx");
@@ -156,8 +135,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
         this.m_anim = obj.GetComponent<Animator>();
         this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
-        this.m_length = 0.0f;
         this.m_timer = 0.0f;
-        this.m_animTimer = 0.0f;
     }
 }

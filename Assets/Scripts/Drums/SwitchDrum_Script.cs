@@ -33,7 +33,8 @@ public class SwitchDrum_Script : Drum_Script
 
     private Transform m_recipeNote = null;
 
-    private AttackRecipeUI_Script m_recipeUI_Script = null;
+    private AttackRecipeNotesUI_Script m_recipeNotesUI_Script = null;
+    private AttaciRecipiUI_Text_Script m_recipeTextUI_Script = null;
 
     // Start is called before the first frame update
     void Start()
@@ -55,8 +56,11 @@ public class SwitchDrum_Script : Drum_Script
         m_stickManager = GameObject.Find("StickManeger");
         m_stickManagerScript = m_stickManager.GetComponent<StickManager_Script>();
         m_abilitySheet_Wood = GameObject.Find("AbilitySheet_Wood");
-        m_recipeNote = m_abilitySheet_Wood.transform.Find("recipeNote");
-        m_recipeUI_Script = m_recipeNote.GetComponent<AttackRecipeUI_Script>();
+        m_recipeNote = m_abilitySheet_Wood.transform.Find("AttackRecipeCanvas");
+        m_recipeTextUI_Script = m_recipeNote.GetComponent<AttaciRecipiUI_Text_Script>();
+        m_recipeNote = m_abilitySheet_Wood.transform.Find("Notes");
+        m_recipeNotesUI_Script = m_recipeNote.GetComponent<AttackRecipeNotesUI_Script>();
+        
 
         m_switchUIC = GameObject.Find("SwitchUI Canvas");
         m_icon = m_switchUIC.transform.Find("SwitchUI");
@@ -275,7 +279,8 @@ public class SwitchDrum_Script : Drum_Script
                     m_playerCreature.GetComponent<PlayerCreature_Script>().ChangeData(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount]);
 
                     // UI反映
-                    m_recipeUI_Script.haneiUI();
+                    m_recipeNotesUI_Script.ChangeRecipe();
+                    m_recipeTextUI_Script.ChangeRecipe();
                 }
             }
             // モンスターの変更フラグを伏せる

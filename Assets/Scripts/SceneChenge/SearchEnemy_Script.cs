@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SearchEnemy_Script : MonoBehaviour
 {
     [SerializeField]
-    private CharactorData m_data = null;
+    private CreatureData m_data = null;
     [SerializeField]
     private EnemyCreature m_enemyCreature;
     private EnemyCreature_Script m_enemyScript;
