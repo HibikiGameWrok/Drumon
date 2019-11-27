@@ -13,10 +13,10 @@ public class Creature : MonoBehaviour
 {
     // キャラクターデータ
     [SerializeField]
-    private CharactorData m_charaData = null;
+    private CreatureData m_charaData = null;
 
     // データのプロパティ
-    public CharactorData CharaData
+    public CreatureData CharaData
     {
         get { return m_charaData; }
     }
@@ -26,9 +26,9 @@ public class Creature : MonoBehaviour
     public void Attack(Creature target)
     {
         // 自身の攻撃力
-        int mCharaAtk = this.m_charaData.Atk;
+        int mCharaAtk = this.m_charaData.data.atk;
         // ターゲットの防御力
-        int tCharaDef = target.CharaData.Def;
+        int tCharaDef = target.CharaData.data.def;
         // 計算後のダメージを初期化
         int calcuDamage = 0;
 
@@ -36,17 +36,17 @@ public class Creature : MonoBehaviour
         calcuDamage = (mCharaAtk / 2) - (tCharaDef / 4);
 
         // 弱点計算
-        calcuDamage = target.WeakChack(target.CharaData.Elem, calcuDamage);
+        calcuDamage = target.WeakChack(target.CharaData.data.elem, calcuDamage);
 
         // 相手のダメージ処理関数を呼ぶ
         target.Damage(calcuDamage);
     }
 
     // 弱点判断
-    private int WeakChack(CharactorData.ELEM targetElem, int damage)
+    private int WeakChack(CreatureDataEntity.ELEM targetElem, int damage)
     {
         // 属性計算
-        int calcuElem = this.m_charaData.Elem - targetElem;
+        int calcuElem = this.m_charaData.data.elem - targetElem;
 
         // 絶対値
         if (Mathf.Abs(calcuElem) == 1)

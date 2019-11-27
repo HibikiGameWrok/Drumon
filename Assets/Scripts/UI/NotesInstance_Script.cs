@@ -58,8 +58,8 @@ public class NotesInstance_Script : MonoBehaviour
 
     void Update()
     {
-        // 親の座標を基準とする
-        m_instancePos = this.transform.parent.position;
+        // アタッチされた座標を基準とする
+        m_instancePos = this.transform.position;
 
         //行動タイムがMAXになったら
         if (m_timeStandard_Script.TimerMax() == true)
@@ -85,8 +85,8 @@ public class NotesInstance_Script : MonoBehaviour
             m_notesPrefab = Instantiate(
                 SetLodeNotesPrefab(num),
                 new Vector3(SetInsPosX(m_countnNotes), m_instancePos.y, m_instancePos.z),
-                Quaternion.identity) as GameObject;
-
+                this.transform.parent.rotation) as GameObject;
+            
             // カウントアップ
             UPCountNotes();
 
@@ -187,7 +187,6 @@ public class NotesInstance_Script : MonoBehaviour
 
             m_childNumSequence = m_childNumSequence.Replace("0", "");
         }
-        Debug.Log(m_childNumSequence);
 
         int attackNum = 0;
         if (m_childNumSequence != "")

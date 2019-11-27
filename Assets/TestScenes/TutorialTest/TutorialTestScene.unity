@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 357327462}
   - component: {fileID: 357327461}
   - component: {fileID: 357327460}
+  - component: {fileID: 357327463}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -325,7 +326,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357327459}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 611a1dc135c49ca4a8a71278052a0d3c, type: 3}
   m_Name: 
@@ -348,6 +349,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &357327463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357327459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d182ff5deae4daf4c801aa67ebcf0fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerCreature: {fileID: 94442943}
+  m_enemyCreature: {fileID: 1709293164}
+  m_isFinish:
+    value: 0
 --- !u!1 &392232178
 GameObject:
   m_ObjectHideFlags: 0
