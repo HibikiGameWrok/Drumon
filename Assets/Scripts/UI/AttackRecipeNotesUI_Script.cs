@@ -30,9 +30,9 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
 
     // 前に出ているクリーチャーによって読み込むべきCSV
     // CSVファイル
-    private TextAsset csvFile = null;
+    private TextAsset m_csvFile = null;
     // CSVの中身を入れるリスト;
-    private List<string[]> csvDatas = new List<string[]>();
+    private List<string[]> m_csvDatas = new List<string[]>();
 
     // レシピのノーツを保管する親オブジェクト
     private Transform []m_AbilitySheetObject = new Transform[5];
@@ -59,6 +59,27 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // デバッグ用：Tキーが押されたら、別のレシピを表示
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ChangeRecipe();
+        }
+    }
+
+    // レシピを変更
+    private void ChangeRecipe()
+    {
+        // 元々出ていた子のテキストオブジェクトを削除
+        foreach (Transform Child in this.transform)
+        {
+            Destroy(Child.gameObject);
+        }
+
+        // CSVをロード
+        LoadCSVFile("Lantern");
+
+        // テキストオブジェクトを表示
+        InstanceRecipeNote();
     }
 
     // CSVを読み込む
@@ -67,39 +88,44 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
         // 現在出ているクリチャーの名前を戦闘管理オブジェクトから取得
         m_nowCreaterName = Regex.Replace(creatureName, @"[^a-z,A-Z]", "");
         // 取得したクリーチャーと同じ名前のCSVファイルを読み込む
-        csvFile = Resources.Load("CSV/" + m_nowCreaterName + "CSV") as TextAsset;
-        StringReader reader = new StringReader(csvFile.text);
+        m_csvFile = Resources.Load("CSV/" + m_nowCreaterName + "CSV") as TextAsset;
+        StringReader reader = new StringReader(m_csvFile.text);
 
         // , で分割しつつ一行ずつ読み込み
         // リストに追加していく
         while (reader.Peek() != -1) // reader.Peaekが-1になるまで
         {
             string line = reader.ReadLine(); // 一行ずつ読み込み
-            csvDatas.Add(line.Split(',')); // , 区切りでリストに追加
+            m_csvDatas.Add(line.Split(',')); // , 区切りでリストに追加
         }
     }
 
     // ノーツを生成
     private void InstanceRecipeNote()
     {
-        for (int i = 1; i < MAX_COUNT_OBJECT; i++)
+        // listの中身が入っていない場合は生成しない
+        if (m_csvDatas != null && m_csvDatas.Count > 0)
         {
-            //1文字ずつ列挙する
-            for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
+            for (int i = 1; i < MAX_COUNT_OBJECT; i++)
             {
-                // 技のノーツ数列を１桁取得
-                int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+                //1文字ずつ列挙する
+                for (int j = 0; j < m_csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
+                {
+                    // 技のノーツ数列を１桁取得
+                    int stringNotesNum = System.Convert.ToInt32(m_csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
 
-                // ノーツの座標を設定(１つのノーツにつきX軸にずらす、１つの技名につきY軸をずらす)
-                Vector3 notePos = new Vector3(this.transform.position.x + m_notesShiftWidth * j, this.transform.position.y - m_notesShiftHeight * (i - 1), this.transform.position.z);
+                    // ノーツの座標を設定(１つのノーツにつきX軸にずらす、１つの技名につきY軸をずらす)
+                    Vector3 notePos = new Vector3(this.transform.position.x + m_notesShiftWidth * j, this.transform.position.y - m_notesShiftHeight * (i - 1), this.transform.position.z);
 
-                //プレハブ生成
-                m_notesPrefab = Instantiate(
-                   SetLodeNotesPrefab(stringNotesNum),
-                   notePos,
-                   Quaternion.identity,
-                   this.transform) as GameObject;
+                    //プレハブ生成
+                    m_notesPrefab = Instantiate(
+                       SetLodeNotesPrefab(stringNotesNum),
+                       notePos,
+                       Quaternion.identity,
+                       this.transform) as GameObject;
+                }
             }
+            m_csvDatas.Clear();
         }
     }
 
