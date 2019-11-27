@@ -105,15 +105,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.8
-    agentHeight: 0.5
+    agentRadius: 1
+    agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.5
+    agentClimb: 0.6
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.26666668
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -2347,7 +2347,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b2efd0a85e0b11e4cb8738a7aff8cb84, type: 3}
 --- !u!1001 &315633874
 PrefabInstance:
@@ -9343,7 +9344,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 5
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!23 &956072819
 MeshRenderer:
@@ -16216,6 +16217,7 @@ GameObject:
   - component: {fileID: 1736371671}
   - component: {fileID: 1736371670}
   - component: {fileID: 1736371669}
+  - component: {fileID: 1736371672}
   m_Layer: 0
   m_Name: GarfishTerritory
   m_TagString: Untagged
@@ -16288,6 +16290,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1736371672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736371668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17661ca6906161446ad9ba58bad35565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_drumon: {fileID: 1291433197955004060, guid: c80ab0b7ec1c48049b1132c1939304a7,
+    type: 3}
+  m_appearNextTime: 10
+  m_maxDrumon: 0
 --- !u!1001 &1738138781
 PrefabInstance:
   m_ObjectHideFlags: 0
