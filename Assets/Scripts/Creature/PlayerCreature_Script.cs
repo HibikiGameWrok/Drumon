@@ -14,7 +14,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
-    private float m_length;
 
     public string Name
     {
@@ -137,20 +136,10 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.data.hp <= 0 && m_length == 0.0f)
+        if (this.m_data.data.hp <= 0)
         {
             m_anim.SetTrigger("Death");
-            m_length = m_animState.length;
-
-            if (m_length == 0.0f) Destroy(this.gameObject);
-        }
-        else if (m_length != 0.0f)
-        {
-            this.m_timer += Time.deltaTime;
-            if (m_length < this.m_timer)
-            {
-                Destroy(this.gameObject);
-            }
+            Destroy(this.gameObject, m_animState.length);
         }
     }
 
@@ -172,7 +161,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         this.m_anim = obj.GetComponent<Animator>();
         this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
-        this.m_length = 0.0f;
         this.m_timer = 0.0f;
     }
 }
