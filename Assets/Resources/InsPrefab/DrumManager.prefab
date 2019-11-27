@@ -299,7 +299,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8459804645989560212}
-  - component: {fileID: 5138594930853788215}
   - component: {fileID: 5138594930853788214}
   m_Layer: 0
   m_Name: DrumManager
@@ -325,19 +324,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5138594930853788215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4837358856585811784}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5086408549e1514d93d8fdd601e334b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_spaceY: 0.2
 --- !u!114 &5138594930853788214
 MonoBehaviour:
   m_ObjectHideFlags: 0
