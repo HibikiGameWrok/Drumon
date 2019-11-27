@@ -56,18 +56,9 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
         this.transform.localRotation = this.transform.parent.rotation;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // デバッグ用：Tキーが押されたら、別のレシピを表示
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ChangeRecipe();
-        }
-    }
 
     // レシピを変更
-    private void ChangeRecipe()
+    public void ChangeRecipe()
     {
         // 元々出ていた子のテキストオブジェクトを削除
         foreach (Transform Child in this.transform)
@@ -76,14 +67,14 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
         }
 
         // CSVをロード
-        LoadCSVFile("Lantern");
+        LoadCSVFile(BattleManager_Script.Get.PlayerCreature.Name);
 
         // テキストオブジェクトを表示
         InstanceRecipeNote();
     }
 
     // CSVを読み込む
-    public void LoadCSVFile(string creatureName)
+    private void LoadCSVFile(string creatureName)
     {
         // 現在出ているクリチャーの名前を戦闘管理オブジェクトから取得
         m_nowCreaterName = Regex.Replace(creatureName, @"[^a-z,A-Z]", "");

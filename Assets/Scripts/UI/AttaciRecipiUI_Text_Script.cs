@@ -66,18 +66,9 @@ public class AttaciRecipiUI_Text_Script : MonoBehaviour
         InstanceTextChildObject();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // デバッグ用：Tキーが押されたら、別のレシピを表示
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ChangeRecipe();
-        }
-    }
 
     // レシピを変更
-    private void ChangeRecipe()
+    public void ChangeRecipe()
     {
         // 元々出ていた子のテキストオブジェクトを削除
         foreach(Transform Child in this.transform)
@@ -86,7 +77,7 @@ public class AttaciRecipiUI_Text_Script : MonoBehaviour
         }
 
         // CSVをロード
-        LoadCSVFile("Lantern");
+        LoadCSVFile(BattleManager_Script.Get.PlayerCreature.Name);
 
         // テキストオブジェクトを表示
         InstanceTextChildObject();
