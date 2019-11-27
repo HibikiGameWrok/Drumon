@@ -9,7 +9,7 @@ public class NotesInstance_Script : MonoBehaviour
     private const string NOTES_NAME_PATH = "InsPrefab/Notes/NotePrefab";
 
     // ノーツ生成の最大値
-    private const int MAX_NOTES = 8;
+    private const int MAX_NOTES = 6;
 
     // 生成するノーツの種類
     public enum NOTES_TYPE : int
@@ -54,6 +54,7 @@ public class NotesInstance_Script : MonoBehaviour
         m_attackRecipeManager = GameObject.Find("AttackRecipeManeger");
         m_attackRecipeManagerScript = m_attackRecipeManager.GetComponent<AttackRecipeManeger_Script>();
 
+
     }
 
     void Update()
@@ -81,20 +82,23 @@ public class NotesInstance_Script : MonoBehaviour
         // 最大値よりも少なければ
         if (m_countnNotes < MAX_NOTES)
         {
+            this.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
             // プレハブ生成
             m_notesPrefab = Instantiate(
                 SetLodeNotesPrefab(num),
                 new Vector3(SetInsPosX(m_countnNotes), m_instancePos.y, m_instancePos.z),
-                this.transform.parent.rotation) as GameObject;
-            
+                Quaternion.identity,
+                this.transform) as GameObject;
+
             // カウントアップ
             UPCountNotes();
 
-            // 親子関係を設定
-            m_notesPrefab.transform.parent = this.transform;
-
             // 親のScaleに合わせてプレハブの大きさを変える
             m_notesPrefab.transform.localScale = m_notesPrefab.transform.lossyScale * this.transform.localScale.x;
+
+
+            this.transform.localRotation = this.transform.parent.rotation * m_notesPrefab.transform.rotation;
         }
     }
 
@@ -115,7 +119,7 @@ public class NotesInstance_Script : MonoBehaviour
     private float SetInsPosX(int notesCount)
     {
         // 生成する度にずらす
-        float addValue = (6.5f * notesCount) * this.transform.parent.localScale.x * m_notesPrefab.transform.localScale.x;
+        float addValue = (1.0f * notesCount) * this.transform.parent.localScale.x * m_notesPrefab.transform.localScale.x;
 
         // X座標へずらす計算
         m_instancePos.x = this.transform.position.x + addValue;
