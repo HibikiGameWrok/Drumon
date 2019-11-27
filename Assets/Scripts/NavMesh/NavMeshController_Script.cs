@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UniRx;
+using UniRx.Triggers;
 
 
 // NavMeshControllerクラスの定義
@@ -56,15 +57,20 @@ public class NavMeshController_Script : MonoBehaviour
         m_navAgent.destination = CurrentTargetPosition;
 
         // 更新処理　Destroyされるときに通知を切る
-        Observable.EveryUpdate()
+        this.UpdateAsObservable()
             .Subscribe(_ =>
             {
-                if(m_navAgent.remainingDistance <= m_destinationThreshold)
-                {
-                    m_targetIndex = (m_targetIndex + 1) % m_targets.Length;
-
-                    m_navAgent.destination = CurrentTargetPosition;
-                }
+                NextPosition();
             }).AddTo(gameObject);
+    }
+
+    private void NextPosition()
+    {
+        if (m_navAgent.remainingDistance <= m_destinationThreshold)
+        {
+            m_targetIndex = (m_targetIndex + 1) % m_targets.Length;
+
+            m_navAgent.destination = CurrentTargetPosition;
+        }
     }
 }
