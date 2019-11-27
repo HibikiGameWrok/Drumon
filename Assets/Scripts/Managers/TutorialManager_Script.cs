@@ -52,6 +52,18 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private GameObject m_explainDrumonText;
     // HP説明テキスト
     private GameObject m_explainHPText;
+    // アタックドラム説明テキスト
+    private GameObject m_explainAttackDrumText;
+    // 右矢印テキスト
+    private GameObject m_rightArrowText1;
+
+    // チュートリアルスイッチキャンバス
+    private GameObject m_tutorialSwitchCanvas;
+    // スイッチドラム説明テキスト
+    private GameObject m_explainSwitchDrumText;
+    // 左矢印テキスト
+    private GameObject m_leftArrowText1;
+
     // 現在のテキスト
     private Text m_text;
     // 現在の説明テキスト数
@@ -77,8 +89,14 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_explainBattleSequenceText = m_tutorialCanvas.transform.Find("ExplainBattleSequenceText").gameObject;
         m_explainDrumonText = m_tutorialCanvas.transform.Find("ExplainDrumonText").gameObject;
         m_explainHPText = m_tutorialCanvas.transform.Find("ExplainHPText").gameObject;
+        m_explainAttackDrumText = m_tutorialCanvas.transform.Find("ExplainAttackDrumText").gameObject;
+        m_rightArrowText1 = m_tutorialCanvas.transform.Find("RightArrowText1").gameObject;
 
-        m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText };
+        m_tutorialSwitchCanvas = GameObject.Find("TutorialSwitchCanvas");
+        m_explainSwitchDrumText = m_tutorialSwitchCanvas.transform.Find("ExplainBattleSequenceText").gameObject;
+        m_leftArrowText1 = m_tutorialSwitchCanvas.transform.Find("LeftArrowText1").gameObject;
+
+        m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText1, m_explainSwitchDrumText, m_leftArrowText1 };
 
         m_text = m_textArray[0].GetComponent<Text>();
     }
