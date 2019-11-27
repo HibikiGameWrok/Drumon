@@ -106,6 +106,7 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
         // listの中身が入っていない場合は生成しない
         if (m_csvDatas != null && m_csvDatas.Count > 0)
         {
+            this.transform.localRotation = Quaternion.Euler(Vector3.zero);
             for (int i = 1; i < MAX_COUNT_OBJECT; i++)
             {
                 //1文字ずつ列挙する
@@ -126,6 +127,7 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
                 }
             }
             m_csvDatas.Clear();
+            this.transform.localRotation = this.transform.parent.rotation * m_notesPrefab.transform.rotation;
         }
     }
 
