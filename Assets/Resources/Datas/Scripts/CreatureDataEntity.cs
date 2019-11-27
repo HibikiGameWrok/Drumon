@@ -12,6 +12,8 @@ public class CreatureDataEntity
 
     public string name = null;
 
+    public int maxHp = 0;
+
     public int hp = 0;
 
     public int atk = 0;
