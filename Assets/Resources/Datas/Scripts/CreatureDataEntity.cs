@@ -7,7 +7,8 @@ public class CreatureDataEntity
         WIND,
         VOID,
         EARTH,
-        WATER
+        WATER,
+        NUM
     };
 
     public string name = null;

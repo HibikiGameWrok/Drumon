@@ -9,9 +9,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     [SerializeField]
     private CreatureData m_data = null;
 
-    [SerializeField]
-    private string m_name = null;
-
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
 
@@ -92,7 +89,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.data.atk * this.m_rate / 2) - (this.m_target.GetData().data.def / 4);
+        int damage = (this.m_data.data.atk * this.m_rate) - (this.m_target.GetData().data.def);
         
         this.m_target.Damage(damage);
         this.m_rate = 0;
@@ -153,9 +150,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             }
         }
 
-        GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
 
-        if(!obj) obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx");
+        if(!obj) obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx") as GameObject;
         obj = Instantiate(obj, this.transform.position, this.transform.rotation);
         obj.transform.parent = this.gameObject.transform;
 
