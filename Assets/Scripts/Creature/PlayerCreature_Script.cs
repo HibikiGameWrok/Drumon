@@ -9,9 +9,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     [SerializeField]
     private CreatureData m_data = null;
 
-    [SerializeField]
-    private string m_name = null;
-
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
 
