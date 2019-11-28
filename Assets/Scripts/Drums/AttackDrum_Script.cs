@@ -18,6 +18,14 @@ using UnityEngine;
 // 攻撃用のドラムクラスの定義
 public class AttackDrum_Script : Drum_Script
 {
+    public enum TUTORIAL_HIT_PATTERN
+    {
+        IN_HIT = (1 << 0),          // 内側を叩いた判定(0001)
+        OUT_HIT = (1 << 1),         // 外側を叩いた判定(0010)
+        DOUBLE_IN_HIT = (1 << 2),   // 内側を同時に叩いた判定(0100)
+        DOUBLE_OUT_HIT = (1 << 3)   // 外側を同時に叩いた判定(1000)
+    }
+
     // メンバ変数
 
     private GameObject m_musicalScore;
@@ -36,6 +44,15 @@ public class AttackDrum_Script : Drum_Script
     private Transform m_inDrum;
     // 外側のドラム
     private Transform m_outDrum;
+
+    // チュートリアル用の叩いた判定フラグ管理
+    private Flag_Script m_tutorialFlag;
+    // チュートリアル用の叩いた判定フラグ管理のプロパティ
+    public Flag_Script TutorialFlag
+    {
+        get { return m_tutorialFlag; }
+        set { m_tutorialFlag = value; }
+    }
 
     // マテリアル
     [SerializeField]
@@ -74,6 +91,8 @@ public class AttackDrum_Script : Drum_Script
 
         m_inDrumRender = m_inDrum.GetComponent<Renderer>();
         m_outDrumRender = m_outDrum.GetComponent<Renderer>();
+
+        m_tutorialFlag = new Flag_Script();
     }
 
     /// <summary>
@@ -182,6 +201,8 @@ public class AttackDrum_Script : Drum_Script
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
             // 外側を叩いた判定フラグを伏せる
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
+
+            m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.DOUBLE_IN_HIT);
         }
         // 外側を同時に叩いていたら
         else if (m_stickManagerScript.DoubleOutHitFlag == true)
@@ -205,6 +226,8 @@ public class AttackDrum_Script : Drum_Script
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
             // 外側を叩いた判定フラグを伏せる
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
+
+            m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.DOUBLE_OUT_HIT);
         }
 
         // 時間が0になったら
@@ -214,22 +237,30 @@ public class AttackDrum_Script : Drum_Script
             {
                 // ノーツ生成
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.DO_NOTE);
+
+                m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.IN_HIT);
             }
             if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
             {
                 // ノーツ生成
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.KA_NOTE);
+
+                m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.OUT_HIT);
             }
 
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
                 // ノーツ生成
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.DO_NOTE);
+
+                m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.IN_HIT);
             }
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
             {
                 // ノーツ生成
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.KA_NOTE);
+
+                m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.OUT_HIT);
             }
 
             // 時間を初期化

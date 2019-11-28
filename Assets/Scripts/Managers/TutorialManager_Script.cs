@@ -41,6 +41,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     
     // チュートリアルを表示中かどうかのフラグ
     private bool m_tutorialModeFlag = true;
+    // 実践中かどうかのフラグ
+    private bool m_practiceModeFlag = false;
 
     // チュートリアルキャンバス
     private GameObject m_tutorialCanvas;
@@ -60,6 +62,14 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private GameObject m_explainBattleSystemText;
     // バトルシステム説明テキスト2
     private GameObject m_explainBattleSystemText2;
+    // 内側を叩いた時のチェック
+    private GameObject m_inHitCheckImage;
+    // 外側を叩いた時のチェック
+    private GameObject m_outHitCheckImage;
+    // 内側を同時に叩いた時のチェック
+    private GameObject m_doubleInHitCheckImage;
+    // 外側を同時に叩いた時のチェック
+    private GameObject m_doubleOutHitCheckImage;
 
     // チュートリアルスイッチキャンバス
     private GameObject m_tutorialSwitchCanvas;
@@ -79,6 +89,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private Text m_text;
     // 現在の説明テキスト数
     private int m_curentNum = 0;
+
+    // ドラムマネージャー
+    private DrumManager_Script m_drumManager = null;
 
     // Start is called before the first frame update
     void Start()
@@ -105,6 +118,11 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_explainBattleSystemText = m_tutorialCanvas.transform.Find("ExplainBattleSystemText").gameObject;
         m_explainBattleSystemText2 = m_tutorialCanvas.transform.Find("ExplainBattleSystemText2").gameObject;
 
+        m_inHitCheckImage = m_explainBattleSystemText2.transform.Find("InHitCheckImage").gameObject;
+        m_outHitCheckImage = m_explainBattleSystemText2.transform.Find("OutHitCheckImage").gameObject;
+        m_doubleInHitCheckImage = m_explainBattleSystemText2.transform.Find("DoubleInHitCheckImage").gameObject;
+        m_doubleOutHitCheckImage = m_explainBattleSystemText2.transform.Find("DoubleOutHitCheckImage").gameObject;
+
         m_tutorialSwitchCanvas = GameObject.Find("TutorialSwitchCanvas");
         m_explainSwitchDrumText = m_tutorialSwitchCanvas.transform.Find("ExplainSwitchDrumText").gameObject;
         m_leftArrowText = m_tutorialSwitchCanvas.transform.Find("LeftArrowText").gameObject;
@@ -116,6 +134,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2 };
 
         m_text = m_textArray[0].GetComponent<Text>();
+
+        m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();
     }
 
     // Update is called once per frame
@@ -146,7 +166,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
 
         // ボタンが押されたら
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L) && m_practiceModeFlag == false)
         {
             m_tutorialModeFlag = false;
         }
@@ -171,9 +191,35 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
         }
 
-        if (m_curentNum >= 9)
+        if (m_curentNum == 10)
         {
+            m_practiceModeFlag = true;
+        }
 
+        // 叩けたらチェックを出す
+        if (m_explainBattleSystemText2.activeInHierarchy == true)
+        {
+            if (m_drumManager.AttackDrum.GetComponent<AttackDrum_Script>().TutorialFlag.IsFlag((uint)AttackDrum_Script.TUTORIAL_HIT_PATTERN.IN_HIT) == true || Input.GetKeyDown(KeyCode.V))
+            {
+                m_inHitCheckImage.SetActive(true);
+            }
+            else if (m_drumManager.AttackDrum.GetComponent<AttackDrum_Script>().TutorialFlag.IsFlag((uint)AttackDrum_Script.TUTORIAL_HIT_PATTERN.OUT_HIT) == true || Input.GetKeyDown(KeyCode.B))
+            {
+                m_outHitCheckImage.SetActive(true);
+            }
+            else if (m_drumManager.AttackDrum.GetComponent<AttackDrum_Script>().TutorialFlag.IsFlag((uint)AttackDrum_Script.TUTORIAL_HIT_PATTERN.DOUBLE_IN_HIT) == true || Input.GetKeyDown(KeyCode.N))
+            {
+                m_doubleInHitCheckImage.SetActive(true);
+            }
+            else if (m_drumManager.AttackDrum.GetComponent<AttackDrum_Script>().TutorialFlag.IsFlag((uint)AttackDrum_Script.TUTORIAL_HIT_PATTERN.DOUBLE_OUT_HIT) == true || Input.GetKeyDown(KeyCode.M))
+            {
+                m_doubleOutHitCheckImage.SetActive(true);
+            }
+            // 全てのチェックが出たら
+            if (m_inHitCheckImage.activeInHierarchy == true && m_outHitCheckImage.activeInHierarchy == true && m_doubleInHitCheckImage.activeInHierarchy == true && m_doubleOutHitCheckImage.activeInHierarchy == true)
+            {
+                m_tutorialModeFlag = false;
+            }
         }
 
 
