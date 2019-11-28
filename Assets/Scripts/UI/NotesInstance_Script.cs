@@ -100,6 +100,11 @@ public class NotesInstance_Script : MonoBehaviour
 
             this.transform.localRotation = this.transform.parent.rotation * m_notesPrefab.transform.rotation;
         }
+        else
+        {
+            ResetCount();
+            ResetNotes();
+        }
     }
 
     
