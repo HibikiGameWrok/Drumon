@@ -7,8 +7,9 @@ using UniRx.Triggers;
 
 public class AppearDrumon_Script : MonoBehaviour
 {
-    // 出現ポイントから出現する最大数
-    private static readonly int MAX_DRUMONS = 5;
+    [Tooltip("出現させるドラモンの最大数")]
+    [SerializeField]
+    private int m_maxAppear;
 
     [Tooltip("出現させるドラモンのPrefabを入れる")]
     [SerializeField]
@@ -31,7 +32,7 @@ public class AppearDrumon_Script : MonoBehaviour
     void Start()
     {
         // 最大数を設定する
-        m_maxDrumon = MAX_DRUMONS;
+        m_maxDrumon = m_maxAppear;
         // 計測用フィールドを初期化する
         m_elapesdTime = 0f;
 
