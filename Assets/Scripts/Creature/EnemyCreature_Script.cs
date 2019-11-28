@@ -39,11 +39,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
         this.m_atkFlag = false;
 
-        //m_enemyHit = GameObject.Find("Enemy");
-        //m_enemyHitScript = m_enemyHit.GetComponent<EnemyHit_Script>();
-
-        //this.m_data = m_enemyHitScript.GetData();
-
         CreatePrefab();
 
         m_healProsperityUI = GameObject.Find("ESlider");
@@ -54,7 +49,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         m_healProsperityUIScript.NowPoint = m_data.data.hp;
         this.CountTimer();
-        if (this.m_timer >= 10.0f) this.m_atkFlag = true;
+        if (this.m_timer >= m_data.data.waitTime) this.m_atkFlag = true;
 
         this.Dead();
     }
@@ -127,9 +122,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private void CreatePrefab()
     {
-        GameObject obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", ""));
+        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
 
-        if (!obj) obj = (GameObject)Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx");
+        if (!obj) obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx") as GameObject;
         obj = Instantiate(obj, this.transform.position, this.transform.rotation);
         obj.transform.parent = this.gameObject.transform;
 
