@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 5277459825222183413}
   - component: {fileID: 5205986325357363430}
   - component: {fileID: -2071858304735403042}
+  - component: {fileID: -3077142585813612324}
   m_Layer: 0
   m_Name: Search_Garfish
   m_TagString: Untagged
@@ -125,7 +126,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -135,7 +136,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 23
   m_ObstacleAvoidanceType: 4
 --- !u!114 &-2071858304735403042
 MonoBehaviour:
@@ -150,7 +151,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_targets: []
+  m_patrolPos: {fileID: 0}
   m_destinationThreshold: 0
+--- !u!114 &-3077142585813612324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291433197955004060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aacea50e5396d414faa7383834f081a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_findObjectName: GarfishSearchAria
+  m_patrolPositions: []
 --- !u!1 &1473744668281364995
 GameObject:
   m_ObjectHideFlags: 0
