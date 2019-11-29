@@ -85,6 +85,20 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     // 右矢印テキスト
     private GameObject m_rightArrowText2;
 
+    // チュートリアル技リストのキャンバス
+    private GameObject m_tutorialAbilityCanvas;
+    // 技リストの説明テキスト
+    private GameObject m_explainAbilityText;
+    // 技リストの説明テキスト2
+    private GameObject m_explainAbilityText2;
+
+    // チュートリアルミュージックスコアキャンバス
+    private GameObject m_tutorialMusicScoreCanvas;
+    // ノーツリセットの説明テキスト
+    private GameObject m_explainNotesResetText;
+    // タイマーの説明テキスト
+    private GameObject m_explainTimerText;
+
     // 現在のテキスト
     private Text m_text;
     // 現在の説明テキスト数
@@ -131,7 +145,15 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_explainCaptureDrumText = m_tutorialCaptureCanvas.transform.Find("ExplainCaptureDrumText").gameObject;
         m_rightArrowText2 = m_tutorialCaptureCanvas.transform.Find("RightArrowText2").gameObject;
 
-        m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2 };
+        m_tutorialAbilityCanvas = GameObject.Find("TutorialAbilityCanvas");
+        m_explainAbilityText = m_tutorialAbilityCanvas.transform.Find("ExplainAbilityText").gameObject;
+        m_explainAbilityText2 = m_tutorialAbilityCanvas.transform.Find("ExplainAbilityText2").gameObject;
+
+        m_tutorialMusicScoreCanvas = GameObject.Find("TutorialMusicScoreCanvas");
+        m_explainNotesResetText = m_tutorialMusicScoreCanvas.transform.Find("ExplainNotesResetText").gameObject;
+        m_explainTimerText = m_tutorialMusicScoreCanvas.transform.Find("ExplainTimerText").gameObject;
+
+        m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2, m_explainAbilityText, m_explainAbilityText2, m_explainNotesResetText, m_explainTimerText };
 
         m_text = m_textArray[0].GetComponent<Text>();
 
@@ -159,8 +181,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
         else
         {
-            //m_timeStandard_Script.StopFlag = false;
-
             // 文字を小さくする
             m_text.fontSize -= 10;
         }
@@ -174,26 +194,18 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         // 文字が消えたら
         if (m_text.fontSize <= 0)
         {
-            m_tutorialModeFlag = true;
-
-            // 現在のテキストを非アクティブ化
-            m_textArray[m_curentNum].SetActive(false);
-            // カウントアップ
-            m_curentNum++;
-
-            if (m_textArray[m_curentNum] != null)
-            {
-                // 次のテキストをアクティブ化
-                m_textArray[m_curentNum].SetActive(true);
-
-                // 次のテキストに変える
-                m_text = m_textArray[m_curentNum].GetComponent<Text>();
-            }
+            // 次のテキストの表示
+            NextText();
         }
 
         if (m_curentNum == 10)
         {
             m_practiceModeFlag = true;
+        }
+        else if (m_curentNum == 14)
+        {
+            m_practiceModeFlag = true;
+            m_timeStandard_Script.StopFlag = false;
         }
 
         // 叩けたらチェックを出す
@@ -222,11 +234,19 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
         }
 
-
-        if (Input.GetKeyDown(KeyCode.P))
+        // 敵が攻撃を受けたら
+        if (m_enemyCreature.HP < 100)
         {
-            m_tutorialModeFlag = !m_tutorialModeFlag;
+            m_timeStandard_Script.StopFlag = true;
+
+            // 次のテキストの表示
+            NextText();
         }
+
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    m_timeStandard_Script.StopFlag = false;
+        //}
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
@@ -289,5 +309,27 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
 
         return false;
+    }
+
+    // 次のテキストの表示
+    private void NextText()
+    {
+        m_tutorialModeFlag = true;
+
+        // 現在のテキストを非アクティブ化
+        m_textArray[m_curentNum].SetActive(false);
+        // カウントアップ
+        m_curentNum++;
+
+        if (m_textArray[m_curentNum] != null)
+        {
+            // 次のテキストをアクティブ化
+            m_textArray[m_curentNum].SetActive(true);
+
+            // 次のテキストに変える
+            m_text = m_textArray[m_curentNum].GetComponent<Text>();
+
+            m_practiceModeFlag = false;
+        }
     }
 }
