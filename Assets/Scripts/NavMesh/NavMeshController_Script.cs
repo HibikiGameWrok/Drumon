@@ -128,9 +128,6 @@ public class NavMeshController_Script : MonoBehaviour
 
         // 状態遷移を生成する
         CreateState();
-
-        Debug.Log(Walk);
-
         // 初期状態をWalkにする
         ChangeState(Walk);
     }
@@ -154,8 +151,19 @@ public class NavMeshController_Script : MonoBehaviour
         this.UpdateAsObservable()
             .Subscribe(_ =>
             {
-                m_currentState.Execute();
-                //NextPosition();
+                bool result = m_currentState.Execute();
+
+                if (result == false)
+                {
+                    if (m_currentState == Idle)
+                    {
+                        ChangeState(Walk);
+                    }
+                    else if(m_currentState == Walk)
+                    {
+                        ChangeState(Idle);
+                    }
+                }
             }).AddTo(gameObject);
     }
 
@@ -197,8 +205,9 @@ public class NavMeshController_Script : MonoBehaviour
     /// <param name="nextState">次の状態遷移</param>
     public void ChangeState(WorldCreatureState_Script nextState)
     {
-        //m_currentState.Dispose();
+        // 次の状態遷移を設定する
         m_currentState = nextState;
+        // 初期化する
         m_currentState.Initialize(this);
     }
 
