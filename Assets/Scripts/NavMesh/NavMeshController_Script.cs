@@ -37,6 +37,10 @@ public class NavMeshController_Script : MonoBehaviour
 
     private int m_targetIndex = 0;
 
+
+    /// <summary>
+    /// ターゲット座標のプロパティ
+    /// </summary>
     private Vector3 CurrentTargetPosition
     {
         get
@@ -69,9 +73,8 @@ public class NavMeshController_Script : MonoBehaviour
             m_targets[i] = m_patrolPos.GetPatrolPosition(i);
         }
 
-        // シャッフル
-        Transform[] array = m_targets;
-        m_targets = array.OrderBy(i => Guid.NewGuid()).ToArray();
+        // 座標をランダムにする
+        m_targets = ShufflePosition(m_targets);
 
         // 目的座標を設定する
         m_navAgent.destination = CurrentTargetPosition;
@@ -84,6 +87,10 @@ public class NavMeshController_Script : MonoBehaviour
             }).AddTo(gameObject);
     }
 
+
+    /// <summary>
+    /// 次の座標を設定する
+    /// </summary>
     private void NextPosition()
     {
         if (m_navAgent.remainingDistance <= m_destinationThreshold)
@@ -95,4 +102,19 @@ public class NavMeshController_Script : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 座標をランダムにする
+    /// </summary>
+    /// <param name="targets">ランダムにする座標</param>
+    /// <returns>ランダムにした座標</returns>
+    private Transform[] ShufflePosition(Transform[] targets)
+    {
+        // ローカル変数に入れる
+        Transform[] mainArray = targets;
+        // シャッフル
+        Transform[] tempArray = mainArray;
+        mainArray = tempArray.OrderBy(i => Guid.NewGuid()).ToArray();
+
+        return mainArray;
+    }
 }
