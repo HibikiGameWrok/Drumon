@@ -9,12 +9,15 @@ using UnityEngine;
 
 
 // 探索でのドラモンの状態遷移クラス
-public abstract class WorldCreatureState_Script : MonoBehaviour
+public abstract class WorldCreatureState_Script
 {
+    // メンバ変数
+    protected NavMeshController_Script m_controller;
+
     /// <summary>
     /// 初期化処理
     /// </summary>
-    public abstract void Initialize();
+    public abstract void Initialize(NavMeshController_Script controller);
 
 
     /// <summary>
