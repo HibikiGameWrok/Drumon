@@ -838,9 +838,9 @@ GameObject:
   m_Component:
   - component: {fileID: 852692310839593950}
   - component: {fileID: 7304659247363106468}
-  - component: {fileID: 5630356377710415719}
   - component: {fileID: -5741525675637868254}
   - component: {fileID: -6934149792348806122}
+  - component: {fileID: 5630356377710415719}
   m_Layer: 0
   m_Name: Search_ChurchGrim
   m_TagString: Untagged
@@ -884,20 +884,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5630356377710415719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4435490360224643533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aacea50e5396d414faa7383834f081a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_findObjectName: GrimSearchAria
-  m_patrolPositions: []
 --- !u!195 &-5741525675637868254
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -908,7 +894,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -935,6 +921,20 @@ MonoBehaviour:
   m_targets: []
   m_patrolPos: {fileID: 0}
   m_destinationThreshold: 0
+--- !u!114 &5630356377710415719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435490360224643533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aacea50e5396d414faa7383834f081a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_findObjectName: GrimSearchAria
+  m_patrolPositions: []
 --- !u!1 &4946574525260773950
 GameObject:
   m_ObjectHideFlags: 0
