@@ -16,43 +16,33 @@ public class MoveTimeUI_Script : MonoBehaviour
     private AccelerationTime_Script m_timeStandardScript = null;
 
     [SerializeField]
-    private float m_maxValue = 10.0f;
-    [SerializeField]
     private float m_minValue = 0.0f;
-    [SerializeField]
-    private float m_nowValue = 0.0f;
-
-    [SerializeField]
-    private float m_addtractValue;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_childSlider = this.transform.Find("Slider");
-        m_sliderCompnent = m_childSlider.GetComponent<Slider>();
-
-        /*  後で消す                                                                     */
+        if (this.transform.Find("Slider") != null)
+        {
+            m_childSlider = this.transform.Find("Slider");
+            m_sliderCompnent = m_childSlider.GetComponent<Slider>();
+        }
         if (GameObject.Find("Timer") != null)
         {
             m_timerObject = GameObject.Find("Timer");
             m_timeStandardScript = m_timerObject.GetComponent<AccelerationTime_Script>();
         }
-        /*                                                                      */
+
 
         m_sliderCompnent.minValue = m_minValue;
-        m_sliderCompnent.maxValue = m_maxValue;
-        m_sliderCompnent.value = m_nowValue;
+        m_sliderCompnent.maxValue = m_timeStandardScript.MaxTimer;
+        m_sliderCompnent.value = m_timeStandardScript.NowTimer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*   後で消す                                       */
-        if (m_timerObject != null)
-        {
-            m_sliderCompnent.value = m_timeStandardScript.NowTimer;
-        }
-        /*                                                  */
+        m_sliderCompnent.maxValue = m_timeStandardScript.MaxTimer;
+        m_sliderCompnent.value = m_timeStandardScript.NowTimer;
     }
 
 }
