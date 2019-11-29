@@ -163,7 +163,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
 
         if(!obj) obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx") as GameObject;
-        obj = Instantiate(obj, this.transform.position, this.transform.rotation);
+        obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation);
         obj.transform.parent = this.gameObject.transform;
 
         this.m_anim = obj.GetComponent<Animator>();
