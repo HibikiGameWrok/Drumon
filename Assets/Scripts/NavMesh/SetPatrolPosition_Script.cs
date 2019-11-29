@@ -25,12 +25,6 @@ public class SetPatrolPosition_Script : MonoBehaviour
         return m_patrolPositions[index];
     }
 
-
-    void OnEnable()
-    {
-
-    }
-
     // Start is called before the first frame update
     void Awake()
     {
