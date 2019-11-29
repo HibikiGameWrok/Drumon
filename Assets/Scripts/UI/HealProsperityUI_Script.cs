@@ -49,7 +49,7 @@ public class HealProsperityUI_Script : MonoBehaviour
         }
         m_hpSlider.minValue = this.m_minPoint;
         m_hpSlider.maxValue = this.m_maxPoint;
-        m_hpSlider.value = this.m_maxPoint;
+        m_hpSlider.value = this.m_nowPoint;
     }
 
     // 開始関数
@@ -61,7 +61,7 @@ public class HealProsperityUI_Script : MonoBehaviour
         }
         m_hpSlider.minValue = this.m_minPoint;
         m_hpSlider.maxValue = this.m_maxPoint;
-        m_hpSlider.value = this.m_maxPoint;
+        m_hpSlider.value = this.m_nowPoint;
     }
 
     // 更新関数
