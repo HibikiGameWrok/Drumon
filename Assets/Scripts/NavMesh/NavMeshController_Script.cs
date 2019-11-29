@@ -32,7 +32,7 @@ public class NavMeshController_Script : MonoBehaviour
     [SerializeField]
     private SetPatrolPosition_Script m_patrolPos = null;
     [SerializeField]
-    private float m_destinationThreshold = 0.0f;
+    private float m_destinationThreshold = 0.1f;
     // エージェント
     private NavMeshAgent m_navAgent = null;
 
@@ -56,6 +56,12 @@ public class NavMeshController_Script : MonoBehaviour
     /// アニメーターのプロパティ
     /// </summary>
     public  Animator Animator => m_animator;
+
+
+    /// <summary>
+    /// NavMeshAgentのプロパティ
+    /// </summary>
+    public NavMeshAgent Agent => m_navAgent;
 
 
     /// <summary>
@@ -122,6 +128,9 @@ public class NavMeshController_Script : MonoBehaviour
 
         // 状態遷移を生成する
         CreateState();
+
+        Debug.Log(Walk);
+
         // 初期状態をWalkにする
         ChangeState(Walk);
     }
@@ -145,7 +154,8 @@ public class NavMeshController_Script : MonoBehaviour
         this.UpdateAsObservable()
             .Subscribe(_ =>
             {
-                NextPosition();
+                m_currentState.Execute();
+                //NextPosition();
             }).AddTo(gameObject);
     }
 
@@ -153,9 +163,9 @@ public class NavMeshController_Script : MonoBehaviour
     /// <summary>
     /// 次の座標を設定する
     /// </summary>
-    private void NextPosition()
+    public void NextPosition()
     {
-        if (m_navAgent.remainingDistance <= m_destinationThreshold)
+        //if (m_navAgent.remainingDistance <= m_destinationThreshold)
         {
             m_targetIndex = (m_targetIndex + 1) % m_targets.Length;
 
@@ -187,7 +197,9 @@ public class NavMeshController_Script : MonoBehaviour
     /// <param name="nextState">次の状態遷移</param>
     public void ChangeState(WorldCreatureState_Script nextState)
     {
+        //m_currentState.Dispose();
         m_currentState = nextState;
+        m_currentState.Initialize(this);
     }
 
 
@@ -209,12 +221,7 @@ public class NavMeshController_Script : MonoBehaviour
     {
         // Idle状態を生成する
         m_idleState = new WorldCreatureIdle_Script();
-        // 初期化する
-        m_idleState.Initialize(this);
-
         // Walk状態を生成する
         m_walkState = new WorldCreatureWalk_Script();
-        // 初期化する
-        m_walkState.Initialize(this);
     }
 }

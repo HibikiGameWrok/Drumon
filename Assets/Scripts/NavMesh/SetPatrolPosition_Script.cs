@@ -20,6 +20,14 @@ public class SetPatrolPosition_Script : MonoBehaviour
     // 次に巡回する位置
     private int m_nextPatrolPosition;
 
+
+    public Vector3 Destination
+    {
+        get { return m_destination; }
+        set { m_destination = value; }
+    }
+
+
     public  Transform GetPatrolPosition(int index)
     {
         return m_patrolPositions[index];
