@@ -13,9 +13,12 @@ public class WorldCreatureWalk_Script : WorldCreatureState_Script
     public override void Initialize(NavMeshController_Script controller)
     {
         m_controller = controller;
-
+        // 到達フラグを倒す
         m_controller.IsArrived = false;
+        // 経過時間を初期化する
         m_controller.ResetElapsedTime();
+
+        m_controller.Agent.isStopped = false;
     }
 
     
@@ -25,7 +28,17 @@ public class WorldCreatureWalk_Script : WorldCreatureState_Script
     /// <returns></returns>
     public override bool Execute()
     {
-        throw new NotImplementedException();
+        if (m_controller.Agent.remainingDistance <= 0.1f)
+        {
+            m_controller.NextPosition();
+            // 状態を変更する
+            m_controller.Animator.SetBool("IsWalk",false);
+            m_controller.ChangeState(m_controller.Idle);
+            return false;
+        }
+
+        m_controller.Animator.SetBool("IsWalk", true);
+        return true;
     }
 
 
@@ -34,6 +47,6 @@ public class WorldCreatureWalk_Script : WorldCreatureState_Script
     /// </summary>
     public override void Dispose()
     {
-        throw new NotImplementedException();
+        
     }
 }

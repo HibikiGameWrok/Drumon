@@ -22,6 +22,8 @@ public class WorldCreatureIdle_Script : WorldCreatureState_Script
         m_controller.IsArrived = true;
         // アニメーターを設定する
         m_controller.Animator.SetBool("IsWalk", false);
+
+        m_controller.Agent.isStopped = true;
     }
 
     /// <summary>
@@ -31,8 +33,11 @@ public class WorldCreatureIdle_Script : WorldCreatureState_Script
     public override bool Execute()
     {
         if (m_controller.ElapsedTime > m_waitTime)
+        { 
+            // 状態を変更する
             m_controller.ChangeState(m_controller.Walk);
-
+            return false;
+        }
         // 到着していたら一定時間待つ
         m_controller.ElapsedTime += Time.deltaTime;
         // 継続する
