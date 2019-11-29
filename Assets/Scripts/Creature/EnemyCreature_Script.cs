@@ -61,8 +61,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.data.atk / 2) - (this.m_target.GetData().data.def / 4);
-
+        int damage = (this.m_data.data.atk) - (this.m_target.GetData().data.def);
+        float weak = WeakChecker_Script.WeakCheck(this.m_data.data.elem, this.m_target.GetData().data.elem);
+        damage = (int)(damage * weak);
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
         this.m_atkFlag = false;

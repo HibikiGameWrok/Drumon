@@ -23,11 +23,11 @@ public class AccelerationTime_Script : MonoBehaviour
     }
 
     // 最大カウント値
-    [SerializeField]
-    private float m_maxTimer = 10.0f;
+    private float m_maxTimer = 0.0f;
     // 最大値を設定するプロパティ
     public float MaxTimer
     {
+        get { return m_maxTimer; }
         set { m_maxTimer = value; }
     }
 
@@ -42,13 +42,19 @@ public class AccelerationTime_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (TimerMax() != true)
-        //{
-
         if (m_stopFlag != true)
         { 
             // タイマーを更新
             m_nowTimer += Time.deltaTime;
+        }
+        ChengeTime();
+    }
+
+    public void ChengeTime()
+    {
+        if(m_maxTimer != MaxTimer)
+        {
+            TimerReset();
         }
     }
 

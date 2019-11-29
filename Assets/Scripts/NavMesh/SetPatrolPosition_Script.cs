@@ -20,15 +20,17 @@ public class SetPatrolPosition_Script : MonoBehaviour
     // 次に巡回する位置
     private int m_nextPatrolPosition;
 
-    public  Transform GetPatrolPosition(int index)
+
+    public Vector3 Destination
     {
-        return m_patrolPositions[index];
+        get { return m_destination; }
+        set { m_destination = value; }
     }
 
 
-    void OnEnable()
+    public  Transform GetPatrolPosition(int index)
     {
-
+        return m_patrolPositions[index];
     }
 
     // Start is called before the first frame update
