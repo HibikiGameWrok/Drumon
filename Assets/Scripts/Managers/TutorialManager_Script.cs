@@ -169,7 +169,12 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             if (this.JudgeResult()) return;
             this.m_playerCreature.Execute();
-            this.m_enemyCreature.Execute();
+
+            if (m_timeStandard_Script.StopFlag == false)
+            {
+                this.m_enemyCreature.Execute();
+            }
+            
             if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
