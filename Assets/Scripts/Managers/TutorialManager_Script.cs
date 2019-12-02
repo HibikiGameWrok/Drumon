@@ -94,10 +94,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     // チュートリアルミュージックスコアキャンバス
     private GameObject m_tutorialMusicScoreCanvas;
-    // ノーツリセットの説明テキスト
-    private GameObject m_explainNotesResetText;
     // タイマーの説明テキスト
     private GameObject m_explainTimerText;
+    // ノーツリセットの説明テキスト
+    private GameObject m_explainNotesResetText;
 
     // 現在のテキスト
     private Text m_text;
@@ -150,10 +150,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_explainAbilityText2 = m_tutorialAbilityCanvas.transform.Find("ExplainAbilityText2").gameObject;
 
         m_tutorialMusicScoreCanvas = GameObject.Find("TutorialMusicScoreCanvas");
-        m_explainNotesResetText = m_tutorialMusicScoreCanvas.transform.Find("ExplainNotesResetText").gameObject;
         m_explainTimerText = m_tutorialMusicScoreCanvas.transform.Find("ExplainTimerText").gameObject;
+        m_explainNotesResetText = m_tutorialMusicScoreCanvas.transform.Find("ExplainNotesResetText").gameObject;
 
-        m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2, m_explainAbilityText, m_explainAbilityText2, m_explainNotesResetText, m_explainTimerText };
+        m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainDrumonText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2, m_explainAbilityText, m_explainAbilityText2, m_explainTimerText, m_explainNotesResetText };
 
         m_text = m_textArray[0].GetComponent<Text>();
 
