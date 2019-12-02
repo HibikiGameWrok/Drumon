@@ -102,7 +102,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             this.m_nowMove = null;
         }
 
-        this.m_attackSpan = 3.0f;
+        this.m_attackSpan = 1.0f;
     }
 
     private bool JudgeResult()
