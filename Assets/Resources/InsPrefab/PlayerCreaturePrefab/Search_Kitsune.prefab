@@ -822,7 +822,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3047757302091345898, guid: e81c75961fd1a7746bb2e998c9b5e77d, type: 3}
+  - {fileID: 2100000, guid: 522bb48859c56a04da029b2c1b672cda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1484,6 +1484,7 @@ MonoBehaviour:
   m_targets: []
   m_patrolPos: {fileID: 0}
   m_destinationThreshold: 0
+  m_elapsedTime: 0
 --- !u!114 &-62352826403891174
 MonoBehaviour:
   m_ObjectHideFlags: 0
