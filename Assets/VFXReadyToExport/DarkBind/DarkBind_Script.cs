@@ -27,8 +27,8 @@ public class DarkBind_Script : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= timerMax)
         {
-            //timer = 0;
-            Destroy(gameObject);
+            timer = 0;
+            //Destroy(gameObject);
         }
 
         float scaleval = 1;

@@ -17,6 +17,9 @@
 		_EndCutoffRange("End Cutoff Range", Range(0, 1)) = 0.1
 
 		_Progress("Progress", Range(0, 3)) = 0
+
+		
+		_ManualCutBool("ManualCutBool", Range(0, 1)) = 0
 	}
 		SubShader
 		{
@@ -76,8 +79,17 @@
 				return o;
 			}
 
+			float _ManualCutBool;
+
 			fixed4 frag(v2f i) : SV_Target
 			{
+
+				if (_ManualCutBool >= 1)
+				{
+					if (i.uv.x <= 0.25 || i.uv.x > 0.75) 
+						clip(-1);
+				}
+
 				float2 Offset = float2(0, 0);
 				if (_IsYDirBool >= 1) Offset = float2(0, 1) * _Speed * _Progress;
 				else Offset = float2(1, 0) * _Speed * _Progress;
@@ -103,6 +115,7 @@
 				col *= 1 - smoothstep(_EndCutoff, _EndCutoff + _EndCutoffRange, UVToCompare);
 
 				if (col.a <= 0) clip(-1);
+				if ((col.r + col.g + col.b) / 3 <= 0.1) clip(-1);
 
 				col *= _Color;
 
@@ -161,8 +174,17 @@
 					return o;
 				}
 
+				float _ManualCutBool;
+
 				fixed4 frag(v2f i) : SV_Target
 				{
+
+				if (_ManualCutBool >= 1)
+				{
+					if (i.uv.x <= 0.25 || i.uv.x > 0.75)
+						clip(-1);
+				}
+
 					float2 Offset = float2(0, 0);
 					if (_IsYDirBool >= 1) Offset = float2(0, 1) * _Speed * _Progress;
 					else Offset = float2(1, 0) * _Speed * _Progress;
@@ -188,6 +210,7 @@
 					col *= 1 - smoothstep(_EndCutoff, _EndCutoff + _EndCutoffRange, UVToCompare);
 
 					if (col.a <= 0) clip(-1);
+					if ((col.r + col.g + col.b) / 3 <= 0.1) clip(-1);
 
 					col *= _Color;
 
