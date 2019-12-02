@@ -22,7 +22,8 @@ Shader "Unlit/ToonSmearShader"
 		_RimAmount("Rim Amount", Range(0, 1)) = 0.716
 		_RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
 
-
+							_ShadowTier2Threshold("Shadow Tier 2 Threshold", Range(-1, 0)) = -0.3
+		_ShadowTier3Threshold("Shadow Tier 3 Threshold", Range(-1, 0)) = -0.6
 
 			[HideInInspector] _Cutoff("", Float) = 0.5
     }
@@ -85,6 +86,9 @@ Shader "Unlit/ToonSmearShader"
 			float _RimAmount;
 			float _RimThreshold;
 
+			float _ShadowTier2Threshold;
+			float _ShadowTier3Threshold;
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -132,11 +136,11 @@ Shader "Unlit/ToonSmearShader"
 				float NormalValToCheck = NdotL * shadow;
 				lightIntensity = smoothstep(0, 0.01, NormalValToCheck) * 0.8 + 0.2;
 
-				if (NdotL < -0.6)
+				if (NdotL < _ShadowTier3Threshold)
 				{
 					lightIntensity = 0;
 				}
-				else if (NdotL < -0.3)
+				else if (NdotL < _ShadowTier2Threshold)
 				{
 					lightIntensity /= 2;
 				}

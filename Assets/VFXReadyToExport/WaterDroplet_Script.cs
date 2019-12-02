@@ -6,7 +6,7 @@ public class WaterDroplet_Script : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject ripple = null;
+    private GameObject ripple;
 
     // Start is called before the first frame update
     void Start()
