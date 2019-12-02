@@ -10,6 +10,8 @@ public class StreaksModifier_Script : MonoBehaviour
 
     private Renderer theRenderer;
 
+    public float speed = 64;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,6 @@ public class StreaksModifier_Script : MonoBehaviour
         theRenderer.material.SetFloat("_EndCutoff", Mathf.Clamp(2.5f * (1 - timer / timerMax), 0, 1.0f));
         theRenderer.material.SetFloat("_EndCutoffRange", Mathf.Clamp(2.5f * 0.2f * (1 - timer / timerMax), 0, 0.2f));
 
-        transform.position += transform.up * 64 * Time.deltaTime;
+        transform.position += transform.up * speed * Time.deltaTime;
     }
 }

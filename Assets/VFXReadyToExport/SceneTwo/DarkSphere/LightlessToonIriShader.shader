@@ -23,6 +23,9 @@
 			_IriTex("IriTexture", 2D) = "white" {}
 			_IriMag("IriMagnification", Float) = 1
 
+		_DissolveTex("Dissolve Texture", 2D) = "white" {}
+		_DissolveProgress("Dissolve Progress", Range(0, 1)) = 0
+
 			[HideInInspector] _Cutoff("", Float) = 0.5
 	}
 	SubShader
@@ -90,6 +93,9 @@
 			float _ShadowTier2Threshold;
 			float _ShadowTier3Threshold;
 
+			sampler2D _DissolveTex;
+			float _DissolveProgress;
+
 			float _IriMag;
 
 			uniform sampler2D _IriTex; uniform float4 _IriTex_ST;
@@ -114,6 +120,9 @@
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
+					float dissolvevalue = tex2D(_DissolveTex, i.uv).r - _DissolveProgress;
+					clip(dissolvevalue);
+
 								//// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
 
@@ -121,7 +130,7 @@
 
 				float3 normal = normalize(i.worldNormal);
 
-				float NdotL = -_WorldSpaceCameraPos.xyz;//dot(_WorldSpaceLightPos0, normal);
+				float NdotL = 1;//-_WorldSpaceCameraPos.xyz;//dot(_WorldSpaceLightPos0, normal);
 
 				float shadow = SHADOW_ATTENUATION(i);
 
