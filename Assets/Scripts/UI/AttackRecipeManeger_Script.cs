@@ -40,6 +40,8 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     // TestNotesInstanceスクリプトを取得
     private NotesInstance_Script m_notesInstance = null;
 
+    
+
     void Start()
     {
         // ノーツ管理オブジェクトを取得
@@ -97,6 +99,10 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                     // 一致していたレシピが回復でなければ攻撃
                     if (csvDatas[i][(int)Data_Column.ATK_NAME] != "HEAL")
                     {
+                        // 技の名前をクリーチャーに教える
+                        m_pCreature_Script.AbiltyName = csvDatas[i][(int)Data_Column.ATK_NAME];
+
+                        // 技のレートをクリーチャーに教える
                         matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
                         m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
                     }

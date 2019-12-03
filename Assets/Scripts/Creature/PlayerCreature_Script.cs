@@ -53,6 +53,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private AttackRecipeManeger_Script m_attackRecipe;
 
+    private string m_abiltyName;
+    public string AbiltyName
+    {
+        set { m_abiltyName = value; }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
