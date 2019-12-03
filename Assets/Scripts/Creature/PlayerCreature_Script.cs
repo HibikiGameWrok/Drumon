@@ -143,10 +143,26 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.data.hp <= 0)
+        if (this.m_data.data.hp <= 0 && this.transform.childCount != 0)
         {
             m_anim.SetTrigger("Death");
-            Destroy(this.gameObject, m_animState.length);
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
+            }
+        }
+        else if (this.transform.childCount == 0)
+        {
+            PlayerBox_Script box = CreatureList_Script.Get.List;
+            for(int i = 0;i<box.DataList.Length;i++)
+            {
+                if(box.DataList[i] != null && box.DataList[i].data.hp != 0)
+                {
+                    ChangeData(box.DataList[i]);
+                    return;
+                }
+            }
+            Destroy(this.gameObject);
         }
     }
 
@@ -163,7 +179,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
 
         if(!obj) obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx") as GameObject;
-        obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation);
+        obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);
         obj.transform.parent = this.gameObject.transform;
 
         this.m_anim = obj.GetComponent<Animator>();
