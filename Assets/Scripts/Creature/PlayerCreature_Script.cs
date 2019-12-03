@@ -143,10 +143,26 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.data.hp <= 0)
+        if (this.m_data.data.hp <= 0 && this.transform.childCount != 0)
         {
             m_anim.SetTrigger("Death");
-            Destroy(this.gameObject, m_animState.length);
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
+            }
+        }
+        else if (this.transform.childCount == 0)
+        {
+            PlayerBox_Script box = CreatureList_Script.Get.List;
+            for(int i = 0;i<box.DataList.Length;i++)
+            {
+                if(box.DataList[i] != null && box.DataList[i].data.hp != 0)
+                {
+                    ChangeData(box.DataList[i]);
+                    return;
+                }
+            }
+            Destroy(this.gameObject);
         }
     }
 
