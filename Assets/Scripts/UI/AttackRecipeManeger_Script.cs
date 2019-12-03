@@ -71,7 +71,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         {
             for (int j = 0; j < csvDatas[i].Length; j++)
             {
-                //Debug.Log(csvDatas[i][j].ToString());
+                Debug.Log(csvDatas[i][j].ToString());
             }
         }
     }

@@ -191,7 +191,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (this.JudgeResult()) return;
             this.m_playerCreature.Execute();
 
-            if (m_timeStandard_Script.StopFlag == false)
+            //if (m_timeStandard_Script.StopFlag == false)
             {
                 this.m_enemyCreature.Execute();
             }
