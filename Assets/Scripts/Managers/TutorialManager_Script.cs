@@ -43,6 +43,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private bool m_tutorialModeFlag = true;
     // 実践中かどうかのフラグ
     private bool m_practiceModeFlag = false;
+    // 敵の行動フラグ
+    private bool m_enemyExecuteFlag = false;
 
     // チュートリアルキャンバス
     private GameObject m_tutorialCanvas;
@@ -191,9 +193,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (this.JudgeResult()) return;
             this.m_playerCreature.Execute();
 
-            //if (m_timeStandard_Script.StopFlag == false)
+            if (m_enemyExecuteFlag == false)
             {
                 this.m_enemyCreature.Execute();
+                m_enemyExecuteFlag = true;
             }
             
             if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
@@ -278,9 +281,11 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_drumManager.AttackDrum.GetComponent<AttackDrum_Script>().TutorialFlag.OffFlag((uint)AttackDrum_Script.TUTORIAL_HIT_PATTERN.DOUBLE_OUT_HIT);
         }
 
-        // 敵が攻撃を受けたら
         if (m_explainNotesResetText.activeInHierarchy == true)
         {
+            m_enemyExecuteFlag = false;
+
+            // 敵が攻撃を受けたら
             if (m_enemyCreature.HP < 100)
             {
                 if (m_timeStandard_Script.StopFlag == false)
@@ -313,8 +318,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_drumManager.TutorialGetFlag = false;
             m_timeStandard_Script.StopFlag = true;
         }
-
-
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
@@ -382,15 +385,23 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     // 次のテキストの表示
     private void NextText()
     {
-        if (m_textArray[m_curentNum] != null)
-        {
-            m_tutorialModeFlag = true;
+        m_tutorialModeFlag = true;
 
-            // 現在のテキストを非アクティブ化
-            m_textArray[m_curentNum].SetActive(false);
+        // 現在のテキストを非アクティブ化
+        m_textArray[m_curentNum].SetActive(false);
+
+        if (m_textArray.Length > m_curentNum)
+        {
             // カウントアップ
             m_curentNum++;
         }
+
+        if (m_textArray.Length == m_curentNum)
+        {
+            // シーン遷移
+
+        }
+
         if (m_textArray[m_curentNum] != null)
         {
             // 次のテキストをアクティブ化
