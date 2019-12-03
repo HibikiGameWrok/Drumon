@@ -36,6 +36,15 @@ public class SwitchDrum_Script : Drum_Script
     private AttackRecipeNotesUI_Script m_recipeNotesUI_Script = null;
     private AttaciRecipiUI_Text_Script m_recipeTextUI_Script = null;
 
+    // チュートリアル用のモンスター変更フラグ
+    private bool m_tutorialChengeFlag = false;
+    // チュートリアル用のモンスター変更フラグのプロパティ
+    public bool TutorialChengeFlag
+    {
+        get { return m_tutorialChengeFlag; }
+        set { m_tutorialChengeFlag = value; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -281,6 +290,8 @@ public class SwitchDrum_Script : Drum_Script
                     // UI反映
                     m_recipeNotesUI_Script.ChangeRecipe();
                     m_recipeTextUI_Script.ChangeRecipe();
+
+                    m_tutorialChengeFlag = true;
                 }
             }
             // モンスターの変更フラグを伏せる

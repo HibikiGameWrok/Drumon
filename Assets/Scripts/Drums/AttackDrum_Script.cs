@@ -51,7 +51,6 @@ public class AttackDrum_Script : Drum_Script
     public Flag_Script TutorialFlag
     {
         get { return m_tutorialFlag; }
-        set { m_tutorialFlag = value; }
     }
 
     // マテリアル

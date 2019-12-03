@@ -45,6 +45,15 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // 行動ゲージが終わったかのフラグ
     private bool m_gaugeFinishFlag = false;
 
+    // チュートリアルのモンスターを捕獲したフラグ
+    private bool m_tutorialGetFlag = false;
+    // チュートリアルのモンスターを捕獲したフラグのプロパティ
+    public bool TutorialGetFlag
+    {
+        get { return m_tutorialGetFlag; }
+        set { m_tutorialGetFlag = value; }
+    }
+
     /// <summary>
     /// Awake関数
     /// </summary>
@@ -166,7 +175,16 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         {
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
-                m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
+                if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag != true)
+                {
+                    m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
+                }
+                else
+                {
+                    m_enemyCreature.Capture(CaptureDrum_Script.CAPTURE_CONFIRM);
+                    m_tutorialGetFlag = true;
+                }
+
                 m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount = 0;
             }
         }
