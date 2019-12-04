@@ -6,7 +6,7 @@ using UnityEngine;
 public class WorldCreatureIdle_Script : WorldCreatureState_Script
 {
     // 待ち時間
-    private float m_waitTime = 5f;
+    private float m_waitTime = 3f;
     
     /// <summary>
     /// 初期化処理
@@ -19,17 +19,18 @@ public class WorldCreatureIdle_Script : WorldCreatureState_Script
         m_controller.ResetElapsedTime();
         // 到着した
         m_controller.IsArrived = true;
+    
+        // アニメーターを設定する
+        m_controller.Animator.SetBool("IsWalk", false);    
+        
         // NavMeshAgentを停止させる
         m_controller.Agent.isStopped = true;
-
-        // アニメーターを設定する
-        m_controller.Animator.SetBool("IsWalk", false);
     }
 
     /// <summary>
     /// 実行する
     /// </summary>
-    /// <returns></returns>
+    /// <returns>true=継続する false=状態変更</returns>
     public override bool Execute()
     {
         if (m_controller.ElapsedTime > m_waitTime)
