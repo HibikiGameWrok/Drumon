@@ -42,6 +42,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
         m_healProsperityUI = GameObject.Find("ESlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+
+        m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
+        m_healProsperityUIScript.NowPoint = m_data.data.hp;
     }
 
     public void Execute()
