@@ -169,8 +169,6 @@ public class StickRight_Script : Stick_Script
                     // 音を鳴らす
                     audioSource.PlayOneShot(m_healHitSE);
                 }
-
-                //m_hitFlag = true;
             }
         }
     }

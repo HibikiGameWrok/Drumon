@@ -215,7 +215,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
 
         // ボタンが押されたら
-        if (Input.GetKeyDown(KeyCode.L) && m_practiceModeFlag == false)
+        if (OVRInput.GetDown(OVRInput.RawButton.A) && m_practiceModeFlag == false)
         {
             m_tutorialModeFlag = false;
         }
