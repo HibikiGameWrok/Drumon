@@ -115,8 +115,6 @@ public class StickRight_Script : Stick_Script
                     {
                         // 外側を叩いた判定フラグを伏せる
                         m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
-                        // 攻撃ドラムを叩いた判定フラグを伏せる
-                        m_hitDrumFlag.OffFlag((uint)HIT_DRUM.ATTACK);
 
                         m_lastCollisionTag = null;
                     }

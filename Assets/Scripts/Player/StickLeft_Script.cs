@@ -36,7 +36,7 @@ public class StickLeft_Script : Stick_Script
             if (m_lastCollisionTag == "AttackOutDrum")
             {
                 // 振動させる
-                OVRHaptics.RightChannel.Preempt(m_vibClip);
+                OVRHaptics.LeftChannel.Preempt(m_vibClip);
                 // 音を鳴らす
                 audioSource.PlayOneShot(m_outHitSE);
 
@@ -114,8 +114,6 @@ public class StickLeft_Script : Stick_Script
                     {
                         // 外側を叩いた判定フラグを伏せる
                         m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
-                        // 攻撃ドラムを叩いた判定フラグを伏せる
-                        m_hitDrumFlag.OffFlag((uint)HIT_DRUM.ATTACK);
 
                         m_lastCollisionTag = null;
                     }
