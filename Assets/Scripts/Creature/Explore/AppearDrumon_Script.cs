@@ -1,10 +1,23 @@
-﻿using System.Collections;
+﻿/*----------------------------------------------------------*/
+//  file:      AppearDrumon_Scripts.cs		                    |
+//				 											                    |
+//  brief:    ドラモンを出現させるスクリプト		            | 
+//															                    |
+//  date:	2019.11.27									            |
+//															                    |
+//  author: Renya Fukuyama									    |
+/*----------------------------------------------------------*/
+
+// using
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UniRx;
 using UniRx.Triggers;
 
+
+// ドラモンを出現させるクラス
 public class AppearDrumon_Script : MonoBehaviour
 {
     [Tooltip("出現させるドラモンの最大数")]
@@ -70,7 +83,7 @@ public class AppearDrumon_Script : MonoBehaviour
         var position = new Vector3(randomPos, 0, randomPos);
 
         // 生成する
-        Instantiate(m_drumon, transform.position+position + m_drumon.transform.position, 
+        Instantiate(m_drumon, transform.position+position,
             Quaternion.Euler(0f, randomRotationY, 0f)
             );
 
