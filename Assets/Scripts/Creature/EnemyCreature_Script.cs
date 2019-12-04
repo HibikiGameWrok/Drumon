@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 {
     [SerializeField]
+    private EnemyCreature m_enemy = null;
     private CreatureData m_data = null;
 
     public int HP
@@ -29,12 +30,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private GameObject m_healProsperityUI;
     private HealProsperityUI_Script m_healProsperityUIScript;
 
-    //private GameObject m_enemyHit;
-    //private EnemyHit_Script m_enemyHitScript;
-
     // Start is called before the first frame update
     void Start()
     {
+        m_data = m_enemy.EnemyCreatureData;
         this.m_timer = 0.0f;
 
         this.m_atkFlag = false;
@@ -43,6 +42,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
         m_healProsperityUI = GameObject.Find("ESlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+
+        m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
+        m_healProsperityUIScript.NowPoint = m_data.data.hp;
     }
 
     public void Execute()

@@ -6,7 +6,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     [SerializeField, Range(1,100)]
     private int HEAL_RATE = 0;
 
-    [SerializeField]
     private CreatureData m_data = null;
 
     private Animator m_anim = null;
@@ -69,20 +68,27 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         this.m_atkFlag = false;
 
-        CreatePrefab();
-
         m_attackRecipe = FindObjectOfType<AttackRecipeManeger_Script>();
-        m_attackRecipe.CSVLoadFile(this);
-
         m_healProsperityUI = GameObject.Find("PSlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+        m_TimerObject = GameObject.Find("Timer");
+        m_accelerationTimeScript = m_TimerObject.GetComponent<AccelerationTime_Script>();
+
+        PlayerBox_Script box = CreatureList_Script.Get.List;
+        for (int i = 0; i < box.DataList.Length; i++)
+        {
+            if (box.DataList[i] != null && box.DataList[i].data.hp != 0)
+            {
+                ChangeData(box.DataList[i]);
+                break;
+            }
+        }
+
+        m_attackRecipe.CSVLoadFile(this);
 
         m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.data.hp;
 
-
-        m_TimerObject = GameObject.Find("Timer");
-        m_accelerationTimeScript = m_TimerObject.GetComponent<AccelerationTime_Script>();
         m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
     }
 
@@ -125,7 +131,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void Heal()
     {
         this.m_data.data.hp += this.HEAL_RATE;
-        //if (this.m_data.Hp > this.m_data.Hp) this.m_data.Hp = this.m_data.Hp;
+        if (this.m_data.data.hp > this.m_data.data.maxHp) this.m_data.data.hp = this.m_data.data.maxHp;
     }
 
     public CreatureData GetData()
