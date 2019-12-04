@@ -20,7 +20,6 @@ public class AppearDrumon_Script : MonoBehaviour
     private float m_appearNextTime;
 
     [Tooltip("出現する最大数")]
-    [SerializeField]
     private int m_maxDrumon;
 
     // 現在出現している数
@@ -67,12 +66,13 @@ public class AppearDrumon_Script : MonoBehaviour
         // ドラモンの向きをランダムに決定する
         var randomRotationY = Random.value * 360f;
         // 出現座標に補正をかける
-        var randomPos = Random.Range(-10, 10);
-        var position = new Vector3(randomPos,0,randomPos);
+        var randomPos = Random.Range(-20, 20);
+        var position = new Vector3(randomPos, 0, randomPos);
 
-        var drumon = m_drumon;
         // 生成する
-        Instantiate(m_drumon, transform.position+position, Quaternion.Euler(0f, randomRotationY, 0f));
+        Instantiate(m_drumon, transform.position+position + m_drumon.transform.position, 
+            Quaternion.Euler(0f, randomRotationY, 0f)
+            );
 
         // 出現数を加算する
         m_currentNumberOfDrumons++;

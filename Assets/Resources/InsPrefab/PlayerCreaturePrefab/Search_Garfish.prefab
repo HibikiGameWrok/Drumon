@@ -129,7 +129,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 1.1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacea50e5396d414faa7383834f081a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_findObjectName: GarfishSearchAria
+  m_findObjectName: GarfishSearchArea
   m_patrolPositions: []
 --- !u!136 &-8553807490991926010
 CapsuleCollider:
