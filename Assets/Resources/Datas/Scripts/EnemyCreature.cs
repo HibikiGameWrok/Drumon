@@ -7,10 +7,11 @@ using UnityEngine;
 public class EnemyCreature : ScriptableObject
 {
     [SerializeField]
-    private GameObject enemyCreatureObj;
+    private CreatureData enemyCreatureData;
 
-    public GameObject EnemyCreatureObj
+    public CreatureData EnemyCreatureData
     {
-        get { return enemyCreatureObj; }
+        get { return enemyCreatureData; }
+        set { enemyCreatureData = value; }
     }
 }
