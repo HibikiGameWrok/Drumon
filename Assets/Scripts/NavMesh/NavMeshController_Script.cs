@@ -25,6 +25,7 @@ public class NavMeshController_Script : MonoBehaviour
 {
     // ターゲットの最大数
     public static readonly int MAX_TARGETS = 4;
+
     // 巡回する座標
     [SerializeField]
     private Transform[] m_targets = null;
