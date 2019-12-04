@@ -5,8 +5,6 @@ using System.Text.RegularExpressions;
 public class SearchEnemy_Script : MonoBehaviour
 {
     [SerializeField]
-    private CreatureData m_data = null;
-    [SerializeField]
     private EnemyCreature m_enemyCreature;
 
     // Start is called before the first frame update
@@ -25,7 +23,7 @@ public class SearchEnemy_Script : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            m_enemyCreature.EnemyCreatureData = CreateData_Script.Get.CreateData(Regex.Replace(this.gameObject.name, "Search_", ""));
+            m_enemyCreature.EnemyCreatureData = CreateData_Script.Get.CreateData(this.gameObject.tag);
             Destroy(gameObject);
 
             if (this.gameObject.tag == "Tutorial")

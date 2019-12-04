@@ -8,6 +8,7 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
 
     public CreatureData CreateData(string name)
     {
+        Debug.Log(name);
         CreatureData data = ScriptableObject.CreateInstance<CreatureData>();
 
         int i = 0;
