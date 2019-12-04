@@ -108,7 +108,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637910140831175987}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 764dfd9a7468f4b45b25c2274f3fb2f0, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 319a7212c569a4545867413910463263, type: 3}
   m_Controller: {fileID: 9100000, guid: 8b91908bcbc17444fac02f1ea4e7ebb3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -495,7 +495,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 2381890483179193753, guid: 764dfd9a7468f4b45b25c2274f3fb2f0, type: 3}
+  m_Mesh: {fileID: 2381890483179193753, guid: 319a7212c569a4545867413910463263, type: 3}
   m_Bones:
   - {fileID: 4810450001215980136}
   - {fileID: 5380835535525407274}
@@ -522,7 +522,8 @@ SkinnedMeshRenderer:
   - {fileID: 8768683614176624721}
   - {fileID: 6032504106782530825}
   m_BlendShapeWeights: []
-  m_RootBone: {fileID: 4810450001215980136}
+  m_RootBone: {fileID: -5099899723535200686, guid: 319a7212c569a4545867413910463263,
+    type: 3}
   m_AABB:
     m_Center: {x: -0.15605235, y: 0.07537627, z: -0.044697613}
     m_Extent: {x: 1.1152427, y: 0.7121377, z: 0.7407317}

@@ -174,12 +174,20 @@ public class NavMeshController_Script : MonoBehaviour
     /// </summary>
     public void NextPosition()
     {
-        //if (m_navAgent.remainingDistance <= m_destinationThreshold)
-        {
-            m_targetIndex = (m_targetIndex + 1) % m_targets.Length;
+        m_targetIndex = (m_targetIndex + 1) % m_targets.Length;
+        
+        m_navAgent.destination = CurrentTargetPosition;
 
-            m_navAgent.destination = CurrentTargetPosition;
-        }
+        TargetLookAt();
+        m_animator.SetLookAtPosition(m_navAgent.destination);
+    }
+
+    private void TargetLookAt()
+    {
+        float speed = 0.1f;
+        Vector3 relativePos = m_navAgent.destination - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(relativePos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed);
     }
 
 
