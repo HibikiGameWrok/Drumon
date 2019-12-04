@@ -78,6 +78,8 @@ public abstract class Stick_Script : MonoBehaviour
     // 当たった数
     protected int m_hitNum;
 
+    protected string m_lastCollisionTag = null;
+
     // 初期化
     public abstract void Initialize(StickManager_Script manager);
 
