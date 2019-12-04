@@ -14,7 +14,9 @@ public class StickRight_Script : Stick_Script
         m_hitDrumFlag = new Flag_Script();
 
         m_hitFlag = false;
+        m_hitFlag2 = false;
         m_hitNum = 0;
+        m_hitNum2 = 0;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -37,6 +39,17 @@ public class StickRight_Script : Stick_Script
         else
         {
             m_hitFlag = false;
+        }
+
+        // 当たっていたら
+        if (m_hitNum2 != 0)
+        {
+            m_hitFlag2 = true;
+        }
+        // 当たっていなければ
+        else
+        {
+            m_hitFlag2 = false;
         }
     }
 
@@ -159,4 +172,34 @@ public class StickRight_Script : Stick_Script
             }
         }
     }
+
+    // 当たり判定
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.gameObject.tag == "AttackInDrum"/* || other.gameObject.tag == "AttackOutDrum" || other.gameObject.tag == "HealDrum" || other.gameObject.tag == "SwitchInDrum" || other.gameObject.tag == "SwitchOutDrum" || other.gameObject.tag == "CaptureDrum"*/)
+    //    {
+    //        m_hitNum2++;
+
+    //        if (m_hitFlag2 == false)
+    //        {
+    //            if (other.gameObject.tag == "AttackInDrum")
+    //            {
+    //                // 内側を叩いた判定フラグを立てる
+    //                m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
+    //                // 攻撃ドラムを叩いた判定フラグを立てる
+    //                m_hitDrumFlag.OnFlag((uint)HIT_DRUM.ATTACK);
+
+    //                // 振動させる
+    //                OVRHaptics.RightChannel.Preempt(m_vibClip);
+    //                // 音を鳴らす
+    //                audioSource.PlayOneShot(m_inHitSE);
+
+    //                // 同時に叩ける時間の代入
+    //                m_stickManager.SetDoubleHitTime();
+    //            }
+
+    //            m_hitFlag2 = true;
+    //        }
+    //    }
+    //}
 }

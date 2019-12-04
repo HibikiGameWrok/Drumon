@@ -75,8 +75,10 @@ public abstract class Stick_Script : MonoBehaviour
 
     // 叩かれたかの判定フラグ
     protected bool m_hitFlag;
+    protected bool m_hitFlag2;
     // 当たった数
     protected int m_hitNum;
+    protected int m_hitNum2;
 
     // 初期化
     public abstract void Initialize(StickManager_Script manager);
