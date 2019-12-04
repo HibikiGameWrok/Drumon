@@ -1404,6 +1404,8 @@ GameObject:
   - component: {fileID: 4481402762147170595}
   - component: {fileID: 2294594693455212555}
   - component: {fileID: -62352826403891174}
+  - component: {fileID: -125898729382787682}
+  - component: {fileID: -3801396688646273596}
   m_Layer: 0
   m_Name: Search_Kitsune
   m_TagString: Untagged
@@ -1499,6 +1501,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_findObjectName: KitsuneSearchArea
   m_patrolPositions: []
+--- !u!136 &-125898729382787682
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8929865016764556157}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-3801396688646273596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8929865016764556157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37b8e865e5ad444eb08cbb77394adac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_data: {fileID: 11400000, guid: f7a781426f0a659429996e449db04264, type: 2}
+  m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
 --- !u!1 &9097373883607264912
 GameObject:
   m_ObjectHideFlags: 0
