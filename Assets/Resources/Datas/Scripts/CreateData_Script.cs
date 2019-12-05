@@ -34,7 +34,9 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
             i++;
         }
 
+#if UNITY_EDITOR
         AssetDatabase.CreateAsset(data, "Assets/Resources/Datas/CreatureData/" + fileName + ".asset");
+#endif
 
         return data;
     }
