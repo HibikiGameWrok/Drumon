@@ -9,14 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ba4b116ad3076949acdd4c2bda3e839, type: 3}
-  m_Name: Garfish3
+  m_Script: {fileID: 11500000, guid: 51def85a92957f047bea190c5208a309, type: 3}
+  m_Name: TutorialEnemy
   m_EditorClassIdentifier: 
-  data:
-    name: Garfish
-    maxHp: 100
-    hp: 100
-    atk: 5
-    def: 50
-    waitTime: 15
-    elem: 0
+  enemyCreatureData: {fileID: 11400000, guid: 3c46cb9210997064d972cbd1361b4869, type: 2}
