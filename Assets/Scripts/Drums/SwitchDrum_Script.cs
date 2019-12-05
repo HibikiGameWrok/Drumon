@@ -27,6 +27,24 @@ public class SwitchDrum_Script : Drum_Script
     // モンスターの変更フラグ
     private bool m_creatureChengeFlag = false;
 
+
+    // 攻撃レシピのオブジェクト
+    private GameObject m_abilitySheet_Wood = null;
+
+    private Transform m_recipeNote = null;
+
+    private AttackRecipeNotesUI_Script m_recipeNotesUI_Script = null;
+    private AttaciRecipiUI_Text_Script m_recipeTextUI_Script = null;
+
+    // チュートリアル用のモンスター変更フラグ
+    private bool m_tutorialChengeFlag = false;
+    // チュートリアル用のモンスター変更フラグのプロパティ
+    public bool TutorialChengeFlag
+    {
+        get { return m_tutorialChengeFlag; }
+        set { m_tutorialChengeFlag = value; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +64,18 @@ public class SwitchDrum_Script : Drum_Script
         m_rightStick = GameObject.FindGameObjectWithTag("StickRight").GetComponent<StickRight_Script>();
         m_stickManager = GameObject.Find("StickManeger");
         m_stickManagerScript = m_stickManager.GetComponent<StickManager_Script>();
+        m_abilitySheet_Wood = GameObject.Find("AbilitySheet_Wood");
+        m_recipeNote = m_abilitySheet_Wood.transform.Find("AttackRecipeCanvas");
+        m_recipeTextUI_Script = m_recipeNote.GetComponent<AttaciRecipiUI_Text_Script>();
+        m_recipeNote = m_abilitySheet_Wood.transform.Find("Notes");
+        m_recipeNotesUI_Script = m_recipeNote.GetComponent<AttackRecipeNotesUI_Script>();
+        
 
         m_switchUIC = GameObject.Find("SwitchUI Canvas");
         m_icon = m_switchUIC.transform.Find("SwitchUI");
         // UIを非アクティブにする
         m_icon.gameObject.SetActive(false);
+
     }
 
     /// <summary>
@@ -128,6 +153,17 @@ public class SwitchDrum_Script : Drum_Script
             m_icon.gameObject.SetActive(true);
             m_activeUIFlag = true;
 
+            m_stickManagerScript.PickCount = 0;
+
+            if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
+            {
+                m_stickManagerScript.PickCount++;
+            }
+
+            Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
+            Image image = m_icon.GetComponent<Image>();
+            image.sprite = sprite;
+
             // 選択ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.SWITCH);
             // 内側を叩いた判定フラグを伏せる
@@ -187,6 +223,11 @@ public class SwitchDrum_Script : Drum_Script
                     // カウントダウン
                     m_stickManagerScript.PickCount--;
 
+                    //if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
+                    //{
+                    //    m_stickManagerScript.PickCount--;
+                    //}
+
                     if (m_stickManagerScript.PickCount >= 0)
                     {
                         if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
@@ -207,6 +248,11 @@ public class SwitchDrum_Script : Drum_Script
                             }
                         }
 
+                        //if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
+                        //{
+                        //    m_stickManagerScript.PickCount--;
+                        //}
+
                         Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                         Image image = m_icon.GetComponent<Image>();
                         image.sprite = sprite;
@@ -222,6 +268,14 @@ public class SwitchDrum_Script : Drum_Script
                 {
                     m_stickManagerScript.PickCount++;
 
+                    //if (m_stickManagerScript.PickCount < CreatureList_Script.Get.List.DataList.Length)
+                    //{
+                    //    if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
+                    //    {
+                    //        m_stickManagerScript.PickCount++;
+                    //    }
+                    //}
+
                     if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
                     {
                         if (m_stickManagerScript.PickCount <= CreatureList_Script.Get.List.DataList.Length)
@@ -234,6 +288,17 @@ public class SwitchDrum_Script : Drum_Script
                     else
                     {
                         m_stickManagerScript.PickCount = 0;
+
+                        //if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
+                        //{
+                        //    m_stickManagerScript.PickCount++;
+
+                        //    // Boxにモンスターが1体だったら
+                        //    if (m_stickManagerScript.PickCount > CreatureList_Script.Get.List.DataList.Length)
+                        //    {
+                        //        m_stickManagerScript.PickCount--;
+                        //    }
+                        //}
 
                         Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                         Image image = m_icon.GetComponent<Image>();
@@ -261,6 +326,12 @@ public class SwitchDrum_Script : Drum_Script
                 {
                     // モンスターを変更
                     m_playerCreature.GetComponent<PlayerCreature_Script>().ChangeData(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount]);
+
+                    // UI反映
+                    m_recipeNotesUI_Script.ChangeRecipe();
+                    m_recipeTextUI_Script.ChangeRecipe();
+
+                    m_tutorialChengeFlag = true;
                 }
             }
             // モンスターの変更フラグを伏せる

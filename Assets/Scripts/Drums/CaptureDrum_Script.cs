@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CaptureDrum_Script : Drum_Script
 {
+    // 定数
+    // 確定捕獲の値
+    public const int CAPTURE_CONFIRM = 100;
+    
     // メンバ変数
 
     // 左スティック
@@ -19,6 +23,15 @@ public class CaptureDrum_Script : Drum_Script
     {
         get { return m_captureCount; }
         set { m_captureCount = value; }
+    }
+
+    // チュートリアル用のモンスター捕獲フラグ
+    private bool m_tutorialCaptureFlag = false;
+    // チュートリアル用のモンスター捕獲フラグのプロパティ
+    public bool TutorialCaptureFlag
+    {
+        get { return m_tutorialCaptureFlag; }
+        set { m_tutorialCaptureFlag = value; }
     }
 
     // Start is called before the first frame update
@@ -115,7 +128,6 @@ public class CaptureDrum_Script : Drum_Script
             // 回復ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
             m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE);
-            //m_leftStick.CaptureHit = false;
         }
 
         // 捕獲ドラムが叩かれたら

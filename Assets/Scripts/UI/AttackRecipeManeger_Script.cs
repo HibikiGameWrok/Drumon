@@ -7,6 +7,7 @@
 //
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.IO;
 using UnityEngine;
 
@@ -37,15 +38,23 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     private GameObject m_notesManager = null;
 
     // TestNotesInstanceスクリプトを取得
-    private TestNotesInstance m_testNotesInstance = null;
+    private NotesInstance_Script m_notesInstance = null;
+
+
+    private GameObject m_abilityNameTextUI = null;
+    private AttackAbilityNameUI_Script m_abilityNameUI_Script = null;
+    
 
     void Start()
     {
         // ノーツ管理オブジェクトを取得
         m_notesManager = GameObject.Find("NotesManager");
 
-        m_testNotesInstance = m_notesManager.GetComponent<TestNotesInstance>();
+        m_notesInstance = m_notesManager.GetComponent<NotesInstance_Script>();
         m_pCreature_Script = BattleManager_Script.Get.PlayerCreature;
+
+        m_abilityNameTextUI = GameObject.Find("AbilityNameTextUI");
+        m_abilityNameUI_Script = m_abilityNameTextUI.GetComponent<AttackAbilityNameUI_Script>();
     }
 
     public void CSVLoadFile(PlayerCreature_Script pCreature)
@@ -54,7 +63,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_sheetCreatureName = pCreature.Name;
 
         // Resouces下のCSV読み込み
-        csvFile = Resources.Load("CSV/"+ m_sheetCreatureName + "CSV") as TextAsset; 
+        csvFile = Resources.Load("CSV/"+ Regex.Replace(m_sheetCreatureName, @"[^a-z,A-Z]", "") + "CSV") as TextAsset; 
         StringReader reader = new StringReader(csvFile.text);
 
         // , で分割しつつ一行ずつ読み込み
@@ -70,7 +79,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         {
             for (int j = 0; j < csvDatas[i].Length; j++)
             {
-                //Debug.Log(csvDatas[i][j].ToString());
+                Debug.Log(csvDatas[i][j].ToString());
             }
         }
     }
@@ -85,15 +94,32 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
 
         for (int i = 1; i < csvDatas.Count; i++)
         {
+            // i = 行,Data_Column.ATK_NOTES = 列
             mathcAttackNotes = csvDatas[i][(int)Data_Column.ATK_NOTES];
-
-            if (System.Convert.ToInt32(mathcAttackNotes) != 0)
+            int attackNum = System.Convert.ToInt32(mathcAttackNotes);
+            if (attackNum != 0)
             {
-                int attackNum = System.Convert.ToInt32(mathcAttackNotes);
-                if (m_testNotesInstance.SearchInstanceNotes() == attackNum)
+                // 生成されたノーツの番号とCSVのデータを比較
+                if (m_notesInstance.SearchInstanceNotes() == attackNum)
                 {
-                    matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
-                    m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
+                    // 一致していたレシピが回復でなければ攻撃
+                    if (m_notesInstance.SearchInstanceNotes() != 111111)
+                    {
+                        // 技の名前をクリーチャーに教える
+                        m_pCreature_Script.AbiltyName = csvDatas[i][(int)Data_Column.ATK_NAME];
+
+                        // 技のレートをクリーチャーに教える
+                        matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                        m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
+
+                        m_abilityNameUI_Script.DrawStringAttackName(csvDatas[i][(int)Data_Column.ATK_NAME]);
+                    }
+                    else if(m_notesInstance.SearchInstanceNotes() == 111111)
+                    {
+                        m_pCreature_Script.Heal();
+
+                        m_abilityNameUI_Script.DrawStringAttackName(csvDatas[i][(int)Data_Column.ATK_NAME]);
+                    }
                 }
             }
         }

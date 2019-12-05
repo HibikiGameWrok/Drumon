@@ -11,11 +11,11 @@ public class VFXI_TailSlap : MonoBehaviour
     private double timer = 0;
 
     [SerializeField]
-    private GameObject Slash1_Prefab = null;
+    private GameObject Slash1_Prefab;
     [SerializeField]
-    private GameObject Slash2_Prefab = null;
+    private GameObject Slash2_Prefab;
     [SerializeField]
-    private GameObject Impact_Prefab = null;
+    private GameObject Impact_Prefab;
 
 
     // Start is called before the first frame update

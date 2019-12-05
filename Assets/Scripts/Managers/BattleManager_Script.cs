@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UniRx;
 
 public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 {
@@ -24,6 +25,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     private bool m_isSetting;
 
     private float m_attackSpan;
+
+    [SerializeField]
+    private BoolReactiveProperty m_isFinish = new BoolReactiveProperty(false);
+
+    public IReadOnlyReactiveProperty<bool> IsFinish => m_isFinish;
 
     // Start is called before the first frame update
     void Start()
@@ -96,7 +102,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             this.m_nowMove = null;
         }
 
-        this.m_attackSpan = 3.0f;
+        this.m_attackSpan = 1.0f;
     }
 
     private bool JudgeResult()
@@ -104,11 +110,13 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         if (!this.m_playerCreature)
         {
             this.m_isSetting = false;
+            m_isFinish.SetValueAndForceNotify(true);
             return true;
         }
         else if (!this.m_enemyCreature)
         {
             this.m_isSetting = false;
+            m_isFinish.SetValueAndForceNotify(true);
             return true;
         }
 
