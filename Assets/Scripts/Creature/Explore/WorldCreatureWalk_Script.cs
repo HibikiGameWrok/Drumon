@@ -33,7 +33,7 @@ public class WorldCreatureWalk_Script : WorldCreatureState_Script
     /// <returns>true=継続する false=状態変更</returns>
     public override bool Execute()
     {
-        if (m_controller.Agent.remainingDistance <= 0.1f)
+        if (m_controller.Agent.remainingDistance <= 0.3f)
         {
             // 次の座標を設定する
             m_controller.NextPosition();

@@ -23,17 +23,13 @@ using UniRx.Triggers;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NavMeshController_Script : MonoBehaviour
 {
-    // ターゲットの最大数
-    public static readonly int MAX_TARGETS = 4;
-
     // 巡回する座標
     [SerializeField]
     private Transform[] m_targets = null;
     // 巡回する座標スクリプト
     [SerializeField]
     private SetPatrolPosition_Script m_patrolPos = null;
-    [SerializeField]
-    private float m_destinationThreshold = 0.1f;
+
     // エージェント
     private NavMeshAgent m_navAgent = null;
 
@@ -124,7 +120,7 @@ public class NavMeshController_Script : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         // 初期化
-        m_targets = new Transform[MAX_TARGETS];
+        //m_targets =new Transform[m_patrolPos.get().Length];
         ResetElapsedTime();
 
         // 状態遷移を生成する
@@ -137,11 +133,8 @@ public class NavMeshController_Script : MonoBehaviour
     void Start()
     {
         // ターゲットを設定する
-        for (int i = 0; i < MAX_TARGETS; i++)
-        {
-            m_targets[i] = m_patrolPos.GetPatrolPosition(i);
-        }
-
+        m_targets = m_patrolPos.GetPatrolPosition();
+      
         // 座標をランダムにする
         m_targets = ShufflePosition(m_targets);
 
@@ -178,7 +171,7 @@ public class NavMeshController_Script : MonoBehaviour
         
         m_navAgent.destination = CurrentTargetPosition;
 
-        TargetLookAt();
+        //TargetLookAt();
         //m_animator.SetLookAtPosition(m_navAgent.destination);
     }
 
