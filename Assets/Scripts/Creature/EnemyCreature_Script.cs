@@ -131,6 +131,8 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
             if (!obj) return;
             obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);
             obj.transform.parent = this.gameObject.transform;
+            CatchAnimation_Script ge = obj.GetComponent<CatchAnimation_Script>();
+            ge.TargetPosition = PlayerPositionGetter.Get.transform.position;
         }
         else
         {
