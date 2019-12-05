@@ -48,7 +48,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3047757302091345898, guid: 1e572e685386e5a4483ad4341cb21f7c, type: 3}
+  - {fileID: 2100000, guid: 2d84fb1f70f17d64b8f7ffd75bfed17e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -552,7 +552,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 760098732804228471, guid: 1e572e685386e5a4483ad4341cb21f7c, type: 3}
+  - {fileID: 2100000, guid: 2d84fb1f70f17d64b8f7ffd75bfed17e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 734786557199385302}
   - component: {fileID: 734786557199385303}
   m_Layer: 0
-  m_Name: Lantern_Updated
+  m_Name: Search_Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -649,7 +649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8724476802121423832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.479, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3845808181296236258}
@@ -687,7 +687,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
