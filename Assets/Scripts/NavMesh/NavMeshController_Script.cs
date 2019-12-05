@@ -178,7 +178,7 @@ public class NavMeshController_Script : MonoBehaviour
         
         m_navAgent.destination = CurrentTargetPosition;
 
-        //TargetLookAt();
+        TargetLookAt();
         //m_animator.SetLookAtPosition(m_navAgent.destination);
     }
 
