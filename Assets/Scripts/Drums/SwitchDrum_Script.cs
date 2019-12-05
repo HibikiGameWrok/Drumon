@@ -153,6 +153,12 @@ public class SwitchDrum_Script : Drum_Script
             m_icon.gameObject.SetActive(true);
             m_activeUIFlag = true;
 
+            m_stickManagerScript.PickCount = 0;
+
+            Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
+            Image image = m_icon.GetComponent<Image>();
+            image.sprite = sprite;
+
             // 選択ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.SWITCH);
             // 内側を叩いた判定フラグを伏せる
@@ -247,9 +253,9 @@ public class SwitchDrum_Script : Drum_Script
                 {
                     m_stickManagerScript.PickCount++;
 
-                    if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
+                    if (m_stickManagerScript.PickCount <= CreatureList_Script.Get.List.DataList.Length)
                     {
-                        if (m_stickManagerScript.PickCount <= CreatureList_Script.Get.List.DataList.Length)
+                        if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
                         {
                             Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                             Image image = m_icon.GetComponent<Image>();

@@ -3565,7 +3565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a791e249bb79047ab507374d5114a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_list: {fileID: 11400000, guid: 2e2b39a44efbde444bf9ebb59bf01491, type: 2}
+  m_list: {fileID: 11400000, guid: e6a3fe0dbe758424b8a335fed96f3118, type: 2}
 --- !u!4 &1574988658
 Transform:
   m_ObjectHideFlags: 0
@@ -4219,6 +4219,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3c46cb9210997064d972cbd1361b4869,
         type: 2}
+    - target: {fileID: 714901661457122353, guid: 436e49ee506431f42a3d5a27e6618db6,
+        type: 3}
+      propertyPath: m_enemy
+      value: 
+      objectReference: {fileID: 11400000, guid: 436b1d3718e46084491b73c52a362974,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 436e49ee506431f42a3d5a27e6618db6, type: 3}
 --- !u!114 &1920016097 stripped
@@ -4667,6 +4673,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerMonster Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2572945650307914106, guid: 9872cb8c88e79c144bfed5e52a47e699,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7337723809014352732, guid: 9872cb8c88e79c144bfed5e52a47e699,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4771,11 +4782,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2572945650307914106, guid: 9872cb8c88e79c144bfed5e52a47e699,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9872cb8c88e79c144bfed5e52a47e699, type: 3}
