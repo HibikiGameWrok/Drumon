@@ -159,6 +159,15 @@ public class SwitchDrum_Script : Drum_Script
             Image image = m_icon.GetComponent<Image>();
             image.sprite = sprite;
 
+            if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
+            {
+                m_stickManagerScript.PickCount++;
+
+                sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
+                image = m_icon.GetComponent<Image>();
+                image.sprite = sprite;
+            }
+
             // 選択ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.SWITCH);
             // 内側を叩いた判定フラグを伏せる
