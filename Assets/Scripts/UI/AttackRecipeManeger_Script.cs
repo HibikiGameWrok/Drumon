@@ -114,7 +114,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
 
                         m_abilityNameUI_Script.DrawStringAttackName(csvDatas[i][(int)Data_Column.ATK_NAME]);
                     }
-                    else
+                    else if(m_notesInstance.SearchInstanceNotes() == 111111)
                     {
                         m_pCreature_Script.Heal();
 

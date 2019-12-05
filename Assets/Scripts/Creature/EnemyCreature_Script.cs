@@ -119,7 +119,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Capture(int hitNum)
     {
-        if (this.m_data.data.maxHp - (this.m_data.data.hp / 2) + hitNum > this.m_data.data.maxHp + 10)
+        if (this.m_data.data.maxHp - this.m_data.data.hp + hitNum > this.m_data.data.maxHp + 10)
         {
             CreatureList_Script.Get.Add(this);
             for (int i = 0; i < this.transform.childCount; i++)
