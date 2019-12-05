@@ -76,10 +76,9 @@ GameObject:
   - component: {fileID: -3077142585813612324}
   - component: {fileID: -8553807490991926010}
   - component: {fileID: 6018616020711003523}
-  - component: {fileID: -7960916182814580423}
   m_Layer: 0
   m_Name: Search_Garfish
-  m_TagString: Untagged
+  m_TagString: Garfish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,24 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37b8e865e5ad444eb08cbb77394adac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: 82d578db5158bae44bfedafe60ec3aa6, type: 2}
   m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
---- !u!54 &-7960916182814580423
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291433197955004060}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1473744668281364995
 GameObject:
   m_ObjectHideFlags: 0
