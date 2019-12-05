@@ -112,6 +112,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         int damage = (this.m_data.data.atk * this.m_rate) - (this.m_target.GetData().data.def);
         float weak = WeakChecker_Script.WeakCheck(this.m_data.data.elem, this.m_target.GetData().data.elem);
+        VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
         this.m_target.Damage(damage);
         this.m_rate = 0;
@@ -145,6 +146,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         {
             m_data = data;
             CreatePrefab();
+
+            m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
+            m_healProsperityUIScript.NowPoint = m_data.data.hp;
             m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
         }
     }
