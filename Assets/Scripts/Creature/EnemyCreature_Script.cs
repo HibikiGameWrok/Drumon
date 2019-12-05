@@ -103,19 +103,34 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.data.hp <= 0)
+        if (this.m_data.data.hp <= 0 && this.transform.childCount != 0)
         {
             m_anim.SetTrigger("Death");
-            Destroy(this.gameObject, m_animState.length);
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
+            }
+        }
+        else if (this.transform.childCount == 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 
     public void Capture(int hitNum)
     {
-        if (100 - (this.m_data.data.hp / 2) + hitNum > 140)
+        if (this.m_data.data.maxHp - (this.m_data.data.hp / 2) + hitNum > this.m_data.data.maxHp + 10)
         {
             CreatureList_Script.Get.Add(this);
-            Destroy(this.gameObject);
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
+            }
+            GameObject obj = Resources.Load("VFX/CatchAnimationManager_" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
+
+            if (!obj) return;
+            obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);
+            obj.transform.parent = this.gameObject.transform;
         }
         else
         {
