@@ -42,12 +42,13 @@ public class AccelerationTime_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TimerReset();
         if (m_stopFlag != true)
         { 
             // タイマーを更新
             m_nowTimer += Time.deltaTime;
         }
-        ChengeTime();
+        //ChengeTime();
     }
 
     public void ChengeTime()

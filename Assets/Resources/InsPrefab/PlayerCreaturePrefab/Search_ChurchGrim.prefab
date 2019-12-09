@@ -810,9 +810,11 @@ GameObject:
   - component: {fileID: 7989827605490290213}
   - component: {fileID: 7752916553222193635}
   - component: {fileID: -6423048509268385480}
+  - component: {fileID: -3044971133826104221}
+  - component: {fileID: -1099347165446441178}
   m_Layer: 0
   m_Name: Search_ChurchGrim
-  m_TagString: Untagged
+  m_TagString: ChurchGrim
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -905,6 +907,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_findObjectName: ChurchGrimSearchArea
   m_patrolPositions: []
+--- !u!136 &-3044971133826104221
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256685185570056552}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-1099347165446441178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256685185570056552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37b8e865e5ad444eb08cbb77394adac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
 --- !u!1 &4521566939879957637
 GameObject:
   m_ObjectHideFlags: 0

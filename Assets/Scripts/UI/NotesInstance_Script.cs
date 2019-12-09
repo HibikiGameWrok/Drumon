@@ -71,7 +71,7 @@ public class NotesInstance_Script : MonoBehaviour
             ResetNotes();
             // カウントリセット
             ResetCount();
-            m_timeStandard_Script.TimerReset();
+            //m_timeStandard_Script.TimerReset();
         }
         InputTest();
     }

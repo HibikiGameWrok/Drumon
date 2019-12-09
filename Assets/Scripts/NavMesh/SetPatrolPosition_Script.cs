@@ -21,6 +21,9 @@ public class SetPatrolPosition_Script : MonoBehaviour
     private int m_nextPatrolPosition;
 
 
+    /// <summary>
+    /// 目的地のプロパティ
+    /// </summary>
     public Vector3 Destination
     {
         get { return m_destination; }
@@ -28,9 +31,14 @@ public class SetPatrolPosition_Script : MonoBehaviour
     }
 
 
-    public  Transform GetPatrolPosition(int index)
+    /// <summary>
+    /// 巡回座標を取得する
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public Transform[] GetPatrolPosition()
     {
-        return m_patrolPositions[index];
+        return m_patrolPositions;
     }
 
     // Start is called before the first frame update

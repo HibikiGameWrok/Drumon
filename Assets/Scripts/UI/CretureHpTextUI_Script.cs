@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class CretureHpTextUI_Script : MonoBehaviour
 {
     // テンプレート
-    private const string TEMP_TEXT = "/100";
+    [SerializeField]
+    private string TEMP_TEXT = "/65";
     
     // テキストコンポーネント
     private Text m_HPtext = null;

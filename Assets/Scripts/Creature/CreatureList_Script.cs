@@ -9,6 +9,16 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 
     void Start()
     {
+#if UNITY_EDITOR
+        for (int i = 0; i < m_list.DataList.Length; i++)
+        {
+            if (m_list.DataList[i])
+            {
+                m_list.DataList[i].data.hp = m_list.DataList[i].data.maxHp;
+            }
+        }
+#endif
+
         for (int i = 0; i < m_list.DataList.Length; i++)
         {
             if (m_list.DataList[i])
