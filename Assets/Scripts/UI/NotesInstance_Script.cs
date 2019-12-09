@@ -30,7 +30,7 @@ public class NotesInstance_Script : MonoBehaviour
     // タイムScriptを取得
     private AccelerationTime_Script m_timeStandard_Script = null;
 
-    // 仮でレシピマネージャーを取得(後で消す)
+    // レシピマネージャーを取得
     private GameObject m_attackRecipeManager = null;
     private AttackRecipeManeger_Script m_attackRecipeManagerScript = null;
 
@@ -43,6 +43,9 @@ public class NotesInstance_Script : MonoBehaviour
     // 生成座標を保持
     private Vector3 m_instancePos;
 
+    // 生成する幅
+    [SerializeField]
+    private float m_insWidth = 2.0f ;
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +53,8 @@ public class NotesInstance_Script : MonoBehaviour
         m_timer = GameObject.Find("Timer");
         m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
 
-        // 後で消す
         m_attackRecipeManager = GameObject.Find("AttackRecipeManeger");
         m_attackRecipeManagerScript = m_attackRecipeManager.GetComponent<AttackRecipeManeger_Script>();
-
-
     }
 
     void Update()
@@ -124,10 +124,10 @@ public class NotesInstance_Script : MonoBehaviour
     private float SetInsPosX(int notesCount)
     {
         // 生成する度にずらす
-        float addValue = (1.0f * notesCount) * this.transform.parent.localScale.x * m_notesPrefab.transform.localScale.x;
+        float addValue = m_insWidth * notesCount; 
 
         // X座標へずらす計算
-        m_instancePos.x = this.transform.position.x + addValue;
+        m_instancePos.x = this.transform.position.x * addValue;
 
         // 計算した変数を返す
         return m_instancePos.x;
@@ -222,6 +222,7 @@ public class NotesInstance_Script : MonoBehaviour
         }
     }
 
+    // キーボードでノーツを出す
     private void InputTest()
     {
         if (Input.GetKeyDown(KeyCode.A)) 
