@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d81528b346abcd64e85f5fa0684695f4, type: 3}
-  m_Name: TutorialBox
+  m_Script: {fileID: 11500000, guid: 9ba4b116ad3076949acdd4c2bda3e839, type: 3}
+  m_Name: ChurchGrim9
   m_EditorClassIdentifier: 
-  dataList:
-  - {fileID: 11400000, guid: e19289ffd23ccf744b19cd0489c0515d, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  data:
+    name: ChurchGrim
+    maxHp: 75
+    hp: 75
+    atk: 20
+    def: 15
+    waitTime: 8
+    elem: 2
