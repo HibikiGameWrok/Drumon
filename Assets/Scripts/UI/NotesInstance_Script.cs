@@ -124,10 +124,10 @@ public class NotesInstance_Script : MonoBehaviour
     private float SetInsPosX(int notesCount)
     {
         // 生成する度にずらす
-        float addValue = m_insWidth * notesCount; 
+        float addValue = m_insWidth * notesCount;
 
         // X座標へずらす計算
-        m_instancePos.x = this.transform.position.x * addValue;
+        m_instancePos.x = this.transform.position.x + addValue;
 
         // 計算した変数を返す
         return m_instancePos.x;
