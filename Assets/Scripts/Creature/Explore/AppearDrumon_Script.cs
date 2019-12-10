@@ -83,7 +83,7 @@ public class AppearDrumon_Script : MonoBehaviour
         // ドラモンの向きをランダムに決定する
         var randomRotationY = Random.value * 360f;
         // 出現座標に補正をかける
-        var randomPos = Random.Range(-20, 20);
+        var randomPos = Random.Range(-10, 10);
         var position = new Vector3(randomPos, 0, randomPos);
 
         // 生成する
