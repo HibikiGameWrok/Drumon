@@ -14,6 +14,11 @@ public class OVRCameraFollowing_Script : MonoBehaviour
 
     [SerializeField]
     private float m_spaceY = 0.0f;
+    public float SpaceY
+    {
+        get { return m_spaceY; }
+        set { m_spaceY = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
