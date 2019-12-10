@@ -25,8 +25,8 @@ public class IyaGoScene : MonoBehaviour
             .Where(_ => m_battleManager.IsFinish.Value == true)
             .Subscribe(_ =>
             {
-                //TransitionManager_Script.StartTransition(m_nextScene, LoadSceneMode.Single);
-                SceneManager.UnloadSceneAsync(m_nextScene);
+                //SceneManager.UnloadSceneAsync(m_nextScene);
+                TransitionManager_Script.StartTransition_UnloadScene("BattleScene");
             }).AddTo(gameObject);
     }
 }
