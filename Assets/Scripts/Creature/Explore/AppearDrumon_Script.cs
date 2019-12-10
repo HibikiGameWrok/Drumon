@@ -35,6 +35,10 @@ public class AppearDrumon_Script : MonoBehaviour
     [Tooltip("出現する最大数")]
     private int m_maxDrumon;
 
+    [Tooltip("DrumonList")]
+    [SerializeField]
+    private GameObject m_drumonList;
+
     // 現在出現している数
     private int m_currentNumberOfDrumons;
     // 計測用フィールド
@@ -83,10 +87,13 @@ public class AppearDrumon_Script : MonoBehaviour
         var position = new Vector3(randomPos, 0, randomPos);
 
         // 生成する
-        Instantiate(m_drumon, transform.position+position,
+        var go = Instantiate(m_drumon, transform.position+position,
             Quaternion.Euler(0f, randomRotationY, 0f)
             );
 
+        // 一つのオブジェクトにまとめる
+        go.transform.parent = m_drumonList.transform;
+        
         // 出現数を加算する
         m_currentNumberOfDrumons++;
     }
