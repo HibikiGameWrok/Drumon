@@ -34,6 +34,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     void Start()
     {
         m_data = m_enemy.EnemyCreatureData;
+
+#if UNITY_EDITOR
+        m_data.data.hp = m_data.data.maxHp;
+#endif
+
         this.m_timer = 0.0f;
 
         this.m_atkFlag = false;

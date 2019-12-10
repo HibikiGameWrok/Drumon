@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &564429100761332126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 9102817953295475673}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8282323946018442920}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8282323946018442920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 910585896663625073, guid: caa5db491b9943d429f44bdf729810b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 9102817953295475673}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564429100761332126}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 980949384877061329}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1431487704088390199
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +43,7 @@ GameObject:
   - component: {fileID: 6403543747943916050}
   - component: {fileID: 856102255577079531}
   m_Layer: 0
-  m_Name: Tornado (2)
+  m_Name: Tornado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,13 +57,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431487704088390199}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.06, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4262939061905837426}
   - {fileID: 4262939061348285489}
   - {fileID: 4262939061571041826}
-  - {fileID: 8282323946018442920}
+  - {fileID: 980949384877061329}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -82,6 +113,37 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &3950697230023052318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 9102817953295475673}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980949384877061329}
+  m_Layer: 0
+  m_Name: VFX_Barrage (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &980949384877061329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 9102817953295475673}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3950697230023052318}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8282323946018442920}
+  m_Father: {fileID: 2704116509450557476}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &9102817952793925419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,6 +156,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: leafshowerouter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2111831059043373818, guid: d22b9b722c5a8564397edb9e1916e963,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 752bf1439bbcd8e49bdf6000258635b3, type: 2}
     - target: {fileID: -4216859302048453862, guid: d22b9b722c5a8564397edb9e1916e963,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -164,11 +231,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.0232687
       objectReference: {fileID: 0}
-    - target: {fileID: 2111831059043373818, guid: d22b9b722c5a8564397edb9e1916e963,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 752bf1439bbcd8e49bdf6000258635b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d22b9b722c5a8564397edb9e1916e963, type: 3}
 --- !u!4 &4262939061348285489 stripped
@@ -189,6 +251,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: leafshowerouter (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2111831059043373818, guid: d22b9b722c5a8564397edb9e1916e963,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 752bf1439bbcd8e49bdf6000258635b3, type: 2}
     - target: {fileID: -4216859302048453862, guid: d22b9b722c5a8564397edb9e1916e963,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -259,11 +326,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.1792148
       objectReference: {fileID: 0}
-    - target: {fileID: 2111831059043373818, guid: d22b9b722c5a8564397edb9e1916e963,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 752bf1439bbcd8e49bdf6000258635b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d22b9b722c5a8564397edb9e1916e963, type: 3}
 --- !u!4 &4262939061571041826 stripped
@@ -279,11 +341,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2704116509450557476}
     m_Modifications:
-    - target: {fileID: 910585896663625079, guid: caa5db491b9943d429f44bdf729810b5,
-        type: 3}
-      propertyPath: m_Name
-      value: VFX_Barrage
-      objectReference: {fileID: 0}
     - target: {fileID: 910585896663625073, guid: caa5db491b9943d429f44bdf729810b5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -339,6 +396,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 910585896663625079, guid: caa5db491b9943d429f44bdf729810b5,
+        type: 3}
+      propertyPath: m_Name
+      value: VFX_Barrage
+      objectReference: {fileID: 0}
     - target: {fileID: 910585896663625072, guid: caa5db491b9943d429f44bdf729810b5,
         type: 3}
       propertyPath: particleObject
@@ -347,12 +409,6 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caa5db491b9943d429f44bdf729810b5, type: 3}
---- !u!4 &8282323946018442920 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 910585896663625073, guid: caa5db491b9943d429f44bdf729810b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 9102817953295475673}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9102817953368335976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -365,6 +421,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: leafshowerouter
       objectReference: {fileID: 0}
+    - target: {fileID: 2111831059043373818, guid: d22b9b722c5a8564397edb9e1916e963,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 752bf1439bbcd8e49bdf6000258635b3, type: 2}
     - target: {fileID: -4216859302048453862, guid: d22b9b722c5a8564397edb9e1916e963,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -435,11 +496,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.80795
       objectReference: {fileID: 0}
-    - target: {fileID: 2111831059043373818, guid: d22b9b722c5a8564397edb9e1916e963,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 752bf1439bbcd8e49bdf6000258635b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d22b9b722c5a8564397edb9e1916e963, type: 3}
 --- !u!4 &4262939061905837426 stripped
