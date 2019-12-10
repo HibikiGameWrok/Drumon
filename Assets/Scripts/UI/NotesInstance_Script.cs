@@ -45,7 +45,7 @@ public class NotesInstance_Script : MonoBehaviour
 
     // 生成する幅
     [SerializeField]
-    private float m_insWidth = 2.0f ;
+    private float m_insWidth = 0.12f ;
 
     // Start is called before the first frame update
     void Start()
