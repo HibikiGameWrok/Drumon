@@ -56,8 +56,6 @@ public class AudioManager_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 削除しないようにする
-        DontDestroyOnLoad(this.gameObject);
         // 音量を設定する
         AttachBGMSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFAULT);
         AttachSESource.volume = PlayerPrefs.GetFloat(SE_VOLUME_KEY, SE_VOLUME_DEFAULT);
