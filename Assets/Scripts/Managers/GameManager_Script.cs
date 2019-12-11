@@ -14,11 +14,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UniRx;
 
 
 // ゲーム全体を管理するクラス
-public class GameManager_Script : MonoBehaviour
+public class GameManager_Script : SingletonBase_Script<GameManager_Script>
 {
     // プレハブを設定する
     [SerializeField]
@@ -37,7 +38,7 @@ public class GameManager_Script : MonoBehaviour
 
     private AudioManager_Script m_audio;
 
-    void Awake()
+    protected override void Awake()
     {
         // 必要なものを生成する
         m_audioManager = Instantiate(m_audioIns);
@@ -62,7 +63,26 @@ public class GameManager_Script : MonoBehaviour
         m_audio.AttachSESource = m_bgmResource.GetComponent<AudioSource>();
 
         // BGMを流す
-        m_audio.PlayBGM("bgm_Title");
+        if (SceneManager.GetActiveScene().name == "Revised")
+        {
+            m_audio.PlayBGM(BfxType.bgm_Search);
+        }
+        else
+        {
+            m_audio.PlayBGM(BfxType.bgm_Title);
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (SceneManager.GetActiveScene().name == "TitleScene")
+            {
+                m_audio.PlayBGM(BfxType.bgm_Search, 0.5f);
+                TransitionManager_Script.StartTransition("Revised");
+            }
+        }
     }
 
 
