@@ -45,7 +45,7 @@ public class NotesInstance_Script : MonoBehaviour
 
     // 生成する幅
     [SerializeField]
-    private float m_insWidth = 2.0f ;
+    private float m_insWidth = 0.12f ;
 
     // Start is called before the first frame update
     void Start()
@@ -124,10 +124,10 @@ public class NotesInstance_Script : MonoBehaviour
     private float SetInsPosX(int notesCount)
     {
         // 生成する度にずらす
-        float addValue = m_insWidth * notesCount; 
+        float addValue = m_insWidth * notesCount;
 
         // X座標へずらす計算
-        m_instancePos.x = this.transform.position.x * addValue;
+        m_instancePos.x = this.transform.position.x + addValue;
 
         // 計算した変数を返す
         return m_instancePos.x;

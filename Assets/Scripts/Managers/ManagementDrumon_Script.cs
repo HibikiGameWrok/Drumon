@@ -7,15 +7,11 @@ using UniRx.Triggers;
 public class ManagementDrumon_Script : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> m_list;
+    private List<GameObject> m_list = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-        this.UpdateAsObservable()
-            .Subscribe(_ =>
-            {
-                
-            });
+
     }
 }
