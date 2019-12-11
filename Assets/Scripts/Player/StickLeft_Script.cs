@@ -144,6 +144,8 @@ public class StickLeft_Script : Stick_Script
                     // 音を鳴らす
                     audioSource.PlayOneShot(m_inHitSE);
 
+                    m_lastCollisionTag = collision.gameObject.tag;
+
                     if (m_hitNum == 2)
                     {
                         // 外側を叩いた判定フラグを伏せる
@@ -155,12 +157,15 @@ public class StickLeft_Script : Stick_Script
                 // 選択ドラムの外側を叩いたら
                 else if (collision.gameObject.tag == "SwitchOutDrum")
                 {
-                    // 外側を叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
-                    // 選択ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
+                    if (m_lastCollisionTag != "SwitchInDrum")
+                    {
+                        // 外側を叩いた判定フラグを立てる
+                        m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
+                        // 選択ドラムを叩いた判定フラグを立てる
+                        m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
 
-                    m_lastCollisionTag = collision.gameObject.tag;
+                        m_lastCollisionTag = collision.gameObject.tag;
+                    }
                 }
                 // 捕獲ドラムを叩いたら
                 else if (collision.gameObject.tag == "CaptureDrum")

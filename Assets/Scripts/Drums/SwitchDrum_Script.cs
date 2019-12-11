@@ -74,8 +74,7 @@ public class SwitchDrum_Script : Drum_Script
         m_switchUIC = GameObject.Find("SwitchUI Canvas");
         m_icon = m_switchUIC.transform.Find("SwitchUI");
         // UIを非アクティブにする
-        m_icon.gameObject.SetActive(false);
-
+        //m_icon.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -263,7 +262,7 @@ public class SwitchDrum_Script : Drum_Script
                     }
                     else
                     {
-                        for (int i = CreatureList_Script.Get.List.DataList.Length - 1; i > 0; i--)
+                        for (int i = CreatureList_Script.Get.List.DataList.Length - 1; i >= 0; i--)
                         {
                             m_stickManagerScript.PickCount = i;
                             if (CreatureList_Script.Get.List.DataList[i] != null)
@@ -272,9 +271,26 @@ public class SwitchDrum_Script : Drum_Script
                             }
                         }
 
-                        if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
+                        // 場に出ているモンスターと名前が一緒だったら
+                        if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
                         {
-                            Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
+                            // カウントアップ
+                            m_stickManagerScript.PickCount--;
+                        }
+
+                        if (m_stickManagerScript.PickCount >= 0)
+                        {
+                            if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
+                            {
+                                Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
+                                Image image = m_icon.GetComponent<Image>();
+                                image.sprite = sprite;
+                            }
+                        }
+                        // Boxにモンスターが1体だったら
+                        else
+                        {
+                            Sprite sprite = Resources.Load<Sprite>("");
                             Image image = m_icon.GetComponent<Image>();
                             image.sprite = sprite;
                         }
@@ -311,6 +327,25 @@ public class SwitchDrum_Script : Drum_Script
                             Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
                             Image image = m_icon.GetComponent<Image>();
                             image.sprite = sprite;
+                        }
+                        else
+                        {
+                            // カウントを初期化
+                            m_stickManagerScript.PickCount = 0;
+
+                            // 場に出ているモンスターと名前が一緒だったら
+                            if (m_playerCreature.GetComponent<PlayerCreature_Script>().Name == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name)
+                            {
+                                // カウントアップ
+                                m_stickManagerScript.PickCount++;
+                            }
+
+                            if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount] != null)
+                            {
+                                Sprite sprite = Resources.Load<Sprite>("UI/Icon/" + Regex.Replace(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].name, @"[^a-z,A-Z]", "") + " Icon");
+                                Image image = m_icon.GetComponent<Image>();
+                                image.sprite = sprite;
+                            }
                         }
                     }
                     else
