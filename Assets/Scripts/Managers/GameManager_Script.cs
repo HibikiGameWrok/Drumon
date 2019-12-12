@@ -36,20 +36,18 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
     // SEのAudioResource
     private GameObject m_seResource = null;
 
+    // Audio管理スクリプト
     private AudioManager_Script m_audio;
+    // Scene管理スクリプト
+    private SceneManager_Script m_sceneManager;
 
     protected override void Awake()
     {
-        // 必要なものを生成する
-        m_audioManager = Instantiate(m_audioIns);
-        m_bgmResource = Instantiate(m_bgmIns);
-        m_seResource = Instantiate(m_seIns);
-
         // 削除しない
         DontDestroyOnLoad(this.gameObject);
-        DontDestroyOnLoad(m_audioManager);
-        DontDestroyOnLoad(m_bgmResource);
-        DontDestroyOnLoad(m_seResource);
+
+        // Audio関連のインスタンスを生成する
+        AudioInstance();
     }
 
 
@@ -60,29 +58,39 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
         m_audio = m_audioManager.GetComponent<AudioManager_Script>();
         // アタッチする
         m_audio.AttachBGMSource = m_bgmResource.GetComponent<AudioSource>();
-        m_audio.AttachSESource = m_bgmResource.GetComponent<AudioSource>();
+        m_audio.AttachSESource = m_seResource.GetComponent<AudioSource>();
+
+
+
+        // SceneManager
+        m_sceneManager = new SceneManager_Script();
+        m_sceneManager.Initialize(m_audio);
 
         // BGMを流す
-        if (SceneManager.GetActiveScene().name == "Revised")
-        {
-            m_audio.PlayBGM(BfxType.bgm_Search);
-        }
-        else
-        {
-            m_audio.PlayBGM(BfxType.bgm_Title);
-        }
+        //if (SceneManager.GetActiveScene().name == "Revised")
+        //{
+        //    m_audio.PlayBGM(BfxType.bgm_Search);
+        //}
+        //else
+        //{
+        //    m_audio.PlayBGM(BfxType.bgm_Title);
+        //}
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (SceneManager.GetActiveScene().name == "TitleScene")
-            {
-                m_audio.PlayBGM(BfxType.bgm_Search, 0.5f);
-                TransitionManager_Script.StartTransition("Revised");
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    if (SceneManager.GetActiveScene().name == "TitleScene")
+        //    {
+        //        m_audio.PlayBGM(BfxType.bgm_Search, 0.9f);
+        //        TransitionManager_Script.StartTransition("Revised");
+        //    }
+        //}
+
+        // SceneManagerの実行処理
+        m_sceneManager.Execute();
+      
     }
 
 
@@ -98,5 +106,18 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
             Destroy(m_seResource);
             Destroy(this.gameObject);
         }
+    }
+
+    private void AudioInstance()
+    {
+        // 必要なものを生成する
+        m_audioManager = Instantiate(m_audioIns);
+        m_bgmResource = Instantiate(m_bgmIns);
+        m_seResource = Instantiate(m_seIns);
+        
+        // 削除しない
+        DontDestroyOnLoad(m_audioManager);
+        DontDestroyOnLoad(m_bgmResource);
+        DontDestroyOnLoad(m_seResource);
     }
 }

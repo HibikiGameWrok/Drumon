@@ -1,9 +1,22 @@
-﻿using System.Collections;
+﻿/*----------------------------------------------------------*/
+//  file:      AudioManager_Script.cs                             |
+//				 											                    |
+//  brief:    Audio関係のスクリプト				                    |
+//															                    |
+//  date:	2019.11.12									            |
+//															                    |
+//  author: Renya Fukuyama									    |
+/*----------------------------------------------------------*/
+
+// using
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
 
+
+// Audio関連のクラス
 public class AudioManager_Script : MonoBehaviour
 {
     // ボリューム保存用のkeyとデフォルト値
