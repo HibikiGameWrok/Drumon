@@ -6,6 +6,8 @@ public class SearchEnemy_Script : MonoBehaviour
 {
     [SerializeField]
     private EnemyCreature m_enemyCreature;
+    [SerializeField]
+    PlayerPosition_Script m_position = null;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class SearchEnemy_Script : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             m_enemyCreature.EnemyCreatureData = CreateData_Script.Get.CreateData(this.gameObject.tag);
+            m_position.Position = this.transform.position;
             Destroy(gameObject);
 
             if (this.gameObject.tag == "Tutorial")

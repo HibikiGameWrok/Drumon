@@ -891,7 +891,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_targets: []
   m_patrolPos: {fileID: 0}
-  m_destinationThreshold: 0
   m_elapsedTime: 0
 --- !u!114 &-6423048509268385480
 MonoBehaviour:
@@ -934,6 +933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
+  m_position: {fileID: 11400000, guid: 8339627d550a5fc46b41fe1617a56753, type: 2}
 --- !u!1 &4521566939879957637
 GameObject:
   m_ObjectHideFlags: 0
