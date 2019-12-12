@@ -30,10 +30,19 @@ public class ChildeCollider_Script : MonoBehaviour
         if (collider.tag == "StickLeft" || collider.tag == "StickRight")
         {
             // 攻撃ドラムだったら
-            if (this.tag == "AttackInDrum" || this.tag == "AttackOutDrum")
+            if (this.tag == "AttackInDrum")
             {
                 // 親の当たり判定
                 m_attackDrum.OnTriggerEnter(collider);
+
+                m_attackDrum.InHit();
+            }
+            else if (this.tag == "AttackOutDrum")
+            {
+                // 親の当たり判定
+                m_attackDrum.OnTriggerEnter(collider);
+
+                m_attackDrum.OutHit();
             }
             // 選択ドラムだったら
             else if (this.tag == "SwitchInDrum" || this.tag == "SwitchOutDrum")

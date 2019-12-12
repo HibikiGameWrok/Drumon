@@ -129,7 +129,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
             CreatureList_Script.Get.Add(this);
             for (int i = 0; i < this.transform.childCount; i++)
             {
-                GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
+                GameObject.Destroy(this.transform.GetChild(i).gameObject);
             }
             GameObject obj = Resources.Load("VFX/CatchAnimationManager_" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
 
