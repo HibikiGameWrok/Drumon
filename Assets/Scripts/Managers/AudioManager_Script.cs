@@ -84,6 +84,7 @@ public class AudioManager_Script : MonoBehaviour
 
                 // 徐々にボリュームを下げていき、0になったら次の曲を流す
                 AttachBGMSource.volume -= Time.deltaTime * m_bgmFadeSpeedRate;
+               
                 if(AttachBGMSource.volume <= 0)
                 {
                     AttachBGMSource.Stop();

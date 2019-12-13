@@ -20,6 +20,6 @@ public class SceneRevised_Script : IScene_Script
     {
         m_manager = manager;
 
-        m_manager.Audio.PlayBGM(BfxType.bgm_Search);
+        m_manager.Audio.PlayBGM(BfxType.bgm_Search,0.2f);
     }
 }
