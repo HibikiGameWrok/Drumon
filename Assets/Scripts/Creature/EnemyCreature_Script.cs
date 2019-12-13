@@ -114,6 +114,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
             for (int i = 0; i < this.transform.childCount; i++)
             {
                 GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
+                if (!this.transform.GetChild(i).gameObject.GetComponent<ScaleController_Script>())
+                {
+                    this.transform.GetChild(i).gameObject.AddComponent<ScaleController_Script>().EndTime = m_animState.length;
+                }
             }
         }
         else if (this.transform.childCount == 0)
