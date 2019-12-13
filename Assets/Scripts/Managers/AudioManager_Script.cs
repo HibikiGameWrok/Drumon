@@ -99,6 +99,7 @@ public class AudioManager_Script : MonoBehaviour
             }).AddTo(this.gameObject);
     }
 
+
     /// <summary>
     /// 指定したファイル名のSEを流す
     /// </summary>

@@ -13,9 +13,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+    public enum SceneID
+    {
+        CONTINUE,
+        SCENE_TITLE,
+        SCENE_REVISED,
+        SCENE_BATTLE,
+        SCENE_RESULT,
+    }
 // SceneのInterface
 public abstract class IScene_Script
 {
+
+
     // 親オブジェクト
     protected SceneManager_Script m_manager;
     // シーンの名前
@@ -37,7 +47,7 @@ public abstract class IScene_Script
     /// 実行する
     /// </summary>
     /// <returns>true=継続する false=シーン変更</returns>
-    public abstract bool Execute();
+    public abstract SceneID Execute();
 
 
     /// <summary>

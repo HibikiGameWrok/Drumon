@@ -41,6 +41,10 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
     // Scene管理スクリプト
     private SceneManager_Script m_sceneManager;
 
+
+    /// <summary>
+    /// Awake関数
+    /// </summary>
     protected override void Awake()
     {
         // 削除しない
@@ -60,37 +64,19 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
         m_audio.AttachBGMSource = m_bgmResource.GetComponent<AudioSource>();
         m_audio.AttachSESource = m_seResource.GetComponent<AudioSource>();
 
-
-
         // SceneManager
         m_sceneManager = new SceneManager_Script();
         m_sceneManager.Initialize(m_audio);
-
-        // BGMを流す
-        //if (SceneManager.GetActiveScene().name == "Revised")
-        //{
-        //    m_audio.PlayBGM(BfxType.bgm_Search);
-        //}
-        //else
-        //{
-        //    m_audio.PlayBGM(BfxType.bgm_Title);
-        //}
     }
 
+
+    /// <summary>
+    /// 更新処理
+    /// </summary>
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    if (SceneManager.GetActiveScene().name == "TitleScene")
-        //    {
-        //        m_audio.PlayBGM(BfxType.bgm_Search, 0.9f);
-        //        TransitionManager_Script.StartTransition("Revised");
-        //    }
-        //}
-
         // SceneManagerの実行処理
         m_sceneManager.Execute();
-      
     }
 
 
@@ -108,6 +94,10 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
         }
     }
 
+
+    /// <summary>
+    /// Audio関連のオブジェクトをインスタンス化する
+    /// </summary>
     private void AudioInstance()
     {
         // 必要なものを生成する

@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      SceneTitle_Script.cs                                   |
+//  file:      SceneBattle_Script.cs                                 |
 //				 											                    |
-//  brief:    タイトルシーンのスクリプト			                |
+//  brief:    バトルシーンのスクリプト			                    |
 //															                    |
 //  date:	2019.12.13									            |
 //															                    |
@@ -15,8 +15,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// タイトルシーンクラス
-public class SceneTitle_Script : IScene_Script
+// バトルシーンクラス
+public class SceneBattle_Script : IScene_Script
 {
 
     /// <summary>
@@ -24,7 +24,6 @@ public class SceneTitle_Script : IScene_Script
     /// </summary>
     public override void Dispose()
     {
-        // BGMを止める
         m_manager.Audio.AttachBGMSource.Stop();
     }
 
@@ -35,13 +34,9 @@ public class SceneTitle_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            m_manager.Audio.PlaySE(SfxType.taiko);
-            return SceneID.SCENE_REVISED;
-        }
+        // バトルが終了したかで判断する
+        //return SceneID.SCENE_REVISED;
 
-        // 継続する
         return SceneID.CONTINUE;
     }
 
@@ -56,6 +51,6 @@ public class SceneTitle_Script : IScene_Script
         m_manager = manager;
 
         // BGMを再生する
-        m_manager.Audio.PlayBGM(BfxType.bgm_Title);
+        m_manager.Audio.PlayBGM(BfxType.bgm_Battle);
     }
 }
