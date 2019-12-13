@@ -32,9 +32,12 @@ public class SceneBattle_Script : IScene_Script
     /// 実行する
     /// </summary>
     /// <returns></returns>
-    public override bool Execute()
+    public override SceneID Execute()
     {
-        return true;
+        // バトルが終了したかで判断する
+        //return SceneID.SCENE_REVISED;
+
+        return SceneID.CONTINUE;
     }
 
 

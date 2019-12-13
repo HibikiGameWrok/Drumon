@@ -32,10 +32,16 @@ public class SceneRevised_Script : IScene_Script
     /// 実行する
     /// </summary>
     /// <returns></returns>
-    public override bool Execute()
+    public override SceneID Execute()
     {
+        // バトルシーンへ
+        //return SceneID.SCENE_BATTLE;
+        // リザルトシーンへ
+       // return SceneID.SCENE_RESULT;
+        // タイトルシーンへ戻る？
+       // return SceneID.SCENE_TITLE;
 
-        return true;
+        return SceneID.CONTINUE;
     }
 
 
@@ -49,6 +55,6 @@ public class SceneRevised_Script : IScene_Script
         m_manager = manager;
 
         // BGMを再生する
-        m_manager.Audio.PlayBGM(BfxType.bgm_Search,0.2f);
+        m_manager.Audio.PlayBGM(BfxType.bgm_Search);
     }
 }

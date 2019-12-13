@@ -33,15 +33,16 @@ public class SceneTitle_Script : IScene_Script
     /// 実行する
     /// </summary>
     /// <returns></returns>
-    public override bool Execute()
+    public override SceneID Execute()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
             m_manager.Audio.PlaySE(SfxType.taiko);
-            return false;
+            return SceneID.SCENE_REVISED;
         }
 
-        return true;
+        // 継続する
+        return SceneID.CONTINUE;
     }
 
 

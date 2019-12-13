@@ -59,51 +59,25 @@ public class SceneManager_Script
     public bool Execute()
     {
         // 現在のシーンを実行する
-        bool result = m_currentScene.Execute();
+        SceneID result = m_currentScene.Execute();
 
-        if (m_currentScene == m_title)
+        // 戻り値で処理を分ける
+        switch(result)
         {
-            if (result == true)
-            {
-
-            }
-            else
-            {
-                // 探索シーンへ
-                ChangeScene(m_revised);
-            }
-        }
-        else if (m_currentScene == m_revised)
-        {
-            if (result == true)
-            {
-
-            }
-            else
-            {
-                // バトルシーンへ
-
+            case SceneID.CONTINUE:
+                // シーンを継続する
+                break;
+            case SceneID.SCENE_TITLE:
                 // タイトルシーンへ
-
-                // リザルトシーンへ 
-
-            }
-        }
-        else if(m_currentScene == m_battle)
-        {
-            if(result == true)
-            {
-
-            }
-            else
-            {
-                // 探索シーン戻る
-            }
-        }
-        else
-        {
-            
-            return false;
+                ChangeScene(m_title);
+                break;
+            case SceneID.SCENE_REVISED:
+                // 探索シーン
+                ChangeScene(m_revised);
+                break;
+            case SceneID.SCENE_BATTLE:
+                ChangeScene(m_battle);
+                break;
         }
 
         // 正常に更新
