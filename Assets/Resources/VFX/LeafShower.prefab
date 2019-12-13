@@ -4822,7 +4822,7 @@ GameObject:
   - component: {fileID: 1387183811451698088}
   - component: {fileID: 1958382301554727681}
   m_Layer: 0
-  m_Name: LeafShowerTornado
+  m_Name: LeafShower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4861,7 +4861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerMax: 1.5
-  DestroyOnFinish: 0
+  DestroyOnFinish: 1
   rend_Tornado: {fileID: 5169933169993358267}
   rend_Leaves0: {fileID: 6186741283372554014}
   rend_Leaves1: {fileID: 6186741282932500061}

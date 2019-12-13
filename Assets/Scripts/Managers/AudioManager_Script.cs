@@ -1,9 +1,22 @@
-﻿using System.Collections;
+﻿/*----------------------------------------------------------*/
+//  file:      AudioManager_Script.cs                             |
+//				 											                    |
+//  brief:    Audio関係のスクリプト				                    |
+//															                    |
+//  date:	2019.11.12									            |
+//															                    |
+//  author: Renya Fukuyama									    |
+/*----------------------------------------------------------*/
+
+// using
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
 
+
+// Audio関連のクラス
 public class AudioManager_Script : MonoBehaviour
 {
     // ボリューム保存用のkeyとデフォルト値
@@ -71,6 +84,7 @@ public class AudioManager_Script : MonoBehaviour
 
                 // 徐々にボリュームを下げていき、0になったら次の曲を流す
                 AttachBGMSource.volume -= Time.deltaTime * m_bgmFadeSpeedRate;
+               
                 if(AttachBGMSource.volume <= 0)
                 {
                     AttachBGMSource.Stop();

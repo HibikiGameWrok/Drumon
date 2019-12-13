@@ -1,36 +1,42 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      WorldCreatureState_Script.cs                     |
+//  file:      IScene_Script.cs                                        |
 //				 											                    |
-//  brief:    ワールド上のDrumonの状態遷移のスクリプト  |
+//  brief:    SceneのInterfaceスクリプト		                    |
 //															                    |
-//  date:	2019.11.29									            |
+//  date:	2019.12.12									            |
 //															                    |
 //  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
 
 // using
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// 探索でのドラモンの状態遷移クラス
-public abstract class WorldCreatureState_Script
+// SceneのInterface
+public abstract class IScene_Script
 {
-    // メンバ変数
-    protected NavMeshController_Script m_controller;
+    // 親オブジェクト
+    protected SceneManager_Script m_manager;
+    // シーンの名前
+    protected string m_name;
+
+    public string Name
+    {
+        get { return m_name; }
+        set { m_name = value; }
+    }
 
     /// <summary>
     /// 初期化処理
     /// </summary>
-    public abstract void Initialize(NavMeshController_Script controller);
+    public abstract void Initialize(SceneManager_Script manager);
 
 
     /// <summary>
     /// 実行する
     /// </summary>
-    /// <returns>true=継続する false=状態を変更する </returns>
+    /// <returns>true=継続する false=シーン変更</returns>
     public abstract bool Execute();
 
 
@@ -38,5 +44,4 @@ public abstract class WorldCreatureState_Script
     /// 終了処理
     /// </summary>
     public abstract void Dispose();
-
 }
