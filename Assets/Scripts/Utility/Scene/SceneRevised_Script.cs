@@ -35,12 +35,19 @@ public class SceneRevised_Script : IScene_Script
     public override SceneID Execute()
     {
         // バトルシーンへ
-        //return SceneID.SCENE_BATTLE;
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            return SceneID.SCENE_BATTLE;
+        }
         // リザルトシーンへ
-       // return SceneID.SCENE_RESULT;
-        // タイトルシーンへ戻る？
-       // return SceneID.SCENE_TITLE;
+        // return SceneID.SCENE_RESULT;
+        // タイトルシーンへ
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            return SceneID.SCENE_TITLE;
+        }
 
+        // 継続する
         return SceneID.CONTINUE;
     }
 

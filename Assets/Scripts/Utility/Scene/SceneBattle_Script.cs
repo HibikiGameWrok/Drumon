@@ -35,7 +35,10 @@ public class SceneBattle_Script : IScene_Script
     public override SceneID Execute()
     {
         // バトルが終了したかで判断する
-        //return SceneID.SCENE_REVISED;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            return SceneID.SCENE_REVISED;
+        }
 
         return SceneID.CONTINUE;
     }

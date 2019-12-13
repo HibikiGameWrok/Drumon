@@ -85,6 +85,8 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
     /// </summary>
     void OnDestroy()
     {
+        m_sceneManager.Dispose();
+
         if (this.gameObject)
         {
             Destroy(m_audioManager);

@@ -35,9 +35,12 @@ public class SceneTitle_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        // SpaceキーまたはVRコントローラーのトリガー
+        if(Input.GetKeyDown(KeyCode.Space) || 
+            OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             m_manager.Audio.PlaySE(SfxType.taiko);
+
             return SceneID.SCENE_REVISED;
         }
 

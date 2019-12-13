@@ -13,7 +13,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UniRx;
 
 // シーン管理クラス
 public class SceneManager_Script
@@ -60,7 +61,7 @@ public class SceneManager_Script
     {
         // 現在のシーンを実行する
         SceneID result = m_currentScene.Execute();
-
+        Debug.Log(m_currentScene.Name);
         // 戻り値で処理を分ける
         switch(result)
         {
@@ -72,11 +73,20 @@ public class SceneManager_Script
                 ChangeScene(m_title);
                 break;
             case SceneID.SCENE_REVISED:
-                // 探索シーン
-                ChangeScene(m_revised);
-                break;
+                if (m_currentScene.Name == m_battle.Name)
+                {
+                    // 現在のシーンをアンロードしてから次のシーンへ
+                    UnloadScene(m_revised, m_battle);
+                }
+                else
+                {
+                    // 探索シーン
+                    ChangeScene(m_revised);
+                }
+                 break;
             case SceneID.SCENE_BATTLE:
-                ChangeScene(m_battle);
+                // バトルシーンへ
+                ChangeScene(m_battle,LoadSceneMode.Additive);
                 break;
         }
 
@@ -90,6 +100,7 @@ public class SceneManager_Script
     /// </summary>
     public void Dispose()
     {
+        // 現在のシーンの終了処理をする
         m_currentScene.Dispose();
     }
 
@@ -98,15 +109,33 @@ public class SceneManager_Script
     /// シーンを変更する
     /// </summary>
     /// <param name="nextScene">次のシーン</param>
-    public void ChangeScene(IScene_Script nextScene)
+    public async void ChangeScene(IScene_Script nextScene,LoadSceneMode mode = LoadSceneMode.Single)
     {
+        await TransitionManager_Script.OnTransitionFinishedAsync();
+
         // 終了処理をする
         m_currentScene.Dispose();
         // 次のシーンを設定する
         m_currentScene = nextScene;
         // 遷移する
-        TransitionManager_Script.StartTransition(m_currentScene.Name);
+        TransitionManager_Script.StartTransition(m_currentScene.Name, mode);
 
+        // 初期化する
+        m_currentScene.Initialize(this);
+    }
+
+
+    public async void UnloadScene(IScene_Script nextScene, IScene_Script unloadScene)
+    {
+        await TransitionManager_Script.OnTransitionFinishedAsync();
+
+        // 終了処理をする
+        m_currentScene.Dispose();
+   
+        // アンロードする
+        TransitionManager_Script.StartTransition_UnloadScene(unloadScene.Name);
+        // 次のシーンを設定する
+        m_currentScene = nextScene;
         // 初期化する
         m_currentScene.Initialize(this);
     }
