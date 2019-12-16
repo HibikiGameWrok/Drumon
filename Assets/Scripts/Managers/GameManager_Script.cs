@@ -39,7 +39,7 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
     // Audio管理スクリプト
     private AudioManager_Script m_audio;
     // Scene管理スクリプト
-    private SceneManager_Script m_sceneManager;
+    private SceneManager_Script m_sceneManager = null;
 
 
     /// <summary>
@@ -47,6 +47,9 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
     /// </summary>
     protected override void Awake()
     {
+        // 既に生成しているなら処理しない
+        if (CheckInstance() == false)
+            return;
         // 削除しない
         DontDestroyOnLoad(this.gameObject);
 
@@ -64,9 +67,12 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
         m_audio.AttachBGMSource = m_bgmResource.GetComponent<AudioSource>();
         m_audio.AttachSESource = m_seResource.GetComponent<AudioSource>();
 
-        // SceneManager
-        m_sceneManager = new SceneManager_Script();
-        m_sceneManager.Initialize(m_audio);
+        if (m_sceneManager == null)
+        {
+            // SceneManager
+            m_sceneManager = new SceneManager_Script();
+            m_sceneManager.Initialize(m_audio);
+        }
     }
 
 
@@ -85,7 +91,8 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
     /// </summary>
     void OnDestroy()
     {
-        m_sceneManager.Dispose();
+        if(m_sceneManager != null)
+            m_sceneManager.Dispose();
 
         if (this.gameObject)
         {

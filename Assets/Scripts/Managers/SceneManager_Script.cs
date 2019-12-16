@@ -17,7 +17,7 @@ using UnityEngine.SceneManagement;
 using UniRx;
 
 // シーン管理クラス
-public class SceneManager_Script
+public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
 {
     // 現在の処理
     private IScene_Script m_currentScene;
@@ -41,6 +41,10 @@ public class SceneManager_Script
     /// </summary>
     public void Initialize(AudioManager_Script audio)
     {
+        // 既にあるなら処理しない
+        if (CheckInstance() == false)
+            return;
+
         // Audio
         m_audio = audio;
 
@@ -61,9 +65,9 @@ public class SceneManager_Script
     {
         // 現在のシーンを実行する
         SceneID result = m_currentScene.Execute();
-        Debug.Log(m_currentScene.Name);
+        
         // 戻り値で処理を分ける
-        switch(result)
+        switch (result)
         {
             case SceneID.CONTINUE:
                 // シーンを継続する
