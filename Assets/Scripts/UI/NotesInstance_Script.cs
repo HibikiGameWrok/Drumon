@@ -28,7 +28,7 @@ public class NotesInstance_Script : MonoBehaviour
     // タイムオブジェクトを保持
     private GameObject m_timer = null;
     // タイムScriptを取得
-    private AccelerationTime_Script m_timeStandard_Script = null;
+    //private AccelerationTime_Script m_timeStandard_Script = null;
 
     // レシピマネージャーを取得
     private GameObject m_attackRecipeManager = null;
@@ -51,7 +51,7 @@ public class NotesInstance_Script : MonoBehaviour
     void Start()
     {
         m_timer = GameObject.Find("Timer");
-        m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
+        //m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
 
         m_attackRecipeManager = GameObject.Find("AttackRecipeManeger");
         m_attackRecipeManagerScript = m_attackRecipeManager.GetComponent<AttackRecipeManeger_Script>();
@@ -62,19 +62,19 @@ public class NotesInstance_Script : MonoBehaviour
         // アタッチされた座標を基準とする
         m_instancePos = this.transform.position;
 
-        //行動タイムがMAXになったら
-        if (m_timeStandard_Script.TimerMax() == true)
+        if (m_countnNotes == MAX_NOTES)
         {
             // 出ているノーツが攻撃レシピと同じか
             m_attackRecipeManagerScript.MatchAttackRecipe();
+
             // ノーツリセット
             ResetNotes();
             // カウントリセット
             ResetCount();
-            //m_timeStandard_Script.TimerReset();
         }
         InputTest();
     }
+
 
     // ノーツプレハブを番号によって生成する関数
     public void InstanceNotes(int num)
@@ -96,7 +96,6 @@ public class NotesInstance_Script : MonoBehaviour
 
             // 親のScaleに合わせてプレハブの大きさを変える
             m_notesPrefab.transform.localScale = m_notesPrefab.transform.lossyScale * this.transform.localScale.x;
-
 
             this.transform.localRotation = this.transform.parent.rotation * m_notesPrefab.transform.rotation;
         }

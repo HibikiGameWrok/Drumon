@@ -41,8 +41,8 @@ public class MoveTimeUI_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_sliderCompnent.maxValue = m_timeStandardScript.MaxTimer;
-        m_sliderCompnent.value = m_timeStandardScript.NowTimer;
+        //m_sliderCompnent.maxValue = m_timeStandardScript.MaxTimer;
+        //m_sliderCompnent.value = m_timeStandardScript.NowTimer;
     }
 
 }

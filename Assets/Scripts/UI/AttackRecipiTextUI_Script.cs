@@ -12,7 +12,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AttaciRecipiUI_Text_Script : MonoBehaviour
+public class AttackRecipiTextUI_Script : MonoBehaviour
 {
     // 列のデータタイプ
     public enum Data_Column : int
@@ -21,7 +21,12 @@ public class AttaciRecipiUI_Text_Script : MonoBehaviour
         ATK_ELEMENT,
         ATK_NOTES,
         ATK_RATE,
+        ATK_COST
     }
+    [SerializeField]
+    private Data_Column m_dataColumn;
+
+    private string m_costText = null;
 
     // 設定するフォントのファイルパス
     private const string FILEPATH_FONT = "Fonts/DrumonFont-Regular";
@@ -100,6 +105,26 @@ public class AttaciRecipiUI_Text_Script : MonoBehaviour
         }
     }
 
+    private string SetText(int num,Data_Column dataColumn)
+    {
+        switch (dataColumn)
+        {
+            case Data_Column.ATK_NAME:
+                return m_costText = m_csvDatas[num][(int)Data_Column.ATK_NAME];
+            case Data_Column.ATK_ELEMENT:
+                return m_costText = m_csvDatas[num][(int)Data_Column.ATK_ELEMENT]; 
+            case Data_Column.ATK_NOTES:
+                return "ノーツプレハブが生成するオブジェクトを使用してください";
+            case Data_Column.ATK_RATE:
+                return m_costText = m_csvDatas[num][(int)Data_Column.ATK_RATE];
+            case Data_Column.ATK_COST:
+                return m_costText = "Cost : " + m_csvDatas[num][(int)Data_Column.ATK_COST];
+            default:
+                break;
+        }
+        return null;
+    }
+
     // 子に設定
     private void InstanceTextChildObject()
     {
@@ -120,7 +145,7 @@ public class AttaciRecipiUI_Text_Script : MonoBehaviour
                 // Textオブジェクトのコンポーネント設定
                 SettingTextProperty(i);
                 // 表示するTextの内容をcsvのデータを参照
-                m_textObject[i].GetComponent<Text>().text = m_csvDatas[i][(int)Data_Column.ATK_NAME];
+                m_textObject[i].GetComponent<Text>().text = SetText(i, m_dataColumn);
             }
             m_csvDatas.Clear();
         }
