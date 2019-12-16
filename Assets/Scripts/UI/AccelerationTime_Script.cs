@@ -43,12 +43,16 @@ public class AccelerationTime_Script : MonoBehaviour
     void Update()
     {
         TimerReset();
+        CountUP();
+    }
+
+    private void CountUP()
+    {
         if (m_stopFlag != true)
-        { 
+        {
             // タイマーを更新
             m_nowTimer += Time.deltaTime;
         }
-        //ChengeTime();
     }
 
     public void ChengeTime()
@@ -68,6 +72,8 @@ public class AccelerationTime_Script : MonoBehaviour
         }
         return false;
     }
+
+    
 
     // タイマーをリセット
     public void TimerReset()
