@@ -204,10 +204,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
 
-        if (m_tutorialModeFlag == true && m_drumManager.CaptureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == false)
-        {
-            m_timeStandard_Script.StopFlag = true;
-        }
+        //if (m_tutorialModeFlag == true && m_drumManager.CaptureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == false)
+        //{
+        //    m_timeStandard_Script.StopFlag = true;
+        //}
         if (m_tutorialModeFlag == false)
         {
             // 文字を小さくする
@@ -234,7 +234,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         else if (m_curentNum == 14)
         {
             m_practiceModeFlag = true;
-            m_timeStandard_Script.StopFlag = false;
+            //m_timeStandard_Script.StopFlag = false;
         }
         else if (m_curentNum == 17)
         {
@@ -244,7 +244,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         if (m_practiceCaptureText.activeInHierarchy == true)
         {
             m_practiceModeFlag = true;
-            m_timeStandard_Script.StopFlag = false;
+            //m_timeStandard_Script.StopFlag = false;
             m_drumManager.CaptureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag = true;
         }
 
@@ -288,13 +288,13 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             // 敵が攻撃を受けたら
             if (m_enemyCreature.HP < 100)
             {
-                if (m_timeStandard_Script.StopFlag == false)
-                {
-                    m_timeStandard_Script.StopFlag = true;
+                //if (m_timeStandard_Script.StopFlag == false)
+                //{
+                //    m_timeStandard_Script.StopFlag = true;
 
-                    // 次のテキストの表示
-                    NextText();
-                }
+                //    // 次のテキストの表示
+                //    NextText();
+                //}
             }
         }
 
@@ -315,8 +315,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             // 次のテキストの表示
             NextText();
 
-            m_drumManager.TutorialGetFlag = false;
-            m_timeStandard_Script.StopFlag = true;
+            //m_drumManager.TutorialGetFlag = false;
+            //m_timeStandard_Script.StopFlag = true;
         }
     }
 
