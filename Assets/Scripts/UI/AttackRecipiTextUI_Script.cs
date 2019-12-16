@@ -12,7 +12,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AttaciRecipiUI_Text_Script : MonoBehaviour
+public class AttackRecipiTextUI_Script : MonoBehaviour
 {
     // 列のデータタイプ
     public enum Data_Column : int
