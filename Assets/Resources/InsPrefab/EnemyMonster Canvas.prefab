@@ -199,7 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5446e96a6fd85494893fe19573a00b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HPSlider: {fileID: 1740559816243772105}
+  TEMP_TEXT: /65
+  m_HPSlider: {fileID: 0}
 --- !u!1 &1740559815499893140
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +543,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1740559816243772104}
   - component: {fileID: 1740559816243772106}
-  - component: {fileID: 1740559816243772107}
   m_Layer: 5
   m_Name: ESlider
   m_TagString: Untagged
@@ -621,18 +621,3 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1740559816243772107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740559816243772105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff6a703a15f4875438a3fe22c272b9fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_minPoint: 0
-  m_maxPoint: 100
-  m_nowPoint: 0
