@@ -9,7 +9,7 @@ public class CretureHpTextUI_Script : MonoBehaviour
 {
     // テンプレート
     [SerializeField]
-    private string TEMP_TEXT = "/65";
+    private string TEMP_TEXT = "/";
     
     // テキストコンポーネント
     private Text m_HPtext = null;
@@ -19,8 +19,6 @@ public class CretureHpTextUI_Script : MonoBehaviour
     private GameObject m_HPSlider = null;
     // 値
     private HealProsperityUI_Script m_healProsperityUI_script= null;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +30,6 @@ public class CretureHpTextUI_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_HPtext.text = m_healProsperityUI_script.NowPoint.ToString() + TEMP_TEXT;
+        m_HPtext.text = m_healProsperityUI_script.NowPoint.ToString() + TEMP_TEXT + m_healProsperityUI_script.MaxPoint.ToString();
     }
 }
