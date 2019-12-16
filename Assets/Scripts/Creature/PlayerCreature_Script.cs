@@ -72,7 +72,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_healProsperityUI = GameObject.Find("PSlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
         m_TimerObject = GameObject.Find("Timer");
-        m_accelerationTimeScript = m_TimerObject.GetComponent<AccelerationTime_Script>();
+        //m_accelerationTimeScript = m_TimerObject.GetComponent<AccelerationTime_Script>();
 
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
@@ -89,7 +89,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.data.hp;
 
-        m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
+        //m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
     }
 
     public void Execute()
@@ -149,7 +149,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
             m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
             m_healProsperityUIScript.NowPoint = m_data.data.hp;
-            m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
+            //m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
         }
     }
 

@@ -34,7 +34,7 @@ public class SwitchDrum_Script : Drum_Script
     private Transform m_recipeNote = null;
 
     private AttackRecipeNotesUI_Script m_recipeNotesUI_Script = null;
-    private AttaciRecipiUI_Text_Script m_recipeTextUI_Script = null;
+    private AttackRecipiTextUI_Script m_recipeTextUI_Script = null;
 
     // チュートリアル用のモンスター変更フラグ
     private bool m_tutorialChengeFlag = false;
@@ -66,7 +66,7 @@ public class SwitchDrum_Script : Drum_Script
         m_stickManagerScript = m_stickManager.GetComponent<StickManager_Script>();
         m_abilitySheet_Wood = GameObject.Find("AbilitySheet_Wood");
         m_recipeNote = m_abilitySheet_Wood.transform.Find("AttackRecipeCanvas");
-        m_recipeTextUI_Script = m_recipeNote.GetComponent<AttaciRecipiUI_Text_Script>();
+        m_recipeTextUI_Script = m_recipeNote.GetComponent<AttackRecipiTextUI_Script>();
         m_recipeNote = m_abilitySheet_Wood.transform.Find("Notes");
         m_recipeNotesUI_Script = m_recipeNote.GetComponent<AttackRecipeNotesUI_Script>();
         
