@@ -23,7 +23,13 @@ public class CostUI_Script : MonoBehaviour
    
     // 回復可能フラグ
     private bool m_recoveryFlag = false;
-    
+    public bool RecoveryFlag
+    {
+        set { m_recoveryFlag = value; }
+        get { return m_recoveryFlag; }
+    }
+
+
     // 子を保持する変数
     private Transform m_childSlider = null;
     // 子にアタッチしているSliderを保持する変数

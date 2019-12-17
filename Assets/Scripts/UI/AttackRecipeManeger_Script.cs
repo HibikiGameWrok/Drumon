@@ -83,7 +83,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     }
 
     // 現在のノーツと攻撃する為のノーツが合っているか見比べる
-    public void MatchAttackRecipe()
+    public void MatchAttackRecipe(int nowCost)
     {
         // マッチしたか比較する為のノーツレシピを保持する変数
         string mathcAttackNotes = "00";
@@ -103,30 +103,35 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                 // 生成されたノーツの番号とCSVのデータを比較
                 if (m_notesInstance.SearchInstanceNotes() == attackNum)
                 {
-                    // 一致していたレシピが回復でなければ攻撃
-                    if (m_notesInstance.SearchInstanceNotes() != 111111)
+                    int nowAbility = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_COST]);
+                    if (nowCost >= nowAbility)
                     {
-                        // 技の名前をクリーチャーに教える
-                        m_pCreature_Script.AbiltyName = csvDatas[i][(int)Data_Column.ATK_NAME];
+                        // 一致していたレシピが回復でなければ攻撃
+                        if (m_notesInstance.SearchInstanceNotes() != 111111)
+                        {
+                            // 技の名前をクリーチャーに教える
+                            m_pCreature_Script.AbiltyName = csvDatas[i][(int)Data_Column.ATK_NAME];
 
-                        // 技のレートをクリーチャーに教える
-                        matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
-                        m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
+                            // 技のレートをクリーチャーに教える
+                            matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                            m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
+                        }
+                        else if (m_notesInstance.SearchInstanceNotes() == 111111)
+                        {
+                            // 回復する
+                            m_pCreature_Script.Heal();
+                        }
+                        // 技の名前を表示する
+                        m_abilityNameUI_Script.DrawStringAttackName(csvDatas[i][(int)Data_Column.ATK_NAME]);
                     }
-                    else if (m_notesInstance.SearchInstanceNotes() == 111111)
+                    else
                     {
-                        // 回復する
-                        m_pCreature_Script.Heal();
+                        // 技の名前を表示する
+                        m_abilityNameUI_Script.DrawStringAttackName("コストが足りません");
                     }
-
-
                     // UI の動作 //
                     // コスト消費
                     m_costUI_Script.CostDawn(System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_COST]));
-                    // 技の名前を表示する
-                    m_abilityNameUI_Script.DrawStringAttackName(csvDatas[i][(int)Data_Column.ATK_NAME]);
-
-
                     // 攻撃指示が完了したフラグ
                     m_attackCompFlag = true;
                 }
