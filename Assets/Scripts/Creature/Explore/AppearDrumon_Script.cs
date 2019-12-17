@@ -44,6 +44,9 @@ public class AppearDrumon_Script : MonoBehaviour
     // 計測用フィールド
     private float m_elapesdTime;
 
+    [SerializeField]
+    private AddDrumonList_Script m_list;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,7 +96,14 @@ public class AppearDrumon_Script : MonoBehaviour
 
         // 一つのオブジェクトにまとめる
         go.transform.parent = m_drumonList.transform;
-        
+
+        // スクリプトを取得する
+        var component = go.GetComponent<SearchEnemy_Script>();
+        // リストに加える
+        m_list.DrumonList.Add(component);
+
+        Debug.Log(component.name);
+
         // 出現数を加算する
         m_currentNumberOfDrumons++;
     }
