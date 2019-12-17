@@ -22,18 +22,18 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         ATK_RATE,
         ATK_COST
     }
-
-    // CSVファイル
-    private TextAsset csvFile = null;
-    // CSVの中身を入れるリスト;
-    private List<string[]> csvDatas = new List<string[]>();
     
+
+    private CSVDataHolder csvHolder = new CSVDataHolder();
+    [SerializeField]
+    private AttackRecipeNotesUI_Script m_attackRecipeNotesUI = null;
+    [SerializeField]
+    private AttackRecipiTextUI_Script m_attackRecipeTextUI = null;
+    [SerializeField]
+    private AttackRecipiTextUI_Script m_attackRecipeTextCostUI = null;
 
     // クリーチャーについてのスクリプト保持変数
     private PlayerCreature_Script m_pCreature_Script = null;
-
-    // シートを出す為の前に出ているクリーチャーの名前を保持する変数
-    private string m_sheetCreatureName = null;
 
     // NotesManagerオブジェクトを取得
     private GameObject m_notesManager = null;
@@ -72,31 +72,14 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_costUI_Script = m_CostUI.GetComponent<CostUI_Script>();
     }
 
-    public void CSVLoadFile(PlayerCreature_Script pCreature)
+    // CSVを設定
+    public void CSVSetting(string creatureName)
     {
-        // 変数に保持
-        m_sheetCreatureName = pCreature.Name;
-
-        // Resouces下のCSV読み込み
-        csvFile = Resources.Load("CSV/"+ Regex.Replace(m_sheetCreatureName, @"[^a-z,A-Z]", "") + "CSV") as TextAsset; 
-        StringReader reader = new StringReader(csvFile.text);
-
-        // , で分割しつつ一行ずつ読み込み
-        // リストに追加していく
-        while (reader.Peek() != -1) // reader.Peaekが-1になるまで
-        {
-            string line = reader.ReadLine(); // 一行ずつ読み込み
-            csvDatas.Add(line.Split(',')); // , 区切りでリストに追加
-        }
-
-        // デバッグ用中身を確認する処理
-        //for (int i = 1; i < csvDatas.Count; i++)
-        //{
-        //    for (int j = 0; j < csvDatas[i].Length; j++)
-        //    {
-        //        Debug.Log(csvDatas[i][j].ToString());
-        //    }
-        //}
+        // CSVの保管クラスに設定
+        csvHolder.CSVLoadFile(creatureName);
+        m_attackRecipeNotesUI.ChangeRecipe(csvHolder.CSVDatas);
+        m_attackRecipeTextUI.ChangeRecipe(csvHolder.CSVDatas);
+        m_attackRecipeTextCostUI.ChangeRecipe(csvHolder.CSVDatas);
     }
 
     // 現在のノーツと攻撃する為のノーツが合っているか見比べる
@@ -106,6 +89,10 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         string mathcAttackNotes = "00";
         // マッチした場合にレートを一時的に保持する変数
         string matchRate = "00";
+
+        // 設定したCSVの中身を変数に保持
+        List<string[]> csvDatas = csvHolder.CSVDatas;
+
         for (int i = 1; i < csvDatas.Count; i++)
         {
             // i = 行,Data_Column.ATK_NOTES = 列
@@ -116,8 +103,6 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                 // 生成されたノーツの番号とCSVのデータを比較
                 if (m_notesInstance.SearchInstanceNotes() == attackNum)
                 {
-
-                    //ここに再開後の処理を書く
                     // 一致していたレシピが回復でなければ攻撃
                     if (m_notesInstance.SearchInstanceNotes() != 111111)
                     {
@@ -127,16 +112,21 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                         // 技のレートをクリーチャーに教える
                         matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
                         m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
-
-                        m_costUI_Script.CostDawn(System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_COST]));
                     }
                     else if (m_notesInstance.SearchInstanceNotes() == 111111)
                     {
                         // 回復する
                         m_pCreature_Script.Heal();
                     }
+
+
+                    // UI の動作 //
+                    // コスト消費
+                    m_costUI_Script.CostDawn(System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_COST]));
                     // 技の名前を表示する
                     m_abilityNameUI_Script.DrawStringAttackName(csvDatas[i][(int)Data_Column.ATK_NAME]);
+
+
                     // 攻撃指示が完了したフラグ
                     m_attackCompFlag = true;
                 }
