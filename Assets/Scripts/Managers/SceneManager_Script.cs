@@ -65,7 +65,7 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     {
         // 現在のシーンを実行する
         SceneID result = m_currentScene.Execute();
-        
+        Debug.Log(result);Debug.Log(m_currentScene.Name);
         // 戻り値で処理を分ける
         switch (result)
         {
@@ -120,10 +120,10 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         // 終了処理をする
         m_currentScene.Dispose();
         // 次のシーンを設定する
-        m_currentScene = nextScene;
+        m_currentScene = nextScene;      
         // 遷移する
         TransitionManager_Script.StartTransition(m_currentScene.Name, mode);
-
+        
         // 初期化する
         m_currentScene.Initialize(this);
     }

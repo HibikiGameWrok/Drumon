@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.7
+    agentRadius: 0.4
     agentHeight: 2
-    agentSlope: 40
+    agentSlope: 35
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.23333333
+    cellSize: 0.13333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -19983,10 +19983,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 487265537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b5f3ef0cc9e92343ae98302ac839c35, type: 3}
+  m_Script: {fileID: 11500000, guid: f0f2b289bcd0bd245b07966200cbc410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_list: []
 --- !u!4 &488152934 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2191252526574365020, guid: 396581d83b2055b4aad396d13ab8a330,
@@ -38903,6 +38902,11 @@ PrefabInstance:
       propertyPath: m_drumonList
       value: 
       objectReference: {fileID: 487265537}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_list
+      value: 
+      objectReference: {fileID: 487265539}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98eba2222a6f1534ebc33280a4b204d4, type: 3}
 --- !u!4 &936591232 stripped
@@ -40539,6 +40543,11 @@ PrefabInstance:
       propertyPath: m_drumonList
       value: 
       objectReference: {fileID: 487265537}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_list
+      value: 
+      objectReference: {fileID: 487265539}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98eba2222a6f1534ebc33280a4b204d4, type: 3}
 --- !u!4 &970494249 stripped
@@ -89927,6 +89936,7 @@ MonoBehaviour:
     type: 3}
   m_appearNextTime: 10
   m_drumonList: {fileID: 487265537}
+  m_list: {fileID: 487265539}
 --- !u!65 &3181651677758093388
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -90028,6 +90038,7 @@ MonoBehaviour:
     type: 3}
   m_appearNextTime: 10
   m_drumonList: {fileID: 487265537}
+  m_list: {fileID: 487265539}
 --- !u!1 &3181651677955194408
 GameObject:
   m_ObjectHideFlags: 0
@@ -90208,6 +90219,7 @@ MonoBehaviour:
     type: 3}
   m_appearNextTime: 10
   m_drumonList: {fileID: 487265537}
+  m_list: {fileID: 487265539}
 --- !u!114 &5109065850911239690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90225,6 +90237,7 @@ MonoBehaviour:
     type: 3}
   m_appearNextTime: 10
   m_drumonList: {fileID: 487265537}
+  m_list: {fileID: 487265539}
 --- !u!114 &5109065851293177870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90242,6 +90255,7 @@ MonoBehaviour:
     type: 3}
   m_appearNextTime: 10
   m_drumonList: {fileID: 487265537}
+  m_list: {fileID: 487265539}
 --- !u!114 &5109065852368972680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90259,6 +90273,7 @@ MonoBehaviour:
     type: 3}
   m_appearNextTime: 10
   m_drumonList: {fileID: 487265537}
+  m_list: {fileID: 487265539}
 --- !u!1 &7881106078705446720
 GameObject:
   m_ObjectHideFlags: 0

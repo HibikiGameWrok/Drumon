@@ -18,6 +18,8 @@ using UnityEngine;
 // バトルシーンクラス
 public class SceneBattle_Script : IScene_Script
 {
+    // バトルマネージャー
+    private BattleManager_Script m_battleManager;
 
     /// <summary>
     /// 終了処理
@@ -25,6 +27,8 @@ public class SceneBattle_Script : IScene_Script
     public override void Dispose()
     {
         m_manager.Audio.AttachBGMSource.Stop();
+
+        m_battleManager = null;
     }
 
 
@@ -34,8 +38,11 @@ public class SceneBattle_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
+        if((BattleManager_Script.Get != null)&& (m_battleManager == null))
+            m_battleManager = BattleManager_Script.Get;
+
         // バトルが終了したかで判断する
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) || m_battleManager.IsFinish.Value == true)
         {
             return SceneID.SCENE_REVISED;
         }

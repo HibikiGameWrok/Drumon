@@ -12,12 +12,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
 // 探索シーンクラス
 public class SceneRevised_Script : IScene_Script
 {
+    // コンポーネントを取得する変数
+    private AddDrumonList_Script m_drumonList;
+    
+    private bool m_isTransitionBattle = false;
+
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -25,6 +31,8 @@ public class SceneRevised_Script : IScene_Script
     {
         // BGMを止める
         m_manager.Audio.AttachBGMSource.Stop();
+
+        m_isTransitionBattle = false;
     }
 
 
@@ -34,8 +42,10 @@ public class SceneRevised_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
+        FindSearchEnemy();
+        
         // バトルシーンへ
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) || m_isTransitionBattle == true)
         {
             return SceneID.SCENE_BATTLE;
         }
@@ -63,5 +73,18 @@ public class SceneRevised_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Search);
+    }
+
+    private void FindSearchEnemy()
+    {
+        if(m_drumonList == null)
+            m_drumonList = GameObject.FindObjectOfType<AddDrumonList_Script>();
+
+        Debug.Log(m_drumonList.DrumonList.Find(x => x.IsHit == false));
+
+        if (m_drumonList.DrumonList.Find(x => x.IsHit == true).IsHit == true)
+             m_isTransitionBattle = true; 
+        else
+          return;
     }
 }

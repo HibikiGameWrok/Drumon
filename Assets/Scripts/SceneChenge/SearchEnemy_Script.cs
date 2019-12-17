@@ -9,17 +9,19 @@ public class SearchEnemy_Script : MonoBehaviour
     [SerializeField]
     PlayerPosition_Script m_position = null;
 
+    // プレイヤーに当たったかどうか
+    [SerializeField]
+    private bool m_isHit = false;
+
+    // Hitプロパティ
+    public bool IsHit => m_isHit;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -35,7 +37,9 @@ public class SearchEnemy_Script : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
+                //TransitionManager_Script.StartTransition("BattleScene", LoadSceneMode.Additive);
+                //SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
+                m_isHit = true;
             }
         }
     }
