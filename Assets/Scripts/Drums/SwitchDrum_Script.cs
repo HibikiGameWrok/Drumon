@@ -390,10 +390,6 @@ public class SwitchDrum_Script : Drum_Script
                     // モンスターを変更
                     m_playerCreature.GetComponent<PlayerCreature_Script>().ChangeData(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount]);
 
-                    // UI反映
-                    m_recipeNotesUI_Script.ChangeRecipe();
-                    m_recipeTextUI_Script.ChangeRecipe();
-
                     m_tutorialChengeFlag = true;
                 }
             }

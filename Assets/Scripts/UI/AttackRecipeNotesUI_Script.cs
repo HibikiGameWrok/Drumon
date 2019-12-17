@@ -24,16 +24,6 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
     // Textがアタッチされたオブジェクトの生成数
     private const int MAX_COUNT_OBJECT = 5 + 1;
 
-    // 取得するべき物
-    // 前にでているクリーチャーの名前
-    private string m_nowCreaterName = "none";
-
-    // 前に出ているクリーチャーによって読み込むべきCSV
-    // CSVファイル
-    private TextAsset m_csvFile = null;
-    // CSVの中身を入れるリスト;
-    private List<string[]> m_csvDatas = new List<string[]>();
-
     // レシピのノーツを保管する親オブジェクト
     private Transform []m_AbilitySheetObject = new Transform[5];
 
@@ -51,60 +41,36 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadCSVFile(BattleManager_Script.Get.PlayerCreature.Name);
-        InstanceRecipeNote();
         this.transform.localRotation = this.transform.parent.rotation;
     }
 
 
     // レシピを変更
-    public void ChangeRecipe()
+    public void ChangeRecipe(List<string[]> csvDatas)
     {
         // 元々出ていた子のテキストオブジェクトを削除
         foreach (Transform Child in this.transform)
         {
             Destroy(Child.gameObject);
         }
-
-        // CSVをロード
-        LoadCSVFile(BattleManager_Script.Get.PlayerCreature.Name);
-
         // テキストオブジェクトを表示
-        InstanceRecipeNote();
-    }
-
-    // CSVを読み込む
-    private void LoadCSVFile(string creatureName)
-    {
-        // 現在出ているクリチャーの名前を戦闘管理オブジェクトから取得
-        m_nowCreaterName = Regex.Replace(creatureName, @"[^a-z,A-Z]", "");
-        // 取得したクリーチャーと同じ名前のCSVファイルを読み込む
-        m_csvFile = Resources.Load("CSV/" + m_nowCreaterName + "CSV") as TextAsset;
-        StringReader reader = new StringReader(m_csvFile.text);
-
-        // , で分割しつつ一行ずつ読み込み
-        // リストに追加していく
-        while (reader.Peek() != -1) // reader.Peaekが-1になるまで
-        {
-            string line = reader.ReadLine(); // 一行ずつ読み込み
-            m_csvDatas.Add(line.Split(',')); // , 区切りでリストに追加
-        }
+        InstanceRecipeNote(csvDatas);
     }
 
     // ノーツを生成
-    private void InstanceRecipeNote()
+    private void InstanceRecipeNote(List<string[]> csvDatas)
     {
         // listの中身が入っていない場合は生成しない
-        if (m_csvDatas != null && m_csvDatas.Count > 0)
+        if (csvDatas != null && csvDatas.Count > 0)
         {
             this.transform.localRotation = Quaternion.Euler(Vector3.zero);
             for (int i = 1; i < MAX_COUNT_OBJECT; i++)
             {
                 //1文字ずつ列挙する
-                for (int j = 0; j < m_csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
+                for (int j = 0; j < csvDatas[i][(int)Data_Column.ATK_NOTES].Length; j++)
                 {
                     // 技のノーツ数列を１桁取得
-                    int stringNotesNum = System.Convert.ToInt32(m_csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
+                    int stringNotesNum = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_NOTES].Substring(j, 1));
 
                     // ノーツの座標を設定(１つのノーツにつきX軸にずらす、１つの技名につきY軸をずらす)
                     Vector3 notePos = new Vector3(this.transform.position.x + m_notesShiftWidth * j, this.transform.position.y - m_notesShiftHeight * (i - 1), this.transform.position.z);
@@ -117,7 +83,6 @@ public class AttackRecipeNotesUI_Script : MonoBehaviour
                        this.transform) as GameObject;
                 }
             }
-            m_csvDatas.Clear();
             this.transform.localRotation = this.transform.parent.rotation * m_notesPrefab.transform.rotation;
         }
     }

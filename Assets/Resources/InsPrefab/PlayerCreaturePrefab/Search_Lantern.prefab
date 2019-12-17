@@ -634,6 +634,7 @@ GameObject:
   - component: {fileID: 734786557199385301}
   - component: {fileID: 734786557199385302}
   - component: {fileID: 734786557199385303}
+  - component: {fileID: -8793750908575197713}
   m_Layer: 0
   m_Name: Search_Lantern
   m_TagString: Untagged
@@ -713,7 +714,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_targets: []
   m_patrolPos: {fileID: 0}
-  m_destinationThreshold: 0.1
   m_elapsedTime: 0
 --- !u!114 &734786557199385302
 MonoBehaviour:
@@ -743,3 +743,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-8793750908575197713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724476802121423832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37b8e865e5ad444eb08cbb77394adac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
+  m_position: {fileID: 11400000, guid: 8339627d550a5fc46b41fe1617a56753, type: 2}
+  m_isHit: 0
