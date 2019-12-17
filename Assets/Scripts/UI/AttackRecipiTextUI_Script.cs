@@ -40,19 +40,8 @@ public class AttackRecipiTextUI_Script : MonoBehaviour
     // テキスト座標初期化定数
     private const float ZERO_TEXT_POS = 0.0f;
 
-    // 取得するべき物
-    // 前にでているクリーチャーの名前
-    private string m_nowCreaterName = "none";
-
-    //・・・前に出ているクリーチャーによって読み込むべきCSV・・・//
-    // CSVファイル
-    private TextAsset m_csvFile = null;
-    // CSVの中身を入れるリスト;
-    private List<string[]> m_csvDatas = new List<string[]>();
-
     // 生成するTextオブジェクト
     private GameObject[] m_textObject = new GameObject[MAX_COUNT_OBJECT];
-
 
     // テキスト表示範囲
     [SerializeField]
@@ -65,90 +54,60 @@ public class AttackRecipiTextUI_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 最初に現れる味方ドラモンの名前を取得
-        LoadCSVFile(BattleManager_Script.Get.PlayerCreature.Name);
-        // 技名を表示したTextオブジェクトを生成
-        InstanceTextChildObject();
     }
 
 
     // レシピを変更
-    public void ChangeRecipe()
+    public void ChangeRecipe(List<string[]> csvDatas)
     {
+
         // 元々出ていた子のテキストオブジェクトを削除
-        foreach(Transform Child in this.transform)
+        foreach (Transform Child in this.transform)
         {
             Destroy(Child.gameObject);
         }
 
-        // CSVをロード
-        LoadCSVFile(BattleManager_Script.Get.PlayerCreature.Name);
-
         // テキストオブジェクトを表示
-        InstanceTextChildObject();
+        InstanceTextChildObject(csvDatas);
     }
 
-    private void LoadCSVFile(string pCreatureName)
+    // 子に設定
+    private void InstanceTextChildObject(List<string[]> csvDatas)
     {
-        // 現在出ているクリチャーの名前を戦闘管理オブジェクトから取得
-        m_nowCreaterName = Regex.Replace(pCreatureName, @"[^a-z,A-Z]", "");
-        // 取得したクリーチャーと同じ名前のCSVファイルを読み込む
-        m_csvFile = Resources.Load("CSV/" + m_nowCreaterName + "CSV") as TextAsset;
-        StringReader reader = new StringReader(m_csvFile.text);
-
-        // , で分割しつつ一行ずつ読み込み
-        // リストに追加していく
-        while (reader.Peek() != -1) // reader.Peaekが-1になるまで
+        // 定数の数分オブジェクトをTextコンポーネントをアタッチして生成する
+        for (int i = 1; i < MAX_COUNT_OBJECT; i++)
         {
-            string line = reader.ReadLine(); // 一行ずつ読み込み
-            m_csvDatas.Add(line.Split(',')); // , 区切りでリストに追加
+            // 空のオブジェクトを生成
+            m_textObject[i] = new GameObject(INS_OBJECT_NAME + i);
+            // Textコンポーネントをアタッチ
+            m_textObject[i].AddComponent<Text>();
+            // 親子関係を自身に結ぶ
+            m_textObject[i].transform.SetParent(this.transform);
+            // Textオブジェクトのコンポーネント設定
+            SettingTextProperty(i);
+            // 表示するTextの内容をcsvのデータを参照
+            m_textObject[i].GetComponent<Text>().text = SetText(i, m_dataColumn, csvDatas);
         }
     }
 
-    private string SetText(int num,Data_Column dataColumn)
+    private string SetText(int num, Data_Column dataColumn, List<string[]> csvDatas)
     {
         switch (dataColumn)
         {
             case Data_Column.ATK_NAME:
-                return m_costText = m_csvDatas[num][(int)Data_Column.ATK_NAME];
+                return m_costText = csvDatas[num][(int)Data_Column.ATK_NAME];
             case Data_Column.ATK_ELEMENT:
-                return m_costText = m_csvDatas[num][(int)Data_Column.ATK_ELEMENT]; 
+                return m_costText = csvDatas[num][(int)Data_Column.ATK_ELEMENT]; 
             case Data_Column.ATK_NOTES:
                 return "ノーツプレハブが生成するオブジェクトを使用してください";
             case Data_Column.ATK_RATE:
-                return m_costText = m_csvDatas[num][(int)Data_Column.ATK_RATE];
+                return m_costText = csvDatas[num][(int)Data_Column.ATK_RATE];
             case Data_Column.ATK_COST:
-                return m_costText = "Cost : " + m_csvDatas[num][(int)Data_Column.ATK_COST];
+                return m_costText = "Cost : " + csvDatas[num][(int)Data_Column.ATK_COST];
             default:
                 break;
         }
-        return null;
-    }
-
-    // 子に設定
-    private void InstanceTextChildObject()
-    {
-        // listの中身が入っていない場合は生成しない
-        if (m_csvDatas != null && m_csvDatas.Count > 0)
-        {
-            // 定数の数分オブジェクトをTextコンポーネントをアタッチして生成する
-            for (int i = 1; i < MAX_COUNT_OBJECT; i++)
-            {
-            
-                // 空のオブジェクトを生成
-                m_textObject[i] = new GameObject(INS_OBJECT_NAME + i);
-                // Textコンポーネントをアタッチ
-                m_textObject[i].AddComponent<Text>();
-                // 親子関係を自身に結ぶ
-                m_textObject[i].transform.SetParent(this.transform);
-                
-                // Textオブジェクトのコンポーネント設定
-                SettingTextProperty(i);
-                // 表示するTextの内容をcsvのデータを参照
-                m_textObject[i].GetComponent<Text>().text = SetText(i, m_dataColumn);
-            }
-            m_csvDatas.Clear();
-        }
+        return "";
     }
 
     // Textオブジェクトのコンポーネント設定

@@ -84,7 +84,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             }
         }
 
-        m_attackRecipe.CSVLoadFile(this);
 
         m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.data.hp;
@@ -146,7 +145,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         {
             m_data = data;
             CreatePrefab();
-
+            m_attackRecipe.CSVSetting(m_data.name);
             m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
             m_healProsperityUIScript.NowPoint = m_data.data.hp;
             //m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
