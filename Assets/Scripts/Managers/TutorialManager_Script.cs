@@ -320,18 +320,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
     }
 
-    public void SetPlayerCreature(PlayerCreature_Script creature)
-    {
-        this.m_playerCreature = creature;
-        if (this.m_enemyCreature) this.SetTarget();
-    }
-
-    public void SetEnemyCreature(EnemyCreature_Script creature)
-    {
-        this.m_enemyCreature = creature;
-        if (this.m_playerCreature) this.SetTarget();
-    }
-
     private void SetTarget()
     {
         this.m_playerCreature.SetTarget(this.m_enemyCreature);

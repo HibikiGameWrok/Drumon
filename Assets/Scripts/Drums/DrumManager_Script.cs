@@ -105,7 +105,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     void Update()
     {
         // プレイヤーモンスターのHPをUIに適用
-        m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
+        //m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
         // 行動ゲージが終わったかのフラグの取得
         //m_gaugeFinishFlag = m_timerObject.GetComponent<AccelerationTime_Script>().TimerMax();
 
