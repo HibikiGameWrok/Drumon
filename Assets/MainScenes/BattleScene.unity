@@ -1271,6 +1271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1145010499}
+  - component: {fileID: 1145010500}
   m_Layer: 0
   m_Name: BattleScene
   m_TagString: Untagged
@@ -1304,6 +1305,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145010500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145010498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57eac238e9485a04f94d99e72625603d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pos: {fileID: 11400000, guid: 8339627d550a5fc46b41fe1617a56753, type: 2}
 --- !u!1 &1344266150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,6 +1378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57eac238e9485a04f94d99e72625603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pos: {fileID: 0}
 --- !u!1001 &1348737370
 PrefabInstance:
   m_ObjectHideFlags: 0

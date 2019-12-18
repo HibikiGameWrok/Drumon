@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class PlayerPositionGetter : SingletonBase_Script<PlayerPositionGetter>
 {
-
+    [SerializeField]
+    private PlayerPosition_Script m_pos;
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.transform.position = m_pos.Position;
     }
 }
