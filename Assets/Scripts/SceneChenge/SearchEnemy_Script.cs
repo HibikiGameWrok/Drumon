@@ -23,13 +23,23 @@ public class SearchEnemy_Script : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Destroyされた時の処理
+    /// </summary>
+    private void OnDestroy()
+    {
+        // IsHitを伏せる
+        m_isHit = false;
+    }
+
+
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             m_enemyCreature.EnemyCreatureData = CreateData_Script.Get.CreateData(this.gameObject.tag);
             m_position.Position = this.transform.position;
-            Destroy(gameObject);
+            
 
             if (this.gameObject.tag == "Tutorial")
             {
@@ -37,10 +47,10 @@ public class SearchEnemy_Script : MonoBehaviour
             }
             else
             {
-                //TransitionManager_Script.StartTransition("BattleScene", LoadSceneMode.Additive);
-                //SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
                 m_isHit = true;
             }
+            // 1秒後にdestroyする
+            Destroy(gameObject, 1.0f);
         }
     }
 }
