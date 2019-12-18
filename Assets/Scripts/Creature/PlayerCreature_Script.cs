@@ -21,13 +21,17 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         get { return this.m_data.data.hp; }
     }
 
-    private float m_timer;
+    public float WaitTime
+    {
+        get { return this.m_data.data.waitTime; }
+    }
 
     private GameObject m_healProsperityUI = null;
     private HealProsperityUI_Script m_healProsperityUIScript = null;
     private GameObject m_TimerObject = null;
-    private AccelerationTime_Script m_accelerationTimeScript = null; 
+    private AccelerationTime_Script m_accelerationTimeScript = null;
 
+    private float m_timer;
     public float Timer
     {
         get { return this.m_timer; }
@@ -36,7 +40,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     private ICreature_Script m_target = null;
 
     private int m_rate;
-
     public int Rate
     {
         get { return m_rate; }
