@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class CostUI_Script : MonoBehaviour
 {
-
     // 最大値
     [SerializeField]
     private float m_maxValue = 10.0f;
@@ -21,14 +20,20 @@ public class CostUI_Script : MonoBehaviour
     }
     // 最小値
     private float m_minValue = 0.0f;
+   
+    // 回復可能フラグ
+    private bool m_recoveryFlag = false;
+    public bool RecoveryFlag
+    {
+        set { m_recoveryFlag = value; }
+        get { return m_recoveryFlag; }
+    }
+
 
     // 子を保持する変数
     private Transform m_childSlider = null;
     // 子にアタッチしているSliderを保持する変数
     private Slider m_sliderCompnent = null;
-
-    // 回復可能フラグ
-    private bool m_recoveryFlag = false;
 
     // コストテキストオブジェクト
     private Transform m_costTextUI = null;
@@ -57,7 +62,8 @@ public class CostUI_Script : MonoBehaviour
     {
         m_sliderCompnent.value = m_nowValue;
         m_costText.NowCost = m_nowValue;
-        if (m_recoveryFlag == true)
+        GageEnd();
+        if (GageEnd() == true)
         {
             GageRecovery(10.0f);
         }
@@ -66,7 +72,7 @@ public class CostUI_Script : MonoBehaviour
     // ゲージを増やす処理
     private void GageRecovery(float waitTime)
     {
-        if (m_sliderCompnent.value < m_sliderCompnent.maxValue)
+        if (m_nowValue < m_sliderCompnent.maxValue)
         {
             m_nowValue += Time.deltaTime / m_maxValue * waitTime;
         }
@@ -75,7 +81,28 @@ public class CostUI_Script : MonoBehaviour
     // コスト消費（毎フレーム処理は不可）
     public void CostDawn(float cost)
     {
-        // 絶対値で取得し計算する
-        m_nowValue -= Mathf.Abs(cost);
+        if (m_recoveryFlag != true)
+        {
+            if ((int)m_nowValue > 0)
+            {
+                // 絶対値で取得し計算する
+                m_nowValue -= Mathf.Abs(cost);
+            }
+        }
+    }
+
+    private bool GageEnd()
+    {
+        if((int)m_nowValue <= 0)
+        {
+            m_recoveryFlag = true;
+        }
+        else
+        if ((int)m_nowValue >= m_sliderCompnent.maxValue)
+        {
+            m_recoveryFlag = false;
+        }
+
+        return m_recoveryFlag;
     }
 }

@@ -27,12 +27,14 @@ public class NotesInstance_Script : MonoBehaviour
 
     // タイムオブジェクトを保持
     private GameObject m_timer = null;
-    // タイムScriptを取得
-    //private AccelerationTime_Script m_timeStandard_Script = null;
 
     // レシピマネージャーを取得
     private GameObject m_attackRecipeManager = null;
     private AttackRecipeManeger_Script m_attackRecipeManagerScript = null;
+
+    // コストScriptを取得
+    [SerializeField]
+    private CostUI_Script m_costUI = null;
 
     // 子のノーツプレハブから数字を保持する変数
     private string m_childNumSequence = "0";
@@ -64,13 +66,15 @@ public class NotesInstance_Script : MonoBehaviour
 
         if (m_countnNotes == MAX_NOTES)
         {
-            // 出ているノーツが攻撃レシピと同じか
-            m_attackRecipeManagerScript.MatchAttackRecipe();
-
-            // ノーツリセット
-            ResetNotes();
-            // カウントリセット
-            ResetCount();
+            if (m_costUI.RecoveryFlag != true)
+            {
+                // 出ているノーツが攻撃レシピと同じか
+                m_attackRecipeManagerScript.MatchAttackRecipe((int)m_costUI.NowCostValue);
+                // ノーツリセット
+                ResetNotes();
+                // カウントリセット
+                ResetCount();
+            }
         }
         InputTest();
     }

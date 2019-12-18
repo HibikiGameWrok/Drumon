@@ -117,11 +117,13 @@ public class AttackDrum_Script : Drum_Script
 
         if (m_changeMaterialCount >= 10)
         {
-            // マテリアル変更
-            m_inDrumRender.sharedMaterial = m_drumMaterials[0];
-            // マテリアル変更
-            m_outDrumRender.sharedMaterial = m_drumMaterials[1];
-
+            if (m_drumMaterials != null)
+            {
+                // マテリアル変更
+                m_inDrumRender.sharedMaterial = m_drumMaterials[0];
+                // マテリアル変更
+                m_outDrumRender.sharedMaterial = m_drumMaterials[1];
+            }
             m_changeMaterialCount = 0;
             m_changeMaterialFlag = false;
         }
@@ -155,18 +157,22 @@ public class AttackDrum_Script : Drum_Script
     // 内側に当たった処理
     public void InHit()
     {
-        // マテリアル変更
-        m_inDrumRender.sharedMaterial = m_drumMaterials[2];
-
+        if (m_drumMaterials != null)
+        {
+            // マテリアル変更
+            m_inDrumRender.sharedMaterial = m_drumMaterials[2];
+        }
         m_changeMaterialFlag = true;
     }
 
     // 外側に当たった処理
     public void OutHit()
     {
-        // マテリアル変更
-        m_outDrumRender.sharedMaterial = m_drumMaterials[3];
-
+        if (m_drumMaterials != null)
+        {
+            // マテリアル変更
+            m_outDrumRender.sharedMaterial = m_drumMaterials[3];
+        }
         m_changeMaterialFlag = true;
     }
 

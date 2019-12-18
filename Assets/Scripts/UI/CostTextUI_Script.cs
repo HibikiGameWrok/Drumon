@@ -24,12 +24,15 @@ public class CostTextUI_Script : MonoBehaviour
         {
             m_textUI = this.GetComponent<Text>();
         }
-        m_textUI.text = TEMP_TEXTNAME + Mathf.Floor(m_nowCost) + TEMP_TEXTCOSTMAX;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(m_nowCost < 0)
+        {
+            m_nowCost = 0.0f;
+        }
         m_textUI.text = TEMP_TEXTNAME + Mathf.Floor(m_nowCost) + TEMP_TEXTCOSTMAX;
     }
 }
