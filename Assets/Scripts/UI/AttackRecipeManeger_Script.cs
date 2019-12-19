@@ -72,7 +72,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_costUI_Script = m_CostUI.GetComponent<CostUI_Script>();
     }
 
-    // CSVを設定
+    // CSVを設定(主にクリーチャーのデータが変更された時に呼ばれる)
     public void CSVSetting(string creatureName)
     {
         // CSVの保管クラスに設定
@@ -80,6 +80,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_attackRecipeNotesUI.ChangeRecipe(csvHolder.CSVDatas);
         m_attackRecipeTextUI.ChangeRecipe(csvHolder.CSVDatas);
         m_attackRecipeTextCostUI.ChangeRecipe(csvHolder.CSVDatas);
+        m_costUI_Script.WaitTime = m_pCreature_Script.WaitTime;
     }
 
     // 現在のノーツと攻撃する為のノーツが合っているか見比べる
