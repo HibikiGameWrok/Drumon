@@ -21,7 +21,7 @@ public class CSVDataHolder
         {
             return;
         }
-
+        m_csvDatas.Clear();
         // Resouces下のCSV読み込み
         TextAsset csvFile = Resources.Load("CSV/" + Regex.Replace(creatureName, @"[^a-z,A-Z]", "") + "CSV") as TextAsset;
         StringReader reader = new StringReader(csvFile.text);
