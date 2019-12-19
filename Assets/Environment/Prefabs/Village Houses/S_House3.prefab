@@ -11,7 +11,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 1698543551047207188, guid: 1bfe23bd97bbaef4c88b1c5e39dfcfd0, type: 3}
 --- !u!1 &7994291195534890306
@@ -60,7 +60,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 1bfe23bd97bbaef4c88b1c5e39dfcfd0,
         type: 3}
       propertyPath: m_TagString
-      value: ExcludeTeleport
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1bfe23bd97bbaef4c88b1c5e39dfcfd0,
         type: 3}
