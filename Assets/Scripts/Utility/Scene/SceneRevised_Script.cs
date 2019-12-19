@@ -42,6 +42,7 @@ public class SceneRevised_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
+        // 対象オブジェクトを探す
         FindSearchEnemy();
         
         // バトルシーンへ
@@ -75,16 +76,22 @@ public class SceneRevised_Script : IScene_Script
         m_manager.Audio.PlayBGM(BfxType.bgm_Search);
     }
 
+
+    /// <summary>
+    /// 対象オブジェクトを探し出す
+    /// </summary>
     private void FindSearchEnemy()
-    {
+    {      
+        // nullならfindする
         if(m_drumonList == null)
             m_drumonList = GameObject.FindObjectOfType<AddDrumonList_Script>();
 
-        Debug.Log(m_drumonList.DrumonList.Find(x => x.IsHit == false));
+        // nullなら処理しない
+        if (m_drumonList.DrumonList.Find(x => x.IsHit == true) == null)
+            return;
 
+        // IsHitがtrueならtransitionする
         if (m_drumonList.DrumonList.Find(x => x.IsHit == true).IsHit == true)
-             m_isTransitionBattle = true; 
-        else
-          return;
+            m_isTransitionBattle = true; 
     }
 }

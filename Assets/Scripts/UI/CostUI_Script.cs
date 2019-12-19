@@ -29,6 +29,13 @@ public class CostUI_Script : MonoBehaviour
         get { return m_recoveryFlag; }
     }
 
+    // クールタイム
+    private float m_waitTime = 0.0f;
+    public float WaitTime
+    {
+        set { m_waitTime = value; }
+        get { return m_waitTime; }
+    }
 
     // 子を保持する変数
     private Transform m_childSlider = null;
@@ -65,7 +72,7 @@ public class CostUI_Script : MonoBehaviour
         GageEnd();
         if (GageEnd() == true)
         {
-            GageRecovery(10.0f);
+            GageRecovery(m_waitTime);
         }
     }
 
