@@ -37,6 +37,13 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
 
 
     /// <summary>
+    /// シーンのプロパティ
+    /// </summary>
+    public SceneTitle_Script Title => (SceneTitle_Script)m_title;
+    public SceneRevised_Script Revised => (SceneRevised_Script)m_revised;
+    public SceneBattle_Script Battle => (SceneBattle_Script)m_battle;
+
+    /// <summary>
     /// 初期化処理
     /// </summary>
     public void Initialize(AudioManager_Script audio)
@@ -63,8 +70,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     /// <returns></returns>
     public bool Execute()
     {
-        //if (SceneManager.GetActiveScene().name != m_currentScene.Name)
-        //   return false; 
+        if (SceneManager.GetActiveScene().name != m_currentScene.Name)
+           return false; 
 
         // 現在のシーンを実行する
         SceneID result = m_currentScene.Execute();
@@ -80,16 +87,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
                 ChangeScene(m_title);
                 break;
             case SceneID.SCENE_REVISED:
-                if (m_currentScene.Name == m_battle.Name)
-                {
-                    // 現在のシーンをアンロードしてから次のシーンへ
-                    UnloadScene(m_revised, m_battle);
-                }
-                else
-                {
-                    // 探索シーン
-                    ChangeScene(m_revised);
-                }
+                // 探索シーン
+                ChangeScene(m_revised);
                  break;
             case SceneID.SCENE_BATTLE:
                 // バトルシーンへ
@@ -126,32 +125,12 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         // 次のシーンを設定する
         m_currentScene = nextScene;      
         // 遷移する
-        TransitionManager_Script.StartTransition(m_currentScene.Name, mode);
+        //TransitionManager_Script.StartTransition(m_currentScene.Name, mode);
 
         // ActiveSceneを切り替える
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(m_currentScene.Name));
-
-        // 初期化する
-        m_currentScene.Initialize(this);
-    }
-
-
-    /// <summary>
-    /// Unload版
-    /// </summary>
-    /// <param name="nextScene">次のシーン名</param>
-    /// <param name="unloadScene">Unloadするシーン名</param>
-    public async void UnloadScene(IScene_Script nextScene, IScene_Script unloadScene)
-    {
-        await TransitionManager_Script.OnTransitionFinishedAsync();
-
-        // 終了処理をする
-        m_currentScene.Dispose();
-   
-        // アンロードする
-        TransitionManager_Script.StartTransition_UnloadScene(unloadScene.Name);
-        // 次のシーンを設定する
-        m_currentScene = nextScene;
+        if(SceneManager.GetActiveScene().isLoaded)
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(m_currentScene.Name));
+        
         // 初期化する
         m_currentScene.Initialize(this);
     }

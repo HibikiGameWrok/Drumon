@@ -35,12 +35,12 @@ public class SceneBattle_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        //if((BattleManager_Script.Get != null) && (m_battleManager == null))
-            //m_battleManager = BattleManager_Script.Get;
-
         // バトルが終了したかで判断する
         if (Input.GetKeyDown(KeyCode.G) || BattleManager_Script.Get.IsFinish.Value == true)
         {
+            // 非同期処理のSceneアンロード
+            TransitionManager_Script.StartTransition_UnloadScene(this.Name);
+
             return SceneID.SCENE_REVISED;
         }
 

@@ -48,6 +48,9 @@ public class SceneRevised_Script : IScene_Script
         // バトルシーンへ
         if (Input.GetKeyDown(KeyCode.B) || m_isTransitionBattle == true)
         {
+            // 非同期処理のSceneロード
+            TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+
             return SceneID.SCENE_BATTLE;
         }
         // リザルトシーンへ
@@ -55,6 +58,9 @@ public class SceneRevised_Script : IScene_Script
         // タイトルシーンへ
         if (Input.GetKeyDown(KeyCode.R))
         {
+            // 非同期処理のSceneロード
+            TransitionManager_Script.StartTransition(m_manager.Title.Name);
+
             return SceneID.SCENE_TITLE;
         }
 
