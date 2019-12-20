@@ -27,8 +27,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private AnimatorStateInfo m_animState;
 
     // HPUI
-    private GameObject m_healProsperityUI;
-    private HealProsperityUI_Script m_healProsperityUIScript;
+    private GameObject m_healProsperityUI = null;
+    private HealProsperityUI_Script m_healProsperityUIScript = null;
+    // AttackWaitTimeUI
+    private GameObject m_waitTime = null;
+    private EnemyWaitTimeUI_Script m_enemyWaitTimeUIScript = null;
 
     // Start is called before the first frame update
     void Start()
@@ -48,13 +51,20 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_healProsperityUI = GameObject.Find("ESlider");
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
 
+        m_waitTime = GameObject.Find("WaitTime");
+        m_enemyWaitTimeUIScript = m_waitTime.GetComponent<EnemyWaitTimeUI_Script>();
+
         m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.data.hp;
+
+        m_enemyWaitTimeUIScript.MaxPoint = m_data.data.waitTime;
+        m_enemyWaitTimeUIScript.NowPoint = m_timer;
     }
 
     public void Execute()
     {
         m_healProsperityUIScript.NowPoint = m_data.data.hp;
+        m_enemyWaitTimeUIScript.NowPoint = m_timer;
         this.CountTimer();
         if (this.m_timer >= m_data.data.waitTime) this.m_atkFlag = true;
 
