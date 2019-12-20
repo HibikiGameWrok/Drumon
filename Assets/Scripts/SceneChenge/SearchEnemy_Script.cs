@@ -41,14 +41,8 @@ public class SearchEnemy_Script : MonoBehaviour
             m_position.Position = this.transform.position;
             
 
-            if (this.gameObject.tag == "Tutorial")
-            {
-                SceneManager.LoadScene("TutorialTestScene", LoadSceneMode.Additive);
-            }
-            else
-            {
-                m_isHit = true;
-            }
+            m_isHit = true;
+
             // 1秒後にdestroyする
             Destroy(gameObject, 1.0f);
         }

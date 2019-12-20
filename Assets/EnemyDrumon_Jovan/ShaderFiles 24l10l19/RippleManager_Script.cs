@@ -103,6 +103,8 @@ public class RippleManager_Script : MonoBehaviour {
         
         CreateRipple(col.gameObject.transform.position);
 
+        ObjInWaterList.Remove(col.gameObject);
+
     }
 
     void CreateRipple(Vector3 location)
