@@ -39,7 +39,10 @@ public class SceneTitle_Script : IScene_Script
         if(Input.GetKeyDown(KeyCode.Space) || 
             OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
+            // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.taiko);
+            // 非同期処理のSceneロード
+            TransitionManager_Script.StartTransition(m_manager.Revised.Name);
 
             return SceneID.SCENE_REVISED;
         }
