@@ -87,7 +87,7 @@ public class SceneRevised_Script : IScene_Script
             m_drumonList = GameObject.FindObjectOfType<AddDrumonList_Script>();
 
         // nullなら処理しない
-        if (m_drumonList.DrumonList.Find(x => x.IsHit == true) == null)
+        if (!m_drumonList || m_drumonList.DrumonList.Find(x => x.IsHit == true) == null)
             return;
 
         // IsHitがtrueならtransitionする
