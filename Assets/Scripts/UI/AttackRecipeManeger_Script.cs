@@ -57,20 +57,27 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     }
 
 
-    void Start()
+    new void Awake()
     {
         // ノーツ管理オブジェクトを取得
         m_notesManager = GameObject.Find("NotesManager");
 
+        // ノーツ生成オブジェクトを取得
         m_notesInstance = m_notesManager.GetComponent<NotesInstance_Script>();
+        // クリーチャーのデータを取得
         m_pCreature_Script = BattleManager_Script.Get.PlayerCreature;
 
+        // 技の名前UIを取得
         m_abilityNameTextUI = GameObject.Find("AbilityNameTextUI");
+        // アタッチされたScriptを取得
         m_abilityNameUI_Script = m_abilityNameTextUI.GetComponent<AttackAbilityNameUI_Script>();
 
-        m_CostUI = GameObject.Find("RecipeUI");
+        // コストのゲージUIを取得
+        m_CostUI = GameObject.Find("Slider");
+        // アタッチされたScriptを取得
         m_costUI_Script = m_CostUI.GetComponent<CostUI_Script>();
     }
+
 
     // CSVを設定(主にクリーチャーのデータが変更された時に呼ばれる)
     public void CSVSetting(string creatureName)
@@ -82,6 +89,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_attackRecipeTextCostUI.ChangeRecipe(csvHolder.CSVDatas);
         m_costUI_Script.WaitTime = m_pCreature_Script.WaitTime;
     }
+
 
     // 現在のノーツと攻撃する為のノーツが合っているか見比べる
     public void MatchAttackRecipe(int nowCost)

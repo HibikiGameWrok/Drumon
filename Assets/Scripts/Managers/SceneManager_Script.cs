@@ -64,7 +64,7 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     public bool Execute()
     {
         //if (SceneManager.GetActiveScene().name != m_currentScene.Name)
-         //   return false; 
+        //   return false; 
 
         // 現在のシーンを実行する
         SceneID result = m_currentScene.Execute();
@@ -115,7 +115,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     /// <summary>
     /// シーンを変更する
     /// </summary>
-    /// <param name="nextScene">次のシーン</param>
+    /// <param name="nextScene">次のシーン名</param>
+    /// <param name="mode">ロードシーンモード</param>
     public async void ChangeScene(IScene_Script nextScene,LoadSceneMode mode = LoadSceneMode.Single)
     {
         await TransitionManager_Script.OnTransitionFinishedAsync();
@@ -127,8 +128,7 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         // 遷移する
         TransitionManager_Script.StartTransition(m_currentScene.Name, mode);
 
-        //Debug.Log(SceneManager.GetSceneByName(m_currentScene.Name.ToString()));
-        //// ActiveSceneを切り替える
+        // ActiveSceneを切り替える
         //SceneManager.SetActiveScene(SceneManager.GetSceneByName(m_currentScene.Name));
 
         // 初期化する
@@ -136,6 +136,11 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     }
 
 
+    /// <summary>
+    /// Unload版
+    /// </summary>
+    /// <param name="nextScene">次のシーン名</param>
+    /// <param name="unloadScene">Unloadするシーン名</param>
     public async void UnloadScene(IScene_Script nextScene, IScene_Script unloadScene)
     {
         await TransitionManager_Script.OnTransitionFinishedAsync();

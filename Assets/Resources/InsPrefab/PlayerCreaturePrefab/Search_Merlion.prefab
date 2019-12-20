@@ -894,7 +894,7 @@ GameObject:
   - component: {fileID: 1091505256733747574}
   m_Layer: 0
   m_Name: Search_Merlion
-  m_TagString: Untagged
+  m_TagString: Lantern
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1000,6 +1000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
   m_position: {fileID: 11400000, guid: 8339627d550a5fc46b41fe1617a56753, type: 2}
+  m_isHit: 0
 --- !u!136 &1091505256733747574
 CapsuleCollider:
   m_ObjectHideFlags: 0

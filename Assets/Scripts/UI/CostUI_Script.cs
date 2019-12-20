@@ -9,10 +9,10 @@ public class CostUI_Script : MonoBehaviour
 {
     // 最大値
     [SerializeField]
-    private float m_maxValue = 10.0f;
+    private float m_maxValue;
     // 現在値
     [SerializeField]
-    private float m_nowValue = 0.0f;
+    private float m_nowValue;
     public float NowCostValue
     {
         get { return m_nowValue; }
@@ -37,28 +37,22 @@ public class CostUI_Script : MonoBehaviour
         get { return m_waitTime; }
     }
 
-    // 子を保持する変数
-    private Transform m_childSlider = null;
     // 子にアタッチしているSliderを保持する変数
     private Slider m_sliderCompnent = null;
 
     // コストテキストオブジェクト
-    private Transform m_costTextUI = null;
+    private GameObject m_costTextUI = null;
     private CostTextUI_Script m_costText = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (this.transform.Find("Slider") != null)
-        {
-            m_childSlider = this.transform.Find("Slider");
-            m_sliderCompnent = m_childSlider.GetComponent<Slider>();
-        }
-        if (this.transform.FindChild("CostTextUI") != null)
-        {
-            m_costTextUI = this.transform.FindChild("CostTextUI");
-            m_costText = m_costTextUI.GetComponent<CostTextUI_Script>();
-        }
+
+        m_sliderCompnent = this.GetComponent<Slider>();
+
+        m_costTextUI = GameObject.Find("CostTextUI");
+        m_costText = m_costTextUI.GetComponent<CostTextUI_Script>();
+
         m_sliderCompnent.minValue = m_minValue;
         m_sliderCompnent.maxValue = m_maxValue;
         m_sliderCompnent.value = m_nowValue;
@@ -69,7 +63,6 @@ public class CostUI_Script : MonoBehaviour
     {
         m_sliderCompnent.value = m_nowValue;
         m_costText.NowCost = m_nowValue;
-        GageEnd();
         if (GageEnd() == true)
         {
             GageRecovery(m_waitTime);
@@ -98,9 +91,11 @@ public class CostUI_Script : MonoBehaviour
         }
     }
 
+    // ゲージが最終値に達した時
     private bool GageEnd()
     {
-        if((int)m_nowValue <= 0)
+        // 現在が最低値に達したとき
+        if((int)m_sliderCompnent.value <= 0)
         {
             m_recoveryFlag = true;
         }
@@ -109,7 +104,6 @@ public class CostUI_Script : MonoBehaviour
         {
             m_recoveryFlag = false;
         }
-
         return m_recoveryFlag;
     }
 }
