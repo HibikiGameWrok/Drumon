@@ -125,7 +125,7 @@ public class CaptureDrum_Script : Drum_Script
             // カウントアップ
             m_captureCount++;
 
-            // 回復ドラムを叩いた判定フラグを伏せる
+            // 捕獲ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
             m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE);
         }
