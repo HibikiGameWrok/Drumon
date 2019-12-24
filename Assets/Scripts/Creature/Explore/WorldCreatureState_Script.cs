@@ -15,6 +15,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+public enum StateID
+{
+    CONTINUE,
+    STATE_IDLE,
+    STATE_WALK,
+    STATE_CHASE,
+}
+
+
 // 探索でのドラモンの状態遷移クラス
 public abstract class WorldCreatureState_Script
 {
@@ -31,7 +40,7 @@ public abstract class WorldCreatureState_Script
     /// 実行する
     /// </summary>
     /// <returns>true=継続する false=状態を変更する </returns>
-    public abstract bool Execute();
+    public abstract StateID Execute();
 
 
     /// <summary>

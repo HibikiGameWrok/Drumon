@@ -31,7 +31,7 @@ public class WorldCreatureWalk_Script : WorldCreatureState_Script
     /// 実行する
     /// </summary>
     /// <returns>true=継続する false=状態変更</returns>
-    public override bool Execute()
+    public override StateID Execute()
     {
         if (m_controller.Agent.remainingDistance <= 0.3f)
         {
@@ -39,11 +39,12 @@ public class WorldCreatureWalk_Script : WorldCreatureState_Script
             m_controller.NextPosition();
             // 状態を変更する
             m_controller.Animator.SetBool("IsWalk",false);
-            return false;
+
+            return StateID.STATE_IDLE;
         }
 
         // 継続する
-        return true;
+        return StateID.CONTINUE;
     }
 
 
