@@ -35,10 +35,17 @@ public class AppearDrumon_Script : MonoBehaviour
     [Tooltip("出現する最大数")]
     private int m_maxDrumon;
 
+    [Tooltip("DrumonList")]
+    [SerializeField]
+    private GameObject m_drumonList;
+
     // 現在出現している数
     private int m_currentNumberOfDrumons;
     // 計測用フィールド
     private float m_elapesdTime;
+
+    [SerializeField]
+    private AddDrumonList_Script m_list;
 
     // Start is called before the first frame update
     void Start()
@@ -79,13 +86,23 @@ public class AppearDrumon_Script : MonoBehaviour
         // ドラモンの向きをランダムに決定する
         var randomRotationY = Random.value * 360f;
         // 出現座標に補正をかける
-        var randomPos = Random.Range(-20, 20);
+        var randomPos = Random.Range(-10, 10);
         var position = new Vector3(randomPos, 0, randomPos);
 
         // 生成する
-        Instantiate(m_drumon, transform.position+position,
+        var go = Instantiate(m_drumon, transform.position+position,
             Quaternion.Euler(0f, randomRotationY, 0f)
             );
+
+        // 一つのオブジェクトにまとめる
+        go.transform.parent = m_drumonList.transform;
+
+        // スクリプトを取得する
+        var component = go.GetComponent<SearchEnemy_Script>();
+        // リストに加える
+        m_list.DrumonList.Add(component);
+
+        Debug.Log(component.name);
 
         // 出現数を加算する
         m_currentNumberOfDrumons++;

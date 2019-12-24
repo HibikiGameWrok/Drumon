@@ -9,6 +9,9 @@ public class IyaGoScene : MonoBehaviour
     [SerializeField]
     private BattleManager_Script m_battleManager = null;
 
+    [SerializeField]
+    private string m_nextScene;
+
     // Start is called before the first frame update
     private async void Start()
     {
@@ -22,7 +25,8 @@ public class IyaGoScene : MonoBehaviour
             .Where(_ => m_battleManager.IsFinish.Value == true)
             .Subscribe(_ =>
             {
-                TransitionManager_Script.StartTransition("SampleTitle", LoadSceneMode.Single);
+                //SceneManager.UnloadSceneAsync(m_nextScene);
+                TransitionManager_Script.StartTransition_UnloadScene("BattleScene");
             }).AddTo(gameObject);
     }
 }

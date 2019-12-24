@@ -27,12 +27,14 @@ public class NotesInstance_Script : MonoBehaviour
 
     // タイムオブジェクトを保持
     private GameObject m_timer = null;
-    // タイムScriptを取得
-    private AccelerationTime_Script m_timeStandard_Script = null;
 
-    // 仮でレシピマネージャーを取得(後で消す)
+    // レシピマネージャーを取得
     private GameObject m_attackRecipeManager = null;
     private AttackRecipeManeger_Script m_attackRecipeManagerScript = null;
+
+    // コストScriptを取得
+    [SerializeField]
+    private CostUI_Script m_costUI = null;
 
     // 子のノーツプレハブから数字を保持する変数
     private string m_childNumSequence = "0";
@@ -43,18 +45,18 @@ public class NotesInstance_Script : MonoBehaviour
     // 生成座標を保持
     private Vector3 m_instancePos;
 
+    // 生成する幅
+    [SerializeField]
+    private float m_insWidth = 0.12f ;
 
     // Start is called before the first frame update
     void Start()
     {
         m_timer = GameObject.Find("Timer");
-        m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
+        //m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
 
-        // 後で消す
         m_attackRecipeManager = GameObject.Find("AttackRecipeManeger");
         m_attackRecipeManagerScript = m_attackRecipeManager.GetComponent<AttackRecipeManeger_Script>();
-
-
     }
 
     void Update()
@@ -62,19 +64,21 @@ public class NotesInstance_Script : MonoBehaviour
         // アタッチされた座標を基準とする
         m_instancePos = this.transform.position;
 
-        //行動タイムがMAXになったら
-        if (m_timeStandard_Script.TimerMax() == true)
+        if (m_countnNotes == MAX_NOTES)
         {
-            // 出ているノーツが攻撃レシピと同じか
-            m_attackRecipeManagerScript.MatchAttackRecipe();
-            // ノーツリセット
-            ResetNotes();
-            // カウントリセット
-            ResetCount();
-            //m_timeStandard_Script.TimerReset();
+            if (m_costUI.RecoveryFlag != true)
+            {
+                // 出ているノーツが攻撃レシピと同じか
+                m_attackRecipeManagerScript.MatchAttackRecipe((int)m_costUI.NowCostValue);
+                // ノーツリセット
+                ResetNotes();
+                // カウントリセット
+                ResetCount();
+            }
         }
         InputTest();
     }
+
 
     // ノーツプレハブを番号によって生成する関数
     public void InstanceNotes(int num)
@@ -96,7 +100,6 @@ public class NotesInstance_Script : MonoBehaviour
 
             // 親のScaleに合わせてプレハブの大きさを変える
             m_notesPrefab.transform.localScale = m_notesPrefab.transform.lossyScale * this.transform.localScale.x;
-
 
             this.transform.localRotation = this.transform.parent.rotation * m_notesPrefab.transform.rotation;
         }
@@ -124,7 +127,7 @@ public class NotesInstance_Script : MonoBehaviour
     private float SetInsPosX(int notesCount)
     {
         // 生成する度にずらす
-        float addValue = (1.0f * notesCount) * this.transform.parent.localScale.x * m_notesPrefab.transform.localScale.x;
+        float addValue = m_insWidth * notesCount;
 
         // X座標へずらす計算
         m_instancePos.x = this.transform.position.x + addValue;
@@ -222,6 +225,7 @@ public class NotesInstance_Script : MonoBehaviour
         }
     }
 
+    // キーボードでノーツを出す
     private void InputTest()
     {
         if (Input.GetKeyDown(KeyCode.A)) 

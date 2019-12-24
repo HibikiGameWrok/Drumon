@@ -59,6 +59,9 @@ public class AttackDrum_Script : Drum_Script
     private Renderer m_inDrumRender;
     private Renderer m_outDrumRender;
 
+    private bool m_changeMaterialFlag = false;
+    private int m_changeMaterialCount = 0;
+
     /// <summary>
     /// デフォルト関数
     /// </summary>
@@ -85,8 +88,8 @@ public class AttackDrum_Script : Drum_Script
         m_stickManager = GameObject.Find("StickManeger");
         m_stickManagerScript = m_stickManager.GetComponent<StickManager_Script>();
 
-        m_inDrum = this.gameObject.transform.Find("BattleInDrum");
-        m_outDrum = this.gameObject.transform.Find("BattleOutDrum");
+        m_inDrum = this.gameObject.transform.Find("InDrum");
+        m_outDrum = this.gameObject.transform.Find("OutDrum");
 
         m_inDrumRender = m_inDrum.GetComponent<Renderer>();
         m_outDrumRender = m_outDrum.GetComponent<Renderer>();
@@ -105,6 +108,24 @@ public class AttackDrum_Script : Drum_Script
         {
             // 変更する
             return false;
+        }
+
+        if (m_changeMaterialFlag == true)
+        {
+            m_changeMaterialCount++;
+        }
+
+        if (m_changeMaterialCount >= 10)
+        {
+            if (m_drumMaterials != null)
+            {
+                // マテリアル変更
+                m_inDrumRender.sharedMaterial = m_drumMaterials[0];
+                // マテリアル変更
+                m_outDrumRender.sharedMaterial = m_drumMaterials[1];
+            }
+            m_changeMaterialCount = 0;
+            m_changeMaterialFlag = false;
         }
 
         // 継続する
@@ -136,15 +157,23 @@ public class AttackDrum_Script : Drum_Script
     // 内側に当たった処理
     public void InHit()
     {
-        // マテリアル変更
-        m_inDrumRender.sharedMaterial = m_drumMaterials[1];
+        if (m_drumMaterials != null)
+        {
+            // マテリアル変更
+            m_inDrumRender.sharedMaterial = m_drumMaterials[2];
+        }
+        m_changeMaterialFlag = true;
     }
 
     // 外側に当たった処理
     public void OutHit()
     {
-        // マテリアル変更
-        m_outDrumRender.sharedMaterial = m_drumMaterials[2];
+        if (m_drumMaterials != null)
+        {
+            // マテリアル変更
+            m_outDrumRender.sharedMaterial = m_drumMaterials[3];
+        }
+        m_changeMaterialFlag = true;
     }
 
     /// <summary>
@@ -202,6 +231,8 @@ public class AttackDrum_Script : Drum_Script
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
 
             m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.DOUBLE_IN_HIT);
+
+            InHit();
         }
         // 外側を同時に叩いていたら
         else if (m_stickManagerScript.DoubleOutHitFlag == true)
@@ -227,6 +258,8 @@ public class AttackDrum_Script : Drum_Script
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
 
             m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.DOUBLE_OUT_HIT);
+
+            OutHit();
         }
 
         // 時間が0になったら
@@ -238,6 +271,8 @@ public class AttackDrum_Script : Drum_Script
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.DO_NOTE);
 
                 m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.IN_HIT);
+
+                InHit();
             }
             if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
             {
@@ -245,6 +280,8 @@ public class AttackDrum_Script : Drum_Script
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.KA_NOTE);
 
                 m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.OUT_HIT);
+
+                OutHit();
             }
 
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
@@ -253,6 +290,8 @@ public class AttackDrum_Script : Drum_Script
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.DO_NOTE);
 
                 m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.IN_HIT);
+
+                InHit();
             }
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
             {
@@ -260,6 +299,8 @@ public class AttackDrum_Script : Drum_Script
                 m_notesInsRec.InstanceNotes((int)NotesInstance_Script.NOTES_TYPE.KA_NOTE);
 
                 m_tutorialFlag.OnFlag((uint)TUTORIAL_HIT_PATTERN.OUT_HIT);
+
+                OutHit();
             }
 
             // 時間を初期化

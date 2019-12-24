@@ -1,0 +1,109 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+#pragma warning disable 618
+
+public class CostUI_Script : MonoBehaviour
+{
+    // 最大値
+    [SerializeField]
+    private float m_maxValue;
+    // 現在値
+    [SerializeField]
+    private float m_nowValue;
+    public float NowCostValue
+    {
+        get { return m_nowValue; }
+        set { m_nowValue = value; }
+    }
+    // 最小値
+    private float m_minValue = 0.0f;
+   
+    // 回復可能フラグ
+    private bool m_recoveryFlag = false;
+    public bool RecoveryFlag
+    {
+        set { m_recoveryFlag = value; }
+        get { return m_recoveryFlag; }
+    }
+
+    // クールタイム
+    private float m_waitTime = 0.0f;
+    public float WaitTime
+    {
+        set { m_waitTime = value; }
+        get { return m_waitTime; }
+    }
+
+    // 子にアタッチしているSliderを保持する変数
+    private Slider m_sliderCompnent = null;
+
+    // コストテキストオブジェクト
+    private GameObject m_costTextUI = null;
+    private CostTextUI_Script m_costText = null;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+        m_sliderCompnent = this.GetComponent<Slider>();
+
+        m_costTextUI = GameObject.Find("CostTextUI");
+        m_costText = m_costTextUI.GetComponent<CostTextUI_Script>();
+
+        m_sliderCompnent.minValue = m_minValue;
+        m_sliderCompnent.maxValue = m_maxValue;
+        m_sliderCompnent.value = m_nowValue;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        m_sliderCompnent.value = m_nowValue;
+        m_costText.NowCost = m_nowValue;
+        if (GageEnd() == true)
+        {
+            GageRecovery(m_waitTime);
+        }
+    }
+
+    // ゲージを増やす処理
+    private void GageRecovery(float waitTime)
+    {
+        if (m_nowValue < m_sliderCompnent.maxValue)
+        {
+            m_nowValue += Time.deltaTime / m_maxValue * waitTime;
+        }
+    }
+
+    // コスト消費（毎フレーム処理は不可）
+    public void CostDawn(float cost)
+    {
+        if (m_recoveryFlag != true)
+        {
+            if ((int)m_nowValue > 0)
+            {
+                // 絶対値で取得し計算する
+                m_nowValue -= Mathf.Abs(cost);
+            }
+        }
+    }
+
+    // ゲージが最終値に達した時
+    private bool GageEnd()
+    {
+        // 現在が最低値に達したとき
+        if((int)m_sliderCompnent.value <= 0)
+        {
+            m_recoveryFlag = true;
+        }
+        else
+        if ((int)m_nowValue >= m_sliderCompnent.maxValue)
+        {
+            m_recoveryFlag = false;
+        }
+        return m_recoveryFlag;
+    }
+}

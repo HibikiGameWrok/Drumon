@@ -4,7 +4,7 @@ using UniRx;
 public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 {
     [SerializeField]
-    private PlayerCreature_Script m_playerCreature;
+    private PlayerCreature_Script m_playerCreature = null;
 
     public PlayerCreature_Script PlayerCreature
     {
@@ -12,15 +12,15 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     }
 
     [SerializeField]
-    private EnemyCreature_Script m_enemyCreature;
+    private EnemyCreature_Script m_enemyCreature = null;
 
     public EnemyCreature_Script EnemyCreature
     {
         get { return m_enemyCreature; }
     }
 
-    private ICreature_Script m_nowMove;
-    private ICreature_Script m_nextMove;
+    private ICreature_Script m_nowMove = null;
+    private ICreature_Script m_nextMove = null;
 
     private bool m_isSetting;
 

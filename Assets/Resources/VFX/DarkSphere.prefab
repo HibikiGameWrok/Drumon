@@ -4916,7 +4916,7 @@ GameObject:
   - component: {fileID: 735441925599223672}
   - component: {fileID: 1208498021494367378}
   m_Layer: 0
-  m_Name: DarkSphere (1)
+  m_Name: DarkSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5001,7 +5001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerMax: 1
-  DeleteOnFinish: 0
+  DeleteOnFinish: 1
   m_speed: 120
   Impact_Prefab: {fileID: 8510961883863246007, guid: 9a9aa86c93430094e99c6ed706782ce6,
     type: 3}
@@ -5229,11 +5229,36 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.8
       objectReference: {fileID: 0}
-    - target: {fileID: 8596239430398828195, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+    - target: {fileID: 2467013520316253228, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.06594874
+      objectReference: {fileID: 0}
+    - target: {fileID: 2467013520316253228, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.3210157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2467013520316253228, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112861074692155664, guid: dc11ebf245ddc0f419496471c6c8ce7f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: ef37cfbf3cd178440b43da72b7116d05, type: 2}
+    - target: {fileID: 4112861074692155664, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112861074692155664, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 8596239430398828192, guid: dc11ebf245ddc0f419496471c6c8ce7f,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -5274,11 +5299,11 @@ PrefabInstance:
       propertyPath: UVModule.enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8596239430746678582, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+    - target: {fileID: 8596239430398828195, guid: dc11ebf245ddc0f419496471c6c8ce7f,
         type: 3}
-      propertyPath: m_RenderAlignment
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8596239430746678583, guid: dc11ebf245ddc0f419496471c6c8ce7f,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
@@ -5299,35 +5324,10 @@ PrefabInstance:
       propertyPath: InitialModule.startSize.scalar
       value: 2.8
       objectReference: {fileID: 0}
-    - target: {fileID: 4112861074692155664, guid: dc11ebf245ddc0f419496471c6c8ce7f,
+    - target: {fileID: 8596239430746678582, guid: dc11ebf245ddc0f419496471c6c8ce7f,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ef37cfbf3cd178440b43da72b7116d05, type: 2}
-    - target: {fileID: 4112861074692155664, guid: dc11ebf245ddc0f419496471c6c8ce7f,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4112861074692155664, guid: dc11ebf245ddc0f419496471c6c8ce7f,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 2467013520316253228, guid: dc11ebf245ddc0f419496471c6c8ce7f,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.06594874
-      objectReference: {fileID: 0}
-    - target: {fileID: 2467013520316253228, guid: dc11ebf245ddc0f419496471c6c8ce7f,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.3210157
-      objectReference: {fileID: 0}
-    - target: {fileID: 2467013520316253228, guid: dc11ebf245ddc0f419496471c6c8ce7f,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.3679245
+      propertyPath: m_RenderAlignment
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc11ebf245ddc0f419496471c6c8ce7f, type: 3}

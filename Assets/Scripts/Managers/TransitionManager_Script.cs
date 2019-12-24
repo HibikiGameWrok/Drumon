@@ -60,6 +60,11 @@ public class TransitionManager_Script
     }
 
 
+    public static void StartTransition_UnloadScene(string unloadSceneName)
+    {
+        Controller.UnloadStart(unloadSceneName);
+    }
+
     /// <summary>
     /// シーン遷移完了を通知する
     /// </summary>

@@ -6,6 +6,15 @@ public class SearchEnemy_Script : MonoBehaviour
 {
     [SerializeField]
     private EnemyCreature m_enemyCreature;
+    [SerializeField]
+    PlayerPosition_Script m_position = null;
+
+    // プレイヤーに当たったかどうか
+    [SerializeField]
+    private bool m_isHit = false;
+
+    // Hitプロパティ
+    public bool IsHit => m_isHit;
 
     // Start is called before the first frame update
     void Start()
@@ -13,27 +22,29 @@ public class SearchEnemy_Script : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+
+    /// <summary>
+    /// Destroyされた時の処理
+    /// </summary>
+    private void OnDestroy()
     {
-        
+        // IsHitを伏せる
+        m_isHit = false;
     }
+
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             m_enemyCreature.EnemyCreatureData = CreateData_Script.Get.CreateData(this.gameObject.tag);
-            Destroy(gameObject);
+            m_position.Position = this.transform.position;
+            
 
-            if (this.gameObject.tag == "Tutorial")
-            {
-                SceneManager.LoadScene("TutorialTestScene", LoadSceneMode.Additive);
-            }
-            else
-            {
-                SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
-            }
+            m_isHit = true;
+
+            // 1秒後にdestroyする
+            Destroy(gameObject, 1.0f);
         }
     }
 }

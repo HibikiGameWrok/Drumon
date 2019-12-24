@@ -21,13 +21,17 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         get { return this.m_data.data.hp; }
     }
 
-    private float m_timer;
+    public float WaitTime
+    {
+        get { return this.m_data.data.waitTime; }
+    }
 
     private GameObject m_healProsperityUI = null;
     private HealProsperityUI_Script m_healProsperityUIScript = null;
     private GameObject m_TimerObject = null;
-    private AccelerationTime_Script m_accelerationTimeScript = null; 
+    private AccelerationTime_Script m_accelerationTimeScript = null;
 
+    private float m_timer;
     public float Timer
     {
         get { return this.m_timer; }
@@ -36,7 +40,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     private ICreature_Script m_target = null;
 
     private int m_rate;
-
     public int Rate
     {
         get { return m_rate; }
@@ -84,7 +87,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             }
         }
 
-        m_attackRecipe.CSVLoadFile(this);
 
         m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.data.hp;
@@ -146,7 +148,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         {
             m_data = data;
             CreatePrefab();
-
+            m_attackRecipe.CSVSetting(m_data.name);
             m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
             m_healProsperityUIScript.NowPoint = m_data.data.hp;
             m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
@@ -166,6 +168,10 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             for (int i = 0; i < this.transform.childCount; i++)
             {
                 GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
+                if (!this.transform.GetChild(i).gameObject.GetComponent<ScaleController_Script>())
+                {
+                    this.transform.GetChild(i).gameObject.AddComponent<ScaleController_Script>().EndTime = m_animState.length;
+                }
             }
         }
         else if (this.transform.childCount == 0)

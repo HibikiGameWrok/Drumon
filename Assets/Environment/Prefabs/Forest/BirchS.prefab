@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 6869848805906145655}
   - component: {fileID: 894547799845543310}
   - component: {fileID: 7668447698944990196}
+  - component: {fileID: 3471342983666574485}
   m_Layer: 0
   m_Name: Birch_S
   m_TagString: Untagged
@@ -152,6 +153,20 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!64 &3471342983666574485
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465574717056657746}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 5302568919011541938, guid: 6cc98d1a09e07dc45a27dd8a7bd37894, type: 3}
 --- !u!1001 &7898048962394490413
 PrefabInstance:
   m_ObjectHideFlags: 0

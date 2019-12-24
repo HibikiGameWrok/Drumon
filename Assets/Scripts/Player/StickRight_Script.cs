@@ -33,7 +33,7 @@ public class StickRight_Script : Stick_Script
         {
             m_hitFlag = true;
 
-            if (m_lastCollisionTag == "AttackOutDrum")
+            if (m_lastCollisionTag == "AttackOutDrum" || m_lastCollisionTag == "SwitchOutDrum")
             {
                 // 振動させる
                 OVRHaptics.RightChannel.Preempt(m_vibClip);
@@ -144,19 +144,29 @@ public class StickRight_Script : Stick_Script
                     OVRHaptics.RightChannel.Preempt(m_vibClip);
                     // 音を鳴らす
                     audioSource.PlayOneShot(m_inHitSE);
+
+                    m_lastCollisionTag = collision.gameObject.tag;
+
+                    if (m_hitNum == 2)
+                    {
+                        // 外側を叩いた判定フラグを伏せる
+                        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
+
+                        m_lastCollisionTag = null;
+                    }
                 }
                 // 選択ドラムの外側を叩いたら
                 else if (collision.gameObject.tag == "SwitchOutDrum")
                 {
-                    // 外側を叩いた判定フラグを立てる
-                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
-                    // 選択ドラムを叩いた判定フラグを立てる
-                    m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
+                    if (m_lastCollisionTag != "SwitchInDrum")
+                    {
+                        // 外側を叩いた判定フラグを立てる
+                        m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
+                        // 選択ドラムを叩いた判定フラグを立てる
+                        m_hitDrumFlag.OnFlag((uint)HIT_DRUM.SWITCH);
 
-                    // 振動させる
-                    OVRHaptics.RightChannel.Preempt(m_vibClip);
-                    // 音を鳴らす
-                    audioSource.PlayOneShot(m_outHitSE);
+                        m_lastCollisionTag = collision.gameObject.tag;
+                    }
                 }
                 // 捕獲ドラムを叩いたら
                 else if (collision.gameObject.tag == "CaptureDrum")

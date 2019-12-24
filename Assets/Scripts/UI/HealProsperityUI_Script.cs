@@ -22,6 +22,7 @@ public class HealProsperityUI_Script : MonoBehaviour
     private float m_minPoint = 0;
     public float MinPoint
     {
+        get { return this.m_minPoint; }
         set { this.m_minPoint = value; }
     }
 
@@ -30,6 +31,7 @@ public class HealProsperityUI_Script : MonoBehaviour
     private float m_maxPoint = 0;
     public float MaxPoint
     {
+        get { return this.m_maxPoint; }
         set { this.m_maxPoint = value; }
     }
 

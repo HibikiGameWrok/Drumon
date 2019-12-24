@@ -68,6 +68,17 @@ public class TransitionController_Script : MonoBehaviour
         StartCoroutine(TransitionCoroutine(nextSceneName,mode));
     }
 
+    public void UnloadStart(string unloadSceneName)
+    {
+        // 既にアンロード中なら何もしない
+        if (m_isTransferring.Value)
+            return;
+
+        m_isTransferring.Value = true;
+
+        StartCoroutine(UnloadCoroutine(unloadSceneName));
+    }
+
 
     private IEnumerator TransitionCoroutine(string nextSceneName,LoadSceneMode mode = LoadSceneMode.Single)
     {
@@ -86,6 +97,7 @@ public class TransitionController_Script : MonoBehaviour
 
         // 完全に白くする
         m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
+        VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, 1.0f);
 
         // 画面が隠し終わったらシーン遷移する
         yield return SceneManager.LoadSceneAsync(nextSceneName,mode);
@@ -93,7 +105,56 @@ public class TransitionController_Script : MonoBehaviour
         // 徐々に画面を戻す
         time = m_transitionSeconds;
 
-        while(time >0)
+        while(time > 0f)
+        {
+            time -= Time.deltaTime;
+            m_coverImage.color = OverrideColorAlpha(m_coverImage.color, time / m_transitionSeconds);
+            /**/
+            VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, time / m_transitionSeconds);
+            /**/
+            yield return null;
+        }
+
+        // クリックイベントのブロック解除
+        m_coverImage.raycastTarget = false;
+        m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 0.0f);
+        VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.clear, 0.0f);
+
+        // シーン遷移完了
+        m_isTransferring.Value = false;
+    }
+
+
+    /// <summary>
+    /// シーンのアンロード
+    /// </summary>
+    /// <param name="unloadSceneName"></param>
+    /// <returns></returns>
+    private IEnumerator UnloadCoroutine(string unloadSceneName)
+    {
+        var time = m_transitionSeconds;
+
+        // 画面のクリック
+        m_coverImage.raycastTarget = true;
+
+        // 画面を徐々に白く
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f - time / m_transitionSeconds);
+            yield return null;
+        }
+
+        // 完全に白くする
+        m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
+
+        // 画面が隠し終わったらシーンをアンロードする
+        yield return SceneManager.UnloadSceneAsync(unloadSceneName);
+
+        // 徐々に画面を戻す
+        time = m_transitionSeconds;
+
+        while (time > 0)
         {
             time -= Time.deltaTime;
             m_coverImage.color = OverrideColorAlpha(m_coverImage.color, time / m_transitionSeconds);
@@ -109,6 +170,12 @@ public class TransitionController_Script : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="c">カラー</param>
+    /// <param name="a">アルファ値</param>
+    /// <returns></returns>
     private Color OverrideColorAlpha(Color c, float a)
     {
         return new Color(c.r, c.g, c.b, a);
