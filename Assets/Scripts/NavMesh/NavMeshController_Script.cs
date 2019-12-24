@@ -30,6 +30,10 @@ public class NavMeshController_Script : MonoBehaviour
     [SerializeField]
     private SetPatrolPosition_Script m_patrolPos = null;
 
+    // 追跡用
+    [SerializeField]
+    private ChaseCharacter_Script m_chaseCharater;
+
     // エージェント
     private NavMeshAgent m_navAgent = null;
 
@@ -48,6 +52,8 @@ public class NavMeshController_Script : MonoBehaviour
     private WorldCreatureIdle_Script m_idleState;
     // Walk状態
     private WorldCreatureWalk_Script m_walkState;
+    // Chase状態
+    private WorldCreatureChace_Script m_chaseState;
 
     /// <summary>
     /// アニメーターのプロパティ
@@ -60,6 +66,10 @@ public class NavMeshController_Script : MonoBehaviour
     /// </summary>
     public NavMeshAgent Agent => m_navAgent;
 
+    /// <summary>
+    /// Chase
+    /// </summary>
+    public ChaseCharacter_Script ChaseCharacter => m_chaseCharater;
 
     /// <summary>
     /// 経過時間のプロパティ
@@ -93,9 +103,10 @@ public class NavMeshController_Script : MonoBehaviour
     /// <summary>
     /// 状態プロパティ
     /// </summary>
-    public WorldCreatureState_Script Idle { get { return m_idleState; } }
-    public WorldCreatureState_Script Walk { get { return m_walkState; } }
-    
+    public WorldCreatureState_Script Idle => m_idleState;
+    public WorldCreatureState_Script Walk => m_walkState;
+    public WorldCreatureChace_Script Chase => m_chaseState;
+
     /// <summary>
     /// ターゲット座標のプロパティ
     /// </summary>
@@ -118,9 +129,9 @@ public class NavMeshController_Script : MonoBehaviour
         m_navAgent = GetComponent<NavMeshAgent>();
         m_patrolPos = GetComponent<SetPatrolPosition_Script>();
         m_animator = GetComponent<Animator>();
+        m_chaseCharater = GetComponentInChildren<ChaseCharacter_Script>();
 
         // 初期化
-        //m_targets =new Transform[m_patrolPos.get().Length];
         ResetElapsedTime();
 
         // 状態遷移を生成する
@@ -145,18 +156,20 @@ public class NavMeshController_Script : MonoBehaviour
         this.UpdateAsObservable()
             .Subscribe(_ =>
             {
-                bool result = m_currentState.Execute();
+                StateID result = m_currentState.Execute();
 
-                if (result == false)
+                switch (result)
                 {
-                    if (m_currentState == Idle)
-                    {
+                    case StateID.CONTINUE:
+                        break;
+                    case StateID.STATE_WALK:
                         ChangeState(Walk);
-                    }
-                    else if(m_currentState == Walk)
-                    {
+                        break;
+                    case StateID.STATE_IDLE:
                         ChangeState(Idle);
-                    }
+                        break;
+                    case StateID.STATE_CHASE:
+                        break;
                 }
             }).AddTo(gameObject);
     }
@@ -170,17 +183,6 @@ public class NavMeshController_Script : MonoBehaviour
         m_targetIndex = (m_targetIndex + 1) % m_targets.Length;
         
         m_navAgent.destination = CurrentTargetPosition;
-
-        //TargetLookAt();
-        //m_animator.SetLookAtPosition(m_navAgent.destination);
-    }
-
-    private void TargetLookAt()
-    {
-        float speed = 0.1f;
-        Vector3 relativePos = m_navAgent.destination - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(relativePos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed);
     }
 
 
@@ -222,6 +224,7 @@ public class NavMeshController_Script : MonoBehaviour
         // 終了処理
         m_idleState.Dispose();
         m_walkState.Dispose();
+        m_chaseState.Dispose();
     }
 
 
@@ -234,5 +237,7 @@ public class NavMeshController_Script : MonoBehaviour
         m_idleState = new WorldCreatureIdle_Script();
         // Walk状態を生成する
         m_walkState = new WorldCreatureWalk_Script();
+        // Chase状態を生成する
+        m_chaseState = new WorldCreatureChace_Script();
     }
 }
