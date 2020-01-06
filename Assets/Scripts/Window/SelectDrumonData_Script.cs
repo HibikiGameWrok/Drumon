@@ -55,7 +55,7 @@ public class SelectDrumonData_Script : MonoBehaviour
             }
         }
 
-        string fileName = data.data.name;
+        string fileName = data.name;
         i = 1;
         while (true)
         {

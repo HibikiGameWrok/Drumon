@@ -286,7 +286,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_enemyExecuteFlag = false;
 
             // 敵が攻撃を受けたら
-            if (m_enemyCreature.HP < m_enemyCreature.GetData().data.maxHp)
+            if (m_enemyCreature.HP < m_enemyCreature.GetData().maxHp)
             {
                 //if (m_timeStandard_Script.StopFlag == false)
                 //{

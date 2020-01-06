@@ -9,7 +9,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public int HP
     {
-        get { return this.m_data.data.hp; }
+        get { return this.m_data.hp; }
     }
 
     private float m_timer;
@@ -46,7 +46,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_data = m_enemy.EnemyCreatureData;
 
 #if UNITY_EDITOR
-        m_data.data.hp = m_data.data.maxHp;
+        m_data.hp = m_data.maxHp;
 #endif
 
         this.m_timer = 0.0f;
@@ -62,19 +62,19 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_waitTime = GameObject.Find("WaitTime");
         m_enemyWaitTimeUIScript = m_waitTime.GetComponent<EnemyWaitTimeUI_Script>();
 
-        m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
-        m_healProsperityUIScript.NowPoint = m_data.data.hp;
+        m_healProsperityUIScript.MaxPoint = m_data.maxHp;
+        m_healProsperityUIScript.NowPoint = m_data.hp;
 
-        m_enemyWaitTimeUIScript.MaxPoint = m_data.data.waitTime;
+        m_enemyWaitTimeUIScript.MaxPoint = m_data.waitTime;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
     }
 
     public void Execute()
     {
-        m_healProsperityUIScript.NowPoint = m_data.data.hp;
+        m_healProsperityUIScript.NowPoint = m_data.hp;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
         this.CountTimer();
-        if (this.m_timer >= m_data.data.waitTime) this.m_atkFlag = true;
+        if (this.m_timer >= m_data.waitTime) this.m_atkFlag = true;
 
         this.Dead();
     }
@@ -86,8 +86,8 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.data.atk) - (this.m_target.GetData().data.def);
-        float weak = WeakChecker_Script.WeakCheck(this.m_data.data.elem, this.m_target.GetData().data.elem);
+        int damage = (this.m_data.atk) - (this.m_target.GetData().def);
+        float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         damage = (int)(damage * weak);
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
@@ -98,15 +98,15 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Damage(int damage)
     {
-        this.m_data.data.hp -= damage;
+        this.m_data.hp -= damage;
         GetComponent<ParticleSystem>().Play();
         m_anim.SetTrigger("Damage");
-        if (this.m_data.data.hp < 0) this.m_data.data.hp = 0;
+        if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 
     public void Heal()
     {
-        this.m_data.data.hp += 10;
+        this.m_data.hp += 10;
     }
 
     public CreatureData GetData()
@@ -126,7 +126,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.data.hp <= 0 && this.transform.childCount != 0)
+        if (this.m_data.hp <= 0 && this.transform.childCount != 0)
         {
             m_anim.SetTrigger("Death");
             for (int i = 0; i < this.transform.childCount; i++)
@@ -148,7 +148,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Capture(int hitNum)
     {
-        if (this.m_data.data.maxHp - this.m_data.data.hp + hitNum > this.m_data.data.maxHp + 10)
+        if (this.m_data.maxHp - this.m_data.hp + hitNum > this.m_data.maxHp + 10)
         {
             CreatureList_Script.Get.Add(this);
             for (int i = 0; i < this.transform.childCount; i++)
