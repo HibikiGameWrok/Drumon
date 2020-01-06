@@ -23,6 +23,13 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         get { return m_atkFlag; }
     }
 
+    private bool m_otsoFlag;
+
+    public bool OtsoFlag
+    {
+        get { return m_otsoFlag; }
+    }
+
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
 
@@ -45,6 +52,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer = 0.0f;
 
         this.m_atkFlag = false;
+        this.m_otsoFlag = false;
 
         CreatePrefab();
 
@@ -123,6 +131,8 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
             m_anim.SetTrigger("Death");
             for (int i = 0; i < this.transform.childCount; i++)
             {
+                if (this.transform.GetChild(i).gameObject.tag.Equals("Otso") && !m_otsoFlag)
+                    m_otsoFlag = true;
                 GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
                 if (!this.transform.GetChild(i).gameObject.GetComponent<ScaleController_Script>())
                 {
@@ -143,6 +153,8 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
             CreatureList_Script.Get.Add(this);
             for (int i = 0; i < this.transform.childCount; i++)
             {
+                if (this.transform.GetChild(i).gameObject.tag.Equals("Otso") && !m_otsoFlag)
+                    m_otsoFlag = true;
                 GameObject.Destroy(this.transform.GetChild(i).gameObject);
             }
             GameObject obj = Resources.Load("VFX/CatchAnimationManager_" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
