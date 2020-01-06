@@ -34,6 +34,11 @@ public class CaptureDrum_Script : Drum_Script
         set { m_tutorialCaptureFlag = value; }
     }
 
+    // キャプチャードラムのUIキャンバス
+    private GameObject m_captureUIC;
+    // キャプチャーモードテキスト
+    private Transform m_captureModeText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +58,9 @@ public class CaptureDrum_Script : Drum_Script
         //m_stick = FindObjectOfType<Stick_Script>();
 
         m_captureCount = 0;
+
+        m_captureUIC = GameObject.Find("CaptureCanvas");
+        m_captureModeText = m_captureUIC.transform.Find("CaptureModeText");
     }
 
     /// <summary>
