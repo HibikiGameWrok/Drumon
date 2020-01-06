@@ -31,6 +31,9 @@ public class WorldCreatureChace_Script : WorldCreatureState_Script
 
         // 再生するアニメーションを設定する
         m_controller.Animator.SetBool("IsWalk", true);
+
+        // NavMeshAgentを再開する
+        m_controller.Agent.isStopped = false;
     }
     
     
@@ -40,6 +43,9 @@ public class WorldCreatureChace_Script : WorldCreatureState_Script
     /// <returns>true=継続する false=状態変更</returns>
     public override StateID Execute()
     {
+        // 追いかけるターゲット座標を更新する
+        m_controller.Agent.destination = m_controller.ChaseTargetPosition.position;
+
         // 継続する
         return StateID.CONTINUE;
     }
