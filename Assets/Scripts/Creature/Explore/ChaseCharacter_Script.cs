@@ -29,6 +29,7 @@ public class ChaseCharacter_Script : MonoBehaviour
             m_isFind = true;
 
             m_controller.ChangeState(m_controller.Chase);
+            m_controller.ChaseTargetPosition = col.transform;
         }
     }
 

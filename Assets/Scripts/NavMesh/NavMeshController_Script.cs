@@ -55,6 +55,15 @@ public class NavMeshController_Script : MonoBehaviour
     // Chase状態
     private WorldCreatureChace_Script m_chaseState;
 
+    // ChaseTargetの座標
+    private Transform m_chaseTargetPosition;
+
+    public Transform ChaseTargetPosition
+    {
+        set { m_chaseTargetPosition = value; }
+        get { return m_chaseTargetPosition; }
+    }
+
     /// <summary>
     /// アニメーターのプロパティ
     /// </summary>
@@ -169,6 +178,7 @@ public class NavMeshController_Script : MonoBehaviour
                         ChangeState(Idle);
                         break;
                     case StateID.STATE_CHASE:
+                        ChangeState(Chase);
                         break;
                 }
             }).AddTo(gameObject);
