@@ -8,7 +8,6 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
 
     public CreatureData CreateData(string name)
     {
-        Debug.Log(name);
         CreatureData data = ScriptableObject.CreateInstance<CreatureData>();
 
         int i = 0;
@@ -51,6 +50,8 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
     {
         int num = 0;
         string[] arr = value.Split('-');
+        int rand = arr.Length;
+        num = System.Convert.ToInt32(arr[Random.Range(0,rand)]);
         return num;
     }
 }

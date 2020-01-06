@@ -50,7 +50,13 @@ public class SelectDrumonData_Script : MonoBehaviour
         {
             if (name.Equals(m_paramList.Sheet1[i].name))
             {
-                data.data = m_paramList.Sheet1[i];
+                data.name = m_paramList.Sheet1[i].name;
+                data.hp = RandomString2Int(m_paramList.Sheet1[i].hp);
+                data.maxHp = data.hp;
+                data.atk = RandomString2Int(m_paramList.Sheet1[i].atk);
+                data.def = RandomString2Int(m_paramList.Sheet1[i].def);
+                data.waitTime = m_paramList.Sheet1[i].waitTime;
+                data.elem = m_paramList.Sheet1[i].elem;
                 break;
             }
         }
@@ -70,5 +76,14 @@ public class SelectDrumonData_Script : MonoBehaviour
 #if UNITY_EDITOR
         AssetDatabase.CreateAsset(data, "Assets/Resources/Datas/CreatureData/" + fileName + ".asset");
 #endif
+    }
+
+    static public int RandomString2Int(string value)
+    {
+        int num = 0;
+        string[] arr = value.Split('-');
+        int rand = arr.Length;
+        num = System.Convert.ToInt32(arr[Random.Range(0, rand)]);
+        return num;
     }
 }
