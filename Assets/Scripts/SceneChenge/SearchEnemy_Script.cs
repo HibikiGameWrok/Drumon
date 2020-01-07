@@ -41,7 +41,7 @@ public class SearchEnemy_Script : MonoBehaviour
             m_position.Position = this.transform.position;
 
             // 接触時SEを鳴らす
-            AudioManager_Script.Get.PlaySE(SfxType.contact);
+            AudioManager_Script.Get.PlaySE(SfxType.encount);
 
             m_isHit = true;
 
