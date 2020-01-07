@@ -9,6 +9,8 @@ public enum SfxType
     contact,
     find,
     teleport,
+    appearRay,
+    faild,
 }
 
 

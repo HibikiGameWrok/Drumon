@@ -39,7 +39,9 @@ public class SearchEnemy_Script : MonoBehaviour
         {
             m_enemyCreature.EnemyCreatureData = CreateData_Script.Get.CreateData(this.gameObject.tag);
             m_position.Position = this.transform.position;
-            
+
+            // 接触時SEを鳴らす
+            AudioManager_Script.Get.PlaySE(SfxType.contact);
 
             m_isHit = true;
 
