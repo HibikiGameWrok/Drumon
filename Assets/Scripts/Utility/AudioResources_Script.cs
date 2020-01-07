@@ -6,7 +6,9 @@ public enum SfxType
     bachi,
     taiko,
     taikofuti,
-
+    contact,
+    find,
+    teleport,
 }
 
 

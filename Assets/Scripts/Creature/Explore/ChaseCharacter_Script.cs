@@ -22,23 +22,39 @@ public class ChaseCharacter_Script : MonoBehaviour
         m_controller = GetComponentInParent<NavMeshController_Script>();
     }
 
-    private void OnTriggerStay(Collider col)
+
+    /// <summary>
+    /// Search用のコライダーに衝突時の処理
+    /// </summary>
+    /// <param name="col">衝突した相手</param>
+    private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Player")
         {
+            // 見つけた
             m_isFind = true;
-
+            
+            // 状態を追いかけるにする 
             m_controller.ChangeState(m_controller.Chase);
+            // ターゲットの座標を取得する
             m_controller.ChaseTargetPosition = col.transform;
+            // 発見時SEを鳴らす
+            AudioManager_Script.Get.PlaySE(SfxType.find);
         }
     }
 
+
+    /// <summary>
+    /// Search用のコライダーから離れた時の処理
+    /// </summary>
+    /// <param name="col">衝突した相手</param>
     private void OnTriggerExit(Collider col)
     {
         if(col.tag == "Player")
         {
+            // 見失う
             m_isFind = false;
-
+            // 状態を待機にする
             m_controller.ChangeState(m_controller.Idle);
         }
     }
