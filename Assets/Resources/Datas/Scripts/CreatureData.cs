@@ -4,6 +4,8 @@ public class CreatureData : ScriptableObject
 {
     public string name = "";
 
+    public int level = 0;
+
     public int maxHp = 0;
 
     public int hp = 0;

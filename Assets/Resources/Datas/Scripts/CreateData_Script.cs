@@ -17,10 +17,12 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
             if(name.Equals(m_paramList.Sheet1[i].name))
             {
                 data.name = m_paramList.Sheet1[i].name;
-                data.hp = RandomString2Int(m_paramList.Sheet1[i].hp);
+                int num = ArrayRandom(m_paramList.Sheet1[i].hp);
+                data.level = 1;
+                data.hp = String2Int(m_paramList.Sheet1[i].hp, num);
                 data.maxHp = data.hp;
-                data.atk = RandomString2Int(m_paramList.Sheet1[i].atk);
-                data.def = RandomString2Int(m_paramList.Sheet1[i].def);
+                data.atk = String2Int(m_paramList.Sheet1[i].atk, num);
+                data.def = String2Int(m_paramList.Sheet1[i].def, num);
                 data.waitTime = m_paramList.Sheet1[i].waitTime;
                 data.elem = m_paramList.Sheet1[i].elem;
                 break;
@@ -46,12 +48,15 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
         return data;
     }
 
-    public int RandomString2Int(string value)
+    public int ArrayRandom(string array)
     {
-        int num = 0;
+        string[] arr = array.Split('-');
+        return Random.Range(0, arr.Length);
+    }
+
+    public int String2Int(string value, int num)
+    {
         string[] arr = value.Split('-');
-        int rand = arr.Length;
-        num = System.Convert.ToInt32(arr[Random.Range(0,rand)]);
-        return num;
+        return System.Convert.ToInt32(arr[num]);
     }
 }
