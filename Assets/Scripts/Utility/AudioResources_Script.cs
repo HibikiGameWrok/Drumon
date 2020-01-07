@@ -6,7 +6,15 @@ public enum SfxType
     bachi,
     taiko,
     taikofuti,
+    encount,
+    contact,
+    find,
+    teleport,
+    appearRay,
+    faild,
 
+
+    WaterGun,
 }
 
 

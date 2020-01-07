@@ -36,17 +36,19 @@ public class SceneTitle_Script : IScene_Script
     public override SceneID Execute()
     {
         // SpaceキーまたはVRコントローラーのトリガー
-        if(Input.GetKeyDown(KeyCode.Space) || 
+        if (Input.GetKeyDown(KeyCode.Space) ||
             OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             // SEを鳴らす
-            m_manager.Audio.PlaySE(SfxType.taiko);
+            m_manager.Audio.PlaySE(SfxType.WaterGun);
             // 非同期処理のSceneロード
             TransitionManager_Script.StartTransition(m_manager.Revised.Name);
 
             return SceneID.SCENE_REVISED;
         }
-
+        else if (Input.GetKeyDown(KeyCode.I))
+            m_manager.Audio.PlaySE(SfxType.WaterGun);
+            
         // 継続する
         return SceneID.CONTINUE;
     }

@@ -17,7 +17,7 @@ using System;
 
 
 // Audio関連のクラス
-public class AudioManager_Script : MonoBehaviour
+public class AudioManager_Script : SingletonBase_Script<AudioManager_Script>
 {
     // ボリューム保存用のkeyとデフォルト値
     private const string BGM_VOLUME_KEY = "BGM_VOLUME_KEY";
@@ -45,7 +45,7 @@ public class AudioManager_Script : MonoBehaviour
     private Dictionary<string, AudioClip> m_bgmDic, m_seDic;
 
 
-    private void Awake()
+    protected override void Awake()
     {
         // リソースフォルダから全SE＆BGMのファイルを読み込みセット
         m_bgmDic = new Dictionary<string, AudioClip>();
