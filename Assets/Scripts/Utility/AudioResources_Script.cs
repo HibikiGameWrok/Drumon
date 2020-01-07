@@ -12,6 +12,9 @@ public enum SfxType
     teleport,
     appearRay,
     faild,
+
+
+    WaterGun,
 }
 
 
