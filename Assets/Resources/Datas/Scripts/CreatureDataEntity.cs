@@ -11,17 +11,17 @@ public class CreatureDataEntity
         NUM
     };
 
-    public string name = null;
+    public string name = "";
 
-    public int maxHp = 0;
+    public string hp = "";
 
-    public int hp = 0;
+    public string atk = "";
 
-    public int atk = 0;
-
-    public int def = 0;
+    public string def = "";
 
     public float waitTime = 0.0f;
 
     public ELEM elem = 0;
+
+    public int basePoint = 0;
 }

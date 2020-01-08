@@ -22,7 +22,7 @@ public class AudioManager_Script : SingletonBase_Script<AudioManager_Script>
     // ボリューム保存用のkeyとデフォルト値
     private const string BGM_VOLUME_KEY = "BGM_VOLUME_KEY";
     private const string SE_VOLUME_KEY = "SE_VOLUME_KEY";
-    private const float BGM_VOLUME_DEFAULT = 1.0f;
+    private const float BGM_VOLUME_DEFAULT = 0.5f;
     private const float SE_VOLUME_DEFAULT = 1.0f;
 
     // BGMがフェードするのにかかる時間
