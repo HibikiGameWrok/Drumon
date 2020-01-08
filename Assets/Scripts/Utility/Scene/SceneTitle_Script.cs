@@ -46,8 +46,7 @@ public class SceneTitle_Script : IScene_Script
 
             return SceneID.SCENE_REVISED;
         }
-        else if (Input.GetKeyDown(KeyCode.I))
-            m_manager.Audio.PlaySE(SfxType.WaterGun);
+
             
         // 継続する
         return SceneID.CONTINUE;

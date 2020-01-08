@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba4b116ad3076949acdd4c2bda3e839, type: 3}
   m_Name: Merlion1
   m_EditorClassIdentifier: 
-  data:
-    name: Merlion
-    maxHp: 65
-    hp: 65
-    atk: 15
-    def: 15
-    waitTime: 10
-    elem: 4
+  name: Merlion
+  level: 1
+  maxHp: 65
+  hp: 65
+  atk: 15
+  def: 20
+  waitTime: 10
+  elem: 4
+  exp: 20

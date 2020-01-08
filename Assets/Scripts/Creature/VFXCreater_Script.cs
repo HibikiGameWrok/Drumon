@@ -12,6 +12,8 @@ public class VFXCreater_Script : MonoBehaviour
 
         obj = Instantiate(obj, trans.position, trans.rotation * obj.transform.rotation);
 
+        AudioManager_Script.Get.PlaySE(name);
+
         Destroy(obj, 3.0f);
     }
 }

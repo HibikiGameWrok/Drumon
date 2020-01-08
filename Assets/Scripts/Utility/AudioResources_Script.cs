@@ -13,8 +13,36 @@ public enum SfxType
     appearRay,
     faild,
 
+    Garfish,
+    Lantern,
+    Merlion,
+    Kitsune,
+    ChurchGrim,
+    Otsuo,
 
     WaterGun,
+    //Grate,
+    WaterDance,
+    WaterSword,
+  
+    ShadowClaw,
+    DarkBind,
+    DarkSphere,
+    Suffocate,
+
+    Peck,
+    //WaterRush,
+    //Hasten,
+    //Sharpen,
+
+    //FireBall,
+    FirePunch,
+    FireWall,
+    FireStorm,
+  
+    Windslash,
+    Lick,
+    Gust,
 }
 
 

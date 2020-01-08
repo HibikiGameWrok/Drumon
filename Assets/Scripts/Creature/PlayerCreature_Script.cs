@@ -3,8 +3,14 @@ using System.Text.RegularExpressions;
 
 public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 {
-    [SerializeField, Range(1,100)]
-    private int HEAL_RATE = 0;
+    [SerializeField]
+    private float m_expRate = 0.0f;
+
+    [SerializeField]
+    private int m_expPoint = 0;
+
+    [SerializeField]
+    private int[] m_upPoint = null;
 
     private CreatureData m_data = null;
 
@@ -16,14 +22,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         get { return this.m_data.name; }
     }
 
-    public int HP
-    {
-        get { return this.m_data.data.hp; }
-    }
-
     public float WaitTime
     {
-        get { return this.m_data.data.waitTime; }
+        get { return this.m_data.waitTime; }
     }
 
     private GameObject m_healProsperityUI = null;
@@ -32,10 +33,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     private AccelerationTime_Script m_accelerationTimeScript = null;
 
     private float m_timer;
-    public float Timer
-    {
-        get { return this.m_timer; }
-    }
 
     private ICreature_Script m_target = null;
 
@@ -80,7 +77,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
         {
-            if (box.DataList[i] != null && box.DataList[i].data.hp != 0)
+            if (box.DataList[i] != null && box.DataList[i].hp != 0)
             {
                 ChangeData(box.DataList[i]);
                 break;
@@ -88,16 +85,16 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         }
 
 
-        m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
-        m_healProsperityUIScript.NowPoint = m_data.data.hp;
+        m_healProsperityUIScript.MaxPoint = m_data.maxHp;
+        m_healProsperityUIScript.NowPoint = m_data.hp;
 
-        m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
+        m_accelerationTimeScript.MaxTimer = m_data.waitTime;
     }
 
     public void Execute()
     {
         //this.CountTimer();
-        m_healProsperityUIScript.NowPoint = m_data.data.hp;
+        m_healProsperityUIScript.NowPoint = m_data.hp;
         if (this.m_rate != 0)
         {
             this.m_atkFlag = true;
@@ -112,8 +109,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.data.atk * this.m_rate) - (this.m_target.GetData().data.def);
-        float weak = WeakChecker_Script.WeakCheck(this.m_data.data.elem, this.m_target.GetData().data.elem);
+        int damage = (this.m_data.atk * this.m_rate) - (this.m_target.GetData().def);
+        float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
         this.m_target.Damage(damage);
@@ -125,16 +122,16 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Damage(int damage)
     {
-        this.m_data.data.hp -= damage;
+        this.m_data.hp -= damage;
         GetComponent<ParticleSystem>().Play();
         m_anim.SetTrigger("Damage");
-        if (this.m_data.data.hp < 0) this.m_data.data.hp = 0;
+        if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 
     public void Heal()
     {
-        this.m_data.data.hp += this.HEAL_RATE;
-        if (this.m_data.data.hp > this.m_data.data.maxHp) this.m_data.data.hp = this.m_data.data.maxHp;
+        this.m_data.hp += this.m_rate;
+        if (this.m_data.hp > this.m_data.maxHp) this.m_data.hp = this.m_data.maxHp;
     }
 
     public CreatureData GetData()
@@ -149,9 +146,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             m_data = data;
             CreatePrefab();
             m_attackRecipe.CSVSetting(m_data.name);
-            m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
-            m_healProsperityUIScript.NowPoint = m_data.data.hp;
-            m_accelerationTimeScript.MaxTimer = m_data.data.waitTime;
+            m_healProsperityUIScript.MaxPoint = m_data.maxHp;
+            m_healProsperityUIScript.NowPoint = m_data.hp;
+            m_accelerationTimeScript.MaxTimer = m_data.waitTime;
         }
     }
 
@@ -162,7 +159,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.data.hp <= 0 && this.transform.childCount != 0)
+        if (this.m_data.hp <= 0 && this.transform.childCount != 0)
         {
             m_anim.SetTrigger("Death");
             for (int i = 0; i < this.transform.childCount; i++)
@@ -179,7 +176,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             PlayerBox_Script box = CreatureList_Script.Get.List;
             for(int i = 0;i<box.DataList.Length;i++)
             {
-                if(box.DataList[i] != null && box.DataList[i].data.hp != 0)
+                if(box.DataList[i] != null && box.DataList[i].hp != 0)
                 {
                     ChangeData(box.DataList[i]);
                     return;
@@ -208,5 +205,53 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         this.m_anim = obj.GetComponent<Animator>();
         this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
         this.m_timer = 0.0f;
+    }
+
+    public void AddExpPoint()
+    {
+        PlayerBox_Script box = CreatureList_Script.Get.List;
+        for (int i = 0; i < box.DataList.Length; i++)
+        {
+            if (box.DataList[i])
+            {
+                int too = box.DataList[i].exp -= m_expPoint;
+                CheckLevelUp(too, box.DataList[i]);
+            }
+        }
+    }
+
+    private void CheckLevelUp(int too, CreatureData data)
+    {
+        if (too <= 0 && data.level <= 10)
+        {
+            LevelUp(this.m_upPoint[Random.Range(0, 2)], data);
+            data.exp = (int)(m_expPoint * m_expRate);
+            if (too == 0) return;
+            too = data.exp + too;
+            CheckLevelUp(too, data);
+        }
+    }
+
+    private void LevelUp(int num, CreatureData data)
+    {
+        data.level += 1;
+        data.hp = data.maxHp;
+        for(int i = 0; i < num; i++)
+        {
+            int rand = Random.Range(0, 2);
+            switch (rand)
+            {
+                case 0:
+                    data.hp += 3;
+                    data.maxHp = data.hp;
+                    break;
+                case 1:
+                    data.atk += 2;
+                    break;
+                case 2:
+                    data.def += 2;
+                    break;
+            }
+        }
     }
 }
