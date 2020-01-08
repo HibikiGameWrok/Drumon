@@ -13,11 +13,12 @@ public enum SfxType
     appearRay,
     faild,
 
-
     Garfish,
     Lantern,
     Merlion,
     Kitsune,
+    ChurchGrim,
+    Otsuo,
 
     WaterGun,
     //Grate,

@@ -72,6 +72,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
         m_enemyWaitTimeUIScript.MaxPoint = m_data.waitTime;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
+
+        // 鳴き声SE
+        AudioManager_Script.Get.PlaySE(m_data.name);
     }
 
     public void Execute()
