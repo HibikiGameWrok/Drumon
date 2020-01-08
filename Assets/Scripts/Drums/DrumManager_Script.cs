@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 // ドラムマネージャーの定義
 public class DrumManager_Script : SingletonBase_Script<DrumManager_Script> 
@@ -84,8 +85,11 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
 
-        m_healProsperityUI = GameObject.Find("PSlider");
-        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+        if (SceneManager.GetActiveScene().name != "TutorialCaptureScene")
+        {
+            m_healProsperityUI = GameObject.Find("PSlider");
+            m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+        }
 
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
         m_enemyCreature = BattleManager_Script.Get.EnemyCreature;
