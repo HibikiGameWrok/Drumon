@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿///
+///     CostUI_Script.cs
+///
+///     コストゲージUIの制御スクリプト
+///
+///     ヨシヤス　ヒビキ
+///
+///     2020 / 01 / 07 火曜日
+///
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

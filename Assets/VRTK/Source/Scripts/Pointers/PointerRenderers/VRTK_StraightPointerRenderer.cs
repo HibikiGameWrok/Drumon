@@ -22,6 +22,7 @@ namespace VRTK
     /// `VRTK/Examples/003_Controller_SimplePointer` shows the simple pointer in action and code examples of how the events are utilised and listened to can be viewed in the script `VRTK/Examples/ExampleResources/Scripts/VRTK_ControllerPointerEvents_ListenerExample.cs`
     /// </example>
     [AddComponentMenu("VRTK/Scripts/Pointers/Pointer Renderers/VRTK_StraightPointerRenderer")]
+    // 一直線の線を出すクラス
     public class VRTK_StraightPointerRenderer : VRTK_BasePointerRenderer
     {
         [Header("Straight Pointer Appearance Settings")]
@@ -147,6 +148,7 @@ namespace VRTK
             VRTK_PlayerObject.SetPlayerObject(actualTracer, VRTK_PlayerObject.ObjectTypes.Pointer);
         }
 
+        // カーソル作成
         protected virtual void CreateCursor()
         {
             if (customCursor != null)
