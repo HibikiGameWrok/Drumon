@@ -42,14 +42,16 @@ public class UI_Fade_Script : Fade_SetAlpha
         set { m_isFadeIn = value; }
     }
 
+    // フェードが完了した時のフラグ
+    protected bool m_fadeRunningFlag = false;
+    public bool IsFadeComp
+    {
+        get { return m_fadeRunningFlag; }
+    }
+
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            m_isFadeOut = true;
-        }
-
         // フェードアウトフラグによって処理
         if (m_isFadeOut == true)
         {
@@ -71,7 +73,6 @@ public class UI_Fade_Script : Fade_SetAlpha
         SetAlpha();
         if (m_alfa >= 1)
         {
-            m_alfa = 1;
             IsFadeOut = false;
         }
     }
@@ -79,9 +80,9 @@ public class UI_Fade_Script : Fade_SetAlpha
     // フェードインする処理
     protected void StartFadeIn()
     {
-        m_alfa += m_fadeSpeed;
+        m_alfa -= m_fadeSpeed;
         SetAlpha();
-        if (m_alfa <= 1)
+        if (m_alfa <= 0)
         {
             m_alfa = 0;
             IsFadeIn = false;

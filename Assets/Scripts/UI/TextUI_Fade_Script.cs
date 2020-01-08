@@ -16,8 +16,7 @@ public class TextUI_Fade_Script : UI_Fade_Script
 {
     private Text m_text = null;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (this.GetComponent<Text>() != null)
         {
