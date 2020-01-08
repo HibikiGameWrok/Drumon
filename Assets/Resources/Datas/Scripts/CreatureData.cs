@@ -17,4 +17,6 @@ public class CreatureData : ScriptableObject
     public float waitTime = 0.0f;
 
     public CreatureDataEntity.ELEM elem = 0;
+
+    public int exp = 0;
 }

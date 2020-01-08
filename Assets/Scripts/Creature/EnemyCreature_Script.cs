@@ -12,6 +12,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         get { return this.m_data.hp; }
     }
 
+    public CreatureData Data
+    {
+        get { return m_data; }
+    }
+
     private float m_timer;
 
     private ICreature_Script m_target = null;
@@ -112,11 +117,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     public CreatureData GetData()
     {
         return this.m_data;
-    }
-
-    public void SetData(CreatureData data)
-    {
-        this.m_data = data;
     }
 
     public void SetTarget(ICreature_Script target)

@@ -22,4 +22,6 @@ public class CreatureDataEntity
     public float waitTime = 0.0f;
 
     public ELEM elem = 0;
+
+    public int basePoint = 0;
 }

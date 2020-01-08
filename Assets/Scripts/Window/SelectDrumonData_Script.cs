@@ -59,6 +59,10 @@ public class SelectDrumonData_Script : MonoBehaviour
                 data.def = String2Int(m_paramList.Sheet1[i].def, num);
                 data.waitTime = m_paramList.Sheet1[i].waitTime;
                 data.elem = m_paramList.Sheet1[i].elem;
+                data.exp = 20;
+                int lostPoint = (data.hp + data.atk + data.def) - m_paramList.Sheet1[i].basePoint;
+                data.hp -= lostPoint;
+
                 break;
             }
         }
