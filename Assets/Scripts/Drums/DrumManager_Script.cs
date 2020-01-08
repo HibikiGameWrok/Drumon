@@ -170,8 +170,8 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             }
         }
 
-        // 行動ゲージが終わったら
-        if (m_gaugeFinishFlag == true)
+        // キャプチャーの時にコストが0になったら
+        if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag == true)
         {
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
