@@ -27,6 +27,10 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     private IScene_Script m_revised;
     // バトルシーン
     private IScene_Script m_battle;
+    // チュートリアルシーン
+    private IScene_Script m_tutorial;
+    // リザルトシーン
+    private IScene_Script m_result;
     // オーディオ
     private AudioManager_Script m_audio;
 
@@ -42,6 +46,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     public SceneTitle_Script Title => (SceneTitle_Script)m_title;
     public SceneRevised_Script Revised => (SceneRevised_Script)m_revised;
     public SceneBattle_Script Battle => (SceneBattle_Script)m_battle;
+    public SceneResult_Script Result => (SceneResult_Script)m_result;
+    public SceneTutorial_Script Tutorial => (SceneTutorial_Script)m_tutorial;
 
     /// <summary>
     /// 初期化処理
@@ -93,6 +99,14 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
             case SceneID.SCENE_BATTLE:
                 // バトルシーンへ
                 ChangeScene(m_battle,LoadSceneMode.Additive);
+                break;
+            case SceneID.SCENE_RESULT:
+                // リザルトシーンへ
+                ChangeScene(m_result);
+                break;
+            case SceneID.SCENE_TUTORIAL:
+                // チュートリアル
+                ChangeScene(m_tutorial);
                 break;
         }
 
@@ -150,5 +164,11 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         // BattleScene
         m_battle = new SceneBattle_Script();
         m_battle.Name = "BattleScene";
+        // ResultScene
+        m_result = new SceneResult_Script();
+        m_result.Name = "ResultScene";
+        // TutorialScene
+        m_tutorial = new SceneTutorial_Script();
+        m_tutorial.Name = "TutorialScene";
     }
 }
