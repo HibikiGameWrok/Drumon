@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      SceneTutorial_Script.cs                               |
+//  file:      SceneResult_Script.cs                               |
 //				 											                    |
 //  brief:    探索シーンのスクリプト			                    |
 //															                    |
@@ -16,6 +16,8 @@ using UnityEngine;
 
 public class SceneResult_Script : IScene_Script
 {
+
+
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -32,6 +34,17 @@ public class SceneResult_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
+        // SpaceキーまたはVRコントローラーのトリガー
+        if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            // SEを鳴らす
+            m_manager.Audio.PlaySE(SfxType.appearRay);
+            // 非同期処理のSceneロード
+            TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+
+            return SceneID.SCENE_TITLE;
+        }
+
         // 継続する
         return SceneID.CONTINUE;
     }
@@ -47,5 +60,6 @@ public class SceneResult_Script : IScene_Script
         m_manager = manager;
 
         // BGMを再生する
+        m_manager.Audio.PlayBGM(BfxType.bgm_Title);
     }
 }
