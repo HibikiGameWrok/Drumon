@@ -17,8 +17,7 @@ public class PanelUI_Fade_Script : UI_Fade_Script
     // コンポーネントを保持する変数
     private Image m_imagePanel = null;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (this.GetComponent<Image>() != null)
         {
