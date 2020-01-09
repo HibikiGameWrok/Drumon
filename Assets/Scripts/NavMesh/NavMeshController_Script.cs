@@ -156,15 +156,17 @@ public class NavMeshController_Script : MonoBehaviour
         // 状態遷移を生成する
         CreateState();
         // 初期状態をWalkにする
-        ChangeState(Walk);
+        ChangeState(Idle);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        // ターゲットを設定する
-        m_targets = m_patrolPos.GetPatrolPosition();
-      
+        if (m_patrolPos != null)
+        {
+            // ターゲットを設定する
+            m_targets = m_patrolPos.GetPatrolPosition();
+        }
         // 座標をランダムにする
         m_targets = ShufflePosition(m_targets);
 

@@ -24307,6 +24307,7 @@ GameObject:
   - component: {fileID: 593423565}
   - component: {fileID: 593423564}
   - component: {fileID: 593423566}
+  - component: {fileID: 593423567}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -24346,25 +24347,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 53b4534908f8f324d8ffe0fc5fa5a31f, type: 3}
-    m_FontSize: 63
+    m_FontSize: 65
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 66
+    m_MinSize: 0
+    m_MaxSize: 85
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Otos\u3068\u306E\u95D8\u3044\u306B\u52DD\u3063\u305F..."
+  m_Text: "\u6587\u7AE0"
 --- !u!222 &593423565
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24386,6 +24387,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fadeSpeed: 0.005
+--- !u!114 &593423567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593423562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da62024de129064db48a380929b2dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_csvFileName: ResultEventText
 --- !u!1001 &595053488
 PrefabInstance:
   m_ObjectHideFlags: 0
