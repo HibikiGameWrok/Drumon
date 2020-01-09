@@ -18,7 +18,7 @@ public enum SfxType
     Merlion,
     Kitsune,
     ChurchGrim,
-    Otsuo,
+    Otso,
 
     WaterGun,
     //Grate,

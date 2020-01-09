@@ -749,6 +749,8 @@ GameObject:
   - component: {fileID: 1504531221789927331}
   - component: {fileID: 3732678272824882020}
   - component: {fileID: 3732678272824882023}
+  - component: {fileID: 1188880805346769455}
+  - component: {fileID: -3480404091866124025}
   m_Layer: 0
   m_Name: Search_Otso
   m_TagString: Otso
@@ -821,6 +823,44 @@ MonoBehaviour:
   m_enemyCreature: {fileID: 11400000, guid: 6fc8553b47eb5d14baf636a30eb6d6fc, type: 2}
   m_position: {fileID: 11400000, guid: 8339627d550a5fc46b41fe1617a56753, type: 2}
   m_isHit: 0
+--- !u!195 &1188880805346769455
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490012420456298698}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &-3480404091866124025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490012420456298698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ee154319f52794b83344178962b1fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_targets: []
+  m_patrolPos: {fileID: 0}
+  m_chaseCharater: {fileID: 0}
+  m_elapsedTime: 0
 --- !u!1 &5601420966791172198
 GameObject:
   m_ObjectHideFlags: 0

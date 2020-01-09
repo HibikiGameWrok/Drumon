@@ -156,7 +156,7 @@ public class NavMeshController_Script : MonoBehaviour
         // 状態遷移を生成する
         CreateState();
         // 初期状態をWalkにする
-        ChangeState(Walk);
+        ChangeState(Idle);
     }
 
     // Start is called before the first frame update
