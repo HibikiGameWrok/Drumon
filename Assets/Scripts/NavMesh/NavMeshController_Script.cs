@@ -162,9 +162,11 @@ public class NavMeshController_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ターゲットを設定する
-        m_targets = m_patrolPos.GetPatrolPosition();
-      
+        if (m_patrolPos != null)
+        {
+            // ターゲットを設定する
+            m_targets = m_patrolPos.GetPatrolPosition();
+        }
         // 座標をランダムにする
         m_targets = ShufflePosition(m_targets);
 
