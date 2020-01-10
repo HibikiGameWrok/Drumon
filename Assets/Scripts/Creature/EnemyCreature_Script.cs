@@ -7,6 +7,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private EnemyCreature m_enemy = null;
     private CreatureData m_data = null;
 
+    private CSVDataHolder csvHolder = new CSVDataHolder();
+    private int m_lastArts;
+
     public int HP
     {
         get { return this.m_data.hp; }
@@ -53,6 +56,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 #if UNITY_EDITOR
         m_data.hp = m_data.maxHp;
 #endif
+        // CSVの保管クラスに設定
+        csvHolder.CSVLoadFile(m_data.drumonName);
+        m_lastArts = csvHolder.CSVDatas.Count;
 
         this.m_timer = 0.0f;
 
@@ -94,13 +100,20 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.atk) - (this.m_target.GetData().def);
+        SelectArts();
+        // 技のレートをクリーチャーに教える
+        string matchRate = csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_RATE];
+        Debug.Log(matchRate);
+        int rate = int.Parse(matchRate);
+
+        int damage = (int)(this.m_data.atk * (rate / 100.0f)) - (this.m_target.GetData().def);
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
+        VFXCreater_Script.CreateEffect(csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_NAME], this.transform);
         damage = (int)(damage * weak);
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
         this.m_atkFlag = false;
-
+        
         if(m_anim) m_anim.SetTrigger("Attack");
     }
 
@@ -186,5 +199,18 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_anim = obj.GetComponent<Animator>();
         this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
         this.m_timer = 0.0f;
+    }
+
+    private void SelectArts()
+    {
+        int random = Random.Range(1, csvHolder.CSVDatas.Count - 1);
+        if (m_lastArts != random)
+        {
+            m_lastArts = random;
+        }
+        else
+        {
+            SelectArts();
+        }
     }
 }
