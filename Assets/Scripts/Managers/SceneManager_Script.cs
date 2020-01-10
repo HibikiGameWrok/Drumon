@@ -65,8 +65,7 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         CreateScene();
 
         // 最初のシーンを設定する
-        m_currentScene = m_title;
-        m_currentScene.Initialize(this);
+        SetFirstScene();
     }
 
 
@@ -170,5 +169,22 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         // TutorialScene
         m_tutorial = new SceneTutorial_Script();
         m_tutorial.Name = "TutorialScene";
+    }
+
+    private void SetFirstScene()
+    {
+        if (SceneManager.GetActiveScene().name == m_title.Name)
+            m_currentScene = m_title;
+        else if (SceneManager.GetActiveScene().name == m_revised.Name)
+            m_currentScene = m_revised;
+        else if (SceneManager.GetActiveScene().name == m_battle.Name)
+            m_currentScene = m_battle;
+        else if (SceneManager.GetActiveScene().name == m_result.Name)
+            m_currentScene = m_result;
+        else if (SceneManager.GetActiveScene().name == m_tutorial.Name)
+            m_currentScene = m_tutorial;
+
+        // 初期化する
+        m_currentScene.Initialize(this);
     }
 }
