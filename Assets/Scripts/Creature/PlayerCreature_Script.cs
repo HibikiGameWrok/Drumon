@@ -19,7 +19,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public string Name
     {
-        get { return this.m_data.name; }
+        get { return this.m_data.drumonName; }
     }
 
     public float WaitTime
@@ -144,7 +144,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         {
             m_data = data;
             CreatePrefab();
-            m_attackRecipe.CSVSetting(m_data.name);
+            m_attackRecipe.CSVSetting(m_data.drumonName);
             m_healProsperityUIScript.MaxPoint = m_data.maxHp;
             m_healProsperityUIScript.NowPoint = m_data.hp;
             m_accelerationTimeScript.MaxTimer = m_data.waitTime;
@@ -195,7 +195,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             }
         }
 
-        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
+        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.drumonName, @"[^a-z,A-Z]", "")) as GameObject;
 
         if(!obj) obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx") as GameObject;
         obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);

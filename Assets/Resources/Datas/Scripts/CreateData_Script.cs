@@ -16,7 +16,7 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
         {
             if(name.Equals(m_paramList.Sheet1[i].name))
             {
-                data.name = m_paramList.Sheet1[i].name;
+                data.drumonName = m_paramList.Sheet1[i].name;
                 int num = ArrayRandom(m_paramList.Sheet1[i].hp);
                 data.level = 1;
                 data.hp = String2Int(m_paramList.Sheet1[i].hp, num);
@@ -33,7 +33,7 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
             }
         }
 
-        string fileName = data.name;
+        string fileName = data.drumonName;
         i = 1;
         while (true)
         {

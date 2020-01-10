@@ -6,7 +6,7 @@ using UniRx;
 public class LaserPointer_Script : MonoBehaviour
 {
     [SerializeField]
-    private Transform m_rightHandAnchor = null;
+    private Transform m_handAnchor = null;
     [SerializeField]
     private LineRenderer m_lineRenderer = null;
     [SerializeField]
@@ -18,7 +18,7 @@ public class LaserPointer_Script : MonoBehaviour
         Observable.EveryUpdate()
             .Subscribe(_ =>
             {
-                Ray laserPointer = new Ray(m_rightHandAnchor.position, m_rightHandAnchor.forward);
+                Ray laserPointer = new Ray(m_handAnchor.position, m_handAnchor.forward);
 
                 // 作成したRay上にColliderがあるか判定
                 RaycastHit hit;

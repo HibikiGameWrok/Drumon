@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CaptureDrum_Script : Drum_Script
 {
@@ -180,6 +181,11 @@ public class CaptureDrum_Script : Drum_Script
 
             if (m_costUIScript.RecoveryFlag == true)
             {
+                if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
+                {
+                    m_tutorialCaptureFlag = true;
+                }
+
                 m_timerCount = COUNT_RESET;
 
                 m_costZeroFlag = true;
