@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1993190195263578580}
   - component: {fileID: 1993190195263578586}
   - component: {fileID: 1993190195263578581}
-  - component: {fileID: 318029383}
   m_Layer: 5
   m_Name: StaffRollText
   m_TagString: Untagged
@@ -35,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.00001335144}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 551.08, y: 95.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1993190195263578586
@@ -65,7 +64,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: eaafb1ead60abb044b67533560c39fa4, type: 3}
     m_FontSize: 73
     m_FontStyle: 0
     m_BestFit: 0
@@ -77,16 +76,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30B9\u30BF\u30C3\u30D5\u30ED\u30FC\u30EB"
---- !u!114 &318029383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993190195263578583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45b3ae6d0e4228845a651b19536ec0d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Text: "\u6587\u7AE0"
