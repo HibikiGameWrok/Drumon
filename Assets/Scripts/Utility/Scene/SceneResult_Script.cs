@@ -17,6 +17,8 @@ using UnityEngine;
 public class SceneResult_Script : IScene_Script
 {
 
+    private GameObject m_resultEvent = null;
+    private ProgressResultEvent_Script m_resultEvent_Script = null;
 
     /// <summary>
     /// 終了処理
@@ -34,15 +36,18 @@ public class SceneResult_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        // SpaceキーまたはVRコントローラーのトリガー
-        if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        if (m_resultEvent_Script.finishEventFlag == true)
         {
-            // SEを鳴らす
-            m_manager.Audio.PlaySE(SfxType.appearRay);
-            // 非同期処理のSceneロード
-            TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+            // SpaceキーまたはVRコントローラーのトリガー
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+            {
+                // SEを鳴らす
+                m_manager.Audio.PlaySE(SfxType.teleport);
+                // 非同期処理のSceneロード
+                TransitionManager_Script.StartTransition(m_manager.Title.Name);
 
-            return SceneID.SCENE_TITLE;
+                return SceneID.SCENE_TITLE;
+            }
         }
 
         // 継続する
@@ -61,5 +66,9 @@ public class SceneResult_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Title);
+
+        m_resultEvent = GameObject.Find("ResultEvent");
+        m_resultEvent_Script = m_resultEvent.GetComponent<ProgressResultEvent_Script>();
+
     }
 }
