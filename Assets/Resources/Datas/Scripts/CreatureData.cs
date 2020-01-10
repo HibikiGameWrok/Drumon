@@ -2,7 +2,7 @@
 
 public class CreatureData : ScriptableObject
 {
-    public string name = "";
+    public string drumonName = "";
 
     public int level = 0;
 
