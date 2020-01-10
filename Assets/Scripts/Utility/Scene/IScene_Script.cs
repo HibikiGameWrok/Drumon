@@ -20,12 +20,12 @@ using UnityEngine;
         SCENE_REVISED,
         SCENE_BATTLE,
         SCENE_RESULT,
+        SCENE_TUTORIAL,
+        SCENE_ENGING,
     }
 // SceneのInterface
 public abstract class IScene_Script
 {
-
-
     // 親オブジェクト
     protected SceneManager_Script m_manager;
     // シーンの名前

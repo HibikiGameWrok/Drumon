@@ -31,7 +31,8 @@ public class TransitionManager_Script
         UnityEngine.Object.DontDestroyOnLoad(o);
 
         var canvas = o.GetComponent<Canvas>();
-        canvas.worldCamera = GameObject.Find("CenterEyeAnchor")
+        if(GameObject.Find("CenterEyeAnchor"))
+            canvas.worldCamera = GameObject.Find("CenterEyeAnchor")
                                                             .GetComponent<Camera>();
         
         return o.GetComponent<TransitionController_Script>();

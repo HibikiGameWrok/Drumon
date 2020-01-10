@@ -1,9 +1,9 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      SceneBattle_Script.cs                                 |
+//  file:      SceneEnding_Script.cs                                |
 //				 											                    |
-//  brief:    バトルシーンのスクリプト			                    |
+//  brief:    エンディングシーンのスクリプト			        |
 //															                    |
-//  date:	2019.12.13									            |
+//  date:	2019.1.10									                |
 //															                    |
 //  author: Renya Fukuyama									    |
 /*----------------------------------------------------------*/
@@ -13,10 +13,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-// バトルシーンクラス
-public class SceneBattle_Script : IScene_Script
+
+
+public class SceneEnding_Script : IScene_Script
 {
 
     /// <summary>
@@ -35,23 +35,7 @@ public class SceneBattle_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        // もしOtosを倒したら
-        if (BattleManager_Script.Get.EnemyCreature.OtsoFlag.Equals(true))
-        {
-            // 非同期処理のSceneアンロード
-            TransitionManager_Script.StartTransition(m_manager.Result.Name);
-            return SceneID.SCENE_RESULT;
-        }
-
-        // バトルが終了したかで判断する
-        if (BattleManager_Script.Get.IsFinish.Value.Equals(true))
-        {
-            // 非同期処理のSceneアンロード
-            TransitionManager_Script.StartTransition_UnloadScene(this.Name);
-
-            return SceneID.SCENE_REVISED;
-        }
-
+        // 継続する
         return SceneID.CONTINUE;
     }
 
