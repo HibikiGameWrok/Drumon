@@ -101,7 +101,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_timer = 0.0f;
         this.m_atkFlag = false;
 
-        m_anim.SetTrigger("Attack");
+        if(m_anim) m_anim.SetTrigger("Attack");
     }
 
     public void Damage(int damage)
