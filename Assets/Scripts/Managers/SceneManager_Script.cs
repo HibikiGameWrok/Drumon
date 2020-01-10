@@ -31,6 +31,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     private IScene_Script m_tutorial;
     // リザルトシーン
     private IScene_Script m_result;
+    // エンディングシーン
+    private IScene_Script m_ending;
     // オーディオ
     private AudioManager_Script m_audio;
 
@@ -48,6 +50,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     public SceneBattle_Script Battle => (SceneBattle_Script)m_battle;
     public SceneResult_Script Result => (SceneResult_Script)m_result;
     public SceneTutorial_Script Tutorial => (SceneTutorial_Script)m_tutorial;
+    public SceneEnding_Script Ending => (SceneEnding_Script)m_ending;
+
 
     /// <summary>
     /// 初期化処理
@@ -106,6 +110,10 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
             case SceneID.SCENE_TUTORIAL:
                 // チュートリアル
                 ChangeScene(m_tutorial);
+                break;
+            case SceneID.SCENE_ENGING:
+                // エンディングシーン
+                ChangeScene(m_ending);
                 break;
         }
 
@@ -169,6 +177,9 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         // TutorialScene
         m_tutorial = new SceneTutorial_Script();
         m_tutorial.Name = "TutorialScene";
+        // EndingScene
+        m_ending = new SceneEnding_Script();
+        m_ending.Name = "EndingScene";
     }
 
     private void SetFirstScene()
