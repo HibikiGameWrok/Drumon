@@ -25,7 +25,16 @@ public class ProgressResultEvent_Script : MonoBehaviour
     // Textコンポーネントの文章を変えるスクリプト
     private TextUI_Change_Script m_textUI_Change_Script = null;
 
+    // コンポーネントが無かった時に知らせるフラグ
     private bool m_errorFlag = false;
+
+    // イベントが終了した時に立つフラグ
+    private bool m_finishEventFlag = false;
+    public bool finishEventFlag
+    {
+        get { return m_finishEventFlag; }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -88,5 +97,10 @@ public class ProgressResultEvent_Script : MonoBehaviour
         // 8.テキストの文章を変更しフェードアウト
         m_textUI_Change_Script.NextRowText();
         m_textUI_Fade_Script.IsFadeOut = true;
+
+        yield return new WaitForSeconds(1.0f);
+
+        // 9.完了フラグを立たせる
+        m_finishEventFlag = true;
     }
 }
