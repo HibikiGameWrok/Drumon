@@ -74,7 +74,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
 
         // 鳴き声SE
-        AudioManager_Script.Get.PlaySE(m_data.name);
+        AudioManager_Script.Get.PlaySE(m_data.drumonName);
     }
 
     public void Execute()
@@ -160,7 +160,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
                     m_otsoFlag = true;
                 GameObject.Destroy(this.transform.GetChild(i).gameObject);
             }
-            GameObject obj = Resources.Load("VFX/CatchAnimationManager_" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
+            GameObject obj = Resources.Load("VFX/CatchAnimationManager_" + Regex.Replace(m_data.drumonName, @"[^a-z,A-Z]", "")) as GameObject;
 
             if (!obj) return;
             obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);
@@ -177,7 +177,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private void CreatePrefab()
     {
-        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
+        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.drumonName, @"[^a-z,A-Z]", "")) as GameObject;
 
         if (!obj) obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx") as GameObject;
         obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);
