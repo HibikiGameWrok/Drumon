@@ -284,21 +284,23 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
 
             //--------------------------------
-            //if (m_curentNum == 9)
-            //{
-            //    m_practiceModeFlag = true;
-            //}
-            //--------------------------------
-
-            //else if (m_curentNum == 14)
-            //{
-            //    m_practiceModeFlag = true;
-            //    //m_timeStandard_Script.StopFlag = false;
-            //}
-            //else if (m_curentNum == 17)
-            //{
-            //    m_practiceModeFlag = true;
-            //}
+            if (m_curentNum == 9)
+            {
+                m_practiceModeFlag = true;
+            }
+            else if (m_curentNum == 15)
+            {
+                m_practiceModeFlag = true;
+            }
+            else if (m_curentNum == 16)
+            {
+                m_practiceModeFlag = true;
+                //m_timeStandard_Script.StopFlag = false;
+            }
+            else if (m_curentNum == 17)
+            {
+                // シーン遷移
+            }
 
             //if (m_practiceCaptureText.activeInHierarchy == true)
             //{
@@ -372,14 +374,14 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             //    }
             //}
 
-            if (m_drumManager.TutorialGetFlag == true)
-            {
-                // 次のテキストの表示
-                NextText();
+            //if (m_drumManager.TutorialGetFlag == true)
+            //{
+            //    // 次のテキストの表示
+            //    NextText();
 
-                m_drumManager.TutorialGetFlag = false;
-                //m_timeStandard_Script.StopFlag = true;
-            }
+            //    m_drumManager.TutorialGetFlag = false;
+            //    //m_timeStandard_Script.StopFlag = true;
+            //}
         }
         else if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
