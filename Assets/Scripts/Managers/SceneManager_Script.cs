@@ -194,6 +194,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
             m_currentScene = m_result;
         else if (SceneManager.GetActiveScene().name == m_tutorial.Name)
             m_currentScene = m_tutorial;
+        else if (SceneManager.GetActiveScene().name == m_ending.Name)
+            m_currentScene = m_ending;
 
         // 初期化する
         m_currentScene.Initialize(this);
