@@ -79,8 +79,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_enemyWaitTimeUIScript.MaxPoint = m_data.waitTime;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
 
-        // 鳴き声SE
-        AudioManager_Script.Get.PlaySE(m_data.drumonName);
+        if (AudioManager_Script.Get != null)
+        {
+            // 鳴き声SE
+            AudioManager_Script.Get.PlaySE(m_data.drumonName);
+        }
     }
 
     public void Execute()
@@ -103,7 +106,6 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         SelectArts();
         // 技のレートをクリーチャーに教える
         string matchRate = csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_RATE];
-        Debug.Log(matchRate);
         int rate = int.Parse(matchRate);
 
         int damage = (int)(this.m_data.atk * (rate / 100.0f)) - (this.m_target.GetData().def);

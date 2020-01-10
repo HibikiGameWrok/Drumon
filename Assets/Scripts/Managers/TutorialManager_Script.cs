@@ -249,7 +249,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (m_enemyExecuteFlag == false)
             {
                 this.m_enemyCreature.Execute();
-                m_enemyExecuteFlag = true;
+                //m_enemyExecuteFlag = true;
             }
             
             if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
@@ -284,10 +284,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
 
             //--------------------------------
-            if (m_curentNum == 9)
-            {
-                m_practiceModeFlag = true;
-            }
+            //if (m_curentNum == 9)
+            //{
+            //    m_practiceModeFlag = true;
+            //}
             else if (m_curentNum == 15)
             {
                 m_practiceModeFlag = true;
@@ -360,6 +360,12 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                     // 次のテキストの表示
                     NextText();
                 }
+            }
+
+            if (m_enemyCreature.HP <= 0)
+            {
+                // 次のテキストの表示
+                NextText();
             }
 
             //if (m_practiceChangeText.activeInHierarchy == true)
