@@ -127,6 +127,8 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                         }
                         else if (m_notesInstance.SearchInstanceNotes() == 111111)
                         {
+                            // 技のレートをクリーチャーに教える
+                            matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
                             // 回復する
                             m_pCreature_Script.Heal();
                         }
