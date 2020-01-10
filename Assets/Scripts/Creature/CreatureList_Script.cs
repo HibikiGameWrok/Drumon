@@ -26,7 +26,7 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
                 return;
             }
         }
-        m_list.DataList[0] = CreateData_Script.Get.CreateData("Merlion");
+        //m_list.DataList[0] = CreateData_Script.Get.CreateData("Merlion");
     }
 
     public PlayerBox_Script List
