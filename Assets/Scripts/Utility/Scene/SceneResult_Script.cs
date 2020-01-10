@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      SceneResult_Script.cs                               |
+//  file:      SceneTutorial_Script.cs                               |
 //				 											                    |
 //  brief:    探索シーンのスクリプト			                    |
 //															                    |
@@ -16,10 +16,6 @@ using UnityEngine;
 
 public class SceneResult_Script : IScene_Script
 {
-
-    private GameObject m_resultEvent = null;
-    private ProgressResultEvent_Script m_resultEvent_Script = null;
-
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -36,20 +32,6 @@ public class SceneResult_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        if (m_resultEvent_Script.finishEventFlag == true)
-        {
-            // SpaceキーまたはVRコントローラーのトリガー
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-            {
-                // SEを鳴らす
-                m_manager.Audio.PlaySE(SfxType.teleport);
-                // 非同期処理のSceneロード
-                TransitionManager_Script.StartTransition(m_manager.Title.Name);
-
-                return SceneID.SCENE_TITLE;
-            }
-        }
-
         // 継続する
         return SceneID.CONTINUE;
     }
@@ -65,10 +47,5 @@ public class SceneResult_Script : IScene_Script
         m_manager = manager;
 
         // BGMを再生する
-        m_manager.Audio.PlayBGM(BfxType.bgm_Title);
-
-        m_resultEvent = GameObject.Find("ResultEvent");
-        m_resultEvent_Script = m_resultEvent.GetComponent<ProgressResultEvent_Script>();
-
     }
 }
