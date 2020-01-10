@@ -50,7 +50,7 @@ public class SelectDrumonData_Script : MonoBehaviour
         {
             if (name.Equals(m_paramList.Sheet1[i].name))
             {
-                data.name = m_paramList.Sheet1[i].name;
+                data.drumonName = m_paramList.Sheet1[i].name;
                 int num = ArrayRandom(m_paramList.Sheet1[i].hp);
                 data.level = 1;
                 data.hp = String2Int(m_paramList.Sheet1[i].hp, num);
