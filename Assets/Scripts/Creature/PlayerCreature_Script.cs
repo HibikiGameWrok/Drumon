@@ -108,7 +108,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.atk * this.m_rate) - (this.m_target.GetData().def);
+        int damage = (int)(this.m_data.atk * (this.m_rate / 100.0f)) - (this.m_target.GetData().def);
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
