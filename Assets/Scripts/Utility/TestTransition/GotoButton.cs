@@ -14,7 +14,7 @@ public class GotoButton : MonoBehaviour
     {
         // シーン遷移が終わるまで待つ場合はOnTransitionFinishedAsyncをawaitする
         await TransitionManager_Script.OnTransitionFinishedAsync();
-
+        
         m_button.OnClickAsObservable()
             .Subscribe(_ =>
             {
