@@ -44,12 +44,10 @@ public class SceneResult_Script : IScene_Script
                 // SEを鳴らす
                 m_manager.Audio.PlaySE(SfxType.teleport);
                 // 非同期処理のSceneロード
-                TransitionManager_Script.StartTransition(m_manager.Title.Name);
-
-                return SceneID.SCENE_TITLE;
+                TransitionManager_Script.StartTransition(m_manager.Ending.Name);
+                return SceneID.SCENE_ENGING;
             }
         }
-
         // 継続する
         return SceneID.CONTINUE;
     }
@@ -69,6 +67,5 @@ public class SceneResult_Script : IScene_Script
 
         m_resultEvent = GameObject.Find("ResultEvent");
         m_resultEvent_Script = m_resultEvent.GetComponent<ProgressResultEvent_Script>();
-
     }
 }
