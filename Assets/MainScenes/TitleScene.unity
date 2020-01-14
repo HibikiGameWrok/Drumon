@@ -221,8 +221,9 @@ GameObject:
   - component: {fileID: 261478857}
   - component: {fileID: 261478856}
   - component: {fileID: 261478855}
+  - component: {fileID: 261478858}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,6 +329,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261478853}
   m_CullTransparentMesh: 0
+--- !u!65 &261478858
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261478853}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &271552737
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +479,8 @@ MonoBehaviour:
   m_handAnchor: {fileID: 470479723}
   m_lineRenderer: {fileID: 451707879}
   m_maxRayDistance: 500
+  m_isStart: 0
+  m_isTutorial: 0
 --- !u!120 &451707879
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -475,7 +491,7 @@ LineRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -502,7 +518,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -582,7 +598,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &470479722
 PrefabInstance:
@@ -724,80 +740,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643106171}
   m_CullTransparentMesh: 0
---- !u!1001 &697930187
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7882623402209806518, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_Name
-      value: OVRGazePointer (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7882623402209806521, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
-        type: 3}
-      propertyPath: rayTransform
-      value: 
-      objectReference: {fileID: 470479723}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 86782e4ab07d38b4c8cd3ad515d5ecde, type: 3}
 --- !u!1001 &771384373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -809,6 +751,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OVRGazePointer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7882623402209806518, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7882623402209806523, guid: 86782e4ab07d38b4c8cd3ad515d5ecde,
         type: 3}
@@ -1251,7 +1198,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &958325248
 GameObject:
@@ -1539,7 +1486,7 @@ GameObject:
   - component: {fileID: 1134793028}
   - component: {fileID: 1134793027}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TutorialButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1979,7 +1926,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -2062,6 +2009,8 @@ MonoBehaviour:
   m_handAnchor: {fileID: 1692046841}
   m_lineRenderer: {fileID: 2065554056}
   m_maxRayDistance: 500
+  m_isStart: 0
+  m_isTutorial: 0
 --- !u!4 &2065554058
 Transform:
   m_ObjectHideFlags: 0
@@ -2074,7 +2023,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &9143349298779894854
 PrefabInstance:
@@ -2126,7 +2075,7 @@ PrefabInstance:
     - target: {fileID: 9143349298542158832, guid: e1050d4bb0db00f4ab3a12c6f76ea23b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9143349298542158832, guid: e1050d4bb0db00f4ab3a12c6f76ea23b,
         type: 3}

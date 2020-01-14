@@ -13,6 +13,14 @@ public class LaserPointer_Script : MonoBehaviour
     private float m_maxRayDistance = 500f;
 
 
+    [SerializeField]
+    private bool m_isStart;
+    [SerializeField]
+    private bool m_isTutorial;
+
+    public bool IsStart => m_isStart;
+    public bool IsTutorial => m_isTutorial;
+
     void Awake()
     {
         Observable.EveryUpdate()
@@ -26,6 +34,12 @@ public class LaserPointer_Script : MonoBehaviour
                 {
                     // Colliderがあれば、衝突箇所までレーザーを描画する
                     RenderLaserToHit(laserPointer, hit);
+
+                    Debug.Log(hit.transform.name);
+                    if (hit.transform.name == "StartButton")
+                        m_isStart = true;
+                    else if (hit.transform.name == "TutorialButton")
+                        m_isTutorial = true;
                 }
                 else
                 {
