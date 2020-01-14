@@ -27,6 +27,5 @@ public class StaffRoll_TextMove_Script : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        Debug.Log(this.transform.localPosition.y);
     }
 }
