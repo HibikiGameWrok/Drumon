@@ -35,7 +35,7 @@ public class LaserPointer_Script : MonoBehaviour
                     // Colliderがあれば、衝突箇所までレーザーを描画する
                     RenderLaserToHit(laserPointer, hit);
 
-                    Debug.Log(hit.transform.name);
+                    Debug.Log(hit.collider.gameObject.name);
                     if (hit.transform.name == "StartButton")
                         m_isStart = true;
                     else if (hit.transform.name == "TutorialButton")

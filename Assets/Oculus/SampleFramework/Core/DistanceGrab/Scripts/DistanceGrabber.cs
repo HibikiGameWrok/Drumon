@@ -15,6 +15,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 #endif
 
+
+
 namespace OculusSampleFramework
 {
     /// <summary>
@@ -30,7 +32,7 @@ namespace OculusSampleFramework
 
         // Radius of sphere used in spherecast from hand along forward ray to find target object.
         [SerializeField]
-        float m_spherecastRadius = 0.0f;
+        float m_spherecastRadius = 0;
 
         // Distance below which no-snap objects won't be teleported, but will instead be left
         // where they are in relation to the hand.
@@ -61,21 +63,19 @@ namespace OculusSampleFramework
 
         // Objects can be distance grabbed up to this distance from the hand.
         [SerializeField]
-        float m_maxGrabDistance = 0.0f;
+        float m_maxGrabDistance;
 
         // Only allow grabbing objects in this layer.
+		// NOTE: you can use the value -1 to attempt to grab everything.
         [SerializeField]
         int m_grabObjectsInLayer = 0;
         [SerializeField]
         int m_obstructionLayer = 0;
 
-        [SerializeField]
-        GameObject m_player;
         DistanceGrabber m_otherHand;
 
         protected DistanceGrabbable m_target;
         // Tracked separately from m_target, because we support child colliders of a DistanceGrabbable.
-        // MTF TODO: verify this still works!
         protected Collider m_targetCollider;
 
         protected override void Start()
@@ -87,11 +87,8 @@ namespace OculusSampleFramework
             // OVRPlayerController, and also players have arms.
             // Note that there's no major downside to making this value too high, as objects
             // outside the player's grabbable trigger volume will not be eligible targets regardless.
-
-            //---------------------------------------------------------
-            //SphereCollider sc = m_player.GetComponentInChildren<SphereCollider>();
-            //m_maxGrabDistance = sc.radius + 3.0f;
-            //--------------------------------------------------------
+            SphereCollider sc = m_player.GetComponentInChildren<SphereCollider>();
+            m_maxGrabDistance = sc.radius + 3.0f;
 
             if(m_parentHeldObject == true)
             {
@@ -111,8 +108,9 @@ namespace OculusSampleFramework
 #endif
     }
 
-    void Update()
+		public override void Update()
         {
+            base.Update();
 
             Debug.DrawRay(transform.position, transform.forward, Color.red, 0.1f);
             
@@ -155,6 +153,7 @@ namespace OculusSampleFramework
 
                 m_grabbedObj = closestGrabbable;
                 m_grabbedObj.GrabBegin(this, closestGrabbableCollider);
+                SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
 
                 m_movingObjectToHand = true;
                 m_lastPos = transform.position;
@@ -244,7 +243,8 @@ namespace OculusSampleFramework
             foreach (OVRGrabbable cg in m_grabCandidates.Keys)
             {
                 DistanceGrabbable grabbable = cg as DistanceGrabbable;
-                bool canGrab = grabbable != null && grabbable.InRange && !(grabbable.isGrabbed && !grabbable.allowOffhandGrab);
+				bool canGrab = grabbable != null && grabbable.InRange && !(grabbable.isGrabbed && !grabbable.allowOffhandGrab);
+				if (canGrab && m_grabObjectsInLayer >= 0) canGrab = grabbable.gameObject.layer == m_grabObjectsInLayer;
                 if (!canGrab)
                 {
                     continue;
@@ -302,14 +302,15 @@ namespace OculusSampleFramework
             Ray ray = new Ray(m_gripTransform.position, m_gripTransform.forward);
             RaycastHit hitInfo;
 
-            // If no objects in grab volume, raycast.
-            // Potential optimization: 
-            // In DistanceGrabbable.RefreshCrosshairs, we could move the object between collision layers.
-            // If it's in range, it would move into the layer DistanceGrabber.m_grabObjectsInLayer,
-            // and if out of range, into another layer so it's ignored by DistanceGrabber's SphereCast.
-            // However, we're limiting the SphereCast by m_maxGrabDistance, so the optimization doesn't seem
-            // essential.
-            if (Physics.SphereCast(ray, m_spherecastRadius, out hitInfo, m_maxGrabDistance, 1 << m_grabObjectsInLayer))
+			// If no objects in grab volume, raycast.
+			// Potential optimization: 
+			// In DistanceGrabbable.RefreshCrosshairs, we could move the object between collision layers.
+			// If it's in range, it would move into the layer DistanceGrabber.m_grabObjectsInLayer,
+			// and if out of range, into another layer so it's ignored by DistanceGrabber's SphereCast.
+			// However, we're limiting the SphereCast by m_maxGrabDistance, so the optimization doesn't seem
+			// essential.
+			int layer = (m_grabObjectsInLayer == -1) ? ~0 : 1 << m_grabObjectsInLayer;
+            if (Physics.SphereCast(ray, m_spherecastRadius, out hitInfo, m_maxGrabDistance, layer))
             {
                 DistanceGrabbable grabbable = null;
                 Collider hitCollider = null;

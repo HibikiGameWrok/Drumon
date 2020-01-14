@@ -33,7 +33,7 @@ namespace OVRTouchSample
         public const float THUMB_DEBOUNCE_TIME = 0.15f;
 
         [SerializeField]
-        private OVRInput.Controller m_controller = 0;
+        private OVRInput.Controller m_controller = OVRInput.Controller.None;
         [SerializeField]
         private Animator m_animator = null;
         [SerializeField]

@@ -36,7 +36,7 @@ public class DebugUIBuilder : MonoBehaviour
   [SerializeField]
   private RectTransform sliderPrefab = null;
   [SerializeField]
-  private RectTransform dividerPrefab = null; 
+  private RectTransform dividerPrefab = null;
   [SerializeField]
   private RectTransform togglePrefab = null;
   [SerializeField]
@@ -47,9 +47,6 @@ public class DebugUIBuilder : MonoBehaviour
 
   [SerializeField]
   private Transform[] targetContentPanels = null;
-
-  [SerializeField]
-  private bool manuallyResizeContentPanels;
 
   private bool[] reEnable;
 

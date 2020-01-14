@@ -18,6 +18,7 @@ using UnityEngine;
 // タイトルシーンクラス
 public class SceneTitle_Script : IScene_Script
 {
+    private TitleButton_Script m_title;
 
     /// <summary>
     /// 終了処理
@@ -36,8 +37,10 @@ public class SceneTitle_Script : IScene_Script
     public override SceneID Execute()
     {
         // SpaceキーまたはVRコントローラーのトリガー
-        if (Input.GetKeyDown(KeyCode.Space) ||
-            OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        //if (Input.GetKeyDown(KeyCode.Space) ||
+        //    OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        Debug.Log(m_title.IsStart);
+        if(m_title.IsStart == true)
         {
             // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.WaterGun);
@@ -64,5 +67,9 @@ public class SceneTitle_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Title);
+
+        m_title = GameObject.Find("StartButton").GetComponent<TitleButton_Script>();
+
+        Debug.Log(m_title);
     }
 }
