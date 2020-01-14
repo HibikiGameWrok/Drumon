@@ -48,7 +48,6 @@ public class SceneBattle_Script : IScene_Script
         {
             // 非同期処理のSceneアンロード
             TransitionManager_Script.StartTransition_UnloadScene(this.Name);
-
             return SceneID.SCENE_REVISED;
         }
 

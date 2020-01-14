@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UniRx;
 
 public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
@@ -60,6 +61,10 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
+        else if(!m_isFinish.Value)
+        {
+            StartCoroutine(ResultDisplay());
+        }
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
@@ -120,11 +125,21 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             {
                 this.m_isSetting = false;
                 this.m_playerCreature.AddExpPoint();
-                m_isFinish.SetValueAndForceNotify(true);
                 return true;
             }
         }
 
         return false;
+    }
+
+    private IEnumerator ResultDisplay()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            m_isFinish.SetValueAndForceNotify(true);
+            yield return null;
+        }
     }
 }
