@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 105406790}
   - component: {fileID: 105406789}
   m_Layer: 5
-  m_Name: LVText
+  m_Name: ELVText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,11 +325,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 105406787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5446e96a6fd85494893fe19573a00b62, type: 3}
+  m_Script: {fileID: 11500000, guid: d5b4189e26d0d174b92825ec8e9ff3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TEMP_TEXT: /
-  m_HPSlider: {fileID: 2038323556}
 --- !u!114 &105406790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1229,7 +1227,7 @@ GameObject:
   - component: {fileID: 497923751}
   - component: {fileID: 497923750}
   m_Layer: 5
-  m_Name: LVText
+  m_Name: PLVText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1263,11 +1261,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 497923748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5446e96a6fd85494893fe19573a00b62, type: 3}
+  m_Script: {fileID: 11500000, guid: d5b4189e26d0d174b92825ec8e9ff3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TEMP_TEXT: /
-  m_HPSlider: {fileID: 726308761}
 --- !u!114 &497923751
 MonoBehaviour:
   m_ObjectHideFlags: 0
