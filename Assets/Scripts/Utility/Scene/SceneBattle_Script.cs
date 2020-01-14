@@ -38,7 +38,7 @@ public class SceneBattle_Script : IScene_Script
         // もしOtosを倒したら
         if (BattleManager_Script.Get.EnemyCreature.OtsoFlag.Equals(true))
         {
-            // 非同期処理のSceneアンロード
+            // 非同期処理のSceneロード
             TransitionManager_Script.StartTransition(m_manager.Result.Name);
             return SceneID.SCENE_RESULT;
         }

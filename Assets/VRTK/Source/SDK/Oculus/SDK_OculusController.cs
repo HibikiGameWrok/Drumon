@@ -682,17 +682,17 @@ namespace VRTK
             if (HasAvatar())
             {
                 GetBoundariesSDK();
-#if VRTK_DEFINE_SDK_OCULUS_AVATAR
-                if (cachedBoundariesSDK != null)
-                {
-                    OvrAvatar avatar = cachedBoundariesSDK.GetAvatar();
-                    bool isDefaultModel = (defaultSDKLeftControllerModel != null && defaultSDKRightControllerModel != null && GetControllerModel(ControllerHand.Left) == defaultSDKLeftControllerModel.gameObject && GetControllerModel(ControllerHand.Right) == defaultSDKRightControllerModel.gameObject);
-                    if (avatar != null && isDefaultModel)
-                    {
-                        avatar.AssetsDoneLoading.AddListener(BothControllersReady);
-                    }
-                }
-#endif
+//#if VRTK_DEFINE_SDK_OCULUS_AVATAR
+//                if (cachedBoundariesSDK != null)
+//                {
+//                    OvrAvatar avatar = cachedBoundariesSDK.GetAvatar();
+//                    bool isDefaultModel = (defaultSDKLeftControllerModel != null && defaultSDKRightControllerModel != null && GetControllerModel(ControllerHand.Left) == defaultSDKLeftControllerModel.gameObject && GetControllerModel(ControllerHand.Right) == defaultSDKRightControllerModel.gameObject);
+//                    if (avatar != null && isDefaultModel)
+//                    {
+//                        avatar.AssetsDoneLoading.AddListener(BothControllersReady);
+//                    }
+//                }
+//#endif
             }
         }
 
