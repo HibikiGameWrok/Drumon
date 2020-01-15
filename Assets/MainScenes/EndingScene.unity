@@ -1782,16 +1782,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: eb0750784cfecdd4b80cd630697140b5,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 782b45da441a5654ab5261bb137b03e5, type: 2}
     - target: {fileID: 7314577195790249741, guid: eb0750784cfecdd4b80cd630697140b5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8243dab112772d54fbc906fb97c6515b, type: 2}
+    - target: {fileID: -6057140222963153312, guid: eb0750784cfecdd4b80cd630697140b5,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 782b45da441a5654ab5261bb137b03e5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb0750784cfecdd4b80cd630697140b5, type: 3}
 --- !u!1001 &234044458
@@ -5485,7 +5485,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &618564426
 RectTransform:
