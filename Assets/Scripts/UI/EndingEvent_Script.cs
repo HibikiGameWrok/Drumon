@@ -8,11 +8,17 @@ public class EndingEvent_Script : MonoBehaviour
     private string m_textCSVName = "StaffList";
 
     private CSVDataHolder m_csvHolder = new CSVDataHolder();
-
     // 設定したCSVの中身を変数に保持
     List<string[]> m_csvDatas = null;
 
+    private bool m_finishFlag = false;
+    public bool finishFlag
+    {
+        get { return m_finishFlag; }
+    }
 
+    private GameObject m_fadeObject = null;
+    private PanelUI_Fade_Script m_fadeImage = null;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +26,9 @@ public class EndingEvent_Script : MonoBehaviour
         CSVSetting(m_textCSVName);
         m_csvDatas = m_csvHolder.CSVDatas;
         StartCoroutine("EventProgress");
+
+        m_fadeObject = GameObject.Find("FadePanel");
+        m_fadeImage = m_fadeObject.GetComponent<PanelUI_Fade_Script>();
     }
 
     // Update is called once per frame
@@ -56,8 +65,9 @@ public class EndingEvent_Script : MonoBehaviour
 
             // Cubeプレハブを元に、インスタンスを生成
             Instantiate(obj, this.transform.position - new Vector3(0.0f, 2.0f,0.0f), Quaternion.identity,this.transform);
-
-
         }
+        yield return new WaitForSeconds(10.0f);
+        m_fadeImage.IsFadeOut = true;
+        m_finishFlag = true;
     }
 }

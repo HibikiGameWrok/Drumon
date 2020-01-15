@@ -31,6 +31,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     private HealProsperityUI_Script m_healProsperityUIScript = null;
     private GameObject m_TimerObject = null;
     private AccelerationTime_Script m_accelerationTimeScript = null;
+    private GameObject m_levelUI = null;
+    private LevelTextUI_Script m_levelTextUIScript = null;
 
     private float m_timer;
 
@@ -72,6 +74,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
         m_TimerObject = GameObject.Find("Timer");
         m_accelerationTimeScript = m_TimerObject.GetComponent<AccelerationTime_Script>();
+        m_levelUI = GameObject.Find("PLVText");
+        m_levelTextUIScript = m_levelUI.GetComponent<LevelTextUI_Script>();
+
 
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
@@ -86,7 +91,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         m_healProsperityUIScript.MaxPoint = m_data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.hp;
-
+        m_levelTextUIScript.NowLevel = m_data.level;
         m_accelerationTimeScript.MaxTimer = m_data.waitTime;
     }
 
@@ -129,6 +134,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Heal()
     {
+        // 回復SEを再生する
+        AudioManager_Script.Get.PlaySE(SfxType.Heal);
+
         this.m_data.hp += this.m_rate;
         if (this.m_data.hp > this.m_data.maxHp) this.m_data.hp = this.m_data.maxHp;
     }
@@ -147,6 +155,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             m_attackRecipe.CSVSetting(m_data.drumonName);
             m_healProsperityUIScript.MaxPoint = m_data.maxHp;
             m_healProsperityUIScript.NowPoint = m_data.hp;
+            m_levelTextUIScript.NowLevel = m_data.level;
             m_accelerationTimeScript.MaxTimer = m_data.waitTime;
         }
     }
@@ -235,7 +244,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         data.level += 1;
         data.hp = data.maxHp;
-        for(int i = 0; i < num; i++)
+        m_levelTextUIScript.NowLevel = m_data.level;
+        for (int i = 0; i < num; i++)
         {
             int rand = Random.Range(0, 2);
             switch (rand)

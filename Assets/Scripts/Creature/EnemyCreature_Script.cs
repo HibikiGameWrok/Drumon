@@ -47,6 +47,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     // AttackWaitTimeUI
     private GameObject m_waitTime = null;
     private EnemyWaitTimeUI_Script m_enemyWaitTimeUIScript = null;
+    // レベル
+    private GameObject m_levelUI = null;
+    private LevelTextUI_Script m_levelTextUIScript = null;
+
 
     // Start is called before the first frame update
     void Start()
@@ -73,9 +77,12 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_waitTime = GameObject.Find("WaitTime");
         m_enemyWaitTimeUIScript = m_waitTime.GetComponent<EnemyWaitTimeUI_Script>();
 
+        m_levelUI = GameObject.Find("ELVText");
+        m_levelTextUIScript = m_levelUI.GetComponent<LevelTextUI_Script>();
+
         m_healProsperityUIScript.MaxPoint = m_data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.hp;
-
+        m_levelTextUIScript.NowLevel = m_data.level;
         m_enemyWaitTimeUIScript.MaxPoint = m_data.waitTime;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
 
