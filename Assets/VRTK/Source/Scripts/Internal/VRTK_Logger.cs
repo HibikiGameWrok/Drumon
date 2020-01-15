@@ -1,6 +1,7 @@
 ﻿namespace VRTK
 {
     using UnityEngine;
+    using UnityEngine.XR;
 #if UNITY_EDITOR
     using UnityEditor;
 #endif
@@ -164,18 +165,21 @@
                     break;
                 case LogLevels.Error:
                 case LogLevels.Fatal:
-                    if (forcePause)
+                    if (XRDevice.isPresent)
                     {
-                        UnityEngine.Debug.Break();
-                    }
+                        if (forcePause)
+                        {
+                            UnityEngine.Debug.Break();
+                        }
 
-                    if (instance.throwExceptions)
-                    {
-                        throw new Exception(message);
-                    }
-                    else
-                    {
-                        UnityEngine.Debug.LogError(message);
+                        if (instance.throwExceptions)
+                        {
+                            throw new Exception(message);
+                        }
+                        else
+                        {
+                            UnityEngine.Debug.LogError(message);
+                        }
                     }
                     break;
             }

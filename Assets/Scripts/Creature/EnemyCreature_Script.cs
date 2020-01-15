@@ -7,9 +7,17 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private EnemyCreature m_enemy = null;
     private CreatureData m_data = null;
 
+    private CSVDataHolder csvHolder = new CSVDataHolder();
+    private int m_lastArts;
+
     public int HP
     {
-        get { return this.m_data.data.hp; }
+        get { return this.m_data.hp; }
+    }
+
+    public CreatureData Data
+    {
+        get { return m_data; }
     }
 
     private float m_timer;
@@ -39,6 +47,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     // AttackWaitTimeUI
     private GameObject m_waitTime = null;
     private EnemyWaitTimeUI_Script m_enemyWaitTimeUIScript = null;
+    // レベル
+    private GameObject m_levelUI = null;
+    private LevelTextUI_Script m_levelTextUIScript = null;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,8 +58,11 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_data = m_enemy.EnemyCreatureData;
 
 #if UNITY_EDITOR
-        m_data.data.hp = m_data.data.maxHp;
+        m_data.hp = m_data.maxHp;
 #endif
+        // CSVの保管クラスに設定
+        csvHolder.CSVLoadFile(m_data.drumonName);
+        m_lastArts = csvHolder.CSVDatas.Count;
 
         this.m_timer = 0.0f;
 
@@ -62,19 +77,28 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_waitTime = GameObject.Find("WaitTime");
         m_enemyWaitTimeUIScript = m_waitTime.GetComponent<EnemyWaitTimeUI_Script>();
 
-        m_healProsperityUIScript.MaxPoint = m_data.data.maxHp;
-        m_healProsperityUIScript.NowPoint = m_data.data.hp;
+        m_levelUI = GameObject.Find("ELVText");
+        m_levelTextUIScript = m_levelUI.GetComponent<LevelTextUI_Script>();
 
-        m_enemyWaitTimeUIScript.MaxPoint = m_data.data.waitTime;
+        m_healProsperityUIScript.MaxPoint = m_data.maxHp;
+        m_healProsperityUIScript.NowPoint = m_data.hp;
+        m_levelTextUIScript.NowLevel = m_data.level;
+        m_enemyWaitTimeUIScript.MaxPoint = m_data.waitTime;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
+
+        if (AudioManager_Script.Get != null)
+        {
+            // 鳴き声SE
+            AudioManager_Script.Get.PlaySE(m_data.drumonName);
+        }
     }
 
     public void Execute()
     {
-        m_healProsperityUIScript.NowPoint = m_data.data.hp;
+        m_healProsperityUIScript.NowPoint = m_data.hp;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
         this.CountTimer();
-        if (this.m_timer >= m_data.data.waitTime) this.m_atkFlag = true;
+        if (this.m_timer >= m_data.waitTime) this.m_atkFlag = true;
 
         this.Dead();
     }
@@ -86,37 +110,38 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (this.m_data.data.atk) - (this.m_target.GetData().data.def);
-        float weak = WeakChecker_Script.WeakCheck(this.m_data.data.elem, this.m_target.GetData().data.elem);
+        SelectArts();
+        // 技のレートをクリーチャーに教える
+        string matchRate = csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_RATE];
+        int rate = int.Parse(matchRate);
+
+        int damage = (int)(this.m_data.atk * (rate / 100.0f)) - (this.m_target.GetData().def);
+        float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
+        VFXCreater_Script.CreateEffect(csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_NAME], this.transform);
         damage = (int)(damage * weak);
         this.m_target.Damage(damage);
         this.m_timer = 0.0f;
         this.m_atkFlag = false;
-
-        m_anim.SetTrigger("Attack");
+        
+        if(m_anim) m_anim.SetTrigger("Attack");
     }
 
     public void Damage(int damage)
     {
-        this.m_data.data.hp -= damage;
+        this.m_data.hp -= damage;
         GetComponent<ParticleSystem>().Play();
         m_anim.SetTrigger("Damage");
-        if (this.m_data.data.hp < 0) this.m_data.data.hp = 0;
+        if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 
     public void Heal()
     {
-        this.m_data.data.hp += 10;
+        this.m_data.hp += 10;
     }
 
     public CreatureData GetData()
     {
         return this.m_data;
-    }
-
-    public void SetData(CreatureData data)
-    {
-        this.m_data = data;
     }
 
     public void SetTarget(ICreature_Script target)
@@ -126,7 +151,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Dead()
     {
-        if (this.m_data.data.hp <= 0 && this.transform.childCount != 0)
+        if (this.m_data.hp <= 0 && this.transform.childCount != 0)
         {
             m_anim.SetTrigger("Death");
             for (int i = 0; i < this.transform.childCount; i++)
@@ -148,7 +173,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Capture(int hitNum)
     {
-        if (this.m_data.data.maxHp - this.m_data.data.hp + hitNum > this.m_data.data.maxHp + 10)
+        if (this.m_data.maxHp - this.m_data.hp + hitNum > this.m_data.maxHp + 10)
         {
             CreatureList_Script.Get.Add(this);
             for (int i = 0; i < this.transform.childCount; i++)
@@ -157,7 +182,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
                     m_otsoFlag = true;
                 GameObject.Destroy(this.transform.GetChild(i).gameObject);
             }
-            GameObject obj = Resources.Load("VFX/CatchAnimationManager_" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
+            GameObject obj = Resources.Load("VFX/CatchAnimationManager_" + Regex.Replace(m_data.drumonName, @"[^a-z,A-Z]", "")) as GameObject;
 
             if (!obj) return;
             obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);
@@ -174,7 +199,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     private void CreatePrefab()
     {
-        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.name, @"[^a-z,A-Z]", "")) as GameObject;
+        GameObject obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/" + Regex.Replace(m_data.drumonName, @"[^a-z,A-Z]", "")) as GameObject;
 
         if (!obj) obj = Resources.Load("InsPrefab/PlayerCreaturePrefab/Wolf_fbx") as GameObject;
         obj = Instantiate(obj, this.transform.position + obj.transform.position, this.transform.rotation * obj.transform.rotation);
@@ -183,5 +208,18 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         this.m_anim = obj.GetComponent<Animator>();
         this.m_animState = this.m_anim.GetCurrentAnimatorStateInfo(0);
         this.m_timer = 0.0f;
+    }
+
+    private void SelectArts()
+    {
+        int random = Random.Range(1, csvHolder.CSVDatas.Count - 1);
+        if (m_lastArts != random)
+        {
+            m_lastArts = random;
+        }
+        else
+        {
+            SelectArts();
+        }
     }
 }

@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 // ドラムマネージャーの定義
 public class DrumManager_Script : SingletonBase_Script<DrumManager_Script> 
@@ -46,13 +47,13 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     private bool m_gaugeFinishFlag = false;
 
     // チュートリアルのモンスターを捕獲したフラグ
-    private bool m_tutorialGetFlag = false;
-    // チュートリアルのモンスターを捕獲したフラグのプロパティ
-    public bool TutorialGetFlag
-    {
-        get { return m_tutorialGetFlag; }
-        set { m_tutorialGetFlag = value; }
-    }
+    //private bool m_tutorialGetFlag = false;
+    //// チュートリアルのモンスターを捕獲したフラグのプロパティ
+    //public bool TutorialGetFlag
+    //{
+    //    get { return m_tutorialGetFlag; }
+    //    set { m_tutorialGetFlag = value; }
+    //}
 
     /// <summary>
     /// Awake関数
@@ -66,10 +67,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_attackDrum = GameObject.FindGameObjectWithTag("AttackDrum").GetComponent<AttackDrum_Script>();
         // 初期化する
         m_attackDrum.Initialize(this);
-        // 回復用のドラムを生成する
-        //m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
-        // 初期化する
-        //m_healDrum.Initialize(this);
         // 選択用のドラムを生成する
         m_switchDrum = GameObject.FindGameObjectWithTag("SwitchDrum").GetComponent<SwitchDrum_Script>();
         // 初期化する
@@ -84,8 +81,11 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
 
-        m_healProsperityUI = GameObject.Find("PSlider");
-        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+        if (SceneManager.GetActiveScene().name != "TutorialCaptureScene")
+        {
+            m_healProsperityUI = GameObject.Find("PSlider");
+            m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+        }
 
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
         m_enemyCreature = BattleManager_Script.Get.EnemyCreature;
@@ -170,8 +170,8 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             }
         }
 
-        // 行動ゲージが終わったら
-        if (m_gaugeFinishFlag == true)
+        // キャプチャーの時にコストが0になったら
+        if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag == true)
         {
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
@@ -182,7 +182,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 else
                 {
                     m_enemyCreature.Capture(CaptureDrum_Script.CAPTURE_CONFIRM);
-                    m_tutorialGetFlag = true;
+                    //m_tutorialGetFlag = true;
                 }
 
                 m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount = 0;

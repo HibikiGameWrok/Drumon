@@ -77,8 +77,17 @@ public abstract class Stick_Script : MonoBehaviour
     protected bool m_hitFlag;
     // 当たった数
     protected int m_hitNum;
-
+    // 最後に当たったオブジェクトのタグ
     protected string m_lastCollisionTag = null;
+
+    // Boxドラムの叩いたフラグ
+    protected bool m_boxDrumHitFlag = false;
+    // Boxドラムの叩いたフラグのプロパティ
+    public bool BoxDrumHitFlag
+    {
+        get { return m_boxDrumHitFlag; }
+        set { m_boxDrumHitFlag = value; }
+    }
 
     // 初期化
     public abstract void Initialize(StickManager_Script manager);
@@ -86,7 +95,7 @@ public abstract class Stick_Script : MonoBehaviour
     // 当たり判定を抜けた処理
     void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum" || collision.gameObject.tag == "BoxInDrum" || collision.gameObject.tag == "BoxOutDrum")
         {
             // カウントダウン
             m_hitNum--;

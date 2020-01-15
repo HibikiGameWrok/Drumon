@@ -50,12 +50,24 @@ public class SelectDrumonData_Script : MonoBehaviour
         {
             if (name.Equals(m_paramList.Sheet1[i].name))
             {
-                data.data = m_paramList.Sheet1[i];
+                data.drumonName = m_paramList.Sheet1[i].name;
+                int num = ArrayRandom(m_paramList.Sheet1[i].hp);
+                data.level = 1;
+                data.hp = String2Int(m_paramList.Sheet1[i].hp, num);
+                data.maxHp = data.hp;
+                data.atk = String2Int(m_paramList.Sheet1[i].atk, num);
+                data.def = String2Int(m_paramList.Sheet1[i].def, num);
+                data.waitTime = m_paramList.Sheet1[i].waitTime;
+                data.elem = m_paramList.Sheet1[i].elem;
+                data.exp = 20;
+                int lostPoint = (data.hp + data.atk + data.def) - m_paramList.Sheet1[i].basePoint;
+                data.hp -= lostPoint;
+
                 break;
             }
         }
 
-        string fileName = data.data.name;
+        string fileName = data.drumonName;
         i = 1;
         while (true)
         {
@@ -70,5 +82,17 @@ public class SelectDrumonData_Script : MonoBehaviour
 #if UNITY_EDITOR
         AssetDatabase.CreateAsset(data, "Assets/Resources/Datas/CreatureData/" + fileName + ".asset");
 #endif
+    }
+
+    static public int ArrayRandom(string array)
+    {
+        string[] arr = array.Split('-');
+        return Random.Range(0, arr.Length);
+    }
+
+    static public int String2Int(string value, int num)
+    {
+        string[] arr = value.Split('-');
+        return System.Convert.ToInt32(arr[num]);
     }
 }

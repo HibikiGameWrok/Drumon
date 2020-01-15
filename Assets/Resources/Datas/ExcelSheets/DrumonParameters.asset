@@ -14,44 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sheet1:
   - name: Merlion
-    maxHp: 65
-    hp: 65
-    atk: 15
-    def: 15
+    hp: 65-70-60
+    atk: 15-17-22
+    def: 20-13-18
     waitTime: 10
     elem: 4
+    basePoint: 100
   - name: Kitsune
-    maxHp: 65
-    hp: 65
-    atk: 15
-    def: 15
+    hp: 65-67-70
+    atk: 20-13-20
+    def: 15-20-10
     waitTime: 10
     elem: 0
+    basePoint: 100
   - name: Otso
-    maxHp: 150
     hp: 150
     atk: 30
-    def: 20
+    def: 30
     waitTime: 12
     elem: 3
+    basePoint: 210
   - name: Garfish
-    maxHp: 50
-    hp: 50
-    atk: 20
-    def: 5
+    hp: 50-53-55
+    atk: 20-15-12
+    def: 5-7-8
     waitTime: 9
     elem: 4
+    basePoint: 75
   - name: ChurchGrim
-    maxHp: 75
-    hp: 75
-    atk: 20
-    def: 15
+    hp: 70-75-80
+    atk: 23-20-17
+    def: 17-15-13
     waitTime: 8
     elem: 2
+    basePoint: 110
   - name: Lantern
-    maxHp: 50
-    hp: 50
-    atk: 20
-    def: 15
+    hp: 40-50-55
+    atk: 25-15-20
+    def: 20-20-10
     waitTime: 9
     elem: 1
+    basePoint: 85

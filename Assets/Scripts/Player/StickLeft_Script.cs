@@ -33,7 +33,7 @@ public class StickLeft_Script : Stick_Script
         {
             m_hitFlag = true;
 
-            if (m_lastCollisionTag == "AttackOutDrum" || m_lastCollisionTag == "SwitchOutDrum")
+            if (m_lastCollisionTag == "AttackOutDrum" || m_lastCollisionTag == "SwitchOutDrum" || m_lastCollisionTag == "BoxOutDrum")
             {
                 // 振動させる
                 OVRHaptics.LeftChannel.Preempt(m_vibClip);
@@ -86,7 +86,7 @@ public class StickLeft_Script : Stick_Script
     // 当たり判定
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "HealDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum" || collision.gameObject.tag == "BoxInDrum" || collision.gameObject.tag == "BoxOutDrum")
         {
             // カウントアップ
             m_hitNum++;
@@ -177,6 +177,42 @@ public class StickLeft_Script : Stick_Script
                     OVRHaptics.LeftChannel.Preempt(m_vibClip);
                     // 音を鳴らす
                     this.audioSource.PlayOneShot(m_healHitSE);
+                }
+                // Boxドラムの内側を叩いたら
+                else if (collision.gameObject.tag == "BoxInDrum")
+                {
+                    // 内側を叩いた判定フラグを立てる
+                    m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
+                    // Boxドラムを叩いた判定フラグを立てる
+                    m_boxDrumHitFlag = true;
+
+                    // 振動させる
+                    OVRHaptics.LeftChannel.Preempt(m_vibClip);
+                    // 音を鳴らす
+                    audioSource.PlayOneShot(m_inHitSE);
+
+                    m_lastCollisionTag = collision.gameObject.tag;
+
+                    if (m_hitNum == 2)
+                    {
+                        // 外側を叩いた判定フラグを伏せる
+                        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
+
+                        m_lastCollisionTag = null;
+                    }
+                }
+                // 選択ドラムの外側を叩いたら
+                else if (collision.gameObject.tag == "BoxOutDrum")
+                {
+                    if (m_lastCollisionTag != "BoxInDrum")
+                    {
+                        // 外側を叩いた判定フラグを立てる
+                        m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
+                        // Boxドラムを叩いた判定フラグを立てる
+                        m_boxDrumHitFlag = true;
+
+                        m_lastCollisionTag = collision.gameObject.tag;
+                    }
                 }
             }
         }

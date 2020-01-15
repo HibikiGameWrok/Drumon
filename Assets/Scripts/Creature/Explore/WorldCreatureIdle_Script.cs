@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------*/
+//  file:      WorldCreatureState_Script.cs                     |
+//				 											                    |
+//  brief:    ワールド上のDrumonの状態遷移のスクリプト  |
+//															                    |
+//  date:	2019.11.29									            |
+//															                    |
+//  author: Renya Fukuyama									    |
+/*----------------------------------------------------------*/
+
+// using
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,19 +42,19 @@ public class WorldCreatureIdle_Script : WorldCreatureState_Script
     /// 実行する
     /// </summary>
     /// <returns>true=継続する false=状態変更</returns>
-    public override bool Execute()
+    public override StateID Execute()
     {
         if (m_controller.ElapsedTime > m_waitTime)
         { 
             // 状態を変更する
-            return false;
+            return StateID.STATE_WALK;
         }
 
         // 到着していたら一定時間待つ
         m_controller.ElapsedTime += Time.deltaTime;
        
         // 継続する
-        return true;
+        return StateID.CONTINUE;
     }
 
 

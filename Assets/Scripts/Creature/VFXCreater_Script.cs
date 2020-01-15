@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Text.RegularExpressions;
 
 public class VFXCreater_Script : MonoBehaviour
@@ -11,6 +9,11 @@ public class VFXCreater_Script : MonoBehaviour
         if (!obj) return;
 
         obj = Instantiate(obj, trans.position, trans.rotation * obj.transform.rotation);
+
+        if (AudioManager_Script.Get != null)
+        {
+            AudioManager_Script.Get.PlaySE(name);
+        }
 
         Destroy(obj, 3.0f);
     }

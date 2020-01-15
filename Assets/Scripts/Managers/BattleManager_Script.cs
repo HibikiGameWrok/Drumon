@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UniRx;
 
 public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
@@ -26,6 +27,8 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private float m_attackSpan;
 
+    private int m_enemyLevel;
+
     [SerializeField]
     private BoolReactiveProperty m_isFinish = new BoolReactiveProperty(false);
 
@@ -34,14 +37,13 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     // Start is called before the first frame update
     void Start()
     {
-        //this.m_playerCreature = null;
-        //this.m_enemyCreature = null;
         this.m_nowMove = null;
         this.m_nextMove = null;
 
         this.m_isSetting = false;
 
         this.m_attackSpan = 0.0f;
+        this.m_enemyLevel = m_enemyCreature.GetData().level;
         this.SetTarget();
     }
 
@@ -58,6 +60,10 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
+        }
+        else if(!m_isFinish.Value)
+        {
+            StartCoroutine(ResultDisplay());
         }
     }
 
@@ -107,19 +113,33 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private bool JudgeResult()
     {
-        if (!this.m_playerCreature)
+        if (this.m_isSetting)
         {
-            this.m_isSetting = false;
-            m_isFinish.SetValueAndForceNotify(true);
-            return true;
-        }
-        else if (!this.m_enemyCreature)
-        {
-            this.m_isSetting = false;
-            m_isFinish.SetValueAndForceNotify(true);
-            return true;
+            if (!this.m_playerCreature)
+            {
+                this.m_isSetting = false;
+                m_isFinish.SetValueAndForceNotify(true);
+                return true;
+            }
+            else if (!this.m_enemyCreature)
+            {
+                this.m_isSetting = false;
+                this.m_playerCreature.AddExpPoint();
+                return true;
+            }
         }
 
         return false;
+    }
+
+    private IEnumerator ResultDisplay()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            m_isFinish.SetValueAndForceNotify(true);
+            yield return null;
+        }
     }
 }
