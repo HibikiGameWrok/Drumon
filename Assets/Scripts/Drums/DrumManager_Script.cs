@@ -67,10 +67,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_attackDrum = GameObject.FindGameObjectWithTag("AttackDrum").GetComponent<AttackDrum_Script>();
         // 初期化する
         m_attackDrum.Initialize(this);
-        // 回復用のドラムを生成する
-        //m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
-        // 初期化する
-        //m_healDrum.Initialize(this);
         // 選択用のドラムを生成する
         m_switchDrum = GameObject.FindGameObjectWithTag("SwitchDrum").GetComponent<SwitchDrum_Script>();
         // 初期化する
