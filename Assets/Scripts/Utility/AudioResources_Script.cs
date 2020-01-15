@@ -32,7 +32,7 @@ public enum SfxType
 
     Peck,
     //WaterRush,
-    //Hasten,
+    Hasten,
     //Sharpen,
 
     //FireBall,
