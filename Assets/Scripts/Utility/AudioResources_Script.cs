@@ -21,7 +21,7 @@ public enum SfxType
     Otso,
 
     WaterGun,
-    //Grate,
+    Grate,
     WaterDance,
     WaterSword,
   
@@ -31,11 +31,11 @@ public enum SfxType
     Suffocate,
 
     Peck,
-    //WaterRush,
+    WaterRush,
     Hasten,
-    //Sharpen,
+    Sharpen,
 
-    //FireBall,
+    FireBall,
     FirePunch,
     FireWall,
     FireStorm,
@@ -43,6 +43,8 @@ public enum SfxType
     Windslash,
     Lick,
     Gust,
+
+    Heal,
 }
 
 
