@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 {
@@ -12,21 +10,12 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 #if UNITY_EDITOR
         for (int i = 0; i < m_list.DataList.Length; i++)
         {
-            if (m_list.DataList[i])
+            if (m_list.DataList[i].drumonName.Equals(""))
             {
                 m_list.DataList[i].hp = m_list.DataList[i].maxHp;
             }
         }
 #endif
-
-        for (int i = 0; i < m_list.DataList.Length; i++)
-        {
-            if (m_list.DataList[i])
-            {
-                return;
-            }
-        }
-        //m_list.DataList[0] = CreateData_Script.Get.CreateData("Merlion");
     }
 
     public PlayerBox_Script List
@@ -38,7 +27,7 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
     {
         for(int i = 0; i < m_list.DataList.Length; i++)
         {
-            if(!m_list.DataList[i])
+            if(m_list.DataList[i].drumonName.Equals(""))
             {
                 m_list.DataList[i] = creature.GetData();
                 break;

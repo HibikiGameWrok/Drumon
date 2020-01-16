@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
 public class CreateData_Script : SingletonBase_Script<CreateData_Script>
 {
@@ -32,22 +31,6 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
                 break;
             }
         }
-
-        string fileName = data.drumonName;
-        i = 1;
-        while (true)
-        {
-            if(!(bool)Resources.Load("Datas/CreatureData/" + fileName + i.ToString()))
-            {
-                fileName += i.ToString();
-                break;
-            }
-            i++;
-        }
-
-#if UNITY_EDITOR
-        AssetDatabase.CreateAsset(data, "Assets/Resources/Datas/CreatureData/" + fileName + ".asset");
-#endif
 
         return data;
     }

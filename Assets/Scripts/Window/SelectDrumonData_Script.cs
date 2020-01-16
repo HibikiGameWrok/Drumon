@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 
 public class SelectDrumonData_Script : MonoBehaviour
@@ -79,9 +80,7 @@ public class SelectDrumonData_Script : MonoBehaviour
             i++;
         }
 
-#if UNITY_EDITOR
         AssetDatabase.CreateAsset(data, "Assets/Resources/Datas/CreatureData/" + fileName + ".asset");
-#endif
     }
 
     static public int ArrayRandom(string array)
@@ -96,3 +95,4 @@ public class SelectDrumonData_Script : MonoBehaviour
         return System.Convert.ToInt32(arr[num]);
     }
 }
+#endif
