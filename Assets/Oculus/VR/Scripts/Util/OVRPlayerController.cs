@@ -18,7 +18,7 @@ using UnityEngine;
 /// <summary>
 /// Controls the player's movement in virtual reality.
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 public class OVRPlayerController : MonoBehaviour
 {
 	/// <summary>
