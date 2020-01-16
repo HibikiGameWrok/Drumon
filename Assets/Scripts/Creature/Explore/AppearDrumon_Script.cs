@@ -102,8 +102,6 @@ public class AppearDrumon_Script : MonoBehaviour
         // リストに加える
         m_list.DrumonList.Add(component);
 
-        Debug.Log(component.name);
-
         // 出現数を加算する
         m_currentNumberOfDrumons++;
     }
