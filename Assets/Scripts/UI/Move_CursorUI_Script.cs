@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Move_CursorUI_Script : MonoBehaviour
 {
+    // 定数
+    // 位置の調整
+    private readonly Vector3 MOVE_POS = new Vector3(-0.05f, 1.07f, 1.0f);
 
     [SerializeField]
     private Image m_cursorUI = null;
@@ -29,6 +32,7 @@ public class Move_CursorUI_Script : MonoBehaviour
         {
             CursorDown();
         }
+        Debug.Log(m_cursorUI.transform.position);
     }
 
     // cursorを上に移動
@@ -59,19 +63,19 @@ public class Move_CursorUI_Script : MonoBehaviour
         switch (m_movePoint)
         {
             case 0:
-                m_cursorUI.transform.position = m_point[0].transform.localPosition;
+                m_cursorUI.transform.position = m_point[0].transform.localPosition + MOVE_POS;
                 break;
             case 1:
-                m_cursorUI.transform.position = m_point[1].transform.localPosition;
+                m_cursorUI.transform.position = m_point[1].transform.localPosition + MOVE_POS;
                 break;
             case 2:
-                m_cursorUI.transform.position = m_point[2].transform.localPosition;
+                m_cursorUI.transform.position = m_point[2].transform.localPosition + MOVE_POS;
                 break;
             case 3:
-                m_cursorUI.transform.position = m_point[3].transform.localPosition;
+                m_cursorUI.transform.position = m_point[3].transform.localPosition + MOVE_POS;
                 break;
             default:
                 break;
+        }
     }
-
 }
