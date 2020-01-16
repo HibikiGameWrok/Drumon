@@ -5,10 +5,8 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
     [SerializeField]
     private DrumonParameters m_paramList = null;
 
-    public CreatureData CreateData(string name)
+    public void CreateData(CreatureData data, string name)
     {
-        CreatureData data = ScriptableObject.CreateInstance<CreatureData>();
-
         int i = 0;
 
         for (i = 0; i < m_paramList.Sheet1.Count; i++)
@@ -31,8 +29,6 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
                 break;
             }
         }
-
-        return data;
     }
 
     public int ArrayRandom(string array)

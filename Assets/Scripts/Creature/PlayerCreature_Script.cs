@@ -81,7 +81,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
         {
-            if (box.DataList[i].drumonName.Equals("") && box.DataList[i].hp != 0)
+            if (!box.DataList[i].drumonName.Equals("") && box.DataList[i].hp != 0)
             {
                 ChangeData(box.DataList[i]);
                 break;
