@@ -19,6 +19,18 @@ public class Move_CursorUI_Script : MonoBehaviour
     {
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            CursorUP();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            CursorDown();
+        }
+    }
+
     // cursorを上に移動
     public void CursorUP()
     {
