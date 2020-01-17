@@ -73,7 +73,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else if(!m_isFinish.Value)
         {
-            StartCoroutine(CaptureOver());
             StartCoroutine(ResultDisplay());
         }
     }
@@ -145,19 +144,15 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private IEnumerator ResultDisplay()
     {
-        yield return new WaitForSeconds(3.0f);
+        StartCoroutine(CaptureOver());
+        yield return new WaitForSeconds(2.0f);
 
-        if (OVRInput.GetDown(OVRInput.RawButton.A))
-        {
-            m_isFinish.SetValueAndForceNotify(true);
-            yield return null;
-        }
+        m_isFinish.SetValueAndForceNotify(true);
+        yield return null;
     }
 
     private IEnumerator CaptureOver()
     {
-        yield return new WaitForSeconds(2.0f);
-
         // 4体目が捕獲されたら
         if (CreatureList_Script.Get.OverData != null)
         {
@@ -165,6 +160,10 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             m_boxDrum.gameObject.SetActive(true);
             // Playerオブジェクトを非アクティブ化
             m_playerObject.SetActive(false);
+
+            yield return null;
         }
+
+        yield return null;
     }
 }

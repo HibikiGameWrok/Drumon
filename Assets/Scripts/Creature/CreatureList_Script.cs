@@ -8,6 +8,7 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 
     public CreatureData OverData
     {
+        set { m_overData = value; }
         get { return m_overData; }
     }
 

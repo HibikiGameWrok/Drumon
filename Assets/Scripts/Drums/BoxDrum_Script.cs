@@ -9,25 +9,56 @@ public class BoxDrum_Script : MonoBehaviour
     // 右スティック
     private StickRight_Script m_rightStick;
 
+    // トレードUIC
+    private GameObject m_tradeUIC;
     // カーソルUI
     private Move_CursorUI_Script m_cursorUI;
+    // メニューUI
+    private StatusMenuUI_Script m_statusMenuUI;
 
     // Start is called before the first frame update
     void Start()
     {
         m_leftStick = GameObject.FindGameObjectWithTag("StickLeft").GetComponent<StickLeft_Script>();
         m_rightStick = GameObject.FindGameObjectWithTag("StickRight").GetComponent<StickRight_Script>();
-        m_cursorUI = GameObject.FindGameObjectWithTag("TradeUI").GetComponent<Move_CursorUI_Script>();
+        m_tradeUIC = GameObject.Find("TradeUI_Canvas");
+        m_cursorUI = m_tradeUIC.GetComponent<Move_CursorUI_Script>();
+        m_statusMenuUI = m_tradeUIC.GetComponent<StatusMenuUI_Script>();
+
+        // UIの非表示
+        m_statusMenuUI.CloseUI();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 叩かれた時の処理
+        HitProcess();
+
+        if (this.gameObject.activeInHierarchy == true)
+        {
+            // UIの表示
+            m_statusMenuUI.OpenUI();
+        }
+        else
+        {
+            // UIの非表示
+            m_statusMenuUI.CloseUI();
+        }
+    }
+
+    // 叩かれた時の処理
+    private void HitProcess()
+    {
         if (m_leftStick.BoxDrumHitFlag == true)
         {
             if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
-                Debug.Log("OK");
+                // 入れ替え
+                if (m_cursorUI.MovePoint < 3)
+                {
+                    CreatureList_Script.Get.List.DataList[m_cursorUI.MovePoint] = CreatureList_Script.Get.OverData;
+                }
 
                 // 内側を叩いた判定フラグを伏せる
                 m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
@@ -45,7 +76,11 @@ public class BoxDrum_Script : MonoBehaviour
         {
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
-                Debug.Log("OK");
+                // 入れ替え
+                if (m_cursorUI.MovePoint < 3)
+                {
+                    CreatureList_Script.Get.List.DataList[m_cursorUI.MovePoint] = CreatureList_Script.Get.OverData;
+                }
 
                 // 内側を叩いた判定フラグを伏せる
                 m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);

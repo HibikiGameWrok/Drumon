@@ -16,6 +16,10 @@ public class Move_CursorUI_Script : MonoBehaviour
     private GameObject[] m_point = null;
 
     private int m_movePoint = 0;
+    public int MovePoint
+    {
+        get { return m_movePoint; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +28,7 @@ public class Move_CursorUI_Script : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            CursorUP();
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            CursorDown();
-        }
-        Debug.Log(m_cursorUI.transform.position);
+
     }
 
     // cursorを上に移動

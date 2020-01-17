@@ -88,6 +88,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             }
         }
 
+#if UNITY_EDITOR
+        m_data.hp = m_data.maxHp;
+#endif
 
         m_healProsperityUIScript.MaxPoint = m_data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.hp;
