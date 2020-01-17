@@ -34,6 +34,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     public IReadOnlyReactiveProperty<bool> IsFinish => m_isFinish;
 
+    // Boxドラム
+    private BoxDrum_Script m_boxDrum = null;
+    // Playerオブジェクト
+    private GameObject m_playerObject = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +50,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_attackSpan = 0.0f;
         this.m_enemyLevel = m_enemyCreature.GetData().level;
         this.SetTarget();
+
+        m_boxDrum = GameObject.FindGameObjectWithTag("BoxDrum").GetComponent<BoxDrum_Script>();
+        m_boxDrum.gameObject.SetActive(false);
+
+        m_playerObject = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -63,6 +73,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else if(!m_isFinish.Value)
         {
+            StartCoroutine(CaptureOver());
             StartCoroutine(ResultDisplay());
         }
     }
@@ -140,6 +151,20 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             m_isFinish.SetValueAndForceNotify(true);
             yield return null;
+        }
+    }
+
+    private IEnumerator CaptureOver()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        // 4体目が捕獲されたら
+        if (CreatureList_Script.Get.OverData != null)
+        {
+            // Boxドラムをアクティブ化
+            m_boxDrum.gameObject.SetActive(true);
+            // Playerオブジェクトを非アクティブ化
+            m_playerObject.SetActive(false);
         }
     }
 }

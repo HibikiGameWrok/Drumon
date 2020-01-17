@@ -9,13 +9,15 @@ public class BoxDrum_Script : MonoBehaviour
     // 右スティック
     private StickRight_Script m_rightStick;
 
-    private int m_selectCount = 0;
+    // カーソルUI
+    private Move_CursorUI_Script m_cursorUI;
 
     // Start is called before the first frame update
     void Start()
     {
         m_leftStick = GameObject.FindGameObjectWithTag("StickLeft").GetComponent<StickLeft_Script>();
         m_rightStick = GameObject.FindGameObjectWithTag("StickRight").GetComponent<StickRight_Script>();
+        m_cursorUI = GameObject.FindGameObjectWithTag("TradeUI").GetComponent<Move_CursorUI_Script>();
     }
 
     // Update is called once per frame
@@ -32,12 +34,7 @@ public class BoxDrum_Script : MonoBehaviour
             }
             if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
             {
-                if (m_selectCount > 0)
-                {
-                    m_selectCount--;
-                }
-
-                Debug.Log(m_selectCount);
+                m_cursorUI.CursorUP();
 
                 m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
             }
@@ -55,12 +52,7 @@ public class BoxDrum_Script : MonoBehaviour
             }
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
             {
-                if (m_selectCount < 2)
-                {
-                    m_selectCount++;
-                }
-
-                Debug.Log(m_selectCount);
+                m_cursorUI.CursorDown();
 
                 m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
             }
