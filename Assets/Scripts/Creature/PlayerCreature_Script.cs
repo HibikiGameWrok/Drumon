@@ -127,7 +127,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void Damage(int damage)
     {
         this.m_data.hp -= damage;
-        GetComponent<ParticleSystem>().Play();
         m_anim.SetTrigger("Damage");
         if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
