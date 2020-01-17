@@ -18,8 +18,6 @@ public class BoxDrum_Script : MonoBehaviour
         m_leftStick = GameObject.FindGameObjectWithTag("StickLeft").GetComponent<StickLeft_Script>();
         m_rightStick = GameObject.FindGameObjectWithTag("StickRight").GetComponent<StickRight_Script>();
         m_cursorUI = GameObject.FindGameObjectWithTag("TradeUI").GetComponent<Move_CursorUI_Script>();
-
-        this.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
