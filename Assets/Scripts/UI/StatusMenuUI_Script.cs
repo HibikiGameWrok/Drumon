@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class StatusMenuUI_Script : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] m_drumonDataUI;
+    private GameObject[] m_drumonDataUI = null;
 
     CreatureList_Script m_creatureList = null;
 

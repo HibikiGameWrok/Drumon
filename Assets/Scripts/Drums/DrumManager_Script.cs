@@ -43,8 +43,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
     // タイマーオブジェクト
     private GameObject m_timerObject;
-    // 行動ゲージが終わったかのフラグ
-    private bool m_gaugeFinishFlag = false;
 
     // チュートリアルのモンスターを捕獲したフラグ
     //private bool m_tutorialGetFlag = false;
@@ -106,8 +104,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     {
         // プレイヤーモンスターのHPをUIに適用
         //m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
-        // 行動ゲージが終わったかのフラグの取得
-        //m_gaugeFinishFlag = m_timerObject.GetComponent<AccelerationTime_Script>().TimerMax();
 
         if (m_currentDrum != null)
         {
