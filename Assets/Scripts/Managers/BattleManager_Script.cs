@@ -73,7 +73,8 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else if(!m_isFinish.Value)
         {
-            StartCoroutine(ResultDisplay());
+            //StartCoroutine(ResultDisplay());
+            m_isFinish.SetValueAndForceNotify(true);
         }
     }
 
