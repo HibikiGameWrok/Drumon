@@ -37,7 +37,7 @@ public class ChaseCharacter_Script : MonoBehaviour
             // 状態を追いかけるにする 
             m_controller.ChangeState(m_controller.Chase);
             // ターゲットの座標を取得する
-            m_controller.ChaseTarget = col.gameObject;
+            m_controller.ChaseTarget = col.gameObject.transform.parent.parent.gameObject;
             // 発見時SEを鳴らす
             AudioManager_Script.Get.PlaySE(SfxType.find);
         }
