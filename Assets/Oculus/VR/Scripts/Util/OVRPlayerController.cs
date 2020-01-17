@@ -168,7 +168,7 @@ public class OVRPlayerController : MonoBehaviour
 
         // We use OVRCameraRig to set rotations to cameras,
         // and to be influenced by rotation
-        OVRCameraRig[] CameraRigs = gameObject.GetComponentsInParent<OVRCameraRig>();//gameObject.GetComponentsInChildren<OVRCameraRig>();
+        OVRCameraRig[] CameraRigs = gameObject.GetComponentsInChildren<OVRCameraRig>();
 
 		if (CameraRigs.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraRig attached.");
