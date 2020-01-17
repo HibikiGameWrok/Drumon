@@ -56,8 +56,8 @@ public class SceneRevised_Script : IScene_Script
             TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
             // プレイヤーを非アクティブにしておく
-            if(m_player.activeSelf == true)
-                m_player.gameObject.SetActive(false);
+            //if(m_player.activeSelf == true)
+            //    m_player.gameObject.SetActive(false);
 
             return SceneID.SCENE_BATTLE;
         }
