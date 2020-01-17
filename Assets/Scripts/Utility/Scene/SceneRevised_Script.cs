@@ -46,7 +46,9 @@ public class SceneRevised_Script : IScene_Script
     {
         // 対象オブジェクトを探す
         FindSearchEnemy();
-        
+
+        IsActivePlayer();
+
         // バトルシーンへ
         if (Input.GetKeyDown(KeyCode.B) || m_isTransitionBattle == true)
         {
@@ -107,5 +109,16 @@ public class SceneRevised_Script : IScene_Script
         // IsHitがtrueならtransitionする
         if (m_drumonList.DrumonList.Find(x => x.IsHit == true).IsHit == true)
             m_isTransitionBattle = true; 
+    }
+
+    private void IsActivePlayer()
+    {
+        if (m_player.activeSelf == true)
+            return;
+        else
+        {
+            m_player.SetActive(true);
+        }
+
     }
 }

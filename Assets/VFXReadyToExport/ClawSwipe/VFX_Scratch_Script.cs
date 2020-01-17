@@ -5,7 +5,7 @@ using UnityEngine;
 public class VFX_Scratch_Script : MonoBehaviour
 {
     [SerializeField]
-    private Transform ClawHolder0, ClawHolder1 = null;
+    private Transform ClawHolder0 = null, ClawHolder1 = null;
 
     private Renderer[] rend_clawholder0, rend_clawholder1 = null;
 
