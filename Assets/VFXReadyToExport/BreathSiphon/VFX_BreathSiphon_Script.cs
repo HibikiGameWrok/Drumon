@@ -9,18 +9,18 @@ public class VFX_BreathSiphon_Script : MonoBehaviour
     private float timerMax = 2.0f;
 
     [SerializeField]
-    private GameObject obj_streakholder;
+    private GameObject obj_streakholder = null;
     [SerializeField]
-    private Renderer rend_streaks;
+    private Renderer rend_streaks = null;
     [SerializeField]
-    private GameObject obj_AirSphere;
+    private GameObject obj_AirSphere = null;
     [SerializeField]
-    private Renderer rend_AirSphere;
+    private Renderer rend_AirSphere = null;
     [SerializeField]
-    private ParticleSystem ps_BreathSiphon;
+    private ParticleSystem ps_BreathSiphon = null;
 
     [SerializeField]
-    private Transform TargetDrumon;
+    private Transform TargetDrumon = null;
 
     private Vector3 Origin;
     public float SphereHeight = 12;

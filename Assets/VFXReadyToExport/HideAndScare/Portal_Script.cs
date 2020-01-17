@@ -10,17 +10,17 @@ public class Portal_Script : MonoBehaviour
     public bool DeleteOnFinish = true;
 
     [SerializeField]
-    private Transform trans_PortalWindow;
+    private Transform trans_PortalWindow = null;
     [SerializeField]
-    private Transform trans_PortalInside;
+    private Transform trans_PortalInside = null;
     [SerializeField]
-    private Transform trans_PortalRingSide;
+    private Transform trans_PortalRingSide = null;
     [SerializeField]
-    private Transform trans_PortalRingUp;
+    private Transform trans_PortalRingUp = null;
     [SerializeField]
-    private Transform trans_PortalRingSwirl;
+    private Transform trans_PortalRingSwirl = null;
 
-    private Transform[] swirls;
+    private Transform[] swirls = null;
 
     // Start is called before the first frame update
     void Start()

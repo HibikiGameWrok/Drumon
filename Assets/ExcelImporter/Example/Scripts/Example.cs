@@ -6,8 +6,8 @@ using System.Linq;
 
 public class Example : MonoBehaviour
 {
-	[SerializeField] MstItems mstItems;
-	[SerializeField] Text text;
+	[SerializeField] MstItems mstItems = null;
+	[SerializeField] Text text = null;
 
 	void Start()
 	{

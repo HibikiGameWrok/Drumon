@@ -8,7 +8,7 @@ public class HideAndScare_Script : MonoBehaviour
     public float timerMax = 4.0f;
 
     [SerializeField]
-    private Transform ObjectReference;
+    private Transform ObjectReference = null;
 
     private Vector3 Origin;
 
@@ -16,7 +16,7 @@ public class HideAndScare_Script : MonoBehaviour
     public float m_downdistance = 4;
 
     [SerializeField]
-    private GameObject Portal_Prefab;
+    private GameObject Portal_Prefab = null;
 
     // Start is called before the first frame update
     void Start()

@@ -23,9 +23,9 @@ using UnityEngine.SceneManagement;
 public class TransitionController_Script : MonoBehaviour
 {
     [SerializeField]
-    private Image m_coverImage;
+    private Image m_coverImage = null;
     [SerializeField]
-    private float m_transitionSeconds;
+    private float m_transitionSeconds = 0.0f;
 
     private readonly ReactiveProperty<bool> m_isTransferring = new ReactiveProperty<bool>(false);
 

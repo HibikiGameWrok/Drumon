@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 public class SearchEnemy_Script : MonoBehaviour
 {
     [SerializeField]
-    private EnemyCreature m_enemyCreature;
+    private EnemyCreature m_enemyCreature = null;
     [SerializeField]
     PlayerPosition_Script m_position = null;
 

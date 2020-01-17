@@ -8,7 +8,7 @@ public class VFX_WaterImpact_Script : MonoBehaviour
     public float timerMax = 1.35f;
 
     [SerializeField]
-    private Renderer rend_WaterImpact;
+    private Renderer rend_WaterImpact = null;
 
     public float TransitionSpeed = 3;
 
