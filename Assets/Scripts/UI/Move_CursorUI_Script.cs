@@ -7,7 +7,7 @@ public class Move_CursorUI_Script : MonoBehaviour
 {
     // 定数
     // 位置の調整
-    private readonly Vector3 MOVE_POS = new Vector3(-0.05f, 1.07f, 1.0f);
+    private readonly Vector3 MOVE_POS = new Vector3(-0.05f, 2.07f, 2.9f);
 
     [SerializeField]
     private Image m_cursorUI = null;
