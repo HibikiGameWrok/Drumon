@@ -24,6 +24,8 @@ public class SceneRevised_Script : IScene_Script
     
     private bool m_isTransitionBattle = false;
 
+    private GameObject m_player = null;
+
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -50,6 +52,10 @@ public class SceneRevised_Script : IScene_Script
         {
             // 非同期処理のSceneロード
             TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+
+            // プレイヤーを非アクティブにしておく
+            if(m_player.activeSelf == true)
+                m_player.gameObject.SetActive(false);
 
             return SceneID.SCENE_BATTLE;
         }
@@ -80,6 +86,8 @@ public class SceneRevised_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Search);
+
+        m_player = GameObject.Find("VRTK");
     }
 
 

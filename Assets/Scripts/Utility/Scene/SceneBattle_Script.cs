@@ -19,6 +19,9 @@ using UnityEngine.SceneManagement;
 public class SceneBattle_Script : IScene_Script
 {
 
+    private GameObject m_player = null;
+
+
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -38,7 +41,7 @@ public class SceneBattle_Script : IScene_Script
         // もしOtosを倒したら
         if (BattleManager_Script.Get.EnemyCreature.OtsoFlag.Equals(true))
         {
-            // 非同期処理のSceneアンロード
+            // 非同期処理のSceneロード
             TransitionManager_Script.StartTransition(m_manager.Result.Name);
             return SceneID.SCENE_RESULT;
         }
@@ -48,6 +51,11 @@ public class SceneBattle_Script : IScene_Script
         {
             // 非同期処理のSceneアンロード
             TransitionManager_Script.StartTransition_UnloadScene(this.Name);
+
+            // プレイヤーを非アクティブにしておく
+            if (m_player.activeSelf == false)
+                m_player.gameObject.SetActive(true);
+
             return SceneID.SCENE_REVISED;
         }
 
@@ -66,5 +74,7 @@ public class SceneBattle_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Battle);
+
+        m_player = GameObject.Find("VRTK");
     }
 }
