@@ -89,6 +89,15 @@ public abstract class Stick_Script : MonoBehaviour
         set { m_boxDrumHitFlag = value; }
     }
 
+    // タイトルドラムの叩いたフラグ
+    protected bool m_titleDrumHitFlag = false;
+    // タイトルドラムの叩いたフラグのプロパティ
+    public bool TitleDrumHitFlag
+    {
+        get { return m_titleDrumHitFlag; }
+        set { m_titleDrumHitFlag = value; }
+    }
+
     // 初期化
     public abstract void Initialize(StickManager_Script manager);
 
