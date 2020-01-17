@@ -17,9 +17,9 @@ public class VFX_WaterGun_Script : MonoBehaviour
     private float InitialYScale = 10;
 
     [SerializeField]
-    private Renderer rend_WaterGun;
+    private Renderer rend_WaterGun = null;
     [SerializeField]
-    private GameObject WaterImpact_Prefab;
+    private GameObject WaterImpact_Prefab = null;
 
     //Only adjust this if you are not using a scale of 10 for water gun
     public float ImpactPlacementMagnifier = 1.7f;

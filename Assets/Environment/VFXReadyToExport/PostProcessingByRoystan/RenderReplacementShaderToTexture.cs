@@ -3,7 +3,7 @@
 public class RenderReplacementShaderToTexture : MonoBehaviour
 {
     [SerializeField]
-    Shader replacementShader;
+    Shader replacementShader = null;
 
     [SerializeField]
     RenderTextureFormat renderTextureFormat = RenderTextureFormat.ARGB32;
@@ -23,8 +23,8 @@ public class RenderReplacementShaderToTexture : MonoBehaviour
     [SerializeField]
     string targetTexture = "_CameraNormalsTexture";
 
-    private RenderTexture renderTexture;
-    private new Camera camera;
+    private RenderTexture renderTexture = null;
+    private new Camera camera = null;
 
     private void Start()
     {

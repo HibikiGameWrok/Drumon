@@ -18,20 +18,20 @@ public class VFX_DarkSphere_Script : MonoBehaviour
     private Vector3 OriginalScale = new Vector3();
     
     [SerializeField]
-    private GameObject Impact_Prefab;
+    private GameObject Impact_Prefab = null;
 
     [SerializeField]
-    private Renderer rend_sphere0;
+    private Renderer rend_sphere0 = null;
     [SerializeField]
-    private Renderer rend_sphere1;
+    private Renderer rend_sphere1 = null;
     [SerializeField]
-    private Renderer rend_torus0;
+    private Renderer rend_torus0 = null;
     [SerializeField]
-    private Renderer rend_torus1;
+    private Renderer rend_torus1 = null;
     [SerializeField]
-    private Renderer rend_torus2;
+    private Renderer rend_torus2 = null;
     [SerializeField]
-    private ParticleSystem ChargeUp_Particle;
+    private ParticleSystem ChargeUp_Particle = null;
 
     // Start is called before the first frame update
     void Start()

@@ -6,9 +6,9 @@ using UniRx;
 public class GotoButton : MonoBehaviour
 {
     [SerializeField]
-    private string m_nextScene;
+    private string m_nextScene = null;
     [SerializeField]
-    private UnityEngine.UI.Button m_button;
+    private UnityEngine.UI.Button m_button = null;
 
     private async void Start()
     {

@@ -26,11 +26,11 @@ struct ObjectInWater
 public class RippleManager_Script : MonoBehaviour {
 
     [SerializeField]
-    private Renderer WaterTopMaterial_Ref;
+    private Renderer WaterTopMaterial_Ref = null;
 
     private Dictionary<GameObject, ObjectInWater> ObjInWaterList = new Dictionary<GameObject, ObjectInWater>();
 
-    private WaterRipple[] ripple;
+    private WaterRipple[] ripple = null;
     public int rippleAmount = 0;
 
     [Range(0, 70)]

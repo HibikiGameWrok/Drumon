@@ -5,9 +5,9 @@ using UnityEngine;
 public class VFX_Scratch_Script : MonoBehaviour
 {
     [SerializeField]
-    private Transform ClawHolder0, ClawHolder1;
+    private Transform ClawHolder0, ClawHolder1 = null;
 
-    private Renderer[] rend_clawholder0, rend_clawholder1;
+    private Renderer[] rend_clawholder0, rend_clawholder1 = null;
 
     private float timer = 0;
     public float timerMax = 0.5f;
@@ -15,7 +15,7 @@ public class VFX_Scratch_Script : MonoBehaviour
     public bool DeleteOnFinish = true;
 
     [SerializeField]
-    private GameObject Impact_Prefab;
+    private GameObject Impact_Prefab = null;
 
     // Start is called before the first frame update
     void Start()

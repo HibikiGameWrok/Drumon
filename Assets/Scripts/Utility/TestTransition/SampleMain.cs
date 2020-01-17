@@ -7,12 +7,12 @@ using UniRx;
 
 public class SampleMain : MonoBehaviour
 {
-    public GameObject[] gameObjectsTohidden;
+    public GameObject[] gameObjectsTohidden = null;
 
     [SerializeField]
-    private string m_nextSceneName;
+    private string m_nextSceneName = null;
     [SerializeField]
-    private UnityEngine.UI.Button m_button;
+    private UnityEngine.UI.Button m_button = null;
 
     // Start is called before the first frame update
     private async void Start()

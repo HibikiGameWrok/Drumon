@@ -9,14 +9,14 @@ public class SetPatrolPosition_Script : MonoBehaviour
 {
     [Tooltip("巡回する位置を決めるオブジェクトの名前")]
     [SerializeField]
-    private string m_findObjectName;
+    private string m_findObjectName = null;
     // 初期位置
     private Vector3 m_startPosition;
     // 目的地
     private Vector3 m_destination;
     // 巡回する位置
     [SerializeField]
-    private Transform[] m_patrolPositions;
+    private Transform[] m_patrolPositions = null;
     // 次に巡回する位置
     private int m_nextPatrolPosition;
 

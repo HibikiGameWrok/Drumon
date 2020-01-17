@@ -8,10 +8,10 @@ public class Slice_Script : MonoBehaviour
     public bool GenerateMesh = true;
 
     [SerializeField]
-    private Mesh meshToCut;
+    private Mesh meshToCut = null;
 
     [SerializeField]
-    private GameObject DiscReference;
+    private GameObject DiscReference = null;
 
     // Use this for initialization
     void Start()

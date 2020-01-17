@@ -6,7 +6,7 @@ public class Earthquake_Script : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject EarthRock_Prefab;
+    private GameObject EarthRock_Prefab = null;
 
     public int amount = 12;
 

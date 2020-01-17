@@ -22,22 +22,22 @@ public class AppearDrumon_Script : MonoBehaviour
 {
     [Tooltip("出現させるドラモンの最大数")]
     [SerializeField]
-    private int m_maxAppear;
+    private int m_maxAppear = 0;
 
     [Tooltip("出現させるドラモンのPrefabを入れる")]
     [SerializeField]
-    private GameObject m_drumon;
+    private GameObject m_drumon = null;
 
     [Tooltip("次に出現するまでの時間")]
     [SerializeField]
-    private float m_appearNextTime;
+    private float m_appearNextTime = 0.0f;
 
     [Tooltip("出現する最大数")]
-    private int m_maxDrumon;
+    private int m_maxDrumon = 0;
 
     [Tooltip("DrumonList")]
     [SerializeField]
-    private GameObject m_drumonList;
+    private GameObject m_drumonList = null;
 
     // 現在出現している数
     private int m_currentNumberOfDrumons;
@@ -45,7 +45,7 @@ public class AppearDrumon_Script : MonoBehaviour
     private float m_elapesdTime;
 
     [SerializeField]
-    private AddDrumonList_Script m_list;
+    private AddDrumonList_Script m_list = null;
 
     // Start is called before the first frame update
     void Start()

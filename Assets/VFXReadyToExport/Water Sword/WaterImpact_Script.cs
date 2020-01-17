@@ -8,7 +8,7 @@ public class WaterImpact_Script : MonoBehaviour
     private float timer = 0.0f;
 
     [SerializeField]
-    private Renderer theRenderer;
+    private Renderer theRenderer = null;
 
     // Start is called before the first frame update
     void Start()

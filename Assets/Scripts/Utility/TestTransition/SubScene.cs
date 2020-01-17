@@ -8,7 +8,7 @@ using UniRx;
 public class SubScene : MonoBehaviour
 {
     [SerializeField]
-    private string m_nextScene;
+    private string m_nextScene = null;
     [SerializeField]
     private double m_timeSpan = 3;
 

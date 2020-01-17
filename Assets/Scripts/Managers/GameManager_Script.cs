@@ -23,11 +23,11 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
 {
     // プレハブを設定する
     [SerializeField]
-    private GameObject m_audioIns;
+    private GameObject m_audioIns = null;
     [SerializeField]
-    private GameObject m_bgmIns;
+    private GameObject m_bgmIns = null;
     [SerializeField]
-    private GameObject m_seIns;
+    private GameObject m_seIns = null;
 
     // AudioManager
     private GameObject m_audioManager = null;
@@ -37,7 +37,7 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
     private GameObject m_seResource = null;
 
     // Audio管理スクリプト
-    private AudioManager_Script m_audio;
+    private AudioManager_Script m_audio = null;
     // Scene管理スクリプト
     private SceneManager_Script m_sceneManager = null;
 

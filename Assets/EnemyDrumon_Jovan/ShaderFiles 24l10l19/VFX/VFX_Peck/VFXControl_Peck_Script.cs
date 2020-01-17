@@ -24,15 +24,15 @@ public class VFXControl_Peck_Script : MonoBehaviour
     public float m_TimeInterval2;
 
     [SerializeField]
-    private GameObject AttackStreaks_Prefab;
+    private GameObject AttackStreaks_Prefab = null;
     [SerializeField]
-    private GameObject WindTunnel_Prefab;
+    private GameObject WindTunnel_Prefab = null;
     [SerializeField]
-    private GameObject HitEffect0_Prefab;
+    private GameObject HitEffect0_Prefab = null;
     [SerializeField]
-    private GameObject HitEffect1_Prefab;
+    private GameObject HitEffect1_Prefab = null;
 
-    private Transform ObjectPosition;
+    private Transform ObjectPosition = null;
     private float MaxTime;
     private float CurrentTime;
     private Vector3 Origin;
