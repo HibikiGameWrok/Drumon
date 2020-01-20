@@ -12,6 +12,7 @@ public enum SfxType
     teleport,
     appearRay,
     faild,
+    LvUP,
 
     Garfish,
     Lantern,
@@ -53,4 +54,5 @@ public enum BfxType
     bgm_Title,
     bgm_Search,
     bgm_Battle,
+    bgm_Tutorial,
 }
