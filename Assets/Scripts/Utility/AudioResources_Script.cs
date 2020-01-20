@@ -12,9 +12,7 @@ public enum SfxType
     teleport,
     appearRay,
     faild,
-    fanfare,
     LvUP,
-
 
     Garfish,
     Lantern,
