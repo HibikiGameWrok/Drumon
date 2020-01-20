@@ -73,8 +73,8 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else if(!m_isFinish.Value)
         {
-            //StartCoroutine(ResultDisplay());
-            m_isFinish.SetValueAndForceNotify(true);
+            StartCoroutine(ResultDisplay());
+            //m_isFinish.SetValueAndForceNotify(true);
         }
     }
 
@@ -146,7 +146,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     private IEnumerator ResultDisplay()
     {
         StartCoroutine(CaptureOver());
-        yield return new WaitForSeconds(2.0f);
+        //yield return new WaitForSeconds(2.0f);
 
         m_isFinish.SetValueAndForceNotify(true);
         yield return null;

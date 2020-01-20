@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StatusMenuUI_Script : MonoBehaviour
 {
@@ -29,19 +30,22 @@ public class StatusMenuUI_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        if (SceneManager.GetActiveScene().name != "BattleScene")
         {
-            // 子のUIを非表示
-            foreach (Transform child in this.transform)
+            if (OVRInput.GetDown(OVRInput.RawButton.B))
             {
-                if (child.gameObject.activeSelf == true)
+                // 子のUIを非表示
+                foreach (Transform child in this.transform)
                 {
-                    child.gameObject.SetActive(false);
-                    SetUpUIData();
-                }
-                else if (child.gameObject.activeSelf == false)
-                {
-                    child.gameObject.SetActive(true);
+                    if (child.gameObject.activeSelf == true)
+                    {
+                        child.gameObject.SetActive(false);
+                        SetUpUIData();
+                    }
+                    else if (child.gameObject.activeSelf == false)
+                    {
+                        child.gameObject.SetActive(true);
+                    }
                 }
             }
         }
@@ -49,6 +53,8 @@ public class StatusMenuUI_Script : MonoBehaviour
 
     void SetUpUIData()
     {
+        m_creatureList = CreatureList_Script.Get;
+
         if (m_creatureList != null)
         {
             for (int i = 0; i < m_drumonDataUI.Length; i++)
@@ -60,7 +66,7 @@ public class StatusMenuUI_Script : MonoBehaviour
                     {
                         case "Name":
                             Text drumonName = child.GetComponent<Text>();
-                            drumonName.text = m_creatureList.List.DataList[i].name;
+                            drumonName.text = m_creatureList.List.DataList[i].drumonName;
                             break;
                         case "Level":
                             Text levelText = child.GetComponent<Text>();
