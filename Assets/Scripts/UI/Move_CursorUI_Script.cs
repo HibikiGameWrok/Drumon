@@ -21,36 +21,76 @@ public class Move_CursorUI_Script : MonoBehaviour
         get { return m_movePoint; }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private bool m_decisionFlag = false;
+    public bool DecusuonFlag
     {
+        get { return m_decisionFlag; }
     }
 
-    private void Update()
-    {
+    [SerializeField]
+    private GameObject m_decisionObject = null;
 
+
+    // 決定
+    public void Decision()
+    {
+        if (m_decisionFlag == false)
+        {
+            m_decisionFlag = true;
+            if (m_decisionObject != null || m_decisionObject.activeSelf == false)
+            {
+                m_decisionObject.SetActive(true);
+            }        
+        }
+        else
+        {
+            if (m_decisionObject != null || m_decisionObject.activeSelf == true)
+            {
+                m_decisionObject.GetComponent<Move_CursorUI_Script>().Decision();
+            }
+        }
     }
 
     // cursorを上に移動
     public void CursorUP()
     {
-        m_movePoint++;
-        if (m_movePoint > 3)
+        if (m_decisionFlag != true)
         {
-            m_movePoint = 0;
+            m_movePoint++;
+            if (m_movePoint > 3)
+            {
+                m_movePoint = 0;
+            }
+            MoveCuresor();
         }
-        MoveCuresor();
+        else
+        {
+            if (m_decisionObject != null || m_decisionObject.activeSelf == true)
+            {
+                m_decisionObject.GetComponent<Move_CursorUI_Script>().CursorUP();
+            }
+        }
     }
 
     // cursorを下に移動
     public void CursorDown()
     {
-        m_movePoint--;
-        if(m_movePoint < 0)
+        if (m_decisionFlag != true)
         {
-            m_movePoint = 3;
+            m_movePoint--;
+            if (m_movePoint < 0)
+            {
+                m_movePoint = 3;
+            }
+            MoveCuresor();
         }
-        MoveCuresor();
+        else
+        {
+            if (m_decisionObject != null || m_decisionObject.activeSelf == true)
+            {
+                m_decisionObject.GetComponent<Move_CursorUI_Script>().CursorDown();
+            }
+        }
     }
 
     // cursorを移動
