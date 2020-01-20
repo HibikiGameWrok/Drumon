@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------*/
-//  file:      SceneTutorial_Script.cs                               |
-//				 											                    |
-//  brief:    チュートリアルシーンのスクリプト                 |
-//															                    |
-//  date:	2019.1.9									                |
-//															                    |
-//  author: Renya Fukuyama									    |
+//  file:   SceneCaptureTutorial_Script.cs                  |
+//				 											|
+//  brief:  キャプチャーチュートリアルシーンのスクリプト    |
+//															|
+//  date:	2019.1.9                                        |
+//															|
+//  author: Renya Fukuyama									|
 /*----------------------------------------------------------*/
 
 // using
@@ -14,7 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneTutorial_Script : IScene_Script
+public class SceneCaptureTutorial_Script : IScene_Script
 {
     /// <summary>
     /// 終了処理
@@ -32,6 +32,15 @@ public class SceneTutorial_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
+        // バトルが終了したかで判断する
+        if (TutorialManager_Script.Get.IsFinish.Value.Equals(true))
+        {
+            // 非同期処理のSceneアンロード
+            TransitionManager_Script.StartTransition_UnloadScene(this.Name);
+
+            return SceneID.SCENE_BATTLETUTORIAL;
+        }
+
         return SceneID.CONTINUE;
     }
 
