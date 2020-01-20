@@ -35,11 +35,16 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     public IReadOnlyReactiveProperty<bool> IsFinish => m_isFinish;
 
+    [SerializeField]
+    private BoolReactiveProperty m_isAllFinish = new BoolReactiveProperty(false);
+
+    public IReadOnlyReactiveProperty<bool> IsAllFinish => m_isAllFinish;
+
     // タイムオブジェクトを保持
     //private GameObject m_timer = null;
     // タイムScriptを取得
     //private AccelerationTime_Script m_timeStandard_Script = null;
-    
+
     // チュートリアルを表示中かどうかのフラグ
     private bool m_tutorialModeFlag = true;
     // 実践中かどうかのフラグ
@@ -213,6 +218,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
         else if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
+            ResetData(CreatureList_Script.Get.List.DataList[0]);
+            CreatureList_Script.Get.List.DataList[1].hp = CreatureList_Script.Get.List.DataList[1].maxHp;
+            ResetData(CreatureList_Script.Get.List.DataList[2]);
+
             m_tutorialExplainCanvas = GameObject.Find("TutorialExplainCanvas");
             m_explainText1 = m_tutorialExplainCanvas.transform.Find("ExplainText1").gameObject;
             m_explainText2 = m_tutorialExplainCanvas.transform.Find("ExplainText2").gameObject;
@@ -300,6 +309,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             else if (m_curentNum == 17)
             {
                 // シーン遷移
+                m_isAllFinish.SetValueAndForceNotify(true);
             }
 
             //if (m_practiceCaptureText.activeInHierarchy == true)
@@ -414,10 +424,11 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 m_practiceModeFlag = true;
 
-                if (CreatureList_Script.Get.List.DataList[0] != null)
+                if (CreatureList_Script.Get.List.DataList[0].drumonName != "")
                 {
                     // 次のテキストの表示
                     NextText();
+                    m_isFinish.SetValueAndForceNotify(true);
                 }
             }
         }
@@ -425,10 +436,13 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     private void SetTarget()
     {
-        this.m_playerCreature.SetTarget(this.m_enemyCreature);
-        this.m_enemyCreature.SetTarget(this.m_playerCreature);
+        if (m_playerCreature && m_enemyCreature)
+        {
+            this.m_playerCreature.SetTarget(this.m_enemyCreature);
+            this.m_enemyCreature.SetTarget(this.m_playerCreature);
 
-        this.m_isSetting = true;
+            this.m_isSetting = true;
+        }
     }
 
     public void SetActive(ICreature_Script creature)
@@ -479,7 +493,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_tutorialModeFlag = true;
 
         // 現在のテキストを非アクティブ化
-        m_textArray[m_curentNum].SetActive(false);
+        if (m_textArray[m_curentNum])
+            m_textArray[m_curentNum].SetActive(false);
 
         if (m_textArray.Length > m_curentNum)
         {
@@ -503,5 +518,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             m_practiceModeFlag = false;
         }
+    }
+
+    private void ResetData(CreatureData data)
+    {
+        data = new CreatureData();
     }
 }

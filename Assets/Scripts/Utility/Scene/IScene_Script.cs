@@ -20,7 +20,8 @@ using UnityEngine;
         SCENE_REVISED,
         SCENE_BATTLE,
         SCENE_RESULT,
-        SCENE_TUTORIAL,
+        SCENE_CAPTURETUTORIAL,
+        SCENE_BATTLETUTORIAL,
         SCENE_ENGING,
     }
 // SceneのInterface

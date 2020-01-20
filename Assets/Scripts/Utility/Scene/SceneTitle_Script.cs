@@ -46,6 +46,15 @@ public class SceneTitle_Script : IScene_Script
 
             return SceneID.SCENE_REVISED;
         }
+        else if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.T))
+        {
+            // SEを鳴らす
+            m_manager.Audio.PlaySE(SfxType.WaterGun);
+            // 非同期処理のSceneロード
+            TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
+
+            return SceneID.SCENE_CAPTURETUTORIAL;
+        }
 
             
         // 継続する

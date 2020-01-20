@@ -28,7 +28,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     // バトルシーン
     private IScene_Script m_battle;
     // チュートリアルシーン
-    private IScene_Script m_tutorial;
+    private IScene_Script m_captureTutorial;
+    private IScene_Script m_battleTutorial;
     // リザルトシーン
     private IScene_Script m_result;
     // エンディングシーン
@@ -49,7 +50,8 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     public SceneRevised_Script Revised => (SceneRevised_Script)m_revised;
     public SceneBattle_Script Battle => (SceneBattle_Script)m_battle;
     public SceneResult_Script Result => (SceneResult_Script)m_result;
-    public SceneTutorial_Script Tutorial => (SceneTutorial_Script)m_tutorial;
+    public SceneCaptureTutorial_Script CaptureTutorial => (SceneCaptureTutorial_Script)m_captureTutorial;
+    public SceneBattleTutorial_Script BattleTutorial => (SceneBattleTutorial_Script)m_battleTutorial;
     public SceneEnding_Script Ending => (SceneEnding_Script)m_ending;
 
 
@@ -107,9 +109,13 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
                 // リザルトシーンへ
                 ChangeScene(m_result);
                 break;
-            case SceneID.SCENE_TUTORIAL:
-                // チュートリアル
-                ChangeScene(m_tutorial);
+            case SceneID.SCENE_CAPTURETUTORIAL:
+                // キャプチャーチュートリアル
+                ChangeScene(m_captureTutorial);
+                break;
+            case SceneID.SCENE_BATTLETUTORIAL:
+                // バトルチュートリアル
+                ChangeScene(m_battleTutorial);
                 break;
             case SceneID.SCENE_ENGING:
                 // エンディングシーン
@@ -175,8 +181,10 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         m_result = new SceneResult_Script();
         m_result.Name = "ResultScene";
         // TutorialScene
-        m_tutorial = new SceneTutorial_Script();
-        m_tutorial.Name = "TutorialScene";
+        m_captureTutorial = new SceneCaptureTutorial_Script();
+        m_captureTutorial.Name = "TutorialCaptureScene";
+        m_battleTutorial = new SceneBattleTutorial_Script();
+        m_battleTutorial.Name = "TutorialBattleScene";
         // EndingScene
         m_ending = new SceneEnding_Script();
         m_ending.Name = "EndingScene";
@@ -192,8 +200,10 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
             m_currentScene = m_battle;
         else if (SceneManager.GetActiveScene().name == m_result.Name)
             m_currentScene = m_result;
-        else if (SceneManager.GetActiveScene().name == m_tutorial.Name)
-            m_currentScene = m_tutorial;
+        else if (SceneManager.GetActiveScene().name == m_captureTutorial.Name)
+            m_currentScene = m_captureTutorial;
+        else if (SceneManager.GetActiveScene().name == m_battleTutorial.Name)
+            m_currentScene = m_battleTutorial;
         else if (SceneManager.GetActiveScene().name == m_ending.Name)
             m_currentScene = m_ending;
 
