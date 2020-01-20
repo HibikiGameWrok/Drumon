@@ -55,5 +55,6 @@ public class SceneBattleTutorial_Script : IScene_Script
         m_manager = manager;
 
         // BGMを再生する
+        m_manager.Audio.PlayBGM(BfxType.bgm_Tutorial);
     }
 }
