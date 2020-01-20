@@ -80,6 +80,7 @@ public class BoxDrum_Script : MonoBehaviour
                 if (m_cursorUI.MovePoint < 3)
                 {
                     CreatureList_Script.Get.List.DataList[m_cursorUI.MovePoint] = CreatureList_Script.Get.OverData;
+                    CreatureList_Script.Get.OverData = null;
                 }
 
                 // 内側を叩いた判定フラグを伏せる
