@@ -35778,9 +35778,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 860036150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 442c15ab61ee2624d8166bb08fd8cbb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7daac80b0cda19d44af8fda7a0e2e5eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_max: 1
+  m_drumon: {fileID: 5490012420456298698, guid: 5edaa440f41bec044b4d26334e4e4cef,
+    type: 3}
+  m_appearNextTime: 0
+  m_drumonList: {fileID: 487265537}
+  m_list: {fileID: 487265539}
 --- !u!23 &860036153
 MeshRenderer:
   m_ObjectHideFlags: 0
