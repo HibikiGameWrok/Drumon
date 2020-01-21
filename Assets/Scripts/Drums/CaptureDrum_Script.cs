@@ -194,29 +194,5 @@ public class CaptureDrum_Script : Drum_Script
                 m_captureModeText.gameObject.SetActive(false);
             }
         }
-
-        // 捕獲ドラムが叩かれたら
-        //if (m_stick.LeftHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true || m_stick.RightHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true)
-        //{
-        //    // カウントアップ
-        //    m_captureCount++;
-
-        //    // 捕獲ドラムを叩いた判定フラグを伏せる
-        //    m_stick.LeftHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
-        //    m_stick.RightHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
-        //    //m_leftStick.CaptureHit = false;
-        //}
-    }
-
-    /// <summary>
-    /// 当たり判定から外れた時
-    /// </summary>
-    /// <param name="col">衝突した相手</param>
-    public void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "Stick")
-        {
-            Debug.Log("nonononononono");
-        }
     }
 }
