@@ -152,46 +152,49 @@ public class CaptureDrum_Script : Drum_Script
     // 捕獲処理
     public void Capture()
     {
-        if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE) == true)
+        if (!m_costUIScript.GageEnd())
         {
-            // アクティブにする
-            m_captureModeText.gameObject.SetActive(true);
-
-            // カウントアップ
-            m_captureCount++;
-
-            // 捕獲ドラムを叩いた判定フラグを伏せる
-            m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
-            m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE);
-        }
-
-        // キャプチャーモードテキストがアクティブだったら
-        if (m_captureModeText.gameObject.activeInHierarchy == true)
-        {
-            // カウントダウン
-            m_timerCount--;
-
-            if (m_timerCount <= 0)
+            if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE) == true)
             {
-                // コスト消費
-                m_costUIScript.CostDawn(1.0f);
+                // アクティブにする
+                m_captureModeText.gameObject.SetActive(true);
 
-                m_timerCount = COUNT_RESET;
+                // カウントアップ
+                m_captureCount++;
+
+                // 捕獲ドラムを叩いた判定フラグを伏せる
+                m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
+                m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE);
             }
 
-            if (m_costUIScript.RecoveryFlag == true)
+            // キャプチャーモードテキストがアクティブだったら
+            if (m_captureModeText.gameObject.activeInHierarchy == true)
             {
-                if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
+                // カウントダウン
+                m_timerCount--;
+
+                if (m_timerCount <= 0)
                 {
-                    m_tutorialCaptureFlag = true;
+                    // コスト消費
+                    m_costUIScript.CostDawn(1.0f);
+
+                    m_timerCount = COUNT_RESET;
                 }
 
-                m_timerCount = COUNT_RESET;
+                if (m_costUIScript.RecoveryFlag == true)
+                {
+                    if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
+                    {
+                        m_tutorialCaptureFlag = true;
+                    }
 
-                m_costZeroFlag = true;
+                    m_timerCount = COUNT_RESET;
 
-                // 非アクティブにする
-                m_captureModeText.gameObject.SetActive(false);
+                    m_costZeroFlag = true;
+
+                    // 非アクティブにする
+                    m_captureModeText.gameObject.SetActive(false);
+                }
             }
         }
     }
