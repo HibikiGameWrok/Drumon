@@ -29,7 +29,7 @@ public class VRCamera_Script : MonoBehaviour
         }
 
         if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickRight)
-       || OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickRight))
+               || OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickRight))
         {
             rotAngle.y = rotAngle.y + 45f;
             rot = Quaternion.Euler(rotAngle);
