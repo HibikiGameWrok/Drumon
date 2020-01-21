@@ -101,7 +101,7 @@ public class CostUI_Script : MonoBehaviour
     }
 
     // ゲージが最終値に達した時
-    private bool GageEnd()
+    public bool GageEnd()
     {
         // 現在が最低値に達したとき
         if((int)m_sliderCompnent.value <= 0)
