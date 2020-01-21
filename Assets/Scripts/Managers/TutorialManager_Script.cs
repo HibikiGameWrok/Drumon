@@ -428,8 +428,11 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 {
                     // 次のテキストの表示
                     NextText();
-                    m_isFinish.SetValueAndForceNotify(true);
                 }
+            }
+            else if (m_curentNum == 7)
+            {
+                StartCoroutine(SceneChengeStop());
             }
         }
     }
@@ -529,5 +532,12 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private void ResetData(CreatureData data)
     {
         data = new CreatureData();
+    }
+
+    private IEnumerator SceneChengeStop()
+    {
+        yield return new WaitForSeconds(2.0f);
+        m_isFinish.SetValueAndForceNotify(true);
+        yield return null;
     }
 }
