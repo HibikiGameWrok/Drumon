@@ -218,9 +218,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
         else if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
-            ResetData(CreatureList_Script.Get.List.DataList[0]);
-            CreatureList_Script.Get.List.DataList[1].hp = CreatureList_Script.Get.List.DataList[1].maxHp;
-            ResetData(CreatureList_Script.Get.List.DataList[2]);
+            //ResetData(CreatureList_Script.Get.List.DataList[0]);
+            //CreatureList_Script.Get.List.DataList[1].hp = CreatureList_Script.Get.List.DataList[1].maxHp;
+            //ResetData(CreatureList_Script.Get.List.DataList[2]);
 
             m_tutorialExplainCanvas = GameObject.Find("TutorialExplainCanvas");
             m_explainText1 = m_tutorialExplainCanvas.transform.Find("ExplainText1").gameObject;
@@ -280,7 +280,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
 
             // ボタンが押されたら
-            if (OVRInput.GetDown(OVRInput.RawButton.A) && m_practiceModeFlag == false)
+            if ((OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Space)) && m_practiceModeFlag == false)
             {
                 m_tutorialModeFlag = false;
             }
@@ -408,7 +408,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
 
             // ボタンが押されたら
-            if (OVRInput.GetDown(OVRInput.RawButton.A) && m_practiceModeFlag == false)
+            if ((OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Space)) && m_practiceModeFlag == false)
             {
                 m_tutorialModeFlag = false;
             }
@@ -492,31 +492,37 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     {
         m_tutorialModeFlag = true;
 
-        // 現在のテキストを非アクティブ化
-        if (m_textArray[m_curentNum])
-            m_textArray[m_curentNum].SetActive(false);
+        if (m_textArray.Length > m_curentNum + 1)
+        {
+            // 現在のテキストを非アクティブ化
+            if (m_textArray[m_curentNum])
+                m_textArray[m_curentNum].SetActive(false);
+        }
 
-        if (m_textArray.Length > m_curentNum)
+        if (m_textArray.Length > m_curentNum + 1)
         {
             // カウントアップ
             m_curentNum++;
         }
 
-        if (m_textArray.Length == m_curentNum)
+        //if (m_textArray.Length == m_curentNum)
+        //{
+        //    // シーン遷移
+
+        //}
+
+        if (m_textArray.Length > m_curentNum + 1)
         {
-            // シーン遷移
+            if (m_textArray[m_curentNum] != null)
+            {
+                // 次のテキストをアクティブ化
+                m_textArray[m_curentNum].SetActive(true);
 
-        }
+                // 次のテキストに変える
+                m_text = m_textArray[m_curentNum].GetComponent<Text>();
 
-        if (m_textArray[m_curentNum] != null)
-        {
-            // 次のテキストをアクティブ化
-            m_textArray[m_curentNum].SetActive(true);
-
-            // 次のテキストに変える
-            m_text = m_textArray[m_curentNum].GetComponent<Text>();
-
-            m_practiceModeFlag = false;
+                m_practiceModeFlag = false;
+            }
         }
     }
 

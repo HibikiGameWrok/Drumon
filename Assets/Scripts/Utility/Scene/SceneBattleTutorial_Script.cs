@@ -35,8 +35,7 @@ public class SceneBattleTutorial_Script : IScene_Script
         // バトルが終了したかで判断する
         if (TutorialManager_Script.Get.IsAllFinish.Value.Equals(true))
         {
-            // 非同期処理のSceneアンロード
-            TransitionManager_Script.StartTransition_UnloadScene(this.Name);
+            TransitionManager_Script.StartTransition(m_manager.Title.Name);
 
             return SceneID.SCENE_TITLE;
         }
