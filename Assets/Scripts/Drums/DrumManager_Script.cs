@@ -157,11 +157,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 {
                     // 継続する
                     m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
-
-                }
-                else
-                {
-
                 }
             }
         }
@@ -183,11 +178,8 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
                 m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount = 0;
             }
+            m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag = false;
         }
-
-//#if UNITY_EDITOR
-//        Debug.Log("CurrentDrum is " + m_currentDrum);
-//#endif
     }
 
 

@@ -145,6 +145,12 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private IEnumerator ResultDisplay()
     {
+        //if(// レベルアップしたか)
+        //{
+             // レベルアップを知らせるUIを表示
+        //    yield return new WaitForSeconds(2.0f);
+        //}
+
         StartCoroutine(CaptureOver());
         //yield return new WaitForSeconds(2.0f);
 

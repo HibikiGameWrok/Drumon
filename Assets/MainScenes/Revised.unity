@@ -39106,6 +39106,22 @@ PrefabInstance:
       propertyPath: m_list
       value: 
       objectReference: {fileID: 487265539}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_drumon
+      value: 
+      objectReference: {fileID: 1291433197955004060, guid: c80ab0b7ec1c48049b1132c1939304a7,
+        type: 3}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_maxAppear
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_appearNextTime
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98eba2222a6f1534ebc33280a4b204d4, type: 3}
 --- !u!4 &936591232 stripped
@@ -40752,6 +40768,22 @@ PrefabInstance:
       propertyPath: m_list
       value: 
       objectReference: {fileID: 487265539}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_appearNextTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_maxAppear
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181651679740224208, guid: 98eba2222a6f1534ebc33280a4b204d4,
+        type: 3}
+      propertyPath: m_drumon
+      value: 
+      objectReference: {fileID: 1291433197955004060, guid: c80ab0b7ec1c48049b1132c1939304a7,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98eba2222a6f1534ebc33280a4b204d4, type: 3}
 --- !u!4 &970494249 stripped
@@ -90508,6 +90540,7 @@ GameObject:
   - component: {fileID: 894573655626132209}
   - component: {fileID: 894573655626132219}
   - component: {fileID: 1007850652813344191}
+  - component: {fileID: 894573655636893472}
   m_Layer: 0
   m_Name: OVRCameraRig
   m_TagString: Untagged
@@ -90515,6 +90548,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &894573655636893472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894573655636893471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b14cb1cd29125a4483a4b0e8ca3540d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &894573655636895187
 GameObject:
   m_ObjectHideFlags: 0
