@@ -39,6 +39,10 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     // Playerオブジェクト
     private GameObject m_playerObject = null;
 
+    // ResultUI
+    [SerializeField]
+    private GameObject[] m_battleResulteUI = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -145,16 +149,21 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private IEnumerator ResultDisplay()
     {
-        //if(// レベルアップしたか)
-        //{
-             // レベルアップを知らせるUIを表示
-        //    yield return new WaitForSeconds(2.0f);
-        //}
 
-        StartCoroutine(CaptureOver());
-        //yield return new WaitForSeconds(2.0f);
+        //StartCoroutine(CaptureOver());
+
+        //yield return new WaitForSeconds(5.0f);
+
+        // レベルアップを知らせるUIを表示
+        m_battleResulteUI[0].SetActive(true);
+
+        yield return new WaitForSeconds(5.0f);
+
+        // レベルアップを知らせるUIを表示
+        m_battleResulteUI[0].SetActive(false);
 
         m_isFinish.SetValueAndForceNotify(true);
+
         yield return null;
     }
 
