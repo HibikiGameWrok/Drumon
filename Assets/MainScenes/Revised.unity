@@ -52905,15 +52905,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 12.398401
       objectReference: {fileID: 0}
-    - target: {fileID: 3019933332780180703, guid: 68f91fddcd8833e48bfbbd3a1b8af899,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.028
-      objectReference: {fileID: 0}
     - target: {fileID: 2284359124415125196, guid: 68f91fddcd8833e48bfbbd3a1b8af899,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019933332780180703, guid: 68f91fddcd8833e48bfbbd3a1b8af899,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.028
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68f91fddcd8833e48bfbbd3a1b8af899, type: 3}
@@ -71769,15 +71769,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 13.443587
       objectReference: {fileID: 0}
-    - target: {fileID: 3019933332780180703, guid: 68f91fddcd8833e48bfbbd3a1b8af899,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.028
-      objectReference: {fileID: 0}
     - target: {fileID: 2284359124415125196, guid: 68f91fddcd8833e48bfbbd3a1b8af899,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019933332780180703, guid: 68f91fddcd8833e48bfbbd3a1b8af899,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.028
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68f91fddcd8833e48bfbbd3a1b8af899, type: 3}
@@ -90540,6 +90540,7 @@ GameObject:
   - component: {fileID: 894573655626132209}
   - component: {fileID: 894573655626132219}
   - component: {fileID: 1007850652813344191}
+  - component: {fileID: 894573655636893472}
   m_Layer: 0
   m_Name: OVRCameraRig
   m_TagString: Untagged
@@ -90547,6 +90548,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &894573655636893472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894573655636893471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b14cb1cd29125a4483a4b0e8ca3540d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &894573655636895187
 GameObject:
   m_ObjectHideFlags: 0
