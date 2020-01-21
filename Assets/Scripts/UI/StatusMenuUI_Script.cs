@@ -18,6 +18,14 @@ public class StatusMenuUI_Script : MonoBehaviour
 
     CreatureList_Script m_creatureList = null;
 
+    void Awake()
+    {
+        if (CreatureList_Script.Get != null)
+        {
+            m_creatureList = CreatureList_Script.Get;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +34,7 @@ public class StatusMenuUI_Script : MonoBehaviour
             m_creatureList = CreatureList_Script.Get;
         }
     }
+
 
     // Update is called once per frame
     void Update()
