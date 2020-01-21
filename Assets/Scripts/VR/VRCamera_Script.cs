@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class VRCamera_Script : MonoBehaviour
 {
-    float angle = 1;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +18,20 @@ public class VRCamera_Script : MonoBehaviour
 
         Vector3 rotAngle = rot.eulerAngles;
 
-        //if(OVRInput.GetDown(OVRInput.Button.One))
-        if(OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickDown)
-            || OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickDown))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickLeft)
+               || OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickLeft))
         {
-            rotAngle.y = rotAngle.y + 180f;
+            rotAngle.y = rotAngle.y - 45f;
+            rot = Quaternion.Euler(rotAngle);
+
+            transform.localPosition = pos;
+            transform.localRotation = rot;
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstickRight)
+       || OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickRight))
+        {
+            rotAngle.y = rotAngle.y + 45f;
             rot = Quaternion.Euler(rotAngle);
 
             transform.localPosition = pos;

@@ -16,15 +16,18 @@ public class LevelUPUI_Script : MonoBehaviour
 
     CreatureList_Script m_creatureList = null;
 
-    private int m_num = 0;
+    private int m_drumonnum = 0;
+    public int DrumonNum
+    {
+        get { return m_drumonnum; }
+        set { m_drumonnum = value; }
+    }
+
+    private bool[] m_levelFlag = { false };
 
     void Awake()
     {
-        if (CreatureList_Script.Get != null)
-        {
-            m_creatureList = CreatureList_Script.Get;
-        }
-        
+        CheckLevelUP();
     }
 
     // Start is called before the first frame update
@@ -34,14 +37,41 @@ public class LevelUPUI_Script : MonoBehaviour
         {
             m_creatureList = CreatureList_Script.Get;
         }
+        m_levelFlag = new bool[CreatureList_Script.Get.List.DataList.Length];
+        m_drumonnum = 0;
     }
 
+    // 出力するテキスト
     public void out_putText()
     {
-        // 出力するドラモンの名前
-        m_drumonNameText.text = m_creatureList.List.DataList[m_num].name;
-        // 出力するレベルアップ前
-        m_beforLevelUIText.text = m_creatureList.List.DataList[m_num].level.ToString();
-        // 
+        if (m_levelFlag[m_drumonnum] == true)
+        {
+            // 出力するドラモンの名前
+            m_drumonNameText.text = m_creatureList.List.DataList[m_drumonnum].drumonName;
+            // 出力するレベルアップ前
+            m_beforLevelUIText.text = m_creatureList.List.DataList[m_drumonnum].level.ToString();
+            // 出力するレベルアップ後
+            m_afterLevelUIText.text = CreatureList_Script.Get.List.DataList[m_drumonnum].level.ToString();
+        }
+        else
+        {
+
+            m_drumonnum++;
+            out_putText();
+
+        }
+        m_drumonnum++;
+    }
+
+    private void CheckLevelUP()
+    {
+        for(int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+        {
+            // レベルが上がっているかどうか
+            if(CreatureList_Script.Get.List.DataList[i].level != m_creatureList.List.DataList[i].level)
+            {
+                m_levelFlag[i] = true;
+            }
+        }
     }
 }
