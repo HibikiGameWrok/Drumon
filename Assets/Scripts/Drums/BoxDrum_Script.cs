@@ -75,7 +75,7 @@ public class BoxDrum_Script : MonoBehaviour
                         // 入れ替え
                         if (m_cursorUI.MovePoint < 3)
                         {
-                            CreatureList_Script.Get.List.DataList[m_cursorUI.MovePoint] = CreatureList_Script.Get.OverData;
+                            CreatureList_Script.Get.Trade(CreatureList_Script.Get.OverData, m_cursorUI.MovePoint);
                             CreatureList_Script.Get.OverData = null;
                         }
                         else
@@ -135,7 +135,7 @@ public class BoxDrum_Script : MonoBehaviour
                         // 入れ替え
                         if (m_cursorUI.MovePoint < 3)
                         {
-                            CreatureList_Script.Get.List.DataList[m_cursorUI.MovePoint] = CreatureList_Script.Get.OverData;
+                            CreatureList_Script.Get.Trade(CreatureList_Script.Get.OverData, m_cursorUI.MovePoint);
                             CreatureList_Script.Get.OverData = null;
                         }
                         else
