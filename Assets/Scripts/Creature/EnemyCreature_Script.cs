@@ -86,11 +86,9 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_enemyWaitTimeUIScript.MaxPoint = m_data.waitTime;
         m_enemyWaitTimeUIScript.NowPoint = m_timer;
 
-        if (AudioManager_Script.Get != null)
-        {
+        if (AudioManager_Script.Get)
             // 鳴き声SE
             AudioManager_Script.Get.PlaySE(m_data.drumonName);
-        }
     }
 
     public void Execute()
@@ -159,15 +157,10 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
                     m_otsoFlag = true;
                 GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
                 if (!this.transform.GetChild(i).gameObject.GetComponent<ScaleController_Script>())
-                {
                     this.transform.GetChild(i).gameObject.AddComponent<ScaleController_Script>().EndTime = m_animState.length;
-                }
             }
         }
-        else if (this.transform.childCount == 0)
-        {
-            Destroy(this.gameObject);
-        }
+        else if (this.transform.childCount == 0) Destroy(this.gameObject);
     }
 
     public void Capture(int hitNum)
@@ -190,10 +183,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
             //ge.TargetPosition = PlayerPositionGetter.Get.transform.position;
             ge.TargetPosition = Vector3.zero;
         }
-        else
-        {
-            this.m_atkFlag = true;
-        }
+        else this.m_atkFlag = true;
     }
 
     private void CreatePrefab()
@@ -212,13 +202,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private void SelectArts()
     {
         int random = Random.Range(1, csvHolder.CSVDatas.Count - 1);
-        if (m_lastArts != random)
-        {
-            m_lastArts = random;
-        }
-        else
-        {
-            SelectArts();
-        }
+        if (m_lastArts != random) m_lastArts = random;
+        else SelectArts();
     }
 }
