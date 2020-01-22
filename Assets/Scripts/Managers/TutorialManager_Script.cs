@@ -245,14 +245,17 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             m_text = m_textArray[0].GetComponent<Text>();
 
-            //m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
-            //m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
-            //m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
-            //m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
+            m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
+            m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
+            m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
+            m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
 
-            //m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
+            m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
 
-            //m_stickLeft.GetComponent<MeshFilter>().sharedMesh = null;
+            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
+            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
+            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = null;
+            m_stickRight.GetComponent<MeshFilter>().sharedMesh = null;
         }
 
         m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();
@@ -439,6 +442,11 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (m_curentNum == 6)
             {
                 m_practiceModeFlag = true;
+
+                m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = true;
+                m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = true;
+                m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_mesh;
+                m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_mesh;
 
                 if (CreatureList_Script.Get.List.DataList[0].drumonName != "")
                 {
