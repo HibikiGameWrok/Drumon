@@ -19,8 +19,6 @@ using UnityEngine.SceneManagement;
 public class SceneBattle_Script : IScene_Script
 {
 
-    //private GameObject m_player = null;
-
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -52,8 +50,6 @@ public class SceneBattle_Script : IScene_Script
             TransitionManager_Script.StartTransition_UnloadScene(this.Name);
 
             // プレイヤーを非アクティブにしておく
-            //if (m_player.activeSelf == false)
-            //    m_player.gameObject.SetActive(true);
             if (m_manager.Player.activeSelf == false)
                 m_manager.Player.SetActive(true);
 
@@ -75,7 +71,5 @@ public class SceneBattle_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Battle);
-
-        //m_player = SceneManager.GetSceneByName("Revised").GetRootGameObjects().
     }
 }

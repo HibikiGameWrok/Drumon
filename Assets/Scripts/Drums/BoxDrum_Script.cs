@@ -26,6 +26,12 @@ public class BoxDrum_Script : MonoBehaviour
         get { return m_switchFlag; }
     }
 
+    private bool m_centerHitFlag = false;
+    public bool centerHitFlag
+    {
+        get { return m_centerHitFlag; }
+    }
+
 
     void Awake()
     {
@@ -56,6 +62,11 @@ public class BoxDrum_Script : MonoBehaviour
             // 左スティックで真ん中を叩く
             if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
+                if (m_centerHitFlag == false)
+                {
+                    m_centerHitFlag = true;
+                }
+
                 if (m_cursorUI.DecusuonFlag == false)
                 {
                     m_cursorUI.Decision();
@@ -108,7 +119,7 @@ public class BoxDrum_Script : MonoBehaviour
                 }
                 m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
             }
-
+            m_centerHitFlag = false;
             m_leftStick.BoxDrumHitFlag = false;
         }
         else if (m_rightStick.BoxDrumHitFlag == true)
@@ -116,6 +127,11 @@ public class BoxDrum_Script : MonoBehaviour
             // 右スティックで真ん中を叩く
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
+                if(m_centerHitFlag == false)
+                {
+                    m_centerHitFlag = true;
+                }
+
                 if (m_cursorUI.DecusuonFlag == false)
                 {
                     m_cursorUI.Decision();
@@ -153,7 +169,7 @@ public class BoxDrum_Script : MonoBehaviour
                 }
 
             }
-
+            
             // 内側を叩いた判定フラグを伏せる
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
         }
@@ -171,7 +187,7 @@ public class BoxDrum_Script : MonoBehaviour
             }
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
         }
-
+        m_centerHitFlag = false;
         m_rightStick.BoxDrumHitFlag = false;
     }
 }
