@@ -14,13 +14,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private CreatureData m_data = null;
 
+    public CreatureData Data
+    {
+        get { return m_data; }
+    }
+
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
-
-    public string Name
-    {
-        get { return this.m_data.drumonName; }
-    }
 
     public float WaitTime
     {
@@ -102,10 +102,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         //this.CountTimer();
         m_healProsperityUIScript.NowPoint = m_data.hp;
-        if (this.m_rate != 0)
-        {
-            this.m_atkFlag = true;
-        }
+        if (this.m_rate != 0) this.m_atkFlag = true;
         this.Dead();
     }
 
@@ -116,7 +113,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (int)(this.m_data.atk * (this.m_rate / 100.0f)) - (this.m_target.GetData().def);
+        int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (this.m_rate / 100.0f)) - (this.m_target.GetData().def / 50);
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
@@ -176,9 +173,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             {
                 GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
                 if (!this.transform.GetChild(i).gameObject.GetComponent<ScaleController_Script>())
-                {
                     this.transform.GetChild(i).gameObject.AddComponent<ScaleController_Script>().EndTime = m_animState.length;
-                }
             }
         }
         else if (this.transform.childCount == 0)

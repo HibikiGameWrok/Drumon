@@ -15,6 +15,10 @@ public class Move_CursorUI_Script : MonoBehaviour
     [SerializeField]
     private GameObject[] m_point = null;
 
+    [SerializeField]
+    private int MAX_POINT = 0;
+    private int MIN_POINT = 0;
+
     private int m_movePoint = 0;
     public int MovePoint
     {
@@ -25,6 +29,7 @@ public class Move_CursorUI_Script : MonoBehaviour
     public bool DecusuonFlag
     {
         get { return m_decisionFlag; }
+        set { m_decisionFlag = value; }
     }
 
     [SerializeField]
@@ -34,20 +39,24 @@ public class Move_CursorUI_Script : MonoBehaviour
     // 決定
     public void Decision()
     {
+        //if (m_decisionFlag == false)
+        //{
+        //    m_decisionFlag = true;
+        //    if (m_decisionObject != null || m_decisionObject.activeSelf == false)
+        //    {
+        //        m_decisionObject.SetActive(true);
+        //    }        
+        //}
+        //else
+        //{
+        //    if (m_decisionObject != null || m_decisionObject.activeSelf == true)
+        //    {
+        //        m_decisionObject.GetComponent<Move_CursorUI_Script>().Decision();
+        //    }
+        //}
         if (m_decisionFlag == false)
         {
             m_decisionFlag = true;
-            if (m_decisionObject != null || m_decisionObject.activeSelf == false)
-            {
-                m_decisionObject.SetActive(true);
-            }        
-        }
-        else
-        {
-            if (m_decisionObject != null || m_decisionObject.activeSelf == true)
-            {
-                m_decisionObject.GetComponent<Move_CursorUI_Script>().Decision();
-            }
         }
     }
 
@@ -57,9 +66,9 @@ public class Move_CursorUI_Script : MonoBehaviour
         if (m_decisionFlag != true)
         {
             m_movePoint++;
-            if (m_movePoint > 3)
+            if (m_movePoint > MAX_POINT)
             {
-                m_movePoint = 0;
+                m_movePoint = MIN_POINT;
             }
             MoveCuresor();
         }
@@ -78,9 +87,9 @@ public class Move_CursorUI_Script : MonoBehaviour
         if (m_decisionFlag != true)
         {
             m_movePoint--;
-            if (m_movePoint < 0)
+            if (m_movePoint < MIN_POINT)
             {
-                m_movePoint = 3;
+                m_movePoint = MAX_POINT;
             }
             MoveCuresor();
         }

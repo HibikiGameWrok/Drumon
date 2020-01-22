@@ -56,4 +56,5 @@ public enum BfxType
     bgm_Search,
     bgm_Battle,
     bgm_Tutorial,
+    bgm_Victory,
 }
