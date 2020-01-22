@@ -115,7 +115,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         string matchRate = csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_RATE];
         int rate = int.Parse(matchRate);
 
-        int damage = (int)(this.m_data.atk * (rate / 100.0f)) - (this.m_target.GetData().def);
+        int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (rate / 100.0f)) - (this.m_target.GetData().def / 5);
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_NAME], this.transform);
         damage = (int)(damage * weak);

@@ -17,11 +17,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
 
-    public string Name
-    {
-        get { return this.m_data.drumonName; }
-    }
-
     public float WaitTime
     {
         get { return this.m_data.waitTime; }
@@ -116,7 +111,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (int)(this.m_data.atk * (this.m_rate / 100.0f)) - (this.m_target.GetData().def);
+        int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (this.m_rate / 100.0f)) - (this.m_target.GetData().def / 50);
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
