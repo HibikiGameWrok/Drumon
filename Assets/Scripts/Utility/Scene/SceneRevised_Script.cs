@@ -24,7 +24,7 @@ public class SceneRevised_Script : IScene_Script
     
     private bool m_isTransitionBattle = false;
 
-    private GameObject m_player = null;
+    //private GameObject m_player = null;
 
     /// <summary>
     /// 終了処理
@@ -56,8 +56,10 @@ public class SceneRevised_Script : IScene_Script
             TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
             // プレイヤーを非アクティブにしておく
-            //if(m_player.activeSelf == true)
+            //if (m_player.activeSelf == true)
             //    m_player.gameObject.SetActive(false);
+            if (m_manager.Player.activeSelf == true)
+                m_manager.Player.SetActive(false);
 
             return SceneID.SCENE_BATTLE;
         }
@@ -89,7 +91,9 @@ public class SceneRevised_Script : IScene_Script
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Search);
 
-        m_player = GameObject.Find("VRTK");
+        // m_player = GameObject.Find("LocalAvatar");
+
+        m_manager.Player = GameObject.Find("LocalAvatar");
     }
 
 
@@ -113,12 +117,11 @@ public class SceneRevised_Script : IScene_Script
 
     private void IsActivePlayer()
     {
-        if (m_player.activeSelf == true)
+        //if (m_player.activeSelf == true)
+        if (m_manager.Player.activeSelf == true)
             return;
         else
-        {
-            m_player.SetActive(true);
-        }
-
+            m_manager.Player.SetActive(true);
+       //      m_player.SetActive(true);
     }
 }

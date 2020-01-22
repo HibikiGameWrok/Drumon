@@ -113,10 +113,11 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (this.m_rate / 100.0f)) - (this.m_target.GetData().def / 50);
+        int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (this.m_rate / 100.0f)) - this.m_target.GetData().def;
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
+        if (damage <= 0) damage = 1;
         this.m_target.Damage(damage);
         this.m_rate = 0;
         this.m_atkFlag = false;
@@ -229,7 +230,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         if (too <= 0 && data.level < 10)
         {
-            LevelUp(this.m_upPoint[Random.Range(0, 2)], data);
+            LevelUp(this.m_upPoint[Random.Range(0, 3)], data);
             data.exp = (int)(m_expPoint * m_expRate);
             if (too == 0) return;
             too = data.exp + too;
@@ -244,7 +245,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_levelTextUIScript.NowLevel = m_data.level;
         for (int i = 0; i < num; i++)
         {
-            int rand = Random.Range(0, 2);
+            int rand = Random.Range(0, 3);
             switch (rand)
             {
                 case 0:
