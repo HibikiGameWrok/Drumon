@@ -29,13 +29,21 @@ public class CaptureDrum_Script : Drum_Script
         set { m_captureCount = value; }
     }
 
-    // チュートリアル用のモンスター捕獲フラグ
+    // チュートリアルキャプチャー用のモンスター捕獲フラグ
     private bool m_tutorialCaptureFlag = false;
-    // チュートリアル用のモンスター捕獲フラグのプロパティ
+    // チュートリアルキャプチャー用のモンスター捕獲フラグのプロパティ
     public bool TutorialCaptureFlag
     {
         get { return m_tutorialCaptureFlag; }
         set { m_tutorialCaptureFlag = value; }
+    }
+    // チュートリアルバトル用のモンスター捕獲フラグ
+    private bool m_tutorialBattleFlag = false;
+    // チュートリアルバトル用のモンスター捕獲フラグのプロパティ
+    public bool TutorialBattleFlag
+    {
+        get { return m_tutorialBattleFlag; }
+        set { m_tutorialBattleFlag = value; }
     }
 
     // キャプチャードラムのUIキャンバス
@@ -184,6 +192,10 @@ public class CaptureDrum_Script : Drum_Script
                 if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
                 {
                     m_tutorialCaptureFlag = true;
+                }
+                else if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
+                {
+                    m_tutorialBattleFlag = true;
                 }
 
                 m_timerCount = COUNT_RESET;

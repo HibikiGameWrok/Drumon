@@ -328,7 +328,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             else if (m_curentNum == 17)
             {
                 // シーン遷移
-                m_isAllFinish.SetValueAndForceNotify(true);
+                //m_isAllFinish.SetValueAndForceNotify(true);
             }
 
             //if (m_practiceCaptureText.activeInHierarchy == true)
@@ -395,6 +395,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 // 次のテキストの表示
                 NextText();
+
+                StartCoroutine(SceneChengeStop());
             }
 
             //if (m_practiceChangeText.activeInHierarchy == true)
@@ -538,7 +540,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
         //}
 
-        if (m_textArray.Length > m_curentNum + 1)
+        if (m_textArray.Length > m_curentNum/* + 1*/)
         {
             if (m_textArray[m_curentNum] != null)
             {
@@ -561,7 +563,15 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private IEnumerator SceneChengeStop()
     {
         yield return new WaitForSeconds(2.0f);
-        m_isFinish.SetValueAndForceNotify(true);
+        if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
+        {
+            m_isFinish.SetValueAndForceNotify(true);
+        }
+        else if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
+        {
+            m_isAllFinish.SetValueAndForceNotify(true);
+        }
+
         yield return null;
     }
 }

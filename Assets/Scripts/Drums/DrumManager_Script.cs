@@ -166,14 +166,18 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         {
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
-                if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag != true)
-                {
-                    m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
-                }
-                else
+                if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == true)
                 {
                     m_enemyCreature.Capture(CaptureDrum_Script.CAPTURE_CONFIRM);
                     //m_tutorialGetFlag = true;
+                }
+                else if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialBattleFlag == true)
+                {
+                    m_enemyCreature.Capture(0);
+                }
+                else
+                {
+                    m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
                 }
 
                 m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount = 0;
