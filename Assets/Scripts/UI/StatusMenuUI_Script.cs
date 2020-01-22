@@ -23,6 +23,7 @@ public class StatusMenuUI_Script : MonoBehaviour
         if (CreatureList_Script.Get != null)
         {
             m_creatureList = CreatureList_Script.Get;
+            SetUpUIData();
         }
     }
 
@@ -91,30 +92,6 @@ public class StatusMenuUI_Script : MonoBehaviour
                     }
 
                 }
-            }
-        }
-    }
-
-    // UIの表示
-    public void OpenUI()
-    {
-        foreach (Transform child in this.transform)
-        {
-            if (child.gameObject.activeSelf == false)
-            {
-                child.gameObject.SetActive(true);
-                SetUpUIData();
-            }
-        }
-    }
-    // UIの非表示
-    public void CloseUI()
-    {
-        foreach (Transform child in this.transform)
-        {
-            if (child.gameObject.activeSelf == true)
-            {
-                child.gameObject.SetActive(false);
             }
         }
     }

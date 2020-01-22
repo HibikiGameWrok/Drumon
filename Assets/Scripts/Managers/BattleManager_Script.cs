@@ -43,6 +43,8 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     [SerializeField]
     private GameObject[] m_battleResulteUI = null;
 
+    private int m_num = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,8 +79,13 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else if(!m_isFinish.Value)
         {
-            StartCoroutine(ResultDisplay());
-            //m_isFinish.SetValueAndForceNotify(true);
+            StartCoroutine(ResultDisplay(m_num));
+        }
+
+        if(m_boxDrum.switchFlag == true)
+        {
+            m_num = 2;
+            StartCoroutine(ResultDisplay(m_num));
         }
     }
 
@@ -147,39 +154,57 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         return false;
     }
 
-    private IEnumerator ResultDisplay()
+    private IEnumerator ResultDisplay(int num)
     {
+        if (num == 0)
+        {
+            // Playerオブジェクトを非アクティブ化
+            m_playerObject.SetActive(false);
+            m_num = 1;
+        }
 
-        //StartCoroutine(CaptureOver());
+        if (num == 1)
+        {
+            if (CaptureOver() == true)
+            {
+                // Boxドラムをアクティブ化
+                m_boxDrum.gameObject.SetActive(true);
+                // 入れ替えUIをアクティブ化
+                m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                StopCoroutine(ResultDisplay(0));
+            }
+            else
+            {
+                num = 2;
+            }
+        }
 
-        //yield return new WaitForSeconds(5.0f);
+        if (num == 2)
+        {
+            // 入れ替えUIを非アクティブ化
+            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
+            // 入れ替えUIを非アクティブ化
+            m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+            
+            // レベルアップUIをアクティブ化
+            m_battleResulteUI[0].SetActive(true);
+        }
 
-        // レベルアップを知らせるUIを表示
-        m_battleResulteUI[0].SetActive(true);
-
-        yield return new WaitForSeconds(5.0f);
-
-        // レベルアップを知らせるUIを表示
-        m_battleResulteUI[0].SetActive(false);
+        yield return new WaitForSeconds(10.0f);
 
         m_isFinish.SetValueAndForceNotify(true);
 
         yield return null;
     }
 
-    private IEnumerator CaptureOver()
+
+    private bool CaptureOver()
     {
         // 4体目が捕獲されたら
         if (CreatureList_Script.Get.OverData != null)
-        {
-            // Boxドラムをアクティブ化
-            m_boxDrum.gameObject.SetActive(true);
-            // Playerオブジェクトを非アクティブ化
-            m_playerObject.SetActive(false);
-
-            yield return null;
+        { 
+            return true;
         }
-
-        yield return null;
+        return false;
     }
 }
