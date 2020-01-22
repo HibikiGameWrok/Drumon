@@ -227,7 +227,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private void CheckLevelUp(int too, CreatureData data)
     {
-        if (too <= 0 && data.level <= 10)
+        if (too <= 0 && data.level < 10)
         {
             LevelUp(this.m_upPoint[Random.Range(0, 2)], data);
             data.exp = (int)(m_expPoint * m_expRate);

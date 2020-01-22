@@ -15,8 +15,7 @@ public class Move_CursorUI_Script : MonoBehaviour
     [SerializeField]
     private GameObject[] m_point = null;
 
-    [SerializeField]
-    private int MAX_POINT = 0;
+    private int MAX_POINT;
     private int MIN_POINT = 0;
 
     private int m_movePoint = 0;
@@ -36,24 +35,14 @@ public class Move_CursorUI_Script : MonoBehaviour
     private GameObject m_decisionObject = null;
 
 
+    void Awake()
+    {
+        MAX_POINT = m_point.Length;
+    }
+
     // 決定
     public void Decision()
     {
-        //if (m_decisionFlag == false)
-        //{
-        //    m_decisionFlag = true;
-        //    if (m_decisionObject != null || m_decisionObject.activeSelf == false)
-        //    {
-        //        m_decisionObject.SetActive(true);
-        //    }        
-        //}
-        //else
-        //{
-        //    if (m_decisionObject != null || m_decisionObject.activeSelf == true)
-        //    {
-        //        m_decisionObject.GetComponent<Move_CursorUI_Script>().Decision();
-        //    }
-        //}
         if (m_decisionFlag == false)
         {
             m_decisionFlag = true;
@@ -63,43 +52,24 @@ public class Move_CursorUI_Script : MonoBehaviour
     // cursorを上に移動
     public void CursorUP()
     {
-        if (m_decisionFlag != true)
+        m_movePoint++;
+        if (m_movePoint > MAX_POINT - 1)
         {
-            m_movePoint++;
-            if (m_movePoint > MAX_POINT)
-            {
-                m_movePoint = MIN_POINT;
-            }
-            MoveCuresor();
+            m_movePoint = MIN_POINT;
         }
-        else
-        {
-            if (m_decisionObject != null || m_decisionObject.activeSelf == true)
-            {
-                m_decisionObject.GetComponent<Move_CursorUI_Script>().CursorUP();
-            }
-        }
+        MoveCuresor();
     }
 
     // cursorを下に移動
     public void CursorDown()
     {
-        if (m_decisionFlag != true)
+
+        m_movePoint--;
+        if (m_movePoint < MIN_POINT)
         {
-            m_movePoint--;
-            if (m_movePoint < MIN_POINT)
-            {
-                m_movePoint = MAX_POINT;
-            }
-            MoveCuresor();
+            m_movePoint = MAX_POINT - 1;
         }
-        else
-        {
-            if (m_decisionObject != null || m_decisionObject.activeSelf == true)
-            {
-                m_decisionObject.GetComponent<Move_CursorUI_Script>().CursorDown();
-            }
-        }
+        MoveCuresor();
     }
 
     // cursorを移動
@@ -108,16 +78,16 @@ public class Move_CursorUI_Script : MonoBehaviour
         switch (m_movePoint)
         {
             case 0:
-                m_cursorUI.transform.position = m_point[0].transform.localPosition + MOVE_POS;
+                m_cursorUI.transform.position = m_point[0].transform.position;
                 break;
             case 1:
-                m_cursorUI.transform.position = m_point[1].transform.localPosition + MOVE_POS;
+                m_cursorUI.transform.position = m_point[1].transform.position;
                 break;
             case 2:
-                m_cursorUI.transform.position = m_point[2].transform.localPosition + MOVE_POS;
+                m_cursorUI.transform.position = m_point[2].transform.position;
                 break;
             case 3:
-                m_cursorUI.transform.position = m_point[3].transform.localPosition + MOVE_POS;
+                m_cursorUI.transform.position = m_point[3].transform.position;
                 break;
             default:
                 break;

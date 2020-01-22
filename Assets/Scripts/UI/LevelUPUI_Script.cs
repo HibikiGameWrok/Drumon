@@ -27,16 +27,19 @@ public class LevelUPUI_Script : MonoBehaviour
 
     private bool[] m_levelFlag = { false };
 
-    void Awake()
-    {
-        CheckLevelUP();
-        out_putText();
-    }
+    //void Awake()
+    //{
+    //    if (CreatureList_Script.Get != null)
+    //    {
+    //        CheckLevelUP();
+    //        out_putText();
+    //    }
+    //}
 
     // Start is called before the first frame update
     void Start()
     {
-        if (CreatureList_Script.Get != null)
+        if (CreatureList_Script.Get == null)
         {
             m_creatureList = CreatureList_Script.Get;
         }

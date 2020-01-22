@@ -77,9 +77,14 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
-        else if(!m_isFinish.Value)
+        else if ((!m_isFinish.Value) && (m_boxDrum.switchFlag == false))
         {
             StartCoroutine(ResultDisplay(m_num));
+        }
+
+        if (m_num == 1)
+        {
+            StopCoroutine(ResultDisplay(0));
         }
 
         if(m_boxDrum.switchFlag == true)
@@ -160,40 +165,41 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             // Playerオブジェクトを非アクティブ化
             m_playerObject.SetActive(false);
-            m_num = 1;
-        }
 
-        if (num == 1)
-        {
+            // 手持ちがいっぱいの時
             if (CaptureOver() == true)
             {
                 // Boxドラムをアクティブ化
                 m_boxDrum.gameObject.SetActive(true);
                 // 入れ替えUIをアクティブ化
                 m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
-                StopCoroutine(ResultDisplay(0));
+                num = m_num = 1;
             }
             else
             {
-                num = 2;
+                m_num = 2;
             }
         }
 
-        if (num == 2)
+        if (m_num == 2)
         {
             // 入れ替えUIを非アクティブ化
             m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
             // 入れ替えUIを非アクティブ化
             m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
-            
+
             // レベルアップUIをアクティブ化
-            m_battleResulteUI[0].SetActive(true);
+            m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
+
+            yield return new WaitForSeconds(5.0f);
+            num = 4;
         }
 
-        yield return new WaitForSeconds(10.0f);
-
-        m_isFinish.SetValueAndForceNotify(true);
-
+        
+        if (num == 4)
+        {
+            m_isFinish.SetValueAndForceNotify(true);
+        }
         yield return null;
     }
 

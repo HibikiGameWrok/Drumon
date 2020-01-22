@@ -11,7 +11,7 @@ public class BoxDrum_Script : MonoBehaviour
 
     // トレードUIC
     [SerializeField]
-    private GameObject[] m_tradeUIC;
+    private GameObject[] m_tradeUI;
 
     // カーソルUI
     private Move_CursorUI_Script m_cursorUI;
@@ -29,9 +29,9 @@ public class BoxDrum_Script : MonoBehaviour
 
     void Awake()
     {
-        m_cursorUI = m_tradeUIC[0].GetComponent<Move_CursorUI_Script>();
-        m_JudgeUI = m_tradeUIC[1].GetComponent<Move_CursorUI_Script>();
-        m_statusMenuUI = m_tradeUIC[0].GetComponent<StatusMenuUI_Script>();
+        m_cursorUI = m_tradeUI[1].GetComponent<Move_CursorUI_Script>();
+        m_JudgeUI = m_tradeUI[2].GetComponent<Move_CursorUI_Script>();
+        m_statusMenuUI = m_tradeUI[0].GetComponent<StatusMenuUI_Script>();
     }
 
     // Start is called before the first frame update
@@ -58,12 +58,16 @@ public class BoxDrum_Script : MonoBehaviour
             {
                 if (m_cursorUI.DecusuonFlag == false)
                 {
-                    // 決定フラグをtrue
                     m_cursorUI.Decision();
                     // 決定UIをアクティブ
-                    m_JudgeUI.GetComponent<SetChildActiveObject_Script>().OpenUI();
+                    m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().OpenUI();
                 }
-                else if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == false)
+                else
+                {
+                    m_JudgeUI.Decision();
+                }
+
+                if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == true)
                 {
                     if (m_JudgeUI.MovePoint == 0)
                     {
@@ -82,7 +86,9 @@ public class BoxDrum_Script : MonoBehaviour
                     else if (m_JudgeUI.MovePoint != 0)
                     {
                         // 決定UIをアクティブ
-                        m_JudgeUI.GetComponent<SetChildActiveObject_Script>().CloseUI();
+                        m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+                        m_cursorUI.DecusuonFlag = false;
+                        m_JudgeUI.DecusuonFlag = false;
                     }
                 }
                 // 内側を叩いた判定フラグを伏せる
@@ -92,7 +98,14 @@ public class BoxDrum_Script : MonoBehaviour
             // 左スティックで端を叩く
             if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
             {
-                m_cursorUI.CursorUP();
+                if (m_cursorUI.DecusuonFlag == false)
+                {
+                    m_cursorUI.CursorUP();
+                }
+                else
+                {
+                    m_JudgeUI.CursorUP();
+                }
                 m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
             }
 
@@ -105,12 +118,16 @@ public class BoxDrum_Script : MonoBehaviour
             {
                 if (m_cursorUI.DecusuonFlag == false)
                 {
-                    // 決定フラグをtrue
                     m_cursorUI.Decision();
                     // 決定UIをアクティブ
-                    m_JudgeUI.GetComponent<SetChildActiveObject_Script>().OpenUI();
+                    m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().OpenUI();
                 }
-                else if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == false)
+                else
+                {
+                    m_JudgeUI.Decision();
+                }
+
+                if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == true)
                 {
                     if (m_JudgeUI.MovePoint == 0)
                     {
@@ -129,7 +146,9 @@ public class BoxDrum_Script : MonoBehaviour
                     else if(m_JudgeUI.MovePoint != 0)
                     {
                         // 決定UIをアクティブ
-                        m_JudgeUI.GetComponent<SetChildActiveObject_Script>().CloseUI();
+                        m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+                        m_cursorUI.DecusuonFlag = false;
+                        m_JudgeUI.DecusuonFlag = false;
                     }
                 }
 
@@ -142,7 +161,14 @@ public class BoxDrum_Script : MonoBehaviour
         // 右スティックで端を叩く
         if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
         {
-            m_cursorUI.CursorDown();
+            if (m_cursorUI.DecusuonFlag == false)
+            {
+                m_cursorUI.CursorDown();
+            }
+            else 
+            {
+                m_JudgeUI.CursorDown();
+            }
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
         }
 

@@ -50,11 +50,11 @@ public class StatusMenuUI_Script : MonoBehaviour
                     if (child.gameObject.activeSelf == true)
                     {
                         child.gameObject.SetActive(false);
-                        SetUpUIData();
                     }
                     else if (child.gameObject.activeSelf == false)
                     {
                         child.gameObject.SetActive(true);
+                        SetUpUIData();
                     }
                 }
             }
