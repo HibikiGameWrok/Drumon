@@ -104,7 +104,7 @@ public abstract class Stick_Script : MonoBehaviour
     // 当たり判定を抜けた処理
     void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum" || collision.gameObject.tag == "BoxInDrum" || collision.gameObject.tag == "BoxOutDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum" || collision.gameObject.tag == "BoxInDrum" || collision.gameObject.tag == "BoxOutDrum" || collision.gameObject.tag == "TitleInDrum" || collision.gameObject.tag == "TitleOutDrum")
         {
             // カウントダウン
             m_hitNum--;

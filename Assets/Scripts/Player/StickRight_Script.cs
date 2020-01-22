@@ -216,7 +216,7 @@ public class StickRight_Script : Stick_Script
                     }
                 }
                 // タイトルドラムの内側を叩いたら
-                else if (collision.gameObject.tag == "BoxInDrum")
+                else if (collision.gameObject.tag == "TitleInDrum")
                 {
                     // 内側を叩いた判定フラグを立てる
                     m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.IN_HIT);
@@ -239,9 +239,9 @@ public class StickRight_Script : Stick_Script
                     }
                 }
                 // タイトルドラムの外側を叩いたら
-                else if (collision.gameObject.tag == "BoxOutDrum")
+                else if (collision.gameObject.tag == "TitleOutDrum")
                 {
-                    if (m_lastCollisionTag != "BoxInDrum")
+                    if (m_lastCollisionTag != "TitleInDrum")
                     {
                         // 外側を叩いた判定フラグを立てる
                         m_hitPatternFlag.OnFlag((uint)HIT_PATTERN.OUT_HIT);
