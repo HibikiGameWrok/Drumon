@@ -20,7 +20,7 @@ public class LevelUPUI_Script : MonoBehaviour
     private GameObject[] m_activeObject = null;
 
     [SerializeField]
-    private GameObject[][] m_point = null;
+    private GameObject[] m_point = null;
 
     CreatureList_Script m_creatureList = null;
 
@@ -76,7 +76,7 @@ public class LevelUPUI_Script : MonoBehaviour
                 {
                     if (m_levelFlag[m_drumonnum] == true)
                     {
-                        m_activeObject[m_drumonnum].transform.position = m_point[0][m_drumonnum].transform.position;
+                        m_activeObject[m_drumonnum].transform.position = m_point[0].transform.position;
                     }
                 }
                     break;
@@ -84,9 +84,12 @@ public class LevelUPUI_Script : MonoBehaviour
             case 2:
                 for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
                 {
-                    if (m_levelFlag[m_drumonnum] == true)
+                    for (int i = 1; i < 3; i++)
                     {
-                        m_activeObject[m_drumonnum].transform.position = m_point[1][m_drumonnum].transform.position;
+                        if (m_levelFlag[m_drumonnum] == true)
+                        {
+                            m_activeObject[m_drumonnum].transform.position = m_point[i].transform.position;
+                        }
                     }
                 }
                 break;
