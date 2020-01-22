@@ -52,4 +52,17 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
         }
         m_overData = creature.GetData();
     }
+
+    public void Trade(CreatureData data, int num)
+    {
+        m_list.DataList[num].drumonName = data.drumonName;
+        m_list.DataList[num].level = data.level;
+        m_list.DataList[num].hp = data.hp;
+        m_list.DataList[num].maxHp = data.maxHp;
+        m_list.DataList[num].atk = data.atk;
+        m_list.DataList[num].def = data.def;
+        m_list.DataList[num].waitTime = data.waitTime;
+        m_list.DataList[num].elem = data.elem;
+        m_list.DataList[num].exp = data.exp;
+    }
 }
