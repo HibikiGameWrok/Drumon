@@ -45,7 +45,7 @@ public class SceneResult_Script : IScene_Script
                 m_manager.Audio.PlaySE(SfxType.teleport);
                 // 非同期処理のSceneロード
                 TransitionManager_Script.StartTransition(m_manager.Ending.Name);
-                return SceneID.SCENE_ENGING;
+                return SceneID.SCENE_ENDING;
             }
         }
         // 継続する

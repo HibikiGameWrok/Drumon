@@ -117,7 +117,7 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
                 // バトルチュートリアル
                 ChangeScene(m_battleTutorial);
                 break;
-            case SceneID.SCENE_ENGING:
+            case SceneID.SCENE_ENDING:
                 // エンディングシーン
                 ChangeScene(m_ending);
                 break;
