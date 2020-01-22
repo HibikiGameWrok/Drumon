@@ -79,19 +79,19 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else if ((!m_isFinish.Value) && (m_boxDrum.switchFlag == false))
         {
-            StartCoroutine(ResultDisplay(m_num));
+            ResultDisplay();
         }
 
-        if (m_num == 1)
-        {
-            StopCoroutine(ResultDisplay(0));
-        }
+        //if (m_num == 1)
+        //{
+        //    StopCoroutine(ResultDisplay(0));
+        //}
 
-        if(m_boxDrum.switchFlag == true)
-        {
-            m_num = 2;
-            StartCoroutine(ResultDisplay(m_num));
-        }
+        //if(m_boxDrum.switchFlag == true)
+        //{
+        //    m_num = 2;
+        //    StartCoroutine(ResultDisplay(m_num));
+        //}
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
@@ -118,7 +118,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         if (this.m_nowMove == creature || this.m_nextMove == creature) return;
 
-        if(this.m_nowMove == null) this.m_nowMove = creature;
+        if (this.m_nowMove == null) this.m_nowMove = creature;
         else this.m_nextMove = creature;
     }
 
@@ -159,29 +159,67 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         return false;
     }
 
-    private IEnumerator ResultDisplay(int num)
-    {
-        if (num == 0)
-        {
-            // Playerオブジェクトを非アクティブ化
-            m_playerObject.SetActive(false);
+    //private IEnumerator ResultDisplay(int num)
+    //{
+    //    if (num == 0)
+    //    {
+    //        // Playerオブジェクトを非アクティブ化
+    //        m_playerObject.SetActive(false);
 
-            // 手持ちがいっぱいの時
-            if (CaptureOver() == true)
-            {
-                // Boxドラムをアクティブ化
-                m_boxDrum.gameObject.SetActive(true);
-                // 入れ替えUIをアクティブ化
-                m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
-                num = m_num = 1;
-            }
-            else
-            {
-                m_num = 2;
-            }
+    //        // 手持ちがいっぱいの時
+    //        if (CaptureOver() == true)
+    //        {
+    //            // Boxドラムをアクティブ化
+    //            m_boxDrum.gameObject.SetActive(true);
+    //            // 入れ替えUIをアクティブ化
+    //            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
+    //            num = m_num = 1;
+    //        }
+    //        else
+    //        {
+    //            m_num = 2;
+    //        }
+    //    }
+
+    //    if (m_num == 2)
+    //    {
+    //        // 入れ替えUIを非アクティブ化
+    //        m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
+    //        // 入れ替えUIを非アクティブ化
+    //        m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+
+    //        // レベルアップUIをアクティブ化
+    //        m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
+
+
+
+
+    //        num = 4;
+    //    }
+
+
+    //    if (num == 4)
+    //    {
+    //        m_isFinish.SetValueAndForceNotify(true);
+    //    }
+    //    yield return null;
+    //}
+
+    private void ResultDisplay()
+    {
+        // Playerオブジェクトを非アクティブ化
+        m_playerObject.SetActive(false);
+
+        // 手持ちがいっぱいの時
+        if (CaptureOver() == true)
+        {
+            // Boxドラムをアクティブ化
+            m_boxDrum.gameObject.SetActive(true);
+            // 入れ替えUIをアクティブ化
+            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
         }
 
-        if (m_num == 2)
+        if (m_boxDrum.switchFlag == true)
         {
             // 入れ替えUIを非アクティブ化
             m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
@@ -191,23 +229,13 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             // レベルアップUIをアクティブ化
             m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
 
-            for (int i = 0; i < 3; i++)
-            {
-                if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText() == false)
-                {
-                    m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
-                    yield return new WaitForSeconds(5.0f);
-                }
-            }
-            num = 4;
-        }
+            m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
 
-        
-        if (num == 4)
-        {
-            m_isFinish.SetValueAndForceNotify(true);
+            if (m_boxDrum.centerHitFlag == true)
+            {
+                m_isFinish.SetValueAndForceNotify(true);
+            }
         }
-        yield return null;
     }
 
 
@@ -215,9 +243,10 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         // 4体目が捕獲されたら
         if (CreatureList_Script.Get.OverData != null)
-        { 
+        {
             return true;
         }
         return false;
     }
 }
+
