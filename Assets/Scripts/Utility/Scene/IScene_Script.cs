@@ -22,7 +22,7 @@ using UnityEngine;
         SCENE_RESULT,
         SCENE_CAPTURETUTORIAL,
         SCENE_BATTLETUTORIAL,
-        SCENE_ENGING,
+        SCENE_ENDING,
     }
 // SceneのInterface
 public abstract class IScene_Script
