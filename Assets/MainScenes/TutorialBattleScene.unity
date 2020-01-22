@@ -1732,6 +1732,11 @@ PrefabInstance:
       propertyPath: m_drumMaterials.Array.data[3]
       value: 
       objectReference: {fileID: 2100000, guid: 74722a9f67878d945aece26881382c93, type: 2}
+    - target: {fileID: 3345033506130640892, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_playerCreature
+      value: 
+      objectReference: {fileID: 1057767735}
     - target: {fileID: 7216641881341156674, guid: e39871232f5392448b46576daeeb6cef,
         type: 3}
       propertyPath: m_drumMaterials.Array.size
@@ -6331,6 +6336,7 @@ MonoBehaviour:
   m_enemyCreature: {fileID: 1846419772}
   m_isFinish:
     value: 0
+  m_battleResulteUI: []
 --- !u!1 &1893644894
 GameObject:
   m_ObjectHideFlags: 0

@@ -143,11 +143,14 @@ public class SwitchDrum_Script : Drum_Script
             // カウントの初期化
             m_stickManagerScript.PickCount = 0;
 
-            // 場に出ているモンスターと名前が一緒だったら
-            if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+            if (m_playerCreature != null)
             {
-                // カウントアップ
-                m_stickManagerScript.PickCount++;
+                // 場に出ているモンスターと名前が一緒だったら
+                if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                {
+                    // カウントアップ
+                    m_stickManagerScript.PickCount++;
+                }
             }
 
             if (m_stickManagerScript.PickCount < CreatureList_Script.Get.List.DataList.Length)
@@ -230,11 +233,14 @@ public class SwitchDrum_Script : Drum_Script
                     {
                         if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].drumonName != "")
                         {
-                            // 場に出ているモンスターと名前が一緒だったら
-                            if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                            if (m_playerCreature != null)
                             {
-                                // カウントアップ
-                                m_stickManagerScript.PickCount--;
+                                // 場に出ているモンスターと名前が一緒だったら
+                                if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                                {
+                                    // カウントアップ
+                                    m_stickManagerScript.PickCount--;
+                                }
                             }
                         }
                     }
@@ -259,11 +265,14 @@ public class SwitchDrum_Script : Drum_Script
                             }
                         }
 
-                        // 場に出ているモンスターと名前が一緒だったら
-                        if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                        if (m_playerCreature != null)
                         {
-                            // カウントアップ
-                            m_stickManagerScript.PickCount--;
+                            // 場に出ているモンスターと名前が一緒だったら
+                            if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                            {
+                                // カウントアップ
+                                m_stickManagerScript.PickCount--;
+                            }
                         }
 
                         if (m_stickManagerScript.PickCount >= 0)
@@ -299,11 +308,14 @@ public class SwitchDrum_Script : Drum_Script
                     {
                         if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].drumonName != "")
                         {
-                            // 場に出ているモンスターと名前が一緒だったら
-                            if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                            if (m_playerCreature != null)
                             {
-                                // カウントアップ
-                                m_stickManagerScript.PickCount++;
+                                // 場に出ているモンスターと名前が一緒だったら
+                                if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                                {
+                                    // カウントアップ
+                                    m_stickManagerScript.PickCount++;
+                                }
                             }
                         }
                     }
@@ -321,11 +333,14 @@ public class SwitchDrum_Script : Drum_Script
                             // カウントを初期化
                             m_stickManagerScript.PickCount = 0;
 
-                            // 場に出ているモンスターと名前が一緒だったら
-                            if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                            if (m_playerCreature != null)
                             {
-                                // カウントアップ
-                                m_stickManagerScript.PickCount++;
+                                // 場に出ているモンスターと名前が一緒だったら
+                                if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                                {
+                                    // カウントアップ
+                                    m_stickManagerScript.PickCount++;
+                                }
                             }
 
                             if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].drumonName != "")
@@ -341,11 +356,14 @@ public class SwitchDrum_Script : Drum_Script
                         // カウントを初期化
                         m_stickManagerScript.PickCount = 0;
 
-                        // 場に出ているモンスターと名前が一緒だったら
-                        if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                        if (m_playerCreature != null)
                         {
-                            // カウントアップ
-                            m_stickManagerScript.PickCount++;
+                            // 場に出ているモンスターと名前が一緒だったら
+                            if (m_playerCreature.GetComponent<PlayerCreature_Script>().GetData() == CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount])
+                            {
+                                // カウントアップ
+                                m_stickManagerScript.PickCount++;
+                            }
                         }
 
                         if (CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount].drumonName != "")
