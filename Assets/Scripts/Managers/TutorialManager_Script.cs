@@ -49,6 +49,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private bool m_tutorialModeFlag = true;
     // 実践中かどうかのフラグ
     private bool m_practiceModeFlag = false;
+    // プレイヤーのドラモンの行動フラグ
+    private bool m_drumonExecuteFlag = false;
     // 敵の行動フラグ
     private bool m_enemyExecuteFlag = false;
 
@@ -270,14 +272,20 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             if (SceneManager.GetActiveScene().name != "TutorialCaptureScene")
             {
-                if (this.JudgeResult()) return;
-                this.m_playerCreature.Execute();
+                if (m_drumonExecuteFlag == true)
+                {
+                    if (this.JudgeResult()) return;
+                    this.m_playerCreature.Execute();
+                }
+                else
+                {
+                    this.m_playerCreature.Rate = 0;
+                }
             }
 
-            if (m_enemyExecuteFlag == false)
+            if (m_enemyExecuteFlag == true)
             {
                 this.m_enemyCreature.Execute();
-                //m_enemyExecuteFlag = true;
             }
             
             if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
@@ -325,11 +333,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 m_practiceModeFlag = true;
                 //m_timeStandard_Script.StopFlag = false;
             }
-            else if (m_curentNum == 17)
-            {
-                // シーン遷移
-                //m_isAllFinish.SetValueAndForceNotify(true);
-            }
 
             //if (m_practiceCaptureText.activeInHierarchy == true)
             //{
@@ -373,7 +376,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             if (m_explainNotesResetText.activeInHierarchy == true)
             {
-                m_enemyExecuteFlag = false;
+                // 攻撃できるようになる
+                m_drumonExecuteFlag = true;
 
                 // 敵が攻撃を受けたら
                 if (m_enemyCreature.HP < m_enemyCreature.GetData().maxHp)
@@ -388,6 +392,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
                     // 次のテキストの表示
                     NextText();
+
+                    // 敵が攻撃するようになる
+                    m_enemyExecuteFlag = true;
                 }
             }
 
@@ -534,13 +541,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_curentNum++;
         }
 
-        //if (m_textArray.Length == m_curentNum)
-        //{
-        //    // シーン遷移
-
-        //}
-
-        if (m_textArray.Length > m_curentNum/* + 1*/)
+        if (m_textArray.Length > m_curentNum)
         {
             if (m_textArray[m_curentNum] != null)
             {
