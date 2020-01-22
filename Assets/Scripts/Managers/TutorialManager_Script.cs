@@ -157,6 +157,13 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     // ドラムマネージャー
     private DrumManager_Script m_drumManager = null;
 
+    private GameObject m_distanceGrabHandLeft = null;
+    private GameObject m_distanceGrabHandRight = null;
+    private GameObject m_stickLeft = null;
+    private GameObject m_stickRight = null;
+
+    private Mesh m_mesh = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -237,6 +244,15 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_textArray = new GameObject[] { m_explainText1, m_explainText2, m_explainText3, m_leftArrowText3, m_explainCaptureText1, m_explainCaptureText2, m_practiceCaptureText, m_explainText4 };
 
             m_text = m_textArray[0].GetComponent<Text>();
+
+            //m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
+            //m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
+            //m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
+            //m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
+
+            //m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
+
+            //m_stickLeft.GetComponent<MeshFilter>().sharedMesh = null;
         }
 
         m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();

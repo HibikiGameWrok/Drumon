@@ -37,6 +37,15 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     // オーディオ
     private AudioManager_Script m_audio;
 
+
+    private GameObject m_player;
+
+    public GameObject Player
+    {
+        set { m_player = value; }
+        get { return m_player; }
+    }
+
     /// <summary>
     /// Audioプロパティ
     /// </summary>

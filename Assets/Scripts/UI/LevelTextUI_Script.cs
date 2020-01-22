@@ -20,6 +20,7 @@ public class LevelTextUI_Script : MonoBehaviour
     }
 
     public const string TEMP_NAME = "Lv :";
+    public const string MAX_LEVEL = "MAX";
 
     private Text m_outputText = null;
 
@@ -32,6 +33,13 @@ public class LevelTextUI_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_outputText.text = TEMP_NAME + m_nowLevel.ToString();
+        if (m_nowLevel != 10)
+        {
+            m_outputText.text = TEMP_NAME + m_nowLevel.ToString();
+        }
+        else if(m_nowLevel == 10)
+        {
+            m_outputText.text = TEMP_NAME + MAX_LEVEL;
+        }
     }
 }
