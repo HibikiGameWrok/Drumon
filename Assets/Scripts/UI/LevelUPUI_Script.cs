@@ -48,7 +48,7 @@ public class LevelUPUI_Script : MonoBehaviour
     }
 
     // 出力するテキスト
-    public void out_putText()
+    public bool out_putText()
     {
         if (m_levelFlag[m_drumonnum] == true)
         {
@@ -64,12 +64,13 @@ public class LevelUPUI_Script : MonoBehaviour
             m_drumonnum++;
             if (m_drumonnum >= 3)
             {
-                return;
+                return true;
             }
             out_putText();
 
         }
         m_drumonnum++;
+        return false;
     }
 
     private void CheckLevelUP()

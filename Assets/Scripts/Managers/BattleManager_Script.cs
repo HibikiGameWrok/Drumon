@@ -191,7 +191,14 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             // レベルアップUIをアクティブ化
             m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
 
-            yield return new WaitForSeconds(5.0f);
+            for (int i = 0; i < 3; i++)
+            {
+                if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText() == false)
+                {
+                    m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
+                    yield return new WaitForSeconds(5.0f);
+                }
+            }
             num = 4;
         }
 
