@@ -8,13 +8,19 @@ public class LevelUPUI_Script : MonoBehaviour
     private string TEMP_TEXT = "がレベルアップした";
 
     [SerializeField]
-    private Text m_drumonNameText = null;
+    private Text[] m_drumonNameText = null;
 
     [SerializeField]
-    private Text m_beforLevelUIText = null;
+    private Text[] m_beforLevelUIText = null;
 
     [SerializeField]
-    private Text m_afterLevelUIText = null;
+    private Text[] m_afterLevelUIText = null;
+
+    [SerializeField]
+    private GameObject[] m_activeObject = null;
+
+    [SerializeField]
+    private GameObject[][] m_point = null;
 
     CreatureList_Script m_creatureList = null;
 
@@ -27,14 +33,6 @@ public class LevelUPUI_Script : MonoBehaviour
 
     private bool[] m_levelFlag = { false };
 
-    //void Awake()
-    //{
-    //    if (CreatureList_Script.Get != null)
-    //    {
-    //        CheckLevelUP();
-    //        out_putText();
-    //    }
-    //}
 
     // Start is called before the first frame update
     void Start()
@@ -48,29 +46,52 @@ public class LevelUPUI_Script : MonoBehaviour
     }
 
     // 出力するテキスト
-    public bool out_putText()
+    public void out_putText()
     {
-        if (m_levelFlag[m_drumonnum] == true)
+        int count = 0;
+        for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
         {
-            // 出力するドラモンの名前
-            m_drumonNameText.text = m_creatureList.List.DataList[m_drumonnum].drumonName + TEMP_TEXT;
-            // 出力するレベルアップ前
-            m_beforLevelUIText.text = m_creatureList.List.DataList[m_drumonnum].level.ToString();
-            // 出力するレベルアップ後
-            m_afterLevelUIText.text = CreatureList_Script.Get.List.DataList[m_drumonnum].level.ToString();
-        }
-        else
-        {
-            m_drumonnum++;
-            if (m_drumonnum >= 3)
+            if (m_levelFlag[m_drumonnum] == true)
             {
-                return true;
+                count++;
+                if (m_drumonnum < CreatureList_Script.Get.List.DataList.Length)
+                {
+                    // 出力するドラモンの名前
+                    m_drumonNameText[m_drumonnum].text = CreatureList_Script.Get.List.DataList[m_drumonnum].drumonName + TEMP_TEXT;
+                    // 出力するレベルアップ前
+                    m_beforLevelUIText[m_drumonnum].text = m_creatureList.List.DataList[m_drumonnum].level.ToString();
+                    // 出力するレベルアップ後
+                    m_afterLevelUIText[m_drumonnum].text = CreatureList_Script.Get.List.DataList[m_drumonnum].level.ToString();
+                }
             }
-            out_putText();
-
+            else
+            {
+                m_activeObject[m_drumonnum].SetActive(false);
+            }
         }
-        m_drumonnum++;
-        return false;
+        switch (count)
+        {
+            case 1:
+                for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
+                {
+                    if (m_levelFlag[m_drumonnum] == true)
+                    {
+                        m_activeObject[m_drumonnum].transform.position = m_point[0][m_drumonnum].transform.position;
+                    }
+                }
+                    break;
+
+            case 2:
+                for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
+                {
+                    if (m_levelFlag[m_drumonnum] == true)
+                    {
+                        m_activeObject[m_drumonnum].transform.position = m_point[1][m_drumonnum].transform.position;
+                    }
+                }
+                break;
+        }
+
     }
 
     private void CheckLevelUP()
