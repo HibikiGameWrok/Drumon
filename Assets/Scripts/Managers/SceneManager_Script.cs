@@ -37,9 +37,12 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
     // オーディオ
     private AudioManager_Script m_audio;
 
-
+    // VRTK
     private GameObject m_player;
 
+    /// <summary>
+    /// プレイヤーのプロパティ
+    /// </summary>
     public GameObject Player
     {
         set { m_player = value; }
@@ -199,6 +202,10 @@ public class SceneManager_Script : SingletonBase_Script<SceneManager_Script>
         m_ending.Name = "EndingScene";
     }
 
+
+    /// <summary>
+    /// どのシーンから初めても初期化する
+    /// </summary>
     private void SetFirstScene()
     {
         if (SceneManager.GetActiveScene().name == m_title.Name)
