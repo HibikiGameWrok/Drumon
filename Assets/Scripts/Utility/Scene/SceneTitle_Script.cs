@@ -18,6 +18,8 @@ using UnityEngine;
 // タイトルシーンクラス
 public class SceneTitle_Script : IScene_Script
 {
+    // タイトルドラム
+    private TitleDrum_Script m_titleDrum = null;
 
     /// <summary>
     /// 終了処理
@@ -37,7 +39,8 @@ public class SceneTitle_Script : IScene_Script
     {
         // SpaceキーまたはVRコントローラーのトリガー
         if (Input.GetKeyDown(KeyCode.Space) ||
-            OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+            m_titleDrum.SelectCount == 0
+            /*OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)*/)
         {
             // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.WaterGun);
@@ -46,7 +49,7 @@ public class SceneTitle_Script : IScene_Script
 
             return SceneID.SCENE_REVISED;
         }
-        else if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.T))
+        else if (m_titleDrum.SelectCount == 1 || Input.GetKeyDown(KeyCode.T) /*OVRInput.GetDown(OVRInput.Button.One)*/)
         {
             // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.WaterGun);
@@ -73,5 +76,7 @@ public class SceneTitle_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Title);
+
+        m_titleDrum.GetComponent<TitleDrum_Script>();
     }
 }
