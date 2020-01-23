@@ -139,6 +139,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         this.m_data.hp += this.m_rate;
         if (this.m_data.hp > this.m_data.maxHp) this.m_data.hp = this.m_data.maxHp;
+        m_rate = 0;
     }
 
     public CreatureData GetData()
