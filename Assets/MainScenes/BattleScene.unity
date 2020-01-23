@@ -2272,7 +2272,7 @@ RectTransform:
   m_GameObject: {fileID: 481431305}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.0031545742, y: 0.0031545742, z: 0.0031545742}
+  m_LocalScale: {x: 0.003154574, y: 0.0031545742, z: 0.0031545742}
   m_Children: []
   m_Father: {fileID: 1978220816}
   m_RootOrder: 8
@@ -5247,16 +5247,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8440972429143883931, guid: ef5ab73f937dce24f9b2e765bc236e38,
-        type: 3}
-      propertyPath: MAX_POINT
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8440972429143883931, guid: ef5ab73f937dce24f9b2e765bc236e38,
-        type: 3}
-      propertyPath: m_cursorUI
-      value: 
-      objectReference: {fileID: 1789250340}
     - target: {fileID: 2161467936231480791, guid: ef5ab73f937dce24f9b2e765bc236e38,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5267,6 +5257,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8440972429143883931, guid: ef5ab73f937dce24f9b2e765bc236e38,
+        type: 3}
+      propertyPath: MAX_POINT
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440972429143883931, guid: ef5ab73f937dce24f9b2e765bc236e38,
+        type: 3}
+      propertyPath: m_cursorUI
+      value: 
+      objectReference: {fileID: 1789250340}
     - target: {fileID: 2161467935345470148, guid: ef5ab73f937dce24f9b2e765bc236e38,
         type: 3}
       propertyPath: m_IsActive
@@ -6857,7 +6857,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1761856597}
   - component: {fileID: 1761856596}
-  - component: {fileID: 1761856598}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -6899,20 +6898,6 @@ Transform:
   m_Father: {fileID: 1145010499}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1761856598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761856595}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d90510c250cb048b8d2e50e874008d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_battleManager: {fileID: 0}
-  m_nextScene: Revised
 --- !u!1 &1769031024
 GameObject:
   m_ObjectHideFlags: 0
@@ -7689,6 +7674,7 @@ MonoBehaviour:
   - {fileID: 918138587825940788}
   - {fileID: 716107096}
   - {fileID: 1449802998}
+  - {fileID: 492314759}
 --- !u!114 &1978220819
 MonoBehaviour:
   m_ObjectHideFlags: 0

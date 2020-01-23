@@ -25,6 +25,7 @@ public class StatusMenuUI_Script : MonoBehaviour
             m_creatureList = CreatureList_Script.Get;
             SetUpUIData();
         }
+        BattleManager_Script.Get.EnemyCreature.GetData().hp.ToString();
     }
 
     // Start is called before the first frame update
@@ -72,25 +73,48 @@ public class StatusMenuUI_Script : MonoBehaviour
                 // 子のUIを非表示
                 foreach (Transform child in m_drumonDataUI[i].transform)
                 {
-                    switch (child.name)
+                    if (i == 3)
                     {
-                        case "Name":
-                            Text drumonName = child.GetComponent<Text>();
-                            drumonName.text = m_creatureList.List.DataList[i].drumonName;
-                            break;
-                        case "Level":
-                            Text levelText = child.GetComponent<Text>();
-                            levelText.text = "Lv :" + m_creatureList.List.DataList[i].level;
-                            break;
-                        case "HPGauge":
-                            Slider hpSlider = child.GetChild(0).GetComponent<Slider>();
-                            hpSlider.maxValue = m_creatureList.List.DataList[i].maxHp;
-                            hpSlider.value = m_creatureList.List.DataList[i].hp;
-                            break;
-                        default:
-                            break;
+                        switch (child.name)
+                        {
+                            case "Name":
+                                Text drumonName = child.GetComponent<Text>();
+                                drumonName.text = BattleManager_Script.Get.EnemyCreature.GetData().drumonName;
+                                break;
+                            case "Level":
+                                Text levelText = child.GetComponent<Text>();
+                                levelText.text = "Lv :" + BattleManager_Script.Get.EnemyCreature.GetData().level;
+                                break;
+                            case "HPGauge":
+                                Slider hpSlider = child.GetChild(0).GetComponent<Slider>();
+                                hpSlider.maxValue = BattleManager_Script.Get.EnemyCreature.GetData().maxHp;
+                                hpSlider.value = BattleManager_Script.Get.EnemyCreature.GetData().hp;
+                                break;
+                            default:
+                                break;
+                        }
                     }
-
+                    if (i < 3)
+                    {
+                        switch (child.name)
+                        {
+                            case "Name":
+                                Text drumonName = child.GetComponent<Text>();
+                                drumonName.text = m_creatureList.List.DataList[i].drumonName;
+                                break;
+                            case "Level":
+                                Text levelText = child.GetComponent<Text>();
+                                levelText.text = "Lv :" + m_creatureList.List.DataList[i].level;
+                                break;
+                            case "HPGauge":
+                                Slider hpSlider = child.GetChild(0).GetComponent<Slider>();
+                                hpSlider.maxValue = m_creatureList.List.DataList[i].maxHp;
+                                hpSlider.value = m_creatureList.List.DataList[i].hp;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
         }
