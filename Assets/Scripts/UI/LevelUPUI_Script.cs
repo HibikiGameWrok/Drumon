@@ -48,12 +48,11 @@ public class LevelUPUI_Script : MonoBehaviour
     // 出力するテキスト
     public void out_putText()
     {
-        int count = 0;
+        CheckLevelUP();
         for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
         {
             if (m_levelFlag[m_drumonnum] == true)
             {
-                count++;
                 if (m_drumonnum < CreatureList_Script.Get.List.DataList.Length)
                 {
                     // 出力するドラモンの名前
@@ -64,37 +63,11 @@ public class LevelUPUI_Script : MonoBehaviour
                     m_afterLevelUIText[m_drumonnum].text = CreatureList_Script.Get.List.DataList[m_drumonnum].level.ToString();
                 }
             }
-            else
+            else if(m_levelFlag[m_drumonnum] == false)
             {
                 m_activeObject[m_drumonnum].SetActive(false);
             }
         }
-        switch (count)
-        {
-            case 1:
-                for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
-                {
-                    if (m_levelFlag[m_drumonnum] == true)
-                    {
-                        m_activeObject[m_drumonnum].transform.position = m_point[0].transform.position;
-                    }
-                }
-                    break;
-
-            case 2:
-                for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
-                {
-                    for (int i = 1; i < 3; i++)
-                    {
-                        if (m_levelFlag[m_drumonnum] == true)
-                        {
-                            m_activeObject[m_drumonnum].transform.position = m_point[i].transform.position;
-                        }
-                    }
-                }
-                break;
-        }
-
     }
 
     private void CheckLevelUP()

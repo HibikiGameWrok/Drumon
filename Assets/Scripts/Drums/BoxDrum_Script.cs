@@ -32,6 +32,12 @@ public class BoxDrum_Script : MonoBehaviour
         get { return m_centerHitFlag; }
     }
 
+    private bool m_noUIFlag = false;
+    public bool noUIFlag
+    {
+        set { m_noUIFlag = value; }
+    }
+
 
     void Awake()
     {
@@ -67,39 +73,38 @@ public class BoxDrum_Script : MonoBehaviour
                     m_centerHitFlag = true;
                 }
 
-                if (m_cursorUI.DecusuonFlag == false)
-                {
-                    m_cursorUI.Decision();
-                    // 決定UIをアクティブ
-                    m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().OpenUI();
-                }
-                else
-                {
-                    m_JudgeUI.Decision();
-                }
 
-                if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == true)
+                if (m_noUIFlag != true)
                 {
-                    if (m_JudgeUI.MovePoint == 0)
+                    if (m_cursorUI.DecusuonFlag == false)
                     {
-                        m_switchFlag = true;
-                        // 入れ替え
-                        if (m_cursorUI.MovePoint < 3)
-                        {
-                            CreatureList_Script.Get.Trade(CreatureList_Script.Get.OverData, m_cursorUI.MovePoint);
-                            CreatureList_Script.Get.OverData = null;
-                        }
-                        else
-                        {
-                            CreatureList_Script.Get.OverData = null;
-                        }
-                    }
-                    else if (m_JudgeUI.MovePoint != 0)
-                    {
+                        m_cursorUI.Decision();
                         // 決定UIをアクティブ
-                        m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
-                        m_cursorUI.DecusuonFlag = false;
-                        m_JudgeUI.DecusuonFlag = false;
+                        m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                    }
+                    else
+                    {
+                        m_JudgeUI.Decision();
+                    }
+
+                    if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == true)
+                    {
+                        if (m_JudgeUI.MovePoint == 0)
+                        {
+                            m_switchFlag = true;
+                            // 入れ替え
+                            if (m_cursorUI.MovePoint < 3)
+                            {
+                                CreatureList_Script.Get.Trade(m_cursorUI.MovePoint);
+                            }
+                        }
+                        else if (m_JudgeUI.MovePoint != 0)
+                        {
+                            // 決定UIをアクティブ
+                            m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+                            m_cursorUI.DecusuonFlag = false;
+                            m_JudgeUI.DecusuonFlag = false;
+                        }
                     }
                 }
                 // 内側を叩いた判定フラグを伏せる
@@ -119,7 +124,6 @@ public class BoxDrum_Script : MonoBehaviour
                 }
                 m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
             }
-            m_centerHitFlag = false;
             m_leftStick.BoxDrumHitFlag = false;
         }
         else if (m_rightStick.BoxDrumHitFlag == true)
@@ -127,53 +131,48 @@ public class BoxDrum_Script : MonoBehaviour
             // 右スティックで真ん中を叩く
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
-                if(m_centerHitFlag == false)
+                if (m_centerHitFlag == false)
                 {
                     m_centerHitFlag = true;
                 }
 
-                if (m_cursorUI.DecusuonFlag == false)
+                if (m_noUIFlag != true)
                 {
-                    m_cursorUI.Decision();
-                    // 決定UIをアクティブ
-                    m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().OpenUI();
-                }
-                else
-                {
-                    m_JudgeUI.Decision();
-                }
-
-                if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == true)
-                {
-                    if (m_JudgeUI.MovePoint == 0)
+                    if (m_cursorUI.DecusuonFlag == false)
                     {
-                        m_switchFlag = true;
-                        // 入れ替え
-                        if (m_cursorUI.MovePoint < 3)
-                        {
-                            CreatureList_Script.Get.Trade(CreatureList_Script.Get.OverData, m_cursorUI.MovePoint);
-                            CreatureList_Script.Get.OverData = null;
-                        }
-                        else
-                        {
-                            CreatureList_Script.Get.OverData = null;
-                        }
-                    }
-                    else if(m_JudgeUI.MovePoint != 0)
-                    {
+                        m_cursorUI.Decision();
                         // 決定UIをアクティブ
-                        m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
-                        m_cursorUI.DecusuonFlag = false;
-                        m_JudgeUI.DecusuonFlag = false;
+                        m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                    }
+                    else if (m_JudgeUI.gameObject.activeInHierarchy == true)
+                    {
+                        m_JudgeUI.Decision();
+                    }
+
+                    if (m_cursorUI.DecusuonFlag == true && m_JudgeUI.DecusuonFlag == true)
+                    {
+                        if (m_JudgeUI.MovePoint == 0)
+                        {
+                            m_switchFlag = true;
+                            // 入れ替え
+                            if (m_cursorUI.MovePoint < 3)
+                            {
+                                CreatureList_Script.Get.Trade(m_cursorUI.MovePoint);
+                            }
+                        }
+                        else if (m_JudgeUI.MovePoint != 0)
+                        {
+                            // 決定UIをアクティブ
+                            m_tradeUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+                            m_cursorUI.DecusuonFlag = false;
+                            m_JudgeUI.DecusuonFlag = false;
+                        }
                     }
                 }
-
+                // 内側を叩いた判定フラグを伏せる
+                m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
             }
-            
-            // 内側を叩いた判定フラグを伏せる
-            m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
         }
-
         // 右スティックで端を叩く
         if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
         {
@@ -187,7 +186,6 @@ public class BoxDrum_Script : MonoBehaviour
             }
             m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
         }
-        m_centerHitFlag = false;
         m_rightStick.BoxDrumHitFlag = false;
     }
 }

@@ -32,7 +32,6 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 
     public void Add(ICreature_Script creature)
     {
-        m_overData = null;
         for(int i = 0; i < m_list.DataList.Length; i++)
         {
             if(m_list.DataList[i].drumonName.Equals(""))
@@ -53,16 +52,16 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
         m_overData = creature.GetData();
     }
 
-    public void Trade(CreatureData data, int num)
+    public void Trade(int num)
     {
-        m_list.DataList[num].drumonName = data.drumonName;
-        m_list.DataList[num].level = data.level;
-        m_list.DataList[num].hp = data.hp;
-        m_list.DataList[num].maxHp = data.maxHp;
-        m_list.DataList[num].atk = data.atk;
-        m_list.DataList[num].def = data.def;
-        m_list.DataList[num].waitTime = data.waitTime;
-        m_list.DataList[num].elem = data.elem;
-        m_list.DataList[num].exp = data.exp;
+        m_list.DataList[num].drumonName = m_overData.drumonName;
+        m_list.DataList[num].level = m_overData.level;
+        m_list.DataList[num].hp = m_overData.hp;
+        m_list.DataList[num].maxHp = m_overData.maxHp;
+        m_list.DataList[num].atk = m_overData.atk;
+        m_list.DataList[num].def = m_overData.def;
+        m_list.DataList[num].waitTime = m_overData.waitTime;
+        m_list.DataList[num].elem = m_overData.elem;
+        m_list.DataList[num].exp = m_overData.exp;
     }
 }
