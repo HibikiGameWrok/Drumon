@@ -17,24 +17,25 @@ public class BoxDrum_Script : MonoBehaviour
     private Move_CursorUI_Script m_cursorUI;
     // カーソルUI
     private Move_CursorUI_Script m_JudgeUI;
-    // メニューUI
-    private StatusMenuUI_Script m_statusMenuUI;
 
     private bool m_switchFlag = false;
     public bool switchFlag
     {
         get { return m_switchFlag; }
+        set { m_switchFlag = value; }
     }
 
     private bool m_centerHitFlag = false;
     public bool centerHitFlag
     {
         get { return m_centerHitFlag; }
+        set { m_centerHitFlag = value; }
     }
 
     private bool m_noUIFlag = false;
     public bool noUIFlag
     {
+        get { return m_noUIFlag; }
         set { m_noUIFlag = value; }
     }
 
@@ -43,7 +44,6 @@ public class BoxDrum_Script : MonoBehaviour
     {
         m_cursorUI = m_tradeUI[1].GetComponent<Move_CursorUI_Script>();
         m_JudgeUI = m_tradeUI[2].GetComponent<Move_CursorUI_Script>();
-        m_statusMenuUI = m_tradeUI[0].GetComponent<StatusMenuUI_Script>();
     }
 
     // Start is called before the first frame update
@@ -68,11 +68,10 @@ public class BoxDrum_Script : MonoBehaviour
             // 左スティックで真ん中を叩く
             if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
-                if (m_centerHitFlag == false)
+                if(m_switchFlag == true)
                 {
                     m_centerHitFlag = true;
                 }
-
 
                 if (m_noUIFlag != true)
                 {
@@ -131,7 +130,7 @@ public class BoxDrum_Script : MonoBehaviour
             // 右スティックで真ん中を叩く
             if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
             {
-                if (m_centerHitFlag == false)
+                if (m_switchFlag == true)
                 {
                     m_centerHitFlag = true;
                 }
