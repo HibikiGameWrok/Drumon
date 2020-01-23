@@ -66,7 +66,7 @@ public class SceneBattle_Script : IScene_Script
                 // 非同期処理のSceneアンロード
                 TransitionManager_Script.StartTransition_UnloadScene(this.Name);
 
-                // プレイヤーを非アクティブにしておく
+                // プレイヤーをアクティブにしておく
                 if (m_manager.Player.activeSelf == false)
                     m_manager.Player.SetActive(true);
             }
