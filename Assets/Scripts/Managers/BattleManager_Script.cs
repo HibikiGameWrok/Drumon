@@ -124,6 +124,9 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private void Action()
     {
+        if (m_nowMove.GetData().hp.Equals(0))
+            return;
+
         this.m_nowMove.Attack();
         if (m_nextMove != null)
         {
