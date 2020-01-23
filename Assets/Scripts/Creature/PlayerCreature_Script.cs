@@ -157,6 +157,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             m_healProsperityUIScript.NowPoint = m_data.hp;
             m_levelTextUIScript.NowLevel = m_data.level;
             m_accelerationTimeScript.MaxTimer = m_data.waitTime;
+            this.m_atkFlag = false;
         }
     }
 
