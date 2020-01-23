@@ -210,19 +210,33 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private void ResultDisplay()
     {
+
+
+
         // Playerオブジェクトを非アクティブ化
         m_playerObject.SetActive(false);
+        // Boxドラムをアクティブ化
+        m_boxDrum.gameObject.SetActive(true);
 
+        bool stopFlag = false;
         // 手持ちがいっぱいの時
         if (CaptureOver() == true)
         {
-            // Boxドラムをアクティブ化
-            m_boxDrum.gameObject.SetActive(true);
             // 入れ替えUIをアクティブ化
             m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
         }
+        else
+        {
+            stopFlag = true;
+            
+        }
+        
+        if(m_boxDrum.switchFlag == true)
+        {
+            stopFlag = true;
+        }
 
-        if (m_boxDrum.switchFlag == true)
+        if (stopFlag == true)
         {
             // 入れ替えUIを非アクティブ化
             m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
