@@ -129,6 +129,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                         {
                             // 技のレートをクリーチャーに教える
                             matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                            m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
                             // 回復する
                             m_pCreature_Script.Heal();
                         }
