@@ -27,6 +27,11 @@ public class TitleDrum_Script : MonoBehaviour
 
     // 決定フラグ
     private bool m_decision = false;
+    // 決定フラグのプロパティ
+    public bool Decision
+    {
+        get { return m_decision; }
+    }
 
     // Start is called before the first frame update
     void Start()

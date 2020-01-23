@@ -37,10 +37,9 @@ public class SceneTitle_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        // SpaceキーまたはVRコントローラーのトリガー
+        // Spaceキーまたはゲームプレイを選択
         if (Input.GetKeyDown(KeyCode.Space) ||
-            m_titleDrum.SelectCount == 0
-            /*OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)*/)
+            (m_titleDrum.SelectCount == 0 && m_titleDrum.Decision == true))
         {
             // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.WaterGun);
@@ -49,7 +48,7 @@ public class SceneTitle_Script : IScene_Script
 
             return SceneID.SCENE_REVISED;
         }
-        else if (m_titleDrum.SelectCount == 1 || Input.GetKeyDown(KeyCode.T) /*OVRInput.GetDown(OVRInput.Button.One)*/)
+        else if ((m_titleDrum.SelectCount == 1 && m_titleDrum.Decision == true) || Input.GetKeyDown(KeyCode.T))
         {
             // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.WaterGun);
@@ -58,7 +57,6 @@ public class SceneTitle_Script : IScene_Script
 
             return SceneID.SCENE_CAPTURETUTORIAL;
         }
-
             
         // 継続する
         return SceneID.CONTINUE;
@@ -77,6 +75,6 @@ public class SceneTitle_Script : IScene_Script
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Title);
 
-        m_titleDrum.GetComponent<TitleDrum_Script>();
+        m_titleDrum = GameObject.Find("TitleDrum").GetComponent<TitleDrum_Script>();
     }
 }
