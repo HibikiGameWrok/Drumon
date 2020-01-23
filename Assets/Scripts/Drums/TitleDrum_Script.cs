@@ -31,6 +31,7 @@ public class TitleDrum_Script : MonoBehaviour
     public bool Decision
     {
         get { return m_decision; }
+        set { m_decision = value; }
     }
 
     // Start is called before the first frame update

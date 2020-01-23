@@ -41,6 +41,8 @@ public class SceneTitle_Script : IScene_Script
         if (Input.GetKeyDown(KeyCode.Space) ||
             (m_titleDrum.SelectCount == 0 && m_titleDrum.Decision == true))
         {
+            m_titleDrum.Decision = false;
+
             // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.WaterGun);
             // 非同期処理のSceneロード
@@ -50,6 +52,8 @@ public class SceneTitle_Script : IScene_Script
         }
         else if ((m_titleDrum.SelectCount == 1 && m_titleDrum.Decision == true) || Input.GetKeyDown(KeyCode.T))
         {
+            m_titleDrum.Decision = false;
+
             // SEを鳴らす
             m_manager.Audio.PlaySE(SfxType.WaterGun);
             // 非同期処理のSceneロード
