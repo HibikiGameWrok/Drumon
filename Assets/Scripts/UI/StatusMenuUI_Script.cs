@@ -20,12 +20,12 @@ public class StatusMenuUI_Script : MonoBehaviour
 
     void Awake()
     {
-        if (CreatureList_Script.Get != null)
+        if (m_creatureList != null)
         {
             m_creatureList = CreatureList_Script.Get;
             SetUpUIData();
+            //EnemySetUpUIData();
         }
-        BattleManager_Script.Get.EnemyCreature.GetData().hp.ToString();
     }
 
     // Start is called before the first frame update
@@ -62,60 +62,63 @@ public class StatusMenuUI_Script : MonoBehaviour
         }
     }
 
-    void SetUpUIData()
+    public void SetUpUIData()
     {
         m_creatureList = CreatureList_Script.Get;
 
         if (m_creatureList != null)
         {
-            for (int i = 0; i < m_drumonDataUI.Length; i++)
+            for (int i = 0; i < m_drumonDataUI.Length-1; i++)
             {
                 // 子のUIを非表示
                 foreach (Transform child in m_drumonDataUI[i].transform)
                 {
-                    if (i == 3)
+                    switch (child.name)
                     {
-                        switch (child.name)
-                        {
-                            case "Name":
-                                Text drumonName = child.GetComponent<Text>();
-                                drumonName.text = BattleManager_Script.Get.EnemyCreature.GetData().drumonName;
-                                break;
-                            case "Level":
-                                Text levelText = child.GetComponent<Text>();
-                                levelText.text = "Lv :" + BattleManager_Script.Get.EnemyCreature.GetData().level;
-                                break;
-                            case "HPGauge":
-                                Slider hpSlider = child.GetChild(0).GetComponent<Slider>();
-                                hpSlider.maxValue = BattleManager_Script.Get.EnemyCreature.GetData().maxHp;
-                                hpSlider.value = BattleManager_Script.Get.EnemyCreature.GetData().hp;
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    if (i < 3)
-                    {
-                        switch (child.name)
-                        {
-                            case "Name":
-                                Text drumonName = child.GetComponent<Text>();
-                                drumonName.text = m_creatureList.List.DataList[i].drumonName;
-                                break;
-                            case "Level":
-                                Text levelText = child.GetComponent<Text>();
-                                levelText.text = "Lv :" + m_creatureList.List.DataList[i].level;
-                                break;
-                            case "HPGauge":
-                                Slider hpSlider = child.GetChild(0).GetComponent<Slider>();
-                                hpSlider.maxValue = m_creatureList.List.DataList[i].maxHp;
-                                hpSlider.value = m_creatureList.List.DataList[i].hp;
-                                break;
-                            default:
-                                break;
-                        }
+                        case "Name":
+                            Text drumonName = child.GetComponent<Text>();
+                            drumonName.text = m_creatureList.List.DataList[i].drumonName;
+                            break;
+                        case "Level":
+                            Text levelText = child.GetComponent<Text>();
+                            levelText.text = "Lv :" + m_creatureList.List.DataList[i].level;
+                            break;
+                        case "HPGauge":
+                            Slider hpSlider = child.GetChild(0).GetComponent<Slider>();
+                            hpSlider.maxValue = m_creatureList.List.DataList[i].maxHp;
+                            hpSlider.value = m_creatureList.List.DataList[i].hp;
+                            break;
+                        default:
+                            break;
                     }
                 }
+            }
+        }
+    }
+
+
+    public void EnemySetUpUIData()
+    {
+        // 子のUIを非表示
+        foreach (Transform child in m_drumonDataUI[3].transform)
+        {
+            switch (child.name)
+            {
+                case "Name":
+                    Text drumonName = child.GetComponent<Text>();
+                    drumonName.text = BattleManager_Script.Get.EnemyCreature.GetData().drumonName;
+                    break;
+                case "Level":
+                    Text levelText = child.GetComponent<Text>();
+                    levelText.text = "Lv :" + BattleManager_Script.Get.EnemyCreature.GetData().level;
+                    break;
+                case "HPGauge":
+                    Slider hpSlider = child.GetChild(0).GetComponent<Slider>();
+                    hpSlider.maxValue = BattleManager_Script.Get.EnemyCreature.GetData().maxHp;
+                    hpSlider.value = BattleManager_Script.Get.EnemyCreature.GetData().hp;
+                    break;
+                default:
+                    break;
             }
         }
     }

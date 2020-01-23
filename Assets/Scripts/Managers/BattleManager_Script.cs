@@ -210,9 +210,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private void ResultDisplay()
     {
-
-
-
         // Playerオブジェクトを非アクティブ化
         m_playerObject.SetActive(false);
         // Boxドラムをアクティブ化
@@ -224,11 +221,13 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             // 入れ替えUIをアクティブ化
             m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
+            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().SetUpUIData();
+            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().EnemySetUpUIData();
         }
         else
         {
-            stopFlag = true;
-            
+            m_boxDrum.noUIFlag = true;
+            stopFlag = true;   
         }
         
         if(m_boxDrum.switchFlag == true)
@@ -247,6 +246,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
 
             m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
+
 
             if (m_boxDrum.centerHitFlag == true)
             {
