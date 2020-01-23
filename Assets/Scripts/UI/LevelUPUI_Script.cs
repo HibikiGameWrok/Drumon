@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class LevelUPUI_Script : MonoBehaviour
 {
-    private string TEMP_TEXT = "がレベルアップした";
-
     [SerializeField]
     private Text[] m_drumonNameText = null;
 
@@ -24,50 +22,51 @@ public class LevelUPUI_Script : MonoBehaviour
 
     CreatureList_Script m_creatureList = null;
 
-    private int m_drumonnum = 0;
-    public int DrumonNum
-    {
-        get { return m_drumonnum; }
-        set { m_drumonnum = value; }
-    }
 
     private bool[] m_levelFlag = { false };
 
+    private int[] m_drumonLv = new int[3];
+    public int[] drumonLv
+    {
+        set { m_drumonLv = value; }
+    }
+
+    private bool m_onewayFlag = false;
+    public bool onewayFlag
+    {
+        get { return m_onewayFlag; }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (CreatureList_Script.Get == null)
+        if (CreatureList_Script.Get != null)
         {
             m_creatureList = CreatureList_Script.Get;
         }
         m_levelFlag = new bool[CreatureList_Script.Get.List.DataList.Length];
-        m_drumonnum = 0;
     }
 
     // 出力するテキスト
     public void out_putText()
     {
         CheckLevelUP();
-        for (m_drumonnum = 0; m_drumonnum < CreatureList_Script.Get.List.DataList.Length; m_drumonnum++)
+        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
         {
-            if (m_levelFlag[m_drumonnum] == true)
+            if (m_levelFlag[i] == true)
             {
-                if (m_drumonnum < CreatureList_Script.Get.List.DataList.Length)
+                if (i < CreatureList_Script.Get.List.DataList.Length)
                 {
                     // 出力するドラモンの名前
-                    m_drumonNameText[m_drumonnum].text = CreatureList_Script.Get.List.DataList[m_drumonnum].drumonName + TEMP_TEXT;
+                    m_drumonNameText[i].text = CreatureList_Script.Get.List.DataList[i].drumonName;
                     // 出力するレベルアップ前
-                    m_beforLevelUIText[m_drumonnum].text = m_creatureList.List.DataList[m_drumonnum].level.ToString();
+                    m_beforLevelUIText[i].text = m_drumonLv[i].ToString();
                     // 出力するレベルアップ後
-                    m_afterLevelUIText[m_drumonnum].text = CreatureList_Script.Get.List.DataList[m_drumonnum].level.ToString();
+                    m_afterLevelUIText[i].text = CreatureList_Script.Get.List.DataList[i].level.ToString();
                 }
             }
-            else if(m_levelFlag[m_drumonnum] == false)
-            {
-                m_activeObject[m_drumonnum].SetActive(false);
-            }
         }
+        m_onewayFlag = true;
     }
 
     private void CheckLevelUP()
@@ -75,9 +74,15 @@ public class LevelUPUI_Script : MonoBehaviour
         for(int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
         {
             // レベルが上がっているかどうか
-            if(CreatureList_Script.Get.List.DataList[i].level != m_creatureList.List.DataList[i].level)
+            if (CreatureList_Script.Get.List.DataList[i].level != m_drumonLv[i])
             {
                 m_levelFlag[i] = true;
+                m_activeObject[i].SetActive(true);
+            }
+            else
+            {
+                m_levelFlag[i] = false;
+                m_activeObject[i].SetActive(false);
             }
         }
     }

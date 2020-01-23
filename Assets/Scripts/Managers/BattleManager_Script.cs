@@ -43,7 +43,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     [SerializeField]
     private GameObject[] m_battleResulteUI = null;
 
-    private int m_num = 0;
+    private int[] m_drumonLv = new int[3];
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +57,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_enemyLevel = m_enemyCreature.GetData().level;
         this.SetTarget();
 
+        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+        {
+            m_drumonLv[i] = CreatureList_Script.Get.List.DataList[i].level;
+        }
+        m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().drumonLv = m_drumonLv;
         m_boxDrum = GameObject.FindGameObjectWithTag("BoxDrum").GetComponent<BoxDrum_Script>();
         m_boxDrum.gameObject.SetActive(false);
 
@@ -77,21 +82,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
-        else if ((!m_isFinish.Value) && (m_boxDrum.switchFlag == false))
+        else if ((!m_isFinish.Value))
         {
             ResultDisplay();
         }
 
-        //if (m_num == 1)
-        //{
-        //    StopCoroutine(ResultDisplay(0));
-        //}
-
-        //if(m_boxDrum.switchFlag == true)
-        //{
-        //    m_num = 2;
-        //    StartCoroutine(ResultDisplay(m_num));
-        //}
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
@@ -162,51 +157,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         return false;
     }
 
-    //private IEnumerator ResultDisplay(int num)
-    //{
-    //    if (num == 0)
-    //    {
-    //        // Playerオブジェクトを非アクティブ化
-    //        m_playerObject.SetActive(false);
-
-    //        // 手持ちがいっぱいの時
-    //        if (CaptureOver() == true)
-    //        {
-    //            // Boxドラムをアクティブ化
-    //            m_boxDrum.gameObject.SetActive(true);
-    //            // 入れ替えUIをアクティブ化
-    //            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
-    //            num = m_num = 1;
-    //        }
-    //        else
-    //        {
-    //            m_num = 2;
-    //        }
-    //    }
-
-    //    if (m_num == 2)
-    //    {
-    //        // 入れ替えUIを非アクティブ化
-    //        m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
-    //        // 入れ替えUIを非アクティブ化
-    //        m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
-
-    //        // レベルアップUIをアクティブ化
-    //        m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
-
-
-
-
-    //        num = 4;
-    //    }
-
-
-    //    if (num == 4)
-    //    {
-    //        m_isFinish.SetValueAndForceNotify(true);
-    //    }
-    //    yield return null;
-    //}
 
     private void ResultDisplay()
     {
@@ -215,7 +165,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         // Boxドラムをアクティブ化
         m_boxDrum.gameObject.SetActive(true);
 
-        bool stopFlag = false;
         // 手持ちがいっぱいの時
         if (CaptureOver() == true)
         {
@@ -227,26 +176,22 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         else
         {
             m_boxDrum.noUIFlag = true;
-            stopFlag = true;   
+            m_boxDrum.switchFlag = true;
         }
         
         if(m_boxDrum.switchFlag == true)
-        {
-            stopFlag = true;
-        }
-
-        if (stopFlag == true)
         {
             // 入れ替えUIを非アクティブ化
             m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
             // 入れ替えUIを非アクティブ化
             m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
 
-            // レベルアップUIをアクティブ化
-            m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
-
-            m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
-
+            if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
+            {
+                // レベルアップUIをアクティブ化
+                m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
+            }
 
             if (m_boxDrum.centerHitFlag == true)
             {
@@ -265,5 +210,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         return false;
     }
+
+
 }
 
