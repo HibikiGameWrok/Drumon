@@ -103,16 +103,16 @@ public class TitleDrum_Script : MonoBehaviour
         if (m_selectCount == 0)
         {
             // 黄色
-            m_gamePlayButton.GetComponent<Image>().color = new Color(250.0f, 255.0f, 80.0f, 255.0f);
+            m_gamePlayButton.GetComponent<Image>().color = new Color(250.0f / 255.0f, 255.0f / 255.0f, 80.0f / 255.0f, 255.0f / 255.0f);
             // 白色
-            m_tutorialButton.GetComponent<Image>().color = new Color(255.0f, 255.0f, 255.0f, 255.0f);
+            m_tutorialButton.GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
         }
         else if (m_selectCount == 1)
         {
             // 白色
-            m_gamePlayButton.GetComponent<Image>().color = new Color(255.0f, 255.0f, 255.0f, 255.0f);
+            m_gamePlayButton.GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
             // 黄色
-            m_tutorialButton.GetComponent<Image>().color = new Color(250.0f, 255.0f, 80.0f, 255.0f);
+            m_tutorialButton.GetComponent<Image>().color = new Color(250.0f / 255.0f, 255.0f / 255.0f, 80.0f / 255.0f, 255.0f / 255.0f);
         }
     }
 }
