@@ -22,10 +22,10 @@ public class LevelUPUI_Script : MonoBehaviour
 
     CreatureList_Script m_creatureList = null;
 
-    private int m_activeNum = 0;
-    public int activeNum
+    private int m_noActiveNum = 0;
+    public int noActiveNum
     {
-        get { return m_activeNum; }
+        get { return m_noActiveNum; }
     }
 
     private bool[] m_levelFlag = { false };
@@ -101,15 +101,46 @@ public class LevelUPUI_Script : MonoBehaviour
                 {
                     m_levelFlag[i] = false;
                     m_activeObject[i].SetActive(false);
-                    m_activeNum += 1;
+                    m_noActiveNum += 1;
                 }
             }
             else
             {
                 m_levelFlag[i] = false;
                 m_activeObject[i].SetActive(false);
-                m_activeNum += 1;
+                m_noActiveNum += 1;
             }
+        }
+    }
+
+    public void SetPoint()
+    {
+        int num = 0;
+        if (m_noActiveNum < 3)
+        {
+            for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+            {
+                // レベルが上がっているかどうか
+                if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] || m_blockID != i)
+                {
+                    if (m_noActiveNum == 2)
+                    {
+                        m_activeObject[i].transform.position = m_point[num].transform.position;
+                    }
+                    else if (m_noActiveNum == 1)
+                    {
+                        num = 1;
+                        m_activeObject[i].transform.position = m_point[num].transform.position;
+                        num++;
+                    }
+                }
+            }
+        }
+        else
+        {
+            m_activeObject[0].transform.position = m_point[3].transform.position;
+            m_activeObject[1].transform.position = m_point[4].transform.position;
+            m_activeObject[2].transform.position = m_point[5].transform.position;
         }
     }
 }
