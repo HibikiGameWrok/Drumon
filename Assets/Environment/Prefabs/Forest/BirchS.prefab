@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -6487917754307496914}
   m_Layer: 0
   m_Name: BirchS
-  m_TagString: Untagged
+  m_TagString: ExcludeTeleport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 3471342983666574485}
   m_Layer: 0
   m_Name: Birch_S
-  m_TagString: Untagged
+  m_TagString: ExcludeTeleport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,6 +233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Birch_S
+      objectReference: {fileID: 0}
+    - target: {fileID: 8776748073832296319, guid: eb2956e829a1efd4b8bda1fbbc95aa68,
+        type: 3}
+      propertyPath: m_TagString
+      value: ExcludeTeleport
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb2956e829a1efd4b8bda1fbbc95aa68, type: 3}
