@@ -82,7 +82,7 @@ public class LevelUPUI_Script : MonoBehaviour
         m_onewayFlag = true;
     }
 
-    private void CheckLevelUP()
+    public void CheckLevelUP()
     {
         for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
         {

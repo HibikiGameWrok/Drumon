@@ -193,6 +193,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
             if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
             {
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
                 if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().activeNum < 3)
                 {
                     // レベルアップUIをアクティブ化
@@ -207,6 +208,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
             if (m_boxDrum.centerHitFlag == true)
             {
+                CreatureList_Script.Get.OverData = null;
                 m_isFinish.SetValueAndForceNotify(true);
             }
         }
