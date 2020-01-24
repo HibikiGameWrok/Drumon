@@ -70,6 +70,15 @@ public class SceneRevised_Script : IScene_Script
             return SceneID.SCENE_TITLE;
         }
 
+        if(AriaOver_Script.Get)
+        {
+            if(AriaOver_Script.Get.IsOver)
+            {
+                TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                return SceneID.SCENE_REVISED;
+            }
+        }
+
         // 継続する
         return SceneID.CONTINUE;
     }
