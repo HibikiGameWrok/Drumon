@@ -64,4 +64,23 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
         m_list.DataList[num].elem = m_overData.elem;
         m_list.DataList[num].exp = m_overData.exp;
     }
+
+    public void Reset()
+    {
+        for (int i = 0; i < m_list.DataList.Length; i++)
+        {
+            if (!m_list.DataList[i].drumonName.Equals(""))
+            {
+                m_list.DataList[i].drumonName = "";
+                m_list.DataList[i].level = 0;
+                m_list.DataList[i].hp = 0;
+                m_list.DataList[i].maxHp = 0;
+                m_list.DataList[i].atk = 0;
+                m_list.DataList[i].def = 0;
+                m_list.DataList[i].waitTime = 0.0f;
+                m_list.DataList[i].elem = CreatureDataEntity.ELEM.NUM;
+                m_list.DataList[i].exp = 0;
+            }
+        }
+    }
 }

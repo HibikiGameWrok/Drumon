@@ -88,6 +88,14 @@ public class SceneRevised_Script : IScene_Script
         m_manager.Audio.PlayBGM(BfxType.bgm_Search);
         // Findする
         m_manager.Player = GameObject.Find("LocalAvatar");
+
+        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+        {
+            if (!CreatureList_Script.Get.List.DataList[i].drumonName.Equals(""))
+            {
+                CreatureList_Script.Get.List.DataList[i].hp = CreatureList_Script.Get.List.DataList[i].maxHp;
+            }
+        }
     }
 
 

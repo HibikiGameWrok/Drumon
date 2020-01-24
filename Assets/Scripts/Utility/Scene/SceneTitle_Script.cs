@@ -43,6 +43,19 @@ public class SceneTitle_Script : IScene_Script
             // ゲームプレイを選択
             if (m_titleDrum.SelectCount == 0 && m_titleDrum.Decision == true)
             {
+                CreatureData data = null;
+
+                for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+                {
+                    if (CreatureList_Script.Get.List.DataList[i].drumonName.Equals(""))
+                    {
+                        data = CreatureList_Script.Get.List.DataList[i];
+                        break;
+                    }
+                }
+
+                CreateData_Script.Get.CreateData(data, "Merlion");
+
                 m_titleDrum.Decision = false;
                 m_doneFlag = true;
 
@@ -87,5 +100,7 @@ public class SceneTitle_Script : IScene_Script
         m_titleDrum = GameObject.Find("TitleDrum").GetComponent<TitleDrum_Script>();
 
         m_doneFlag = false;
+
+        CreatureList_Script.Get.Reset();
     }
 }
