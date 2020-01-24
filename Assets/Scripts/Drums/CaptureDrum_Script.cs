@@ -10,7 +10,7 @@ public class CaptureDrum_Script : Drum_Script
     public const int CAPTURE_CONFIRM = 100;
 
     // 1秒間の値
-    public const int COUNT_RESET = 60;
+    public const float COUNT_RESET = 60.0f;
 
     // メンバ変数
 
@@ -52,9 +52,8 @@ public class CaptureDrum_Script : Drum_Script
     private Transform m_captureModeText;
 
     // 1秒のカウント
-    private int m_timerCount = COUNT_RESET;
+    private float m_timerCount = COUNT_RESET;
 
-    private GameObject m_costUI = null;
     private CostUI_Script m_costUIScript = null;
 
     // コストが0かどうかのフラグ
@@ -91,10 +90,8 @@ public class CaptureDrum_Script : Drum_Script
 
         m_timerCount = COUNT_RESET;
 
-        // コストのゲージUIを取得
-        m_costUI = GameObject.Find("Slider");
-        // アタッチされたScriptを取得
-        m_costUIScript = m_costUI.GetComponent<CostUI_Script>();
+        // コストのゲージUIのアタッチされたScriptを取得
+        m_costUIScript = GameObject.Find("Slider").GetComponent<CostUI_Script>();
     }
 
     /// <summary>
@@ -176,10 +173,11 @@ public class CaptureDrum_Script : Drum_Script
         // キャプチャーモードテキストがアクティブだったら
         if (m_captureModeText.gameObject.activeInHierarchy == true)
         {
+            bool lastFlag = m_costUIScript.RecoveryFlag;
             // カウントダウン
-            m_timerCount--;
+            m_timerCount -= Time.deltaTime;
 
-            if (m_timerCount <= 0)
+            if (m_timerCount <= 0.0f)
             {
                 // コスト消費
                 m_costUIScript.CostDawn(1.0f);
