@@ -401,7 +401,7 @@ public class SwitchDrum_Script : Drum_Script
                         m_playerCreature.GetComponent<PlayerCreature_Script>().ChangeData(CreatureList_Script.Get.List.DataList[m_stickManagerScript.PickCount]);
 
                         // コストダウン
-                        m_costUIScript.CostDawn(1);
+                        m_costUIScript.CostDawn(1.0f);
 
                         m_tutorialChengeFlag = true;
                     }

@@ -10,7 +10,7 @@ public class CaptureDrum_Script : Drum_Script
     public const int CAPTURE_CONFIRM = 100;
 
     // 1秒間の値
-    public const float COUNT_RESET = 60.0f;
+    public const float COUNT_RESET = 1.0f;
 
     // メンバ変数
 
@@ -173,7 +173,6 @@ public class CaptureDrum_Script : Drum_Script
         // キャプチャーモードテキストがアクティブだったら
         if (m_captureModeText.gameObject.activeInHierarchy == true)
         {
-            bool lastFlag = m_costUIScript.RecoveryFlag;
             // カウントダウン
             m_timerCount -= Time.deltaTime;
 

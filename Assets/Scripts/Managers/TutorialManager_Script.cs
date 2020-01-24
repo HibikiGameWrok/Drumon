@@ -258,6 +258,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
             m_stickLeft.GetComponent<MeshFilter>().sharedMesh = null;
             m_stickRight.GetComponent<MeshFilter>().sharedMesh = null;
+
+            CreatureList_Script.Get.List.DataList[0].drumonName = "";
         }
 
         m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();
@@ -307,7 +309,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
 
             // ボタンが押されたら
-            if ((OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Space)) && m_practiceModeFlag == false)
+            if (OVRInput.GetDown(OVRInput.RawButton.A) && m_practiceModeFlag == false)
             {
                 m_tutorialModeFlag = false;
             }
@@ -319,11 +321,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 NextText();
             }
 
-            //--------------------------------
-            //if (m_curentNum == 9)
-            //{
-            //    m_practiceModeFlag = true;
-            //}
+            if (m_curentNum == 9)
+            {
+                m_practiceModeFlag = true;
+            }
             else if (m_curentNum == 15)
             {
                 m_practiceModeFlag = true;
@@ -436,7 +437,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             }
 
             // ボタンが押されたら
-            if ((OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Space)) && m_practiceModeFlag == false)
+            if (OVRInput.GetDown(OVRInput.RawButton.A) && m_practiceModeFlag == false)
             {
                 m_tutorialModeFlag = false;
             }
