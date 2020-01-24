@@ -18,6 +18,9 @@ public class StatusMenuUI_Script : MonoBehaviour
 
     CreatureList_Script m_creatureList = null;
 
+    [SerializeField]
+    private bool m_MenuFlag = false;
+
     void Awake()
     {
         if (m_creatureList != null)
@@ -68,7 +71,12 @@ public class StatusMenuUI_Script : MonoBehaviour
 
         if (m_creatureList != null)
         {
-            for (int i = 0; i < m_drumonDataUI.Length - 1; i++)
+            int num = 0;
+            if(m_MenuFlag == true)
+            {
+                num = m_drumonDataUI.Length + 1;
+            }
+            for (int i = 0; i < num - 1; i++)
             {
                 // 子のUIを非表示
                 foreach (Transform child in m_drumonDataUI[i].transform)
