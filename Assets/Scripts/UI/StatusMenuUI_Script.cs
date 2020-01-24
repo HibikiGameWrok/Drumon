@@ -68,7 +68,7 @@ public class StatusMenuUI_Script : MonoBehaviour
 
         if (m_creatureList != null)
         {
-            for (int i = 0; i < m_drumonDataUI.Length-1; i++)
+            for (int i = 0; i < m_drumonDataUI.Length - 1; i++)
             {
                 // 子のUIを非表示
                 foreach (Transform child in m_drumonDataUI[i].transform)
