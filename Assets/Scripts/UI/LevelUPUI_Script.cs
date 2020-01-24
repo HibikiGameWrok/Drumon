@@ -129,9 +129,14 @@ public class LevelUPUI_Script : MonoBehaviour
             case 1:
                 for (i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
                 {
-                    if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] || m_blockID != i)
+                    if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] && m_blockID != i)
                     {
                         m_activeObject[i].transform.position = m_point[0].transform.position;
+                        m_activeObject[i].SetActive(true);
+                    }
+                    else
+                    {
+                        m_activeObject[i].SetActive(false);
                     }
                 }
                 break;
@@ -141,13 +146,10 @@ public class LevelUPUI_Script : MonoBehaviour
                 {
                     for (; i < CreatureList_Script.Get.List.DataList.Length; i++)
                     {
-                        if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] || m_blockID != i)
+                        if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] && m_blockID != i)
                         {
                             m_activeObject[i].transform.position = m_point[j].transform.localPosition;
-                            Debug.Log(i + " " + m_activeObject[i].transform.position + "UIW");
-                            Debug.Log(i + " " + m_activeObject[i].transform.localPosition + "UIL");
-                            Debug.Log(j + " " + m_point[j].transform.position + "PW");
-                            Debug.Log(j + " " + m_point[j].transform.localPosition + "PL");
+                            m_activeObject[i].SetActive(true);
                             break;
                         }
                     }
