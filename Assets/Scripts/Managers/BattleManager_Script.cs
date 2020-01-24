@@ -44,6 +44,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     private GameObject[] m_battleResulteUI = null;
 
     private int[] m_drumonLv = new int[3];
+    private string[] m_drumonName = new string[3];
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +61,12 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
         {
             m_drumonLv[i] = CreatureList_Script.Get.List.DataList[i].level;
+            m_drumonName[i] = CreatureList_Script.Get.List.DataList[i].drumonName;
+
         }
-        m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().drumonLv = m_drumonLv;
+        m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().startDrumonLv = m_drumonLv;
+        m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().startDrumonName = m_drumonName;
+
         m_boxDrum = GameObject.FindGameObjectWithTag("BoxDrum").GetComponent<BoxDrum_Script>();
         m_boxDrum.gameObject.SetActive(false);
 
@@ -188,13 +193,22 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
             if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
             {
-                // レベルアップUIをアクティブ化
-                m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
-                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
+                if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().activeNum < 3)
+                {
+                    // レベルアップUIをアクティブ化
+                    m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                    m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
+                }
+                else
+                {
+                    m_boxDrum.centerHitFlag = true;
+                } 
             }
 
             if (m_boxDrum.centerHitFlag == true)
             {
+                CreatureList_Script.Get.OverData = null;
                 m_isFinish.SetValueAndForceNotify(true);
             }
         }
