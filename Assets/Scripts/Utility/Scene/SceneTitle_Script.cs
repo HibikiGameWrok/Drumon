@@ -20,6 +20,7 @@ public class SceneTitle_Script : IScene_Script
 {
     // タイトルドラム
     private TitleDrum_Script m_titleDrum = null;
+    private bool m_doneFlag = false;
 
     /// <summary>
     /// 終了処理
@@ -37,29 +38,33 @@ public class SceneTitle_Script : IScene_Script
     /// <returns></returns>
     public override SceneID Execute()
     {
-        // Spaceキーまたはゲームプレイを選択
-        if (Input.GetKeyDown(KeyCode.Space) ||
-            (m_titleDrum.SelectCount == 0 && m_titleDrum.Decision == true))
+        if (m_doneFlag == false)
         {
-            m_titleDrum.Decision = false;
+            // ゲームプレイを選択
+            if (m_titleDrum.SelectCount == 0 && m_titleDrum.Decision == true)
+            {
+                m_titleDrum.Decision = false;
+                m_doneFlag = true;
 
-            // SEを鳴らす
-            m_manager.Audio.PlaySE(SfxType.WaterGun);
-            // 非同期処理のSceneロード
-            TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                // SEを鳴らす
+                m_manager.Audio.PlaySE(SfxType.WaterGun);
+                // 非同期処理のSceneロード
+                TransitionManager_Script.StartTransition(m_manager.Revised.Name);
 
-            return SceneID.SCENE_REVISED;
-        }
-        else if ((m_titleDrum.SelectCount == 1 && m_titleDrum.Decision == true) || Input.GetKeyDown(KeyCode.T))
-        {
-            m_titleDrum.Decision = false;
+                return SceneID.SCENE_REVISED;
+            }
+            else if (m_titleDrum.SelectCount == 1 && m_titleDrum.Decision == true)
+            {
+                m_titleDrum.Decision = false;
+                m_doneFlag = true;
 
-            // SEを鳴らす
-            m_manager.Audio.PlaySE(SfxType.WaterGun);
-            // 非同期処理のSceneロード
-            TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
+                // SEを鳴らす
+                m_manager.Audio.PlaySE(SfxType.WaterGun);
+                // 非同期処理のSceneロード
+                TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
 
-            return SceneID.SCENE_CAPTURETUTORIAL;
+                return SceneID.SCENE_CAPTURETUTORIAL;
+            }
         }
             
         // 継続する
@@ -80,5 +85,7 @@ public class SceneTitle_Script : IScene_Script
         m_manager.Audio.PlayBGM(BfxType.bgm_Title);
 
         m_titleDrum = GameObject.Find("TitleDrum").GetComponent<TitleDrum_Script>();
+
+        m_doneFlag = false;
     }
 }
