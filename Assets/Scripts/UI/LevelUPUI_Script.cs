@@ -55,7 +55,7 @@ public class LevelUPUI_Script : MonoBehaviour
         get { return m_onewayFlag; }
     }
 
-    private int m_blockID = 0;
+    private int m_blockID = -1;
     public int blockID
     {
         set { m_blockID = value; }
@@ -143,13 +143,17 @@ public class LevelUPUI_Script : MonoBehaviour
                     {
                         if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] || m_blockID != i)
                         {
-                            m_activeObject[i].transform.position = m_point[j].transform.position;
+                            m_activeObject[i].transform.position = m_point[j].transform.localPosition;
+                            Debug.Log(i + " " + m_activeObject[i].transform.position + "UIW");
+                            Debug.Log(i + " " + m_activeObject[i].transform.localPosition + "UIL");
+                            Debug.Log(j + " " + m_point[j].transform.position + "PW");
+                            Debug.Log(j + " " + m_point[j].transform.localPosition + "PL");
                             break;
                         }
                     }
                 }
                 break;
-            default:
+            case 3:
                 m_activeObject[0].transform.position = m_point[3].transform.position;
                 m_activeObject[1].transform.position = m_point[4].transform.position;
                 m_activeObject[2].transform.position = m_point[5].transform.position;
