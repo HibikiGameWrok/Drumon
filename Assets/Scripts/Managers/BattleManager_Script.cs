@@ -208,6 +208,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
             if (m_boxDrum.centerHitFlag == true)
             {
+                CreatureList_Script.Get.OverData = null;
                 m_isFinish.SetValueAndForceNotify(true);
             }
         }
