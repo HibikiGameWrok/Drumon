@@ -193,17 +193,17 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
             if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
             {
-                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
                 if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().activeNum < 3)
                 {
                     // レベルアップUIをアクティブ化
                     m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
-                    m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
                 }
                 else
                 {
                     m_boxDrum.centerHitFlag = true;
-                } 
+                }
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
             }
 
             if (m_boxDrum.centerHitFlag == true)
