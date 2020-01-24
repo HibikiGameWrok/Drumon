@@ -157,13 +157,18 @@ public class CaptureDrum_Script : Drum_Script
     // 捕獲処理
     public void Capture()
     {
+        m_costZeroFlag = false;
+
         if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE) == true)
         {
-            // アクティブにする
-            m_captureModeText.gameObject.SetActive(true);
+            if (m_costUIScript.RecoveryFlag != true)
+            {
+                // アクティブにする
+                m_captureModeText.gameObject.SetActive(true);
 
-            // カウントアップ
-            m_captureCount++;
+                // カウントアップ
+                m_captureCount++;
+            }
 
             // 捕獲ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);

@@ -44,8 +44,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // タイマーオブジェクト
     private GameObject m_timerObject;
 
-    private bool m_captureLast;
-
     // チュートリアルのモンスターを捕獲したフラグ
     //private bool m_tutorialGetFlag = false;
     //// チュートリアルのモンスターを捕獲したフラグのプロパティ
@@ -91,8 +89,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_enemyCreature = BattleManager_Script.Get.EnemyCreature;
 
         m_timerObject = GameObject.Find("Timer");
-
-        m_captureLast = m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag;
     }
 
     
@@ -166,7 +162,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         }
 
         // キャプチャーの時にコストが0になったら
-        if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag && m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag != m_captureLast)
+        if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag)
         {
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
@@ -188,8 +184,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             }
             m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag = false;
         }
-
-        m_captureLast = m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag;
     }
 
 
