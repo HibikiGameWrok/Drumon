@@ -123,12 +123,11 @@ public class LevelUPUI_Script : MonoBehaviour
 
     public void SetPoint()
     {
+        int i;
         switch (m_nowActiveCount)
         {
-            case 0:
-                break;
             case 1:
-                for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+                for (i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
                 {
                     if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] || m_blockID != i)
                     {
@@ -137,15 +136,24 @@ public class LevelUPUI_Script : MonoBehaviour
                 }
                 break;
             case 2:
-                for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+                i = 0;
+                for (int j = 1; j < 3; j++)
                 {
-                    if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] || m_blockID != i)
+                    for (; i < CreatureList_Script.Get.List.DataList.Length; i++)
                     {
-                        m_activeObject[i].transform.position = m_point[0].transform.position;
+                        if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] || m_blockID != i)
+                        {
+                            m_activeObject[i].transform.position = m_point[j].transform.position;
+                            break;
+                        }
                     }
                 }
                 break;
-
+            default:
+                m_activeObject[0].transform.position = m_point[3].transform.position;
+                m_activeObject[1].transform.position = m_point[4].transform.position;
+                m_activeObject[2].transform.position = m_point[5].transform.position;
+                break;
         }
     }
 }
