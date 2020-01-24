@@ -60,39 +60,39 @@ public class ProgressResultEvent_Script : MonoBehaviour
         // 1. パネルをフェードアウト
         m_panelUI_Script.IsFadeOut = true;
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         // 2. テキストをフェードアウト
         m_textUI_Fade_Script.IsFadeOut = true;
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         // 3. テキストをフェードイン
         m_textUI_Fade_Script.IsFadeIn = true;
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         // 4.テキストの文章を変更しフェードアウト
         m_textUI_Change_Script.NextRowText();
         m_textUI_Fade_Script.IsFadeOut = true;
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         // 5. テキストをフェードイン
         m_textUI_Fade_Script.IsFadeIn = true;
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         // 6.テキストの文章を変更しフェードアウト
         m_textUI_Change_Script.NextRowText();
         m_textUI_Fade_Script.IsFadeOut = true;
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         // 7. テキストをフェードイン
         m_textUI_Fade_Script.IsFadeIn = true;
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         // 8.テキストの文章を変更しフェードアウト
         m_textUI_Change_Script.NextRowText();
