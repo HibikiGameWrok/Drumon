@@ -49,7 +49,7 @@ public class SceneBattle_Script : IScene_Script
             bool gameOver = true;
             for(int i = 0;i<CreatureList_Script.Get.List.DataList.Length;i++)
             {
-                if(CreatureList_Script.Get.List.DataList[i].hp != 0)
+                if(CreatureList_Script.Get.List.DataList[i].hp != 0 && CreatureList_Script.Get.List.DataList[i].drumonName != "")
                 {
                     gameOver = false;
                     break;
