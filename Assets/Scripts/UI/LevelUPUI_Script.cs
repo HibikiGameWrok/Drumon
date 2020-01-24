@@ -48,6 +48,12 @@ public class LevelUPUI_Script : MonoBehaviour
         get { return m_onewayFlag; }
     }
 
+    private int m_blockID = 0;
+    public int blockID
+    {
+        set { m_blockID = value; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,21 +67,18 @@ public class LevelUPUI_Script : MonoBehaviour
     // 出力するテキスト
     public void out_putText()
     {
-        if (m_activeNum < CreatureList_Script.Get.List.DataList.Length)
+        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
         {
-            for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+            if (m_levelFlag[i] == true)
             {
-                if (m_levelFlag[i] == true)
+                if (i < CreatureList_Script.Get.List.DataList.Length)
                 {
-                    if (i < CreatureList_Script.Get.List.DataList.Length)
-                    {
-                        // 出力するドラモンの名前
-                        m_drumonNameText[i].text = CreatureList_Script.Get.List.DataList[i].drumonName;
-                        // 出力するレベルアップ前
-                        m_beforLevelUIText[i].text = m_startDrumonLv[i].ToString();
-                        // 出力するレベルアップ後
-                        m_afterLevelUIText[i].text = CreatureList_Script.Get.List.DataList[i].level.ToString();
-                    }
+                    // 出力するドラモンの名前
+                    m_drumonNameText[i].text = CreatureList_Script.Get.List.DataList[i].drumonName;
+                    // 出力するレベルアップ前
+                    m_beforLevelUIText[i].text = m_startDrumonLv[i].ToString();
+                    // 出力するレベルアップ後
+                    m_afterLevelUIText[i].text = CreatureList_Script.Get.List.DataList[i].level.ToString();
                 }
             }
         }
@@ -86,7 +89,7 @@ public class LevelUPUI_Script : MonoBehaviour
     {
         for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
         {
-            if (CreatureList_Script.Get.List.DataList[i].drumonName == m_startDrumonName[i])
+            if (m_blockID != i)
             {
                 // レベルが上がっているかどうか
                 if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i])

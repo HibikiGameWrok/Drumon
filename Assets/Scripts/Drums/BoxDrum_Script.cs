@@ -39,6 +39,12 @@ public class BoxDrum_Script : MonoBehaviour
         set { m_noUIFlag = value; }
     }
 
+    private int m_blockID = 0;
+    public int blockID
+    {
+        get { return m_blockID; }
+        set { m_blockID = value; }
+    }
 
     void Awake()
     {
@@ -95,6 +101,7 @@ public class BoxDrum_Script : MonoBehaviour
                             if (m_cursorUI.MovePoint < 3)
                             {
                                 CreatureList_Script.Get.Trade(m_cursorUI.MovePoint);
+                                m_blockID = m_cursorUI.MovePoint;
                             }
                         }
                         else if (m_JudgeUI.MovePoint != 0)
@@ -157,6 +164,7 @@ public class BoxDrum_Script : MonoBehaviour
                             if (m_cursorUI.MovePoint < 3)
                             {
                                 CreatureList_Script.Get.Trade(m_cursorUI.MovePoint);
+                                m_blockID = m_cursorUI.MovePoint;
                             }
                         }
                         else if (m_JudgeUI.MovePoint != 0)
