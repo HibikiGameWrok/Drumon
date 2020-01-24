@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &2260806947946689855
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8014651012804488098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 491866669749619583, guid: afaecd0f2b968e747b694735d399bf41, type: 3}
 --- !u!1 &7049928829668240239
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &2260806947946689855
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8014651012804488098}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 491866669749619583, guid: afaecd0f2b968e747b694735d399bf41, type: 3}
 --- !u!1001 &6722931141743612796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56,6 +56,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cactus2
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: afaecd0f2b968e747b694735d399bf41,
+        type: 3}
+      propertyPath: m_TagString
+      value: ExcludeTeleport
+      objectReference: {fileID: 0}
+    - target: {fileID: -5587448845120980770, guid: afaecd0f2b968e747b694735d399bf41,
+        type: 3}
+      propertyPath: m_TagString
+      value: ExcludeTeleport
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: afaecd0f2b968e747b694735d399bf41,
         type: 3}
