@@ -148,10 +148,11 @@ public class LevelUPUI_Script : MonoBehaviour
                     {
                         if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] && m_blockID != i)
                         {
-                            m_activeObject[i].transform.position = m_point[j].transform.localPosition;
+                            m_activeObject[i].transform.position = m_point[j].transform.position;
                             m_activeObject[i].SetActive(true);
                             break;
                         }
+                        m_activeObject[i].SetActive(false);
                     }
                 }
                 break;
@@ -159,6 +160,10 @@ public class LevelUPUI_Script : MonoBehaviour
                 m_activeObject[0].transform.position = m_point[3].transform.position;
                 m_activeObject[1].transform.position = m_point[4].transform.position;
                 m_activeObject[2].transform.position = m_point[5].transform.position;
+                for (int j = 0; j < CreatureList_Script.Get.List.DataList.Length; j++)
+                {
+                    m_activeObject[j].SetActive(true);
+                }
                 break;
         }
     }
