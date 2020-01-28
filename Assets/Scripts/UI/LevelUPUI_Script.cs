@@ -141,11 +141,12 @@ public class LevelUPUI_Script : MonoBehaviour
                 }
                 break;
             case 2:
+                int j = 1;
                 for (; i < CreatureList_Script.Get.List.DataList.Length; i++)
-                {
+                { 
                     if (CreatureList_Script.Get.List.DataList[i].level > m_startDrumonLv[i] && m_startDrumonLv[i] != 0)
                     {
-                        for (int j = 1; j < 3;)
+                        for (; j < 3;)
                         {
                             m_activeObject[i].transform.position = m_point[j].transform.position;
                             m_activeObject[i].SetActive(true);
@@ -163,9 +164,9 @@ public class LevelUPUI_Script : MonoBehaviour
                 m_activeObject[0].transform.position = m_point[3].transform.position;
                 m_activeObject[1].transform.position = m_point[4].transform.position;
                 m_activeObject[2].transform.position = m_point[5].transform.position;
-                for (int j = 0; j < CreatureList_Script.Get.List.DataList.Length; j++)
+                for (int k = 0; k < CreatureList_Script.Get.List.DataList.Length; k++)
                 {
-                    m_activeObject[j].SetActive(true);
+                    m_activeObject[k].SetActive(true);
                 }
                 break;
         }
