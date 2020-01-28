@@ -99,7 +99,7 @@ public class LevelUPUI_Script : MonoBehaviour
             if (m_blockID != i)
             {
                 // レベルが上がっているかどうか
-                if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i])
+                if (CreatureList_Script.Get.List.DataList[i].level > m_startDrumonLv[i] && m_startDrumonLv[i] != 0)
                 {
                     m_levelFlag[i] = true;
                     m_activeObject[i].SetActive(true);
@@ -123,13 +123,13 @@ public class LevelUPUI_Script : MonoBehaviour
 
     public void SetPoint()
     {
-        int i;
+        int i = 0;
         switch (m_nowActiveCount)
         {
             case 1:
                 for (i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
                 {
-                    if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] && m_blockID != i)
+                    if (CreatureList_Script.Get.List.DataList[i].level > m_startDrumonLv[i] && m_startDrumonLv[i] != 0)
                     {
                         m_activeObject[i].transform.position = m_point[0].transform.position;
                         m_activeObject[i].SetActive(true);
@@ -141,17 +141,20 @@ public class LevelUPUI_Script : MonoBehaviour
                 }
                 break;
             case 2:
-                i = 0;
-                for (int j = 1; j < 3; j++)
+                for (; i < CreatureList_Script.Get.List.DataList.Length; i++)
                 {
-                    for (; i < CreatureList_Script.Get.List.DataList.Length; i++)
+                    if (CreatureList_Script.Get.List.DataList[i].level > m_startDrumonLv[i] && m_startDrumonLv[i] != 0)
                     {
-                        if (CreatureList_Script.Get.List.DataList[i].level != m_startDrumonLv[i] && m_blockID != i)
+                        for (int j = 1; j < 3;)
                         {
                             m_activeObject[i].transform.position = m_point[j].transform.position;
                             m_activeObject[i].SetActive(true);
+                            j++;
                             break;
                         }
+                    }
+                    else
+                    {
                         m_activeObject[i].SetActive(false);
                     }
                 }
