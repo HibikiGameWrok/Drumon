@@ -26,7 +26,7 @@ public class StatusMenuUI_Script : MonoBehaviour
         if (m_creatureList != null)
         {
             m_creatureList = CreatureList_Script.Get;
-            SetUpUIData();
+            SetUpUIData(1);
             //EnemySetUpUIData();
         }
     }
@@ -58,27 +58,34 @@ public class StatusMenuUI_Script : MonoBehaviour
                     else if (child.gameObject.activeSelf == false)
                     {
                         child.gameObject.SetActive(true);
-                        SetUpUIData();
+                        int count = 0;
+                        for(int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+                        {
+                            if (CreatureList_Script.Get.List.DataList[i].level != 0)
+                            {
+                                count++;
+                            }
+                            else
+                            {
+                                m_drumonDataUI[i].SetActive(false);
+                            }
+                        }
+                        SetUpUIData(count + 1);
                     }
                 }
             }
         }
     }
 
-    public void SetUpUIData()
+    public void SetUpUIData(int num)
     {
         m_creatureList = CreatureList_Script.Get;
 
         if (m_creatureList != null)
         {
-            int num = 0;
-            if(m_MenuFlag == true)
-            {
-                num = m_drumonDataUI.Length + 1;
-            }
             for (int i = 0; i < num - 1; i++)
             {
-                // 子のUIを非表示
+                // 子のUIを反映
                 foreach (Transform child in m_drumonDataUI[i].transform)
                 {
                     switch (child.name)

@@ -175,7 +175,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         {
             // 入れ替えUIをアクティブ化
             m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
-            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().SetUpUIData();
+            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().SetUpUIData(4);
             m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().EnemySetUpUIData();
         }
         else
