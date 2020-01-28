@@ -194,10 +194,14 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
             {
                 m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
+                AudioManager_Script.Get.AttachBGMSource.Stop();
+                AudioManager_Script.Get.PlayBGM(BfxType.bgm_Victory);
+
                 if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().noActiveNum < 3)
                 {
                     // レベルアップUIをアクティブ化
                     m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                    AudioManager_Script.Get.PlaySE(SfxType.LvUP);
                 }
                 else
                 {
