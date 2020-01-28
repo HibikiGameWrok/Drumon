@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76714041552510623}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: -2.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8693714438961922993}
@@ -103,7 +103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5691739453611340194}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -48.779133, y: 12.407121, z: -13.691588}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 10.238129, z: 1.5}
   m_Children:
   - {fileID: 1084363976804468525}
@@ -124,6 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   timerMax: 0.3
-  speed: 200
+  speed: 100
   WaterImpact_Prefab: {fileID: 3571702713371065102, guid: 3793f812abfb72540add51b9d198a8f6,
     type: 3}

@@ -19,11 +19,11 @@ public class VFX_LeafShower_Script : MonoBehaviour
     [SerializeField]
     private Renderer rend_Leaves2 = new Renderer();
     [SerializeField]
-    private Transform Barrage_Transform;
+    private Transform Barrage_Transform = null;
     [SerializeField]
-    private GameObject Barrage_Prefab;
+    private GameObject Barrage_Prefab = null;
     [SerializeField]
-    private ParticleSystem Burst;
+    private ParticleSystem Burst = null;
 
     // Start is called before the first frame update
     void Start()

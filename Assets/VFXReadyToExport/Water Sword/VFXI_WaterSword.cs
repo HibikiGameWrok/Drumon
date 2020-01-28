@@ -10,13 +10,13 @@ public class VFXI_WaterSword : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject Sword_Prefab;
+    private GameObject Sword_Prefab = null;
     [SerializeField]
-    private GameObject Slash1_Prefab;
+    private GameObject Slash1_Prefab = null;
     [SerializeField]
-    private GameObject Slash2_Prefab;
+    private GameObject Slash2_Prefab = null;
     [SerializeField]
-    private GameObject Impact_Prefab;
+    private GameObject Impact_Prefab = null;
 
     private float timer = 0.0f;
     public float timerMax = 0.7f;

@@ -22,15 +22,15 @@ public class AppearOtso_Script : MonoBehaviour
 
     [Tooltip("出現させるPrefabを入れる")]
     [SerializeField]
-    private GameObject m_drumon;
+    private GameObject m_drumon = null;
 
     [Tooltip("次に出現するまでの時間")]
     [SerializeField]
-    private float m_appearNextTime;
+    private float m_appearNextTime = 0.0f;
 
     [Tooltip("DrumonList")]
     [SerializeField]
-    private GameObject m_drumonList;
+    private GameObject m_drumonList = null;
 
     // 現在出現している数
     private int m_currentNumberOfDrumons;
@@ -38,7 +38,7 @@ public class AppearOtso_Script : MonoBehaviour
     private float m_elapesdTime;
 
     [SerializeField]
-    private AddDrumonList_Script m_list;
+    private AddDrumonList_Script m_list = null;
 
     // Start is called before the first frame update
     void Start()

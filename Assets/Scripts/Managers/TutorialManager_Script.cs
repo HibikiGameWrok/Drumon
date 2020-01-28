@@ -35,15 +35,22 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     public IReadOnlyReactiveProperty<bool> IsFinish => m_isFinish;
 
+    [SerializeField]
+    private BoolReactiveProperty m_isAllFinish = new BoolReactiveProperty(false);
+
+    public IReadOnlyReactiveProperty<bool> IsAllFinish => m_isAllFinish;
+
     // タイムオブジェクトを保持
     //private GameObject m_timer = null;
     // タイムScriptを取得
     //private AccelerationTime_Script m_timeStandard_Script = null;
-    
+
     // チュートリアルを表示中かどうかのフラグ
     private bool m_tutorialModeFlag = true;
     // 実践中かどうかのフラグ
     private bool m_practiceModeFlag = false;
+    // プレイヤーのドラモンの行動フラグ
+    private bool m_drumonExecuteFlag = false;
     // 敵の行動フラグ
     private bool m_enemyExecuteFlag = false;
 
@@ -152,6 +159,13 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     // ドラムマネージャー
     private DrumManager_Script m_drumManager = null;
 
+    private GameObject m_distanceGrabHandLeft = null;
+    private GameObject m_distanceGrabHandRight = null;
+    private GameObject m_stickLeft = null;
+    private GameObject m_stickRight = null;
+
+    private Mesh m_mesh = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -213,6 +227,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
         else if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
+            //ResetData(CreatureList_Script.Get.List.DataList[0]);
+            //CreatureList_Script.Get.List.DataList[1].hp = CreatureList_Script.Get.List.DataList[1].maxHp;
+            //ResetData(CreatureList_Script.Get.List.DataList[2]);
+
             m_tutorialExplainCanvas = GameObject.Find("TutorialExplainCanvas");
             m_explainText1 = m_tutorialExplainCanvas.transform.Find("ExplainText1").gameObject;
             m_explainText2 = m_tutorialExplainCanvas.transform.Find("ExplainText2").gameObject;
@@ -228,6 +246,20 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_textArray = new GameObject[] { m_explainText1, m_explainText2, m_explainText3, m_leftArrowText3, m_explainCaptureText1, m_explainCaptureText2, m_practiceCaptureText, m_explainText4 };
 
             m_text = m_textArray[0].GetComponent<Text>();
+
+            m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
+            m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
+            m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
+            m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
+
+            m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
+
+            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
+            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
+            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = null;
+            m_stickRight.GetComponent<MeshFilter>().sharedMesh = null;
+
+            CreatureList_Script.Get.List.DataList[0].drumonName = "";
         }
 
         m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();
@@ -242,14 +274,20 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             if (SceneManager.GetActiveScene().name != "TutorialCaptureScene")
             {
-                if (this.JudgeResult()) return;
-                this.m_playerCreature.Execute();
+                if (m_drumonExecuteFlag == true)
+                {
+                    if (this.JudgeResult()) return;
+                    this.m_playerCreature.Execute();
+                }
+                else
+                {
+                    this.m_playerCreature.Rate = 0;
+                }
             }
 
-            if (m_enemyExecuteFlag == false)
+            if (m_enemyExecuteFlag == true)
             {
                 this.m_enemyCreature.Execute();
-                //m_enemyExecuteFlag = true;
             }
             
             if (this.m_playerCreature.AtkFlag) SetActive(this.m_playerCreature);
@@ -283,11 +321,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 NextText();
             }
 
-            //--------------------------------
-            //if (m_curentNum == 9)
-            //{
-            //    m_practiceModeFlag = true;
-            //}
+            if (m_curentNum == 9)
+            {
+                m_practiceModeFlag = true;
+            }
             else if (m_curentNum == 15)
             {
                 m_practiceModeFlag = true;
@@ -296,10 +333,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 m_practiceModeFlag = true;
                 //m_timeStandard_Script.StopFlag = false;
-            }
-            else if (m_curentNum == 17)
-            {
-                // シーン遷移
             }
 
             //if (m_practiceCaptureText.activeInHierarchy == true)
@@ -344,7 +377,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             if (m_explainNotesResetText.activeInHierarchy == true)
             {
-                m_enemyExecuteFlag = false;
+                // 攻撃できるようになる
+                m_drumonExecuteFlag = true;
 
                 // 敵が攻撃を受けたら
                 if (m_enemyCreature.HP < m_enemyCreature.GetData().maxHp)
@@ -359,6 +393,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
                     // 次のテキストの表示
                     NextText();
+
+                    // 敵が攻撃するようになる
+                    m_enemyExecuteFlag = true;
                 }
             }
 
@@ -366,6 +403,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 // 次のテキストの表示
                 NextText();
+
+                StartCoroutine(SceneChengeStop());
             }
 
             //if (m_practiceChangeText.activeInHierarchy == true)
@@ -414,21 +453,33 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 m_practiceModeFlag = true;
 
-                if (CreatureList_Script.Get.List.DataList[0] != null)
+                m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = true;
+                m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = true;
+                m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_mesh;
+                m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_mesh;
+
+                if (CreatureList_Script.Get.List.DataList[0].drumonName != "")
                 {
                     // 次のテキストの表示
                     NextText();
                 }
+            }
+            else if (m_curentNum == 7)
+            {
+                StartCoroutine(SceneChengeStop());
             }
         }
     }
 
     private void SetTarget()
     {
-        this.m_playerCreature.SetTarget(this.m_enemyCreature);
-        this.m_enemyCreature.SetTarget(this.m_playerCreature);
+        if (m_playerCreature && m_enemyCreature)
+        {
+            this.m_playerCreature.SetTarget(this.m_enemyCreature);
+            this.m_enemyCreature.SetTarget(this.m_playerCreature);
 
-        this.m_isSetting = true;
+            this.m_isSetting = true;
+        }
     }
 
     public void SetActive(ICreature_Script creature)
@@ -478,30 +529,51 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     {
         m_tutorialModeFlag = true;
 
-        // 現在のテキストを非アクティブ化
-        m_textArray[m_curentNum].SetActive(false);
+        if (m_textArray.Length > m_curentNum + 1)
+        {
+            // 現在のテキストを非アクティブ化
+            if (m_textArray[m_curentNum])
+                m_textArray[m_curentNum].SetActive(false);
+        }
 
-        if (m_textArray.Length > m_curentNum)
+        if (m_textArray.Length > m_curentNum + 1)
         {
             // カウントアップ
             m_curentNum++;
         }
 
-        if (m_textArray.Length == m_curentNum)
+        if (m_textArray.Length > m_curentNum)
         {
-            // シーン遷移
+            if (m_textArray[m_curentNum] != null)
+            {
+                // 次のテキストをアクティブ化
+                m_textArray[m_curentNum].SetActive(true);
 
+                // 次のテキストに変える
+                m_text = m_textArray[m_curentNum].GetComponent<Text>();
+
+                m_practiceModeFlag = false;
+            }
+        }
+    }
+
+    private void ResetData(CreatureData data)
+    {
+        data = new CreatureData();
+    }
+
+    private IEnumerator SceneChengeStop()
+    {
+        yield return new WaitForSeconds(2.0f);
+        if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
+        {
+            m_isFinish.SetValueAndForceNotify(true);
+        }
+        else if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
+        {
+            m_isAllFinish.SetValueAndForceNotify(true);
         }
 
-        if (m_textArray[m_curentNum] != null)
-        {
-            // 次のテキストをアクティブ化
-            m_textArray[m_curentNum].SetActive(true);
-
-            // 次のテキストに変える
-            m_text = m_textArray[m_curentNum].GetComponent<Text>();
-
-            m_practiceModeFlag = false;
-        }
+        yield return null;
     }
 }

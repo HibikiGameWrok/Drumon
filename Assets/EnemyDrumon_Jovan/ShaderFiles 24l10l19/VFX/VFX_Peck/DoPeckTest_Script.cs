@@ -8,7 +8,7 @@ public class DoPeckTest_Script : MonoBehaviour
     public bool Peck = false;
 
     [SerializeField]
-    private GameObject VFXControl_Peck;
+    private GameObject VFXControl_Peck = null;
 
     // Start is called before the first frame update
     void Start()

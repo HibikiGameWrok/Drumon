@@ -52,23 +52,23 @@ public class NavMeshController_Script : MonoBehaviour
     [SerializeField]
     private WorldCreatureState_Script m_currentState;
     // Idle状態
-    private WorldCreatureIdle_Script m_idleState;
+    private WorldCreatureState_Script m_idleState;
     // Walk状態
-    private WorldCreatureWalk_Script m_walkState;
+    private WorldCreatureState_Script m_walkState;
     // Chase状態
-    private WorldCreatureChace_Script m_chaseState;
+    private WorldCreatureState_Script m_chaseState;
 
     // ChaseTargetの座標
-    private Transform m_chaseTargetPosition;
+    private GameObject m_chaseTarget;
 
 
     /// <summary>
     /// ターゲット座標のプロパティ
     /// </summary>
-    public Transform ChaseTargetPosition
+    public GameObject ChaseTarget
     {
-        set { m_chaseTargetPosition = value; }
-        get { return m_chaseTargetPosition; }
+        set { m_chaseTarget = value; }
+        get { return m_chaseTarget; }
     }
 
 
@@ -120,9 +120,9 @@ public class NavMeshController_Script : MonoBehaviour
     /// <summary>
     /// 状態プロパティ
     /// </summary>
-    public WorldCreatureState_Script Idle => m_idleState;
-    public WorldCreatureState_Script Walk => m_walkState;
-    public WorldCreatureChace_Script Chase => m_chaseState;
+    public WorldCreatureState_Script Idle => (WorldCreatureIdle_Script)m_idleState;
+    public WorldCreatureState_Script Walk => (WorldCreatureWalk_Script)m_walkState;
+    public WorldCreatureState_Script Chase => (WorldCreatureChace_Script)m_chaseState;
 
     /// <summary>
     /// ターゲット座標のプロパティ

@@ -55,9 +55,9 @@ public class AttackDrum_Script : Drum_Script
 
     // マテリアル
     [SerializeField]
-    private Material[] m_drumMaterials;
-    private Renderer m_inDrumRender;
-    private Renderer m_outDrumRender;
+    private Material[] m_drumMaterials = null;
+    private Renderer m_inDrumRender = null;
+    private Renderer m_outDrumRender = null;
 
     private bool m_changeMaterialFlag = false;
     private int m_changeMaterialCount = 0;

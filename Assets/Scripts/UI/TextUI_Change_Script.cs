@@ -18,9 +18,6 @@ public class TextUI_Change_Script : MonoBehaviour
     [SerializeField]
     private string m_csvFileName = "ResultEventText";
 
-    // 描画する文章
-    private string m_drawtext = null;
-
     // 文章の行数
     private int m_rowCount = 1;
 

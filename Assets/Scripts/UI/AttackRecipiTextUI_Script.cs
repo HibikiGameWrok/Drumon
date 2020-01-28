@@ -24,7 +24,7 @@ public class AttackRecipiTextUI_Script : MonoBehaviour
         ATK_COST
     }
     [SerializeField]
-    private Data_Column m_dataColumn;
+    private Data_Column m_dataColumn = Data_Column.ATK_NAME;
 
     private string m_costText = null;
 

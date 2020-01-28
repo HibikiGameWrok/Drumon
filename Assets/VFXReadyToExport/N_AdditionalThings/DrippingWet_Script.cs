@@ -13,9 +13,9 @@ public class DrippingWet_Script : MonoBehaviour
     private double timer = 0.1;
 
     [SerializeField]
-    private GameObject DropletPrefab;
+    private GameObject DropletPrefab = null;
 
-    private GameObject objReference;
+    private GameObject objReference = null;
 
     // Start is called before the first frame update
     void Start()

@@ -20,8 +20,9 @@ using UnityEngine;
         SCENE_REVISED,
         SCENE_BATTLE,
         SCENE_RESULT,
-        SCENE_TUTORIAL,
-        SCENE_ENGING,
+        SCENE_CAPTURETUTORIAL,
+        SCENE_BATTLETUTORIAL,
+        SCENE_ENDING,
     }
 // SceneのInterface
 public abstract class IScene_Script

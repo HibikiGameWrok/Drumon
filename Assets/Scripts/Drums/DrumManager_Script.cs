@@ -43,8 +43,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
     // タイマーオブジェクト
     private GameObject m_timerObject;
-    // 行動ゲージが終わったかのフラグ
-    private bool m_gaugeFinishFlag = false;
 
     // チュートリアルのモンスターを捕獲したフラグ
     //private bool m_tutorialGetFlag = false;
@@ -106,8 +104,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     {
         // プレイヤーモンスターのHPをUIに適用
         //m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
-        // 行動ゲージが終わったかのフラグの取得
-        //m_gaugeFinishFlag = m_timerObject.GetComponent<AccelerationTime_Script>().TimerMax();
 
         if (m_currentDrum != null)
         {
@@ -161,37 +157,33 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 {
                     // 継続する
                     m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
-
-                }
-                else
-                {
-
                 }
             }
         }
 
         // キャプチャーの時にコストが0になったら
-        if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag == true)
+        if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag)
         {
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
-                if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag != true)
-                {
-                    m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
-                }
-                else
+                if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == true)
                 {
                     m_enemyCreature.Capture(CaptureDrum_Script.CAPTURE_CONFIRM);
                     //m_tutorialGetFlag = true;
                 }
+                else if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialBattleFlag == true)
+                {
+                    m_enemyCreature.Capture(0);
+                }
+                else
+                {
+                    m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
+                }
 
                 m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount = 0;
             }
+            m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag = false;
         }
-
-//#if UNITY_EDITOR
-//        Debug.Log("CurrentDrum is " + m_currentDrum);
-//#endif
     }
 
 

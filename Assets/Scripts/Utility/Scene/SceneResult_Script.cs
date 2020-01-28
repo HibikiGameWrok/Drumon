@@ -38,15 +38,13 @@ public class SceneResult_Script : IScene_Script
     {
         if (m_resultEvent_Script.finishEventFlag == true)
         {
-            // SpaceキーまたはVRコントローラーのトリガー
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-            {
-                // SEを鳴らす
-                m_manager.Audio.PlaySE(SfxType.teleport);
-                // 非同期処理のSceneロード
-                TransitionManager_Script.StartTransition(m_manager.Ending.Name);
-                return SceneID.SCENE_ENGING;
-            }
+
+            // SEを鳴らす
+            m_manager.Audio.PlaySE(SfxType.teleport);
+            // 非同期処理のSceneロード
+            TransitionManager_Script.StartTransition(m_manager.Ending.Name);
+            return SceneID.SCENE_ENDING;
+
         }
         // 継続する
         return SceneID.CONTINUE;

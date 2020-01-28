@@ -10,7 +10,7 @@ public class CaptureDrum_Script : Drum_Script
     public const int CAPTURE_CONFIRM = 100;
 
     // 1秒間の値
-    public const int COUNT_RESET = 60;
+    public const float COUNT_RESET = 1.0f;
 
     // メンバ変数
 
@@ -29,13 +29,21 @@ public class CaptureDrum_Script : Drum_Script
         set { m_captureCount = value; }
     }
 
-    // チュートリアル用のモンスター捕獲フラグ
+    // チュートリアルキャプチャー用のモンスター捕獲フラグ
     private bool m_tutorialCaptureFlag = false;
-    // チュートリアル用のモンスター捕獲フラグのプロパティ
+    // チュートリアルキャプチャー用のモンスター捕獲フラグのプロパティ
     public bool TutorialCaptureFlag
     {
         get { return m_tutorialCaptureFlag; }
         set { m_tutorialCaptureFlag = value; }
+    }
+    // チュートリアルバトル用のモンスター捕獲フラグ
+    private bool m_tutorialBattleFlag = false;
+    // チュートリアルバトル用のモンスター捕獲フラグのプロパティ
+    public bool TutorialBattleFlag
+    {
+        get { return m_tutorialBattleFlag; }
+        set { m_tutorialBattleFlag = value; }
     }
 
     // キャプチャードラムのUIキャンバス
@@ -44,9 +52,8 @@ public class CaptureDrum_Script : Drum_Script
     private Transform m_captureModeText;
 
     // 1秒のカウント
-    private int m_timerCount = COUNT_RESET;
+    private float m_timerCount = COUNT_RESET;
 
-    private GameObject m_costUI = null;
     private CostUI_Script m_costUIScript = null;
 
     // コストが0かどうかのフラグ
@@ -83,10 +90,8 @@ public class CaptureDrum_Script : Drum_Script
 
         m_timerCount = COUNT_RESET;
 
-        // コストのゲージUIを取得
-        m_costUI = GameObject.Find("Slider");
-        // アタッチされたScriptを取得
-        m_costUIScript = m_costUI.GetComponent<CostUI_Script>();
+        // コストのゲージUIのアタッチされたScriptを取得
+        m_costUIScript = GameObject.Find("Slider").GetComponent<CostUI_Script>();
     }
 
     /// <summary>
@@ -152,13 +157,18 @@ public class CaptureDrum_Script : Drum_Script
     // 捕獲処理
     public void Capture()
     {
+        m_costZeroFlag = false;
+
         if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE) == true)
         {
-            // アクティブにする
-            m_captureModeText.gameObject.SetActive(true);
+            if (m_costUIScript.RecoveryFlag != true)
+            {
+                // アクティブにする
+                m_captureModeText.gameObject.SetActive(true);
 
-            // カウントアップ
-            m_captureCount++;
+                // カウントアップ
+                m_captureCount++;
+            }
 
             // 捕獲ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
@@ -169,9 +179,9 @@ public class CaptureDrum_Script : Drum_Script
         if (m_captureModeText.gameObject.activeInHierarchy == true)
         {
             // カウントダウン
-            m_timerCount--;
+            m_timerCount -= Time.deltaTime;
 
-            if (m_timerCount <= 0)
+            if (m_timerCount <= 0.0f)
             {
                 // コスト消費
                 m_costUIScript.CostDawn(1.0f);
@@ -185,6 +195,10 @@ public class CaptureDrum_Script : Drum_Script
                 {
                     m_tutorialCaptureFlag = true;
                 }
+                else if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
+                {
+                    m_tutorialBattleFlag = true;
+                }
 
                 m_timerCount = COUNT_RESET;
 
@@ -193,30 +207,6 @@ public class CaptureDrum_Script : Drum_Script
                 // 非アクティブにする
                 m_captureModeText.gameObject.SetActive(false);
             }
-        }
-
-        // 捕獲ドラムが叩かれたら
-        //if (m_stick.LeftHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true || m_stick.RightHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true)
-        //{
-        //    // カウントアップ
-        //    m_captureCount++;
-
-        //    // 捕獲ドラムを叩いた判定フラグを伏せる
-        //    m_stick.LeftHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
-        //    m_stick.RightHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
-        //    //m_leftStick.CaptureHit = false;
-        //}
-    }
-
-    /// <summary>
-    /// 当たり判定から外れた時
-    /// </summary>
-    /// <param name="col">衝突した相手</param>
-    public void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "Stick")
-        {
-            Debug.Log("nonononononono");
         }
     }
 }

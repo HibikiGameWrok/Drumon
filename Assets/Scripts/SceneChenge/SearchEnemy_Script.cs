@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 public class SearchEnemy_Script : MonoBehaviour
 {
     [SerializeField]
-    private EnemyCreature m_enemyCreature;
+    private EnemyCreature m_enemyCreature = null;
     [SerializeField]
     PlayerPosition_Script m_position = null;
 
@@ -37,7 +37,7 @@ public class SearchEnemy_Script : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            m_enemyCreature.EnemyCreatureData = CreateData_Script.Get.CreateData(this.gameObject.tag);
+            CreateData_Script.Get.CreateData(m_enemyCreature.EnemyCreatureData, this.gameObject.tag);
             m_position.Position = this.transform.position;
 
             // 接触時SEを鳴らす

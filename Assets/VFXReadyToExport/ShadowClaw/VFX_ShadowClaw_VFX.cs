@@ -5,9 +5,9 @@ using UnityEngine;
 public class VFX_ShadowClaw_VFX : MonoBehaviour
 {
     [SerializeField]
-    private Transform ClawHolder0;
+    private Transform ClawHolder0 = null;
 
-    private Renderer[] rend_clawholder0;
+    private Renderer[] rend_clawholder0 = null;
 
     private float timer = 0;
     public float timerMax = 0.5f;
@@ -15,10 +15,10 @@ public class VFX_ShadowClaw_VFX : MonoBehaviour
     public bool DeleteOnFinish = true;
 
     [SerializeField]
-    private GameObject Impact_Prefab;
+    private GameObject Impact_Prefab = null;
 
     [SerializeField]
-    private GameObject ParticleHolder0, ParticleHolder1, ParticleHolder2;
+    private GameObject ParticleHolder0 = null, ParticleHolder1 = null, ParticleHolder2 = null;
 
     // Start is called before the first frame update
     void Start()

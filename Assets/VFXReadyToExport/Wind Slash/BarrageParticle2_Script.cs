@@ -10,10 +10,10 @@ public class BarrageParticle2_Script : MonoBehaviour
 
     public float speed = 10;
 
-    private Renderer theRenderer;
+    private Renderer theRenderer = null;
 
     [SerializeField]
-    private GameObject Impact_Prefab;
+    private GameObject Impact_Prefab = null;
 
     // Start is called before the first frame update
     void Start()

@@ -14,18 +14,18 @@ public class Fireball_Script : MonoBehaviour
     private Vector3 Origin = new Vector3();
 
     [SerializeField]
-    private GameObject Trail_Prefab;
+    private GameObject Trail_Prefab = null;
     public int AmountOfTrails = 3;
 
-    private TrailRenderer[] trails;
+    private TrailRenderer[] trails = null;
 
     [SerializeField]
-    private GameObject Impact_Prefab;
+    private GameObject Impact_Prefab = null;
 
     [SerializeField]
-    private GameObject SphereHolder;
+    private GameObject SphereHolder = null;
     [SerializeField]
-    private Renderer rend_Fire;
+    private Renderer rend_Fire = null;
 
     // Start is called before the first frame update
     void Start()
@@ -117,7 +117,7 @@ public class Fireball_Script : MonoBehaviour
             }
 
 
-            transform.position += -transform.up * Time.deltaTime * m_speed;
+            transform.position += transform.forward * Time.deltaTime * m_speed;
         }
     }
 }

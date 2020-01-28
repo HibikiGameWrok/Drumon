@@ -12,6 +12,8 @@ public enum SfxType
     teleport,
     appearRay,
     faild,
+    fanfare,
+    LvUP,
 
     Garfish,
     Lantern,
@@ -44,6 +46,8 @@ public enum SfxType
     Lick,
     Gust,
 
+    EarthSpike,
+    LeafShower,
     Heal,
 }
 
@@ -53,4 +57,6 @@ public enum BfxType
     bgm_Title,
     bgm_Search,
     bgm_Battle,
+    bgm_Tutorial,
+    bgm_Victory,
 }

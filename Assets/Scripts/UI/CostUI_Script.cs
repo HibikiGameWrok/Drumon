@@ -18,10 +18,10 @@ public class CostUI_Script : MonoBehaviour
 {
     // 最大値
     [SerializeField]
-    private float m_maxValue;
+    private float m_maxValue = 0.0f;
     // 現在値
     [SerializeField]
-    private float m_nowValue;
+    private float m_nowValue = 0.0f;
     public float NowCostValue
     {
         get { return m_nowValue; }
@@ -101,7 +101,7 @@ public class CostUI_Script : MonoBehaviour
     }
 
     // ゲージが最終値に達した時
-    private bool GageEnd()
+    public bool GageEnd()
     {
         // 現在が最低値に達したとき
         if((int)m_sliderCompnent.value <= 0)

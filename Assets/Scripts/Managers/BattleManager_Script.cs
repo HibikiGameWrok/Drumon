@@ -34,6 +34,18 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     public IReadOnlyReactiveProperty<bool> IsFinish => m_isFinish;
 
+    // Boxドラム
+    private BoxDrum_Script m_boxDrum = null;
+    // Playerオブジェクト
+    private GameObject m_playerObject = null;
+
+    // ResultUI
+    [SerializeField]
+    private GameObject[] m_battleResulteUI = null;
+
+    private int[] m_drumonLv = new int[3];
+    private string[] m_drumonName = new string[3];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +57,20 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         this.m_attackSpan = 0.0f;
         this.m_enemyLevel = m_enemyCreature.GetData().level;
         this.SetTarget();
+
+        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+        {
+            m_drumonLv[i] = CreatureList_Script.Get.List.DataList[i].level;
+            m_drumonName[i] = CreatureList_Script.Get.List.DataList[i].drumonName;
+
+        }
+        m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().startDrumonLv = m_drumonLv;
+        m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().startDrumonName = m_drumonName;
+
+        m_boxDrum = GameObject.FindGameObjectWithTag("BoxDrum").GetComponent<BoxDrum_Script>();
+        m_boxDrum.gameObject.SetActive(false);
+
+        m_playerObject = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -61,10 +87,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             if (this.m_enemyCreature.AtkFlag) SetActive(this.m_enemyCreature);
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
-        else if(!m_isFinish.Value)
+        else if ((!m_isFinish.Value))
         {
-            StartCoroutine(ResultDisplay());
+            ResultDisplay();
         }
+
     }
 
     public void SetPlayerCreature(PlayerCreature_Script creature)
@@ -91,12 +118,15 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
     {
         if (this.m_nowMove == creature || this.m_nextMove == creature) return;
 
-        if(this.m_nowMove == null) this.m_nowMove = creature;
+        if (this.m_nowMove == null) this.m_nowMove = creature;
         else this.m_nextMove = creature;
     }
 
     private void Action()
     {
+        if (m_nowMove.GetData().hp.Equals(0))
+            return;
+
         this.m_nowMove.Attack();
         if (m_nextMove != null)
         {
@@ -132,14 +162,74 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         return false;
     }
 
-    private IEnumerator ResultDisplay()
-    {
-        yield return new WaitForSeconds(3.0f);
 
-        if (OVRInput.GetDown(OVRInput.RawButton.A))
+    private void ResultDisplay()
+    {
+        // Playerオブジェクトを非アクティブ化
+        m_playerObject.SetActive(false);
+        // Boxドラムをアクティブ化
+        m_boxDrum.gameObject.SetActive(true);
+
+        // 手持ちがいっぱいの時
+        if (CaptureOver() == true)
         {
-            m_isFinish.SetValueAndForceNotify(true);
-            yield return null;
+            // 入れ替えUIをアクティブ化
+            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
+            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().SetUpUIData(4);
+            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().EnemySetUpUIData();
+        }
+        else
+        {
+            m_boxDrum.noUIFlag = true;
+            m_boxDrum.switchFlag = true;
+        }
+        
+        if(m_boxDrum.switchFlag == true)
+        {
+            // 入れ替えUIを非アクティブ化
+            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
+            // 入れ替えUIを非アクティブ化
+            m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+
+            if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
+            {
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
+                AudioManager_Script.Get.AttachBGMSource.Stop();
+                AudioManager_Script.Get.PlayBGM(BfxType.bgm_Victory);
+
+                if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().noActiveNum < 3)
+                {
+                    // レベルアップUIをアクティブ化
+                    m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                    AudioManager_Script.Get.PlaySE(SfxType.LvUP);
+                }
+                else
+                {
+                    m_boxDrum.centerHitFlag = true;
+                }
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().SetPoint();
+                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
+            }
+
+            if (m_boxDrum.centerHitFlag == true)
+            {
+                CreatureList_Script.Get.OverData = null;
+                m_isFinish.SetValueAndForceNotify(true);
+            }
         }
     }
+
+
+    private bool CaptureOver()
+    {
+        // 4体目が捕獲されたら
+        if (CreatureList_Script.Get.OverData != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
 }
+

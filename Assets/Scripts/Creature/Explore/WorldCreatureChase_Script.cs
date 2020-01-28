@@ -43,8 +43,12 @@ public class WorldCreatureChace_Script : WorldCreatureState_Script
     /// <returns>true=継続する false=状態変更</returns>
     public override StateID Execute()
     {
+        // 対象が非アクティブならIdleにする
+        if (m_controller.ChaseTarget.activeSelf == false)
+            return StateID.STATE_IDLE;
+
         // 追いかけるターゲット座標を更新する
-        m_controller.Agent.destination = m_controller.ChaseTargetPosition.position;
+        m_controller.Agent.destination = m_controller.ChaseTarget.transform.position;
 
         // 継続する
         return StateID.CONTINUE;

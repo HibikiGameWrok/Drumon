@@ -14,13 +14,13 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private CreatureData m_data = null;
 
+    public CreatureData Data
+    {
+        get { return m_data; }
+    }
+
     private Animator m_anim = null;
     private AnimatorStateInfo m_animState;
-
-    public string Name
-    {
-        get { return this.m_data.drumonName; }
-    }
 
     public float WaitTime
     {
@@ -81,13 +81,16 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
         {
-            if (box.DataList[i] != null && box.DataList[i].hp != 0)
+            if (!box.DataList[i].drumonName.Equals("") && box.DataList[i].hp != 0)
             {
                 ChangeData(box.DataList[i]);
                 break;
             }
         }
 
+#if UNITY_EDITOR
+        m_data.hp = m_data.maxHp;
+#endif
 
         m_healProsperityUIScript.MaxPoint = m_data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.hp;
@@ -99,10 +102,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         //this.CountTimer();
         m_healProsperityUIScript.NowPoint = m_data.hp;
-        if (this.m_rate != 0)
-        {
-            this.m_atkFlag = true;
-        }
+        if (this.m_rate != 0) this.m_atkFlag = true;
         this.Dead();
     }
 
@@ -113,10 +113,11 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
-        int damage = (int)(this.m_data.atk * (this.m_rate / 100.0f)) - (this.m_target.GetData().def);
+        int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (this.m_rate / 100.0f)) - this.m_target.GetData().def;
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
+        if (damage <= 0) damage = 1;
         this.m_target.Damage(damage);
         this.m_rate = 0;
         this.m_atkFlag = false;
@@ -127,7 +128,6 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     public void Damage(int damage)
     {
         this.m_data.hp -= damage;
-        GetComponent<ParticleSystem>().Play();
         m_anim.SetTrigger("Damage");
         if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
@@ -139,6 +139,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
         this.m_data.hp += this.m_rate;
         if (this.m_data.hp > this.m_data.maxHp) this.m_data.hp = this.m_data.maxHp;
+        m_rate = 0;
     }
 
     public CreatureData GetData()
@@ -157,6 +158,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             m_healProsperityUIScript.NowPoint = m_data.hp;
             m_levelTextUIScript.NowLevel = m_data.level;
             m_accelerationTimeScript.MaxTimer = m_data.waitTime;
+            this.m_atkFlag = false;
         }
     }
 
@@ -174,9 +176,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             {
                 GameObject.Destroy(this.transform.GetChild(i).gameObject, m_animState.length);
                 if (!this.transform.GetChild(i).gameObject.GetComponent<ScaleController_Script>())
-                {
                     this.transform.GetChild(i).gameObject.AddComponent<ScaleController_Script>().EndTime = m_animState.length;
-                }
             }
         }
         else if (this.transform.childCount == 0)
@@ -184,7 +184,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
             PlayerBox_Script box = CreatureList_Script.Get.List;
             for(int i = 0;i<box.DataList.Length;i++)
             {
-                if(box.DataList[i] != null && box.DataList[i].hp != 0)
+                if(box.DataList[i].drumonName != "" && box.DataList[i].hp != 0)
                 {
                     ChangeData(box.DataList[i]);
                     return;
@@ -220,7 +220,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
         {
-            if (box.DataList[i])
+            if (box.DataList[i].drumonName != "")
             {
                 int too = box.DataList[i].exp -= m_expPoint;
                 CheckLevelUp(too, box.DataList[i]);
@@ -230,9 +230,9 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private void CheckLevelUp(int too, CreatureData data)
     {
-        if (too <= 0 && data.level <= 10)
+        if (too <= 0 && data.level < 10)
         {
-            LevelUp(this.m_upPoint[Random.Range(0, 2)], data);
+            LevelUp(this.m_upPoint[Random.Range(0, 3)], data);
             data.exp = (int)(m_expPoint * m_expRate);
             if (too == 0) return;
             too = data.exp + too;
@@ -247,7 +247,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_levelTextUIScript.NowLevel = m_data.level;
         for (int i = 0; i < num; i++)
         {
-            int rand = Random.Range(0, 2);
+            int rand = Random.Range(0, 3);
             switch (rand)
             {
                 case 0:

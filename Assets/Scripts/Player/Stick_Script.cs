@@ -89,13 +89,22 @@ public abstract class Stick_Script : MonoBehaviour
         set { m_boxDrumHitFlag = value; }
     }
 
+    // タイトルドラムの叩いたフラグ
+    protected bool m_titleDrumHitFlag = false;
+    // タイトルドラムの叩いたフラグのプロパティ
+    public bool TitleDrumHitFlag
+    {
+        get { return m_titleDrumHitFlag; }
+        set { m_titleDrumHitFlag = value; }
+    }
+
     // 初期化
     public abstract void Initialize(StickManager_Script manager);
 
     // 当たり判定を抜けた処理
     void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum" || collision.gameObject.tag == "BoxInDrum" || collision.gameObject.tag == "BoxOutDrum")
+        if (collision.gameObject.tag == "AttackInDrum" || collision.gameObject.tag == "AttackOutDrum" || collision.gameObject.tag == "SwitchInDrum" || collision.gameObject.tag == "SwitchOutDrum" || collision.gameObject.tag == "CaptureDrum" || collision.gameObject.tag == "BoxInDrum" || collision.gameObject.tag == "BoxOutDrum" || collision.gameObject.tag == "TitleInDrum" || collision.gameObject.tag == "TitleOutDrum")
         {
             // カウントダウン
             m_hitNum--;

@@ -19,7 +19,7 @@ public class VFX_Gust_Script : MonoBehaviour
 
     public float TimeToAttack = 0.4f;
     [SerializeField]
-    private GameObject Impact_Prefab;
+    private GameObject Impact_Prefab = null;
 
     // Start is called before the first frame update
     void Start()

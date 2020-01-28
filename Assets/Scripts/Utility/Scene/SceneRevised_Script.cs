@@ -44,12 +44,18 @@ public class SceneRevised_Script : IScene_Script
     {
         // 対象オブジェクトを探す
         FindSearchEnemy();
-        
+
+        IsActivePlayer();
+
         // バトルシーンへ
         if (Input.GetKeyDown(KeyCode.B) || m_isTransitionBattle == true)
         {
             // 非同期処理のSceneロード
             TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+
+            // プレイヤーを非アクティブにしておく
+            if (m_manager.Player.activeSelf == true)
+                m_manager.Player.SetActive(false);
 
             return SceneID.SCENE_BATTLE;
         }
@@ -62,6 +68,15 @@ public class SceneRevised_Script : IScene_Script
             TransitionManager_Script.StartTransition(m_manager.Title.Name);
 
             return SceneID.SCENE_TITLE;
+        }
+
+        if(AriaOver_Script.Get)
+        {
+            if(AriaOver_Script.Get.IsOver)
+            {
+                TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                return SceneID.SCENE_REVISED;
+            }
         }
 
         // 継続する
@@ -80,6 +95,16 @@ public class SceneRevised_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Search);
+        // Findする
+        m_manager.Player = GameObject.Find("LocalAvatar");
+
+        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+        {
+            if (!CreatureList_Script.Get.List.DataList[i].drumonName.Equals(""))
+            {
+                CreatureList_Script.Get.List.DataList[i].hp = CreatureList_Script.Get.List.DataList[i].maxHp;
+            }
+        }
     }
 
 
@@ -99,5 +124,15 @@ public class SceneRevised_Script : IScene_Script
         // IsHitがtrueならtransitionする
         if (m_drumonList.DrumonList.Find(x => x.IsHit == true).IsHit == true)
             m_isTransitionBattle = true; 
+    }
+
+    private void IsActivePlayer()
+    {
+        if (!m_manager.Player)
+            return;
+        if (m_manager.Player.activeSelf == true)
+            return;
+        else
+            m_manager.Player.SetActive(true);
     }
 }

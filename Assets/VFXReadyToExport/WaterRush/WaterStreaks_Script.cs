@@ -8,12 +8,12 @@ public class WaterStreaks_Script : MonoBehaviour
     public float timer = 0.0f;
     public float timerMax = 0.4f;
 
-    private Renderer theRenderer;
+    private Renderer theRenderer = null;
 
     public float speed = 64;
 
     [SerializeField]
-    private GameObject WaterImpact_Prefab;
+    private GameObject WaterImpact_Prefab = null;
 
     // Start is called before the first frame update
     void Start()

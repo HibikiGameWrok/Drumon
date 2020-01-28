@@ -38,7 +38,7 @@ public class SceneBattle_Script : IScene_Script
         // もしOtosを倒したら
         if (BattleManager_Script.Get.EnemyCreature.OtsoFlag.Equals(true))
         {
-            // 非同期処理のSceneアンロード
+            // 非同期処理のSceneロード
             TransitionManager_Script.StartTransition(m_manager.Result.Name);
             return SceneID.SCENE_RESULT;
         }
@@ -46,8 +46,31 @@ public class SceneBattle_Script : IScene_Script
         // バトルが終了したかで判断する
         if (BattleManager_Script.Get.IsFinish.Value.Equals(true))
         {
-            // 非同期処理のSceneアンロード
-            TransitionManager_Script.StartTransition_UnloadScene(this.Name);
+            bool gameOver = true;
+            for(int i = 0;i<CreatureList_Script.Get.List.DataList.Length;i++)
+            {
+                if(CreatureList_Script.Get.List.DataList[i].hp != 0 && CreatureList_Script.Get.List.DataList[i].drumonName != "")
+                {
+                    gameOver = false;
+                    break;
+                }
+            }
+
+            if(gameOver)
+            {
+                // 非同期処理のSceneロード
+                TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+            }
+            else
+            {
+                // 非同期処理のSceneアンロード
+                TransitionManager_Script.StartTransition_UnloadScene(this.Name);
+
+                // プレイヤーをアクティブにしておく
+                if (m_manager.Player.activeSelf == false)
+                    m_manager.Player.SetActive(true);
+            }
+
             return SceneID.SCENE_REVISED;
         }
 

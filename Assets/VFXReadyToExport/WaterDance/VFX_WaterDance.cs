@@ -8,16 +8,16 @@ using UnityEngine;
 public class VFX_WaterDance : MonoBehaviour
 {
     [SerializeField]
-    private Transform CloudContainer;
+    private Transform CloudContainer = null;
     [SerializeField]
-    private Transform TornadoContainer;
+    private Transform TornadoContainer = null;
     [SerializeField]
-    private ParticleSystem RainParticles;
+    private ParticleSystem RainParticles = null;
     [SerializeField]
-    private ParticleSystem HealingParticles;
+    private ParticleSystem HealingParticles = null;
 
-    private Renderer[] rend_Clouds;
-    private Renderer[] rend_Tornadoes;
+    private Renderer[] rend_Clouds = null;
+    private Renderer[] rend_Tornadoes = null;
 
     private float timer = 0;
     public float timerMax = 1.5f;
