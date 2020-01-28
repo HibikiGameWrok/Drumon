@@ -46,6 +46,8 @@ public enum SfxType
     Lick,
     Gust,
 
+    EarthSpike,
+    LeafShower,
     Heal,
 }
 
