@@ -116,7 +116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2420472345033652077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 17.4, z: 27.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2420472346596262093}
@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2420472345503279416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.4511595, y: -0.5687057, z: -42.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.32356, y: 0.32356, z: 0.32356}
   m_Children:
   - {fileID: 2420472345588241719}
@@ -170,8 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3578609d1cc18468f51322309fbd85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerMax: 0.6
-  m_speed: 80
+  timerMax: 2
+  m_speed: 20
   DeleteOnFinish: 1
   Trail_Prefab: {fileID: 4633120482141017426, guid: 2565be121da268e488211a348a22edea,
     type: 3}
@@ -204,7 +204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2420472345588241718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0129060745, y: -1.34, z: -0.08292425}
+  m_LocalPosition: {x: -0.0129060745, y: 16.06, z: 27.41708}
   m_LocalScale: {x: 1.9447902, y: 5.938612, z: 1.9447902}
   m_Children:
   - {fileID: 2420472344952199847}
