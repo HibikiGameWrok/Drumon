@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 2420472345503279417}
   - component: {fileID: 2420472345503279398}
   m_Layer: 0
-  m_Name: Fireball_FireStorm
+  m_Name: FireStorm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,8 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3578609d1cc18468f51322309fbd85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerMax: 0.3
-  m_speed: 160
+  timerMax: 0.6
+  m_speed: 80
   DeleteOnFinish: 1
   Trail_Prefab: {fileID: 4633120482141017426, guid: 2565be121da268e488211a348a22edea,
     type: 3}
