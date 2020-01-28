@@ -117,7 +117,7 @@ public class Fireball_Script : MonoBehaviour
             }
 
 
-            transform.position += -transform.up * Time.deltaTime * m_speed;
+            transform.position += transform.forward * Time.deltaTime * m_speed;
         }
     }
 }
