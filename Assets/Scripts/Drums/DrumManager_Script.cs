@@ -34,6 +34,9 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     [SerializeField]
     private Drum_Script m_currentDrum;
 
+    [SerializeField]
+    private CostUI_Script m_costUIScript;
+
     // HPUI
     private GameObject m_healProsperityUI;
     private HealProsperityUI_Script m_healProsperityUIScript;
@@ -118,10 +121,16 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 {
                     if (XRDevice.isPresent)
                     {
-                        // 継続する
-
-                        // ノーツの生成処理
-                        m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                        if (m_costUIScript.GageEnd() != true)
+                        {
+                            // ノーツの生成処理
+                            m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                        }
+                        else
+                        {
+                            // コスト回復を早める処理
+                            m_attackDrum.GetComponent<AttackDrum_Script>().CostUpHit();
+                        }
                     }
                 }
                 else
