@@ -54,7 +54,8 @@ public class EndingEvent_Script : MonoBehaviour
 
             Text stafftext = obj.transform.GetChild(0).GetComponent<Text>();
             stafftext.text = m_csvDatas[i][1];
-            if(m_csvDatas[i][2] == "1")
+            stafftext.fontSize = int.Parse(m_csvDatas[i][3]);
+            if (m_csvDatas[i][2] == "1")
             {
                 stafftext.color = new Color(0.2f,0.4f,0.2f,1); 
             }
