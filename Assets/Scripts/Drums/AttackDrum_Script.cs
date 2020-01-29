@@ -66,6 +66,8 @@ public class AttackDrum_Script : Drum_Script
     private bool m_changeMaterialFlag = false;
     private int m_changeMaterialCount = 0;
 
+    private int m_hitNum = 0;
+
     /// <summary>
     /// デフォルト関数
     /// </summary>
@@ -327,32 +329,31 @@ public class AttackDrum_Script : Drum_Script
 
     public void CostUpHit()
     {
-        int hitNum = 0;
         if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
         {
-            hitNum++;
+            m_hitNum++;
             InHit();
         }
         if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
         {
-            hitNum++;
+            m_hitNum++;
             OutHit();
         }
         if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
         {
-            hitNum++;
+            m_hitNum++;
             InHit();
         }
         if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
         {
-            hitNum++;
+            m_hitNum++;
             OutHit();
         }
 
-        if(hitNum > 10)
+        if(m_hitNum > 10)
         {
             m_costUIScript.waitSpeedUp = 5;
-            hitNum = 0;
+            m_hitNum = 0;
         }
 
         // 内側を叩いた判定フラグを伏せる
