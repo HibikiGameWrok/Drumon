@@ -134,6 +134,11 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Heal()
     {
+        if (this.m_data.hp <= 0)
+        {
+            m_rate = 0;
+            return;
+        }
         // 回復SEを再生する
         AudioManager_Script.Get.PlaySE(SfxType.Heal);
 

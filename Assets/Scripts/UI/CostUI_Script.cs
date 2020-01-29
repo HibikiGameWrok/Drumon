@@ -91,7 +91,7 @@ public class CostUI_Script : MonoBehaviour
     {
         if (m_nowValue < m_sliderCompnent.maxValue)
         {
-            m_nowValue += Time.deltaTime / m_maxValue * (waitTime - m_waitSpeedUp);
+            m_nowValue += (Time.deltaTime / m_maxValue * waitTime) + m_waitSpeedUp;
             m_waitSpeedUp = 0;
         }
     }

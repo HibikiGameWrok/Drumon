@@ -352,7 +352,7 @@ public class AttackDrum_Script : Drum_Script
 
         if(m_hitNum > 10)
         {
-            m_costUIScript.waitSpeedUp = 5;
+            m_costUIScript.waitSpeedUp = 1.0f;
             m_hitNum = 0;
         }
 

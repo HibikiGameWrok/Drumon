@@ -40,11 +40,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     public IReadOnlyReactiveProperty<bool> IsAllFinish => m_isAllFinish;
 
-    // タイムオブジェクトを保持
-    //private GameObject m_timer = null;
-    // タイムScriptを取得
-    //private AccelerationTime_Script m_timeStandard_Script = null;
-
     // チュートリアルを表示中かどうかのフラグ
     private bool m_tutorialModeFlag = true;
     // 実践中かどうかのフラグ
@@ -180,9 +175,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         this.m_attackSpan = 0.0f;
         this.SetTarget();
 
-        //m_timer = GameObject.Find("Timer");
-        //m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
-
         if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
         {
             m_tutorialCanvas = GameObject.Find("TutorialCanvas");
@@ -301,11 +293,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
 
-        //if (m_tutorialModeFlag == true && m_drumManager.CaptureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == false)
-        //{
-        //    m_timeStandard_Script.StopFlag = true;
-        //}
-
         if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
         {
             if (m_tutorialModeFlag == false)
@@ -316,8 +303,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 {
                     childTransform.gameObject.SetActive(false);
                 }
-                //m_text.transform.GetChild(0).gameObject.SetActive(false);
-                //m_text.transform.GetChild(1).gameObject.SetActive(false);
             }
 
             // ボタンが押されたら
@@ -344,15 +329,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             else if (m_curentNum == 16)
             {
                 m_practiceModeFlag = true;
-                //m_timeStandard_Script.StopFlag = false;
+                StartCoroutine(TextStop());
             }
-
-            //if (m_practiceCaptureText.activeInHierarchy == true)
-            //{
-            //    m_practiceModeFlag = true;
-            //    //m_timeStandard_Script.StopFlag = false;
-            //    m_drumManager.CaptureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag = true;
-            //}
 
             // 叩けたらチェックを出す
             if (m_explainBattleSystemText2.activeInHierarchy == true)
@@ -395,14 +373,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 // 敵が攻撃を受けたら
                 if (m_enemyCreature.HP < m_enemyCreature.GetData().maxHp)
                 {
-                    //if (m_timeStandard_Script.StopFlag == false)
-                    //{
-                    //    m_timeStandard_Script.StopFlag = true;
-
-                    //    // 次のテキストの表示
-                    //    NextText();
-                    //}
-
                     // 次のテキストの表示
                     //NextText();
                     m_tutorialModeFlag = false;
@@ -415,8 +385,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (m_enemyCreature.HP <= 0)
             {
                 // 次のテキストの表示
-                //NextText();
-                m_tutorialModeFlag = false;
+                NextText();
+                //m_tutorialModeFlag = false;
 
                 StartCoroutine(SceneChengeStop());
             }
@@ -452,8 +422,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 {
                     childTransform.gameObject.SetActive(false);
                 }
-                //m_text.transform.GetChild(0).gameObject.SetActive(false);
-                //m_text.transform.GetChild(1).gameObject.SetActive(false);
             }
 
             // ボタンが押されたら
@@ -585,7 +553,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     private IEnumerator SceneChengeStop()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         m_fadePanel.IsFadeOut = true;
         yield return new WaitForSeconds(1.0f);
 
@@ -597,6 +565,15 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         {
             m_isAllFinish.SetValueAndForceNotify(true);
         }
+
+        yield return null;
+    }
+
+    private IEnumerator TextStop()
+    {
+        yield return new WaitForSeconds(4.0f);
+
+        m_text.gameObject.SetActive(false);
 
         yield return null;
     }
