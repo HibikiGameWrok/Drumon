@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5545594960676881855}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5545594961416575410}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 5545594961416575410}
   - component: {fileID: 5545594961416575411}
   m_Layer: 0
-  m_Name: LickStreaksHolder
+  m_Name: Lick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5545594961416575408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.10409452, y: 0.14910439, z: -6.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5545594960676881851}
@@ -160,7 +160,7 @@ PrefabInstance:
     - target: {fileID: 5945810414271614024, guid: 5b6abeae4b1cea8478d1ed362c29a953,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.73
       objectReference: {fileID: 0}
     - target: {fileID: 5945810414271614024, guid: 5b6abeae4b1cea8478d1ed362c29a953,
         type: 3}
@@ -371,6 +371,11 @@ PrefabInstance:
         type: 3}
       propertyPath: VelocityModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945810414673137599, guid: 5b6abeae4b1cea8478d1ed362c29a953,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5945810414474720296, guid: 5b6abeae4b1cea8478d1ed362c29a953,
         type: 3}

@@ -128,6 +128,8 @@ public class SceneRevised_Script : IScene_Script
 
     private void IsActivePlayer()
     {
+        if (!m_manager.Player)
+            return;
         if (m_manager.Player.activeSelf == true)
             return;
         else

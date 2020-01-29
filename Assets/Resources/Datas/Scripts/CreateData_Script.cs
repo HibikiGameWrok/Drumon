@@ -26,6 +26,8 @@ public class CreateData_Script : SingletonBase_Script<CreateData_Script>
                 int lostPoint = (data.hp + data.atk + data.def) - m_paramList.Sheet1[i].basePoint;
                 data.hp -= lostPoint;
 
+                if (data.drumonName.Equals("Otso")) data.level = 10;
+
                 break;
             }
         }
