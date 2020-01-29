@@ -46,6 +46,14 @@ public class CostUI_Script : MonoBehaviour
         get { return m_waitTime; }
     }
 
+    // クールタイム
+    private float m_waitSpeedUp = 0.0f;
+    public float waitSpeedUp
+    {
+        set { m_waitSpeedUp = value; }
+        get { return m_waitSpeedUp; }
+    }
+
     // 子にアタッチしているSliderを保持する変数
     private Slider m_sliderCompnent = null;
 
@@ -83,7 +91,8 @@ public class CostUI_Script : MonoBehaviour
     {
         if (m_nowValue < m_sliderCompnent.maxValue)
         {
-            m_nowValue += Time.deltaTime / m_maxValue * waitTime;
+            m_nowValue += Time.deltaTime / m_maxValue * (waitTime - m_waitSpeedUp);
+            m_waitSpeedUp = 0;
         }
     }
 
