@@ -166,6 +166,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     private Mesh m_mesh = null;
 
+    // フェードUI
+    private PanelUI_Fade_Script m_fadePanel = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -263,6 +266,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
 
         m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();
+        m_fadePanel = GameObject.Find("FadePanel").GetComponent<PanelUI_Fade_Script>();
+
+        m_fadePanel.IsFadeIn = true;
     }
 
     // Update is called once per frame
@@ -306,6 +312,12 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 // 文字を小さくする
                 m_text.fontSize -= 10;
+                foreach (Transform childTransform in m_text.transform)
+                {
+                    childTransform.gameObject.SetActive(false);
+                }
+                //m_text.transform.GetChild(0).gameObject.SetActive(false);
+                //m_text.transform.GetChild(1).gameObject.SetActive(false);
             }
 
             // ボタンが押されたら
@@ -392,7 +404,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                     //}
 
                     // 次のテキストの表示
-                    NextText();
+                    //NextText();
+                    m_tutorialModeFlag = false;
 
                     // 敵が攻撃するようになる
                     m_enemyExecuteFlag = true;
@@ -402,7 +415,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (m_enemyCreature.HP <= 0)
             {
                 // 次のテキストの表示
-                NextText();
+                //NextText();
+                m_tutorialModeFlag = false;
 
                 StartCoroutine(SceneChengeStop());
             }
@@ -434,6 +448,12 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 // 文字を小さくする
                 m_text.fontSize -= 10;
+                foreach (Transform childTransform in m_text.transform)
+                {
+                    childTransform.gameObject.SetActive(false);
+                }
+                //m_text.transform.GetChild(0).gameObject.SetActive(false);
+                //m_text.transform.GetChild(1).gameObject.SetActive(false);
             }
 
             // ボタンが押されたら
@@ -461,7 +481,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 if (CreatureList_Script.Get.List.DataList[0].drumonName != "")
                 {
                     // 次のテキストの表示
-                    NextText();
+                    //NextText();
+                    m_tutorialModeFlag = false;
                 }
             }
             else if (m_curentNum == 7)
@@ -564,7 +585,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     private IEnumerator SceneChengeStop()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
+        m_fadePanel.IsFadeOut = true;
+        yield return new WaitForSeconds(1.0f);
+
         if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
             m_isFinish.SetValueAndForceNotify(true);
