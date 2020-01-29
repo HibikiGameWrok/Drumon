@@ -53,11 +53,15 @@ public class AttackDrum_Script : Drum_Script
         get { return m_tutorialFlag; }
     }
 
+
     // マテリアル
     [SerializeField]
     private Material[] m_drumMaterials = null;
     private Renderer m_inDrumRender = null;
     private Renderer m_outDrumRender = null;
+
+    [SerializeField]
+    private CostUI_Script m_costUIScript = null;
 
     private bool m_changeMaterialFlag = false;
     private int m_changeMaterialCount = 0;
@@ -318,5 +322,49 @@ public class AttackDrum_Script : Drum_Script
             m_leftStick.HitDrumFlag.OffFlag(((uint)Stick_Script.HIT_DRUM.ATTACK));
             m_rightStick.HitDrumFlag.OffFlag(((uint)Stick_Script.HIT_DRUM.ATTACK));
         }
+    }
+
+
+    public void CostUpHit()
+    {
+        int hitNum = 0;
+        if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
+        {
+            hitNum++;
+            InHit();
+        }
+        if (m_leftStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
+        {
+            hitNum++;
+            OutHit();
+        }
+        if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT) == true)
+        {
+            hitNum++;
+            InHit();
+        }
+        if (m_rightStick.HitPatternFlag.IsFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT) == true)
+        {
+            hitNum++;
+            OutHit();
+        }
+
+        if(hitNum > 10)
+        {
+            m_costUIScript.waitSpeedUp = 5;
+            hitNum = 0;
+        }
+
+        // 内側を叩いた判定フラグを伏せる
+        m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
+        // 外側を叩いた判定フラグを伏せる
+        m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
+        // 内側を叩いた判定フラグを伏せる
+        m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
+        // 外側を叩いた判定フラグを伏せる
+        m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
+
+        m_leftStick.HitDrumFlag.OffFlag(((uint)Stick_Script.HIT_DRUM.ATTACK));
+        m_rightStick.HitDrumFlag.OffFlag(((uint)Stick_Script.HIT_DRUM.ATTACK));
     }
 }
