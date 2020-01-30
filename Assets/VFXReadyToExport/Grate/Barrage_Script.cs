@@ -15,6 +15,8 @@ public class Barrage_Script : MonoBehaviour
     public int particleAmount = 50;
     [SerializeField]
     private GameObject particleObject = null;
+    [SerializeField]
+    private Transform barrage = null;
 
     public float range = 1;
 
@@ -60,7 +62,7 @@ public class Barrage_Script : MonoBehaviour
 
                 GameObject particle = Instantiate(particleObject);
                 particle.transform.SetParent(transform);
-                particle.transform.localPosition = new Vector3(Random.Range(-(float)range, (float)range), 0, Random.Range(-(float)range, (float)range));
+                particle.transform.localPosition = barrage.localPosition + new Vector3(Random.Range(-(float)range, (float)range), 0, Random.Range(-(float)range, (float)range));
                 particle.transform.rotation = new Quaternion();
                 particle.transform.SetParent(null);
 
