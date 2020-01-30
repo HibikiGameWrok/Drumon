@@ -57,15 +57,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6167712714543012475}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5248230234e02524ca7ae23ec011a4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerMax: 0.2
+  timerMax: 0.5
   timer: 0
   speed: 1
-  DestroyOnTimeout: 1
+  DestroyOnTimeout: 0
 --- !u!114 &2402299184341381873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,15 +73,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6167712715452502665}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5248230234e02524ca7ae23ec011a4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerMax: 0.2
+  timerMax: 0.5
   timer: 0
   speed: 1
-  DestroyOnTimeout: 1
+  DestroyOnTimeout: 0
 --- !u!114 &7520374528925512988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,15 +89,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7520374528925512989}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5248230234e02524ca7ae23ec011a4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerMax: 0.2
+  timerMax: 0.5
   timer: 0
   speed: 1
-  DestroyOnTimeout: 1
+  DestroyOnTimeout: 0
 --- !u!1001 &2059003345256060259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ PrefabInstance:
     - target: {fileID: 4797997923650687597, guid: bb26f020a902ccb42b956c7e0b9d8805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.62
+      value: 2.4900002
       objectReference: {fileID: 0}
     - target: {fileID: 4797997923650687597, guid: bb26f020a902ccb42b956c7e0b9d8805,
         type: 3}
@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 4797997923650687597, guid: bb26f020a902ccb42b956c7e0b9d8805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.62
+      value: 2.4900002
       objectReference: {fileID: 0}
     - target: {fileID: 4797997923650687597, guid: bb26f020a902ccb42b956c7e0b9d8805,
         type: 3}
@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 4797997923650687597, guid: bb26f020a902ccb42b956c7e0b9d8805,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.62
+      value: 2.49
       objectReference: {fileID: 0}
     - target: {fileID: 4797997923650687597, guid: bb26f020a902ccb42b956c7e0b9d8805,
         type: 3}
