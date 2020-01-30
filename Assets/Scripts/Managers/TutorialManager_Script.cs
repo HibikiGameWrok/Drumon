@@ -51,44 +51,48 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     // バトルシーン用
     // チュートリアルキャンバス
-    private GameObject m_tutorialCanvas;
+    private GameObject m_tutorialCanvas = null;
     // テキストの配列
-    private GameObject[] m_textArray;
+    private GameObject[] m_textArray = null;
     // バトルシーケンステキスト
-    private GameObject m_explainBattleSequenceText;
+    private GameObject m_explainBattleSequenceText = null;
     // ドラモン説明テキスト
     //private GameObject m_explainDrumonText;
     // HP説明テキスト
-    private GameObject m_explainHPText;
+    private GameObject m_explainHPText = null;
     // 攻撃ドラム説明テキスト
-    private GameObject m_explainAttackDrumText;
+    private GameObject m_explainAttackDrumText = null;
     // 右矢印テキスト
-    private GameObject m_rightArrowText;
+    private GameObject m_rightArrowText = null;
     // バトルシステム説明テキスト
-    private GameObject m_explainBattleSystemText;
+    private GameObject m_explainBattleSystemText = null;
     // バトルシステム説明テキスト2
-    private GameObject m_explainBattleSystemText2;
+    private GameObject m_explainBattleSystemText2 = null;
     // 内側を叩いた時のチェック
-    private GameObject m_inHitCheckImage;
+    private GameObject m_inHitCheckImage = null;
     // 外側を叩いた時のチェック
-    private GameObject m_outHitCheckImage;
+    private GameObject m_outHitCheckImage = null;
     // 内側を同時に叩いた時のチェック
-    private GameObject m_doubleInHitCheckImage;
+    private GameObject m_doubleInHitCheckImage = null;
     // 外側を同時に叩いた時のチェック
-    private GameObject m_doubleOutHitCheckImage;
+    private GameObject m_doubleOutHitCheckImage = null;
     // 攻撃成功テキスト
-    private GameObject m_succesAttackText;
+    private GameObject m_succesAttackText = null;
     // 右矢印テキスト3
     //private GameObject m_rightArrowText3;
+    // 敵撃破テキスト
+    private GameObject m_enemyKillText = null;
     // チュートリアルの終了テキスト
-    private GameObject m_tutorialEndText;
+    private GameObject m_tutorialEndText = null;
+    // チュートリアルの終了テキスト2
+    private GameObject m_tutorialEndText2 = null;
 
     // チュートリアルスイッチキャンバス
-    private GameObject m_tutorialSwitchCanvas;
+    private GameObject m_tutorialSwitchCanvas = null;
     // 選択ドラム説明テキスト
-    private GameObject m_explainSwitchDrumText;
+    private GameObject m_explainSwitchDrumText = null;
     // 左矢印テキスト
-    private GameObject m_leftArrowText;
+    private GameObject m_leftArrowText = null;
     // スイッチの実践テキスト
     //private GameObject m_practiceChangeText;
     // 変更成功テキスト
@@ -97,57 +101,57 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     //private GameObject m_leftArrowText2;
 
     // チュートリアルキャプチャーキャンバス
-    private GameObject m_tutorialCaptureCanvas;
+    private GameObject m_tutorialCaptureCanvas = null;
     // 捕獲ドラム説明テキスト
-    private GameObject m_explainCaptureDrumText;
+    private GameObject m_explainCaptureDrumText = null;
     // 右矢印テキスト
-    private GameObject m_rightArrowText2;
+    private GameObject m_rightArrowText2 = null;
     // キャプチャーの実践テキスト
     //private GameObject m_practiceCaptureText;
 
     // チュートリアル技リストのキャンバス
-    private GameObject m_tutorialAbilityCanvas;
+    private GameObject m_tutorialAbilityCanvas = null;
     // 技リストの説明テキスト
-    private GameObject m_explainAbilityText;
+    private GameObject m_explainAbilityText = null;
     // 技リストの説明テキスト2
-    private GameObject m_explainAbilityText2;
+    private GameObject m_explainAbilityText2 = null;
     // 技リストの説明テキスト3
-    private GameObject m_explainAbilityText3;
+    private GameObject m_explainAbilityText3 = null;
     // 技リストの説明テキスト4
-    private GameObject m_explainAbilityText4;
+    private GameObject m_explainAbilityText4 = null;
 
     // チュートリアルミュージックスコアキャンバス
-    private GameObject m_tutorialMusicScoreCanvas;
+    private GameObject m_tutorialMusicScoreCanvas = null;
     // タイマーの説明テキスト
-    private GameObject m_explainTimerText;
+    private GameObject m_explainTimerText = null;
     // ノーツリセットの説明テキスト
-    private GameObject m_explainNotesResetText;
+    private GameObject m_explainNotesResetText = null;
 
     // キャプチャーシーン用
     // チュートリアル説明キャンバス
-    private GameObject m_tutorialExplainCanvas;
+    private GameObject m_tutorialExplainCanvas = null;
     // 説明テキスト1
-    private GameObject m_explainText1;
+    private GameObject m_explainText1 = null;
     // 説明テキスト2
-    private GameObject m_explainText2;
+    private GameObject m_explainText2 = null;
     // 説明テキスト3
-    private GameObject m_explainText3;
+    private GameObject m_explainText3 = null;
     // 左矢印テキスト3
-    private GameObject m_leftArrowText3;
+    private GameObject m_leftArrowText3 = null;
     // 説明テキスト4
-    private GameObject m_explainText4;
+    private GameObject m_explainText4 = null;
 
     // チュートリアルキャプチャーキャンバス2
-    private GameObject m_tutorialCaptureCanvas2;
+    private GameObject m_tutorialCaptureCanvas2 = null;
     // キャプチャーの説明テキスト1
-    private GameObject m_explainCaptureText1;
+    private GameObject m_explainCaptureText1 = null;
     // キャプチャーの説明テキスト2
-    private GameObject m_explainCaptureText2;
+    private GameObject m_explainCaptureText2 = null;
     // キャプチャーの実践テキスト
-    private GameObject m_practiceCaptureText;
+    private GameObject m_practiceCaptureText = null;
 
     // 現在のテキスト
-    private Text m_text;
+    private Text m_text = null;
     // 現在の説明テキスト数
     private int m_curentNum = 0;
 
@@ -189,7 +193,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_explainBattleSystemText2 = m_tutorialCanvas.transform.Find("ExplainBattleSystemText2").gameObject;
             m_succesAttackText = m_tutorialCanvas.transform.Find("SuccesAttackText").gameObject;
             //m_rightArrowText3 = m_tutorialCanvas.transform.Find("RightArrowText3").gameObject;
+            m_enemyKillText = m_tutorialCanvas.transform.Find("EnemyKillText").gameObject;
             m_tutorialEndText = m_tutorialCanvas.transform.Find("TutorialEndText").gameObject;
+            m_tutorialEndText2 = m_tutorialCanvas.transform.Find("TutorialEndText2").gameObject;
 
             m_inHitCheckImage = m_explainBattleSystemText2.transform.Find("InHitCheckImage").gameObject;
             m_outHitCheckImage = m_explainBattleSystemText2.transform.Find("OutHitCheckImage").gameObject;
@@ -218,7 +224,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_explainTimerText = m_tutorialMusicScoreCanvas.transform.Find("ExplainTimerText").gameObject;
             m_explainNotesResetText = m_tutorialMusicScoreCanvas.transform.Find("ExplainNotesResetText").gameObject;
 
-            m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2, m_explainAbilityText, m_explainAbilityText2, m_explainAbilityText3, m_explainAbilityText4, m_explainTimerText, m_explainNotesResetText, m_succesAttackText, m_tutorialEndText };
+            m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2, m_explainAbilityText, m_explainAbilityText2, m_explainAbilityText3, m_explainAbilityText4, m_explainTimerText, m_explainNotesResetText, m_succesAttackText, m_enemyKillText, m_tutorialEndText, m_tutorialEndText2 };
 
             m_text = m_textArray[0].GetComponent<Text>();
         }
@@ -334,11 +340,40 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
                 m_frameCount++;
 
-                if (m_frameCount >= 4.0f)
+                if (m_frameCount >= 240.0f)
                 {
                     m_text.gameObject.SetActive(false);
                     m_frameCount = 0.0f;
                 }
+            }
+            else if (m_curentNum == 17)
+            {
+                m_practiceModeFlag = true;
+
+                m_frameCount++;
+
+                if (m_frameCount >= 300.0f)
+                {
+                    m_tutorialModeFlag = false;
+                    m_frameCount = 0.0f;
+                }
+            }
+            else if (m_curentNum == 18)
+            {
+                m_practiceModeFlag = true;
+
+                m_frameCount++;
+
+                if (m_frameCount >= 360.0f)
+                {
+                    m_tutorialModeFlag = false;
+                    m_frameCount = 0.0f;
+                }
+            }
+            else if (m_curentNum == 19)
+            {
+                m_practiceModeFlag = true;
+                StartCoroutine(SceneChengeStop());
             }
 
             // 叩けたらチェックを出す
@@ -391,13 +426,11 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 }
             }
 
-            if (m_enemyCreature.HP <= 0)
+            if (m_enemyCreature.HP <= 0 && m_curentNum == 16)
             {
                 // 次のテキストの表示
                 NextText();
                 //m_tutorialModeFlag = false;
-
-                StartCoroutine(SceneChengeStop());
             }
 
             //if (m_practiceChangeText.activeInHierarchy == true)
@@ -577,18 +610,4 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
         yield return null;
     }
-
-    //private IEnumerator TextStop()
-    //{
-    //    if (m_curentNum != 16)
-    //    {
-    //        yield break;
-    //    }
-
-    //    yield return new WaitForSeconds(4.0f);
-
-    //    m_text.gameObject.SetActive(false);
-
-    //    yield break;
-    //}
 }
