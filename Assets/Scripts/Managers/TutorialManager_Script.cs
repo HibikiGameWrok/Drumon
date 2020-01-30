@@ -164,6 +164,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     // フェードUI
     private PanelUI_Fade_Script m_fadePanel = null;
 
+    private float m_frameCount = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -326,10 +328,17 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 m_practiceModeFlag = true;
             }
-            else if (m_curentNum == 16)
+            else if (m_curentNum == 16 && m_text.gameObject.activeInHierarchy == true)
             {
                 m_practiceModeFlag = true;
-                StartCoroutine(TextStop());
+
+                m_frameCount++;
+
+                if (m_frameCount >= 4.0f)
+                {
+                    m_text.gameObject.SetActive(false);
+                    m_frameCount = 0.0f;
+                }
             }
 
             // 叩けたらチェックを出す
@@ -569,17 +578,17 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         yield return null;
     }
 
-    private IEnumerator TextStop()
-    {
-        if (m_curentNum != 16)
-        {
-            yield break;
-        }
+    //private IEnumerator TextStop()
+    //{
+    //    if (m_curentNum != 16)
+    //    {
+    //        yield break;
+    //    }
 
-        yield return new WaitForSeconds(4.0f);
+    //    yield return new WaitForSeconds(4.0f);
 
-        m_text.gameObject.SetActive(false);
+    //    m_text.gameObject.SetActive(false);
 
-        yield break;
-    }
+    //    yield break;
+    //}
 }
