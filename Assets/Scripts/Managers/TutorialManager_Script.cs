@@ -571,10 +571,15 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     private IEnumerator TextStop()
     {
+        if (m_curentNum != 16)
+        {
+            yield break;
+        }
+
         yield return new WaitForSeconds(4.0f);
 
         m_text.gameObject.SetActive(false);
 
-        yield return null;
+        yield break;
     }
 }

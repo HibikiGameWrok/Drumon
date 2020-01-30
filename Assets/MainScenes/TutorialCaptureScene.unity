@@ -627,8 +627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d90510c250cb048b8d2e50e874008d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_battleManager: {fileID: 0}
-  m_nextScene: Revised
 --- !u!114 &340910828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4324,6 +4322,21 @@ PrefabInstance:
       propertyPath: m_drumMaterials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 7eac397c189eac446a7e9ac502987eb5, type: 2}
+    - target: {fileID: 7216641881341156674, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_costUIScript
+      value: 
+      objectReference: {fileID: 1945414914}
+    - target: {fileID: 3345033506130640869, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_costUIScript
+      value: 
+      objectReference: {fileID: 1945414914}
+    - target: {fileID: 1497835434946029675, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e39871232f5392448b46576daeeb6cef, type: 3}
 --- !u!4 &8459804644586553782 stripped

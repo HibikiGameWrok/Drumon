@@ -1230,6 +1230,26 @@ PrefabInstance:
       propertyPath: m_costUIScript
       value: 
       objectReference: {fileID: 1278922959}
+    - target: {fileID: 9075690470821489937, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 10f88c288815bf14ab5f53ec83db9ce4, type: 2}
+    - target: {fileID: 7853702428308446535, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 642481a4ee90dda44a9bfc56b512024e, type: 2}
+    - target: {fileID: 7576187745341230010, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497835434946029675, guid: e39871232f5392448b46576daeeb6cef,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e39871232f5392448b46576daeeb6cef, type: 3}
 --- !u!1 &216017003
