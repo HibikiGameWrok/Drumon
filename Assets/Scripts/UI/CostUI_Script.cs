@@ -101,6 +101,7 @@ public class CostUI_Script : MonoBehaviour
 
         if (GageEnd() == true)
         {
+            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中");
             GageRecovery(m_waitTime);
         }
     }
@@ -110,7 +111,6 @@ public class CostUI_Script : MonoBehaviour
     {
         if (m_nowValue < m_sliderCompnent.maxValue)
         {
-            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中");
             m_nowValue += (Time.deltaTime / m_maxValue * waitTime) + m_waitSpeedUp;
             m_waitSpeedUp = 0;
         }
