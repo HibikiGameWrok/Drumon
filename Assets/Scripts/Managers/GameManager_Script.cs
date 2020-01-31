@@ -62,9 +62,9 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
             if (result)
             {
                 UnityEditor.EditorApplication.isPlaying = false;
- #endif
             }
         }
+ #endif
 
         // Audio関連のインスタンスを生成する
         AudioInstance();
