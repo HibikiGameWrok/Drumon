@@ -173,7 +173,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // キャプチャーの時にコストが0になったら
         if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag)
         {
-            if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
+            if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0 && m_playerCreature.Data.hp > 0)
             {
                 if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == true)
                 {
