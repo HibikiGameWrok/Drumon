@@ -57,14 +57,18 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
 #if UNITY_EDITOR
         if (!XRDevice.isPresent)
         {
-            bool result = UnityEditor.EditorUtility.DisplayDialog("警告", "VR機器が接続されていません","OK");
+            bool result = UnityEditor.EditorUtility.DisplayDialog("警告", "VR機器が接続されていません","OK", "Ignore");
 
             if (result)
             {
                 UnityEditor.EditorApplication.isPlaying = false;
- #endif
+            }
+            else
+            {
+                // 続行する
             }
         }
+ #endif
 
         // Audio関連のインスタンスを生成する
         AudioInstance();

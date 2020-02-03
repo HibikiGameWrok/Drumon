@@ -115,7 +115,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             bool result = m_currentDrum.Execute();
 
             // 攻撃用のドラムの処理
-            if(m_currentDrum == m_attackDrum)
+            if(m_currentDrum == m_attackDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
                 if(result == true)
                 {
@@ -139,7 +139,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 }
             }
             // 選択用のドラムの処理
-            else if (m_currentDrum == m_switchDrum)
+            else if (m_currentDrum == m_switchDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
                 if (result == true)
                 {
@@ -173,7 +173,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // キャプチャーの時にコストが0になったら
         if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag)
         {
-            if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
+            if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0 && m_playerCreature.Data.hp > 0)
             {
                 if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == true)
                 {

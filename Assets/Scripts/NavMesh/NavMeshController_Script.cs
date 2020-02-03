@@ -37,9 +37,6 @@ public class NavMeshController_Script : MonoBehaviour
     // エージェント
     private NavMeshAgent m_navAgent = null;
 
-    // オーディオマネージャー
-    AudioManager_Script m_audio;
-
     private int m_targetIndex = 0;
     // 目的地に到着したかどうか
     private bool m_isArrived = false;
@@ -147,8 +144,6 @@ public class NavMeshController_Script : MonoBehaviour
         m_patrolPos = GetComponent<SetPatrolPosition_Script>();
         m_animator = GetComponent<Animator>();
         m_chaseCharater = GetComponentInChildren<ChaseCharacter_Script>();
-        // オーディオマネージャーを取得する
-        m_audio = AudioManager_Script.Get;
 
         // 初期化
         ResetElapsedTime();

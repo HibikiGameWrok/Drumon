@@ -49,17 +49,31 @@ public class UI_Fade_Script : Fade_SetAlpha
         get { return m_fadeRunningFlag; }
     }
 
+    [SerializeField]
+    protected bool m_startFadeOutFlag = false;
+    [SerializeField]
+    protected bool m_startFadeInFlag = false;
+
     // Update is called once per frame
-    protected virtual void Update()
+    protected void Update()
     {
         // フェードアウトフラグによって処理
         if (m_isFadeOut == true)
         {
             StartFadeOut();
         }
-
         // フェードインフラグによって処理
         if (m_isFadeIn == true)
+        {
+            StartFadeIn();
+        }
+
+        if(m_startFadeOutFlag)
+        {
+            StartFadeOut();
+        }
+
+        if (m_startFadeInFlag)
         {
             StartFadeIn();
         }

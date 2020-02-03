@@ -21,6 +21,8 @@ public class StatusMenuUI_Script : MonoBehaviour
     [SerializeField]
     private bool m_MenuFlag = false;
 
+    public bool IsMenu => m_MenuFlag;
+
     void Awake()
     {
         if (m_creatureList != null)
@@ -48,6 +50,16 @@ public class StatusMenuUI_Script : MonoBehaviour
         {
             if (OVRInput.GetDown(OVRInput.RawButton.B))
             {
+                if (m_MenuFlag == true)
+                {
+                    m_MenuFlag = false;
+                    AudioManager_Script.Get.PlaySE(SfxType.close);
+                }
+                else
+                {
+                    m_MenuFlag = true;
+                    AudioManager_Script.Get.PlaySE(SfxType.open);
+                }
                 // 子のUIを非表示
                 foreach (Transform child in this.transform)
                 {

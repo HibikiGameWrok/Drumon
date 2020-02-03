@@ -22,6 +22,13 @@ public class CostUI_Script : MonoBehaviour
     // 現在値
     [SerializeField]
     private float m_nowValue = 0.0f;
+
+    [SerializeField]
+    private AttackRecipeManeger_Script m_attackRecipeManegerScrit = null;
+
+    [SerializeField]
+    private AttackAbilityNameUI_Script m_attackAbilityNameUIScrit = null;
+
     public float NowCostValue
     {
         get { return m_nowValue; }
@@ -80,8 +87,21 @@ public class CostUI_Script : MonoBehaviour
     {
         m_sliderCompnent.value = m_nowValue;
         m_costText.NowCost = m_nowValue;
+
+        if (m_recoveryFlag != true)
+        {
+            for (int i = 0; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
+            {
+                if (m_nowValue < int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]))
+                {
+                    m_recoveryFlag = true;
+                }
+            }
+        }
+
         if (GageEnd() == true)
         {
+            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中");
             GageRecovery(m_waitTime);
         }
     }

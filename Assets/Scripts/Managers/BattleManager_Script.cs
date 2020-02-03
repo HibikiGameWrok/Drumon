@@ -170,6 +170,11 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         // Boxドラムをアクティブ化
         m_boxDrum.gameObject.SetActive(true);
 
+        if(CreatureList_Script.Get.CaptureData != null)
+        {
+            m_battleResulteUI[3].GetComponent<SetChildActiveObject_Script>().OpenUI();
+        }
+
         // 手持ちがいっぱいの時
         if (CaptureOver() == true)
         {
@@ -184,6 +189,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             m_boxDrum.switchFlag = true;
         }
         
+
         if(m_boxDrum.switchFlag == true)
         {
             // 入れ替えUIを非アクティブ化
@@ -191,6 +197,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             // 入れ替えUIを非アクティブ化
             m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
 
+            // レベルアップ表示
             if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
             {
                 m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
@@ -229,7 +236,5 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         return false;
     }
-
-
 }
 

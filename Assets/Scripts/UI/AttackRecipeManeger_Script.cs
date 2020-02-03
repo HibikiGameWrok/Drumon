@@ -22,15 +22,23 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         ATK_RATE,
         ATK_COST
     }
-    
 
-    private CSVDataHolder csvHolder = new CSVDataHolder();
+
     [SerializeField]
     private AttackRecipeNotesUI_Script m_attackRecipeNotesUI = null;
     [SerializeField]
     private AttackRecipiTextUI_Script m_attackRecipeTextUI = null;
     [SerializeField]
     private AttackRecipiTextUI_Script m_attackRecipeTextCostUI = null;
+
+    private CSVDataHolder m_csvHolder = new CSVDataHolder();
+    private List<string[]> m_csvDatas = null;
+    public List<string[]> csvDatas
+    {
+            get { return m_csvDatas; }
+    }
+
+
 
     // クリーチャーについてのスクリプト保持変数
     private PlayerCreature_Script m_pCreature_Script = null;
@@ -83,10 +91,10 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     public void CSVSetting(string creatureName)
     {
         // CSVの保管クラスに設定
-        csvHolder.CSVLoadFile(creatureName);
-        m_attackRecipeNotesUI.ChangeRecipe(csvHolder.CSVDatas);
-        m_attackRecipeTextUI.ChangeRecipe(csvHolder.CSVDatas);
-        m_attackRecipeTextCostUI.ChangeRecipe(csvHolder.CSVDatas);
+        m_csvHolder.CSVLoadFile(creatureName);
+        m_attackRecipeNotesUI.ChangeRecipe(m_csvHolder.CSVDatas);
+        m_attackRecipeTextUI.ChangeRecipe(m_csvHolder.CSVDatas);
+        m_attackRecipeTextCostUI.ChangeRecipe(m_csvHolder.CSVDatas);
         m_costUI_Script.WaitTime = m_pCreature_Script.WaitTime;
     }
 
@@ -100,41 +108,41 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         string matchRate = "00";
 
         // 設定したCSVの中身を変数に保持
-        List<string[]> csvDatas = csvHolder.CSVDatas;
+        m_csvDatas = m_csvHolder.CSVDatas;
 
-        for (int i = 1; i < csvDatas.Count; i++)
+        for (int i = 1; i < m_csvDatas.Count; i++)
         {
             // i = 行,Data_Column.ATK_NOTES = 列
-            mathcAttackNotes = csvDatas[i][(int)Data_Column.ATK_NOTES];
+            mathcAttackNotes = m_csvDatas[i][(int)Data_Column.ATK_NOTES];
             int attackNum = System.Convert.ToInt32(mathcAttackNotes);
             if (attackNum != 0)
             {
                 // 生成されたノーツの番号とCSVのデータを比較
                 if (m_notesInstance.SearchInstanceNotes() == attackNum)
                 {
-                    int nowAbility = System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_COST]);
+                    int nowAbility = System.Convert.ToInt32(m_csvDatas[i][(int)Data_Column.ATK_COST]);
                     if (nowCost >= nowAbility)
                     {
                         // 一致していたレシピが回復でなければ攻撃
                         if (m_notesInstance.SearchInstanceNotes() != 111111)
                         {
                             // 技の名前をクリーチャーに教える
-                            m_pCreature_Script.AbiltyName = csvDatas[i][(int)Data_Column.ATK_NAME];
+                            m_pCreature_Script.AbiltyName = m_csvDatas[i][(int)Data_Column.ATK_NAME];
 
                             // 技のレートをクリーチャーに教える
-                            matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                            matchRate = m_csvDatas[i][(int)Data_Column.ATK_RATE];
                             m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
                         }
                         else if (m_notesInstance.SearchInstanceNotes() == 111111)
                         {
                             // 技のレートをクリーチャーに教える
-                            matchRate = csvDatas[i][(int)Data_Column.ATK_RATE];
+                            matchRate = m_csvDatas[i][(int)Data_Column.ATK_RATE];
                             m_pCreature_Script.Rate = System.Convert.ToInt32(matchRate);
                             // 回復する
                             m_pCreature_Script.Heal();
                         }
                         // 技の名前を表示する
-                        m_abilityNameUI_Script.DrawStringAttackName(csvDatas[i][(int)Data_Column.ATK_NAME]);
+                        m_abilityNameUI_Script.DrawStringAttackName(m_csvDatas[i][(int)Data_Column.ATK_NAME]);
                     }
                     else
                     {
@@ -143,7 +151,7 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                     }
                     // UI の動作 //
                     // コスト消費
-                    m_costUI_Script.CostDawn(System.Convert.ToInt32(csvDatas[i][(int)Data_Column.ATK_COST]));
+                    m_costUI_Script.CostDawn(System.Convert.ToInt32(m_csvDatas[i][(int)Data_Column.ATK_COST]));
                     // 攻撃指示が完了したフラグ
                     m_attackCompFlag = true;
                 }
