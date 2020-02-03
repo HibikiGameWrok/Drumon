@@ -31,10 +31,6 @@ public class Move_CursorUI_Script : MonoBehaviour
         set { m_decisionFlag = value; }
     }
 
-    [SerializeField]
-    private GameObject m_decisionObject = null;
-
-
     void Awake()
     {
         MAX_POINT = m_point.Length;

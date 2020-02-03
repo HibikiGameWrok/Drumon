@@ -32,10 +32,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
     // 現在のドラム
     [SerializeField]
-    private Drum_Script m_currentDrum;
+    private Drum_Script m_currentDrum = null;
 
     [SerializeField]
-    private CostUI_Script m_costUIScript;
+    private CostUI_Script m_costUIScript = null;
 
     // HPUI
     private GameObject m_healProsperityUI;
