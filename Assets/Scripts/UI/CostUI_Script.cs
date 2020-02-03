@@ -90,7 +90,7 @@ public class CostUI_Script : MonoBehaviour
 
         if (m_recoveryFlag != true)
         {
-            for (int i = 0; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
+            for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
             {
                 if (m_nowValue < int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]))
                 {
