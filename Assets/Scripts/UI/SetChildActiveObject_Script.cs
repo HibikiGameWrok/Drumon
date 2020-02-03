@@ -7,7 +7,7 @@ public class SetChildActiveObject_Script : MonoBehaviour
     private bool m_activeNowFlag = false;
     public bool activeNowFlag
     {
-        get { return activeNowFlag; }
+        get { return m_activeNowFlag; }
     }
 
     void Start()
