@@ -398,10 +398,15 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
                 m_frameCount++;
 
+                m_battleFrame5.gameObject.SetActive(false);
+                m_battleFrame1.gameObject.SetActive(true);
+
                 if (m_frameCount >= 240.0f)
                 {
                     m_text.gameObject.SetActive(false);
                     m_frameCount = 0.0f;
+
+                    m_battleFrame1.gameObject.SetActive(false);
                 }
             }
             else if (m_curentNum == 18)
@@ -409,6 +414,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 m_practiceModeFlag = true;
 
                 m_frameCount++;
+
+                m_battleFrame1.gameObject.SetActive(true);
 
                 if (m_frameCount >= 300.0f)
                 {

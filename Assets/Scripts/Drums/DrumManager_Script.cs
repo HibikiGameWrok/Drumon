@@ -173,18 +173,18 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // キャプチャーの時にコストが0になったら
         if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag)
         {
-            if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0 && m_playerCreature.Data.hp > 0)
+            if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
                 if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == true)
                 {
                     m_enemyCreature.Capture(CaptureDrum_Script.CAPTURE_CONFIRM);
                     //m_tutorialGetFlag = true;
                 }
-                else if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialBattleFlag == true)
+                else if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialBattleFlag == true && m_playerCreature.Data.hp > 0)
                 {
                     m_enemyCreature.Capture(0);
                 }
-                else
+                else if (m_playerCreature.Data.hp > 0)
                 {
                     m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
                 }

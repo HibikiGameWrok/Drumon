@@ -88,7 +88,7 @@ public class CostUI_Script : MonoBehaviour
         m_sliderCompnent.value = m_nowValue;
         m_costText.NowCost = m_nowValue;
 
-        if (m_recoveryFlag != true)
+        if (m_recoveryFlag != true && m_attackRecipeManegerScrit.csvDatas != null)
         {
             for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
             {
