@@ -87,15 +87,24 @@ public class CostUI_Script : MonoBehaviour
     {
         m_sliderCompnent.value = m_nowValue;
         m_costText.NowCost = m_nowValue;
+        int minValue = 10;
 
-        if (m_recoveryFlag != true && m_attackRecipeManegerScrit.csvDatas != null)
+        if (m_recoveryFlag != true)
         {
-            for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
+            if (m_attackRecipeManegerScrit.csvDatas != null)
             {
-                if (m_nowValue < int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]))
+                for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
                 {
-                    m_recoveryFlag = true;
+                    if (minValue > int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]))
+                    {
+                        minValue = int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]);
+                    }
                 }
+                if (m_nowValue < minValue) m_recoveryFlag = true;
+            }
+            else
+            {
+                if (m_nowValue <= 0) m_recoveryFlag = true;
             }
         }
 

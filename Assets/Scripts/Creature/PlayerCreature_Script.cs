@@ -113,6 +113,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
+        if (m_data.hp == 0) return;
         int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (this.m_rate / 100.0f)) - this.m_target.GetData().def;
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);

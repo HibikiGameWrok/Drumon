@@ -115,9 +115,9 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             bool result = m_currentDrum.Execute();
 
             // 攻撃用のドラムの処理
-            if(m_currentDrum == m_attackDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
+            if (m_currentDrum == m_attackDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
-                if(result == true)
+                if (result == true)
                 {
                     if (XRDevice.isPresent)
                     {
@@ -135,7 +135,7 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 }
                 else
                 {
-                    
+
                 }
             }
             // 選択用のドラムの処理
@@ -160,13 +160,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 }
             }
             // 捕獲用のドラムの処理
-            else if (m_currentDrum == m_captureDrum)
+            else if (m_currentDrum == m_captureDrum || m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
-                if (result == true)
-                {
-                    // 継続する
-                    m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
-                }
+                // 継続する
+                m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
             }
         }
 
