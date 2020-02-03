@@ -173,6 +173,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         if(CreatureList_Script.Get.CaptureData != null)
         {
             m_battleResulteUI[3].GetComponent<SetChildActiveObject_Script>().OpenUI();
+            m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag = true;
         }
 
         // 手持ちがいっぱいの時
@@ -218,6 +219,8 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
                 m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
             }
 
+
+            // シーン遷移
             if (m_boxDrum.centerHitFlag == true)
             {
                 CreatureList_Script.Get.OverData = null;
