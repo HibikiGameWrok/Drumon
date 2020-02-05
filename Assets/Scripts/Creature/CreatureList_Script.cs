@@ -9,6 +9,7 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
     public CreatureData CaptureData
     {
         get { return m_captureData; }
+        set { m_captureData = value; }
     }
 
     private CreatureData m_overData = null;

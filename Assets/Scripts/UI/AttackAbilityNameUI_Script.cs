@@ -42,11 +42,12 @@ public class AttackAbilityNameUI_Script : MonoBehaviour
         } 
     }
 
-    public void DrawStringAttackName(string attackName)
+    public void DrawStringAttackName(string attackName, int fontSize)
     {
         if ((attackName != null) || (attackName != "None"))
         {
             m_textUI.text = attackName;
+            m_textUI.fontSize = fontSize;
             m_drawTextFlag = true;
         }
     }

@@ -110,7 +110,7 @@ public class CostUI_Script : MonoBehaviour
 
         if (GageEnd() == true)
         {
-            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中");
+            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中\n(連打で回復速度UP)", 50);
             GageRecovery(m_waitTime);
         }
     }
