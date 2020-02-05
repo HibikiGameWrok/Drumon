@@ -38,6 +38,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private ICreature_Script m_target = null;
 
+    private GameObject m_targetPos = null;
+
     private int m_rate;
     public int Rate
     {
@@ -77,6 +79,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_levelUI = GameObject.Find("PLVText");
         m_levelTextUIScript = m_levelUI.GetComponent<LevelTextUI_Script>();
 
+        m_targetPos = GameObject.Find("EnemyCreature");
 
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
@@ -120,6 +123,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         damage = (int)(damage * weak);
         if (damage <= 0) damage = 1;
         this.m_target.Damage(damage);
+        if (weak == 1.5f) DamageUI_Script.CreateWeakUI(m_targetPos.transform);
         this.m_rate = 0;
         this.m_atkFlag = false;
 
