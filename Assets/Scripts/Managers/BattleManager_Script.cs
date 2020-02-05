@@ -178,7 +178,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             CreatureList_Script.Get.CaptureData = null;
         }
         else
-        if (CreatureList_Script.Get.CaptureData == null && m_battleResulteUI[4].GetComponent<AwakeOpenUI_Script>().fadeFlag == false)
+        if (CreatureList_Script.Get.CaptureData == null && m_battleResulteUI[4].GetComponent<AwakeOpenUI_Script>().fadeFlag == false && m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag == false)
         {
             m_battleResulteUI[4].GetComponent<SetChildActiveObject_Script>().OpenUI();
             m_battleResulteUI[4].GetComponent<AwakeOpenUI_Script>().fadeFlag = true;
@@ -194,7 +194,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else
         {
-            m_boxDrum.noUIFlag = true;
+            //m_boxDrum.noUIFlag = true;
             m_boxDrum.switchFlag = true;
         }
         
