@@ -7,6 +7,7 @@ public class AwakeOpenUI_Script : MonoBehaviour
     bool m_fadeFlag = false;
     public bool fadeFlag
     {
+        get { return m_fadeFlag; }
         set { m_fadeFlag = value; }
     }
     float m_time = 0;
