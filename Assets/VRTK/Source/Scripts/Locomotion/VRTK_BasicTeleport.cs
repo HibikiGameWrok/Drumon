@@ -251,7 +251,8 @@ namespace VRTK
             if (transitionSpeed > 0f)
             {
                 VRTK_SDK_Bridge.HeadsetFade(blinkToColor, 0);
-                AudioManager_Script.Get.PlaySE(SfxType.teleport);
+                if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Revised")
+                    AudioManager_Script.Get.PlaySE(SfxType.teleport);
             }
             Invoke("ReleaseBlink", blinkPause);
         }
