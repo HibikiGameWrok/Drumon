@@ -179,12 +179,20 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private GameObject m_stickLeft = null;
     private GameObject m_stickRight = null;
 
-    private Mesh m_mesh = null;
+    //private Mesh m_mesh = null;
 
     // フェードUI
     private PanelUI_Fade_Script m_fadePanel = null;
 
     private float m_frameCount = 0.0f;
+
+    // マテリアル
+    [SerializeField]
+    private Material[] m_stickMaterials = null;
+    private Renderer m_leftStickRender = null;
+    private Renderer m_rightStickRender = null;
+    [SerializeField]
+    private Mesh[] m_handMesh = null;
 
     // Start is called before the first frame update
     void Start()
@@ -196,6 +204,16 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
         this.m_attackSpan = 0.0f;
         this.SetTarget();
+
+        m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
+        m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
+        m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
+        m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
+
+        m_leftStickRender = m_stickLeft.GetComponent<Renderer>();
+        m_rightStickRender = m_stickRight.GetComponent<Renderer>();
+
+        //m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
 
         if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
         {
@@ -273,13 +291,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_textArray = new GameObject[] { m_explainText1, m_explainText2, m_explainText3, m_leftArrowText3, m_explainCaptureText1, m_explainCaptureText2, m_practiceCaptureText, m_explainText4 };
 
             m_text = m_textArray[0].GetComponent<Text>();
-
-            m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
-            m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
-            m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
-            m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
-
-            m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
 
             m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
             m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
@@ -537,8 +548,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
                 m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = true;
                 m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = true;
-                m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_mesh;
-                m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_mesh;
+                m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
+                m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
 
                 if (CreatureList_Script.Get.List.DataList[0].drumonName != "")
                 {
