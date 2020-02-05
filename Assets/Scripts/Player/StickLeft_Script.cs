@@ -129,7 +129,17 @@ public class StickLeft_Script : Stick_Script
                     // 同時に叩ける時間の代入
                     m_stickManager.SetDoubleHitTime();
 
-                    m_lastCollisionTag = collision.gameObject.tag;
+                    if (m_hitNum == 2)
+                    {
+                        // 外側を叩いた判定フラグを伏せる
+                        m_hitPatternFlag.OffFlag((uint)HIT_PATTERN.OUT_HIT);
+
+                        m_lastCollisionTag = null;
+                    }
+                    else
+                    {
+                        m_lastCollisionTag = collision.gameObject.tag;
+                    }
                 }
                 // 選択ドラムの内側を叩いたら
                 else if (collision.gameObject.tag == "SwitchInDrum")

@@ -170,10 +170,12 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         // Boxドラムをアクティブ化
         m_boxDrum.gameObject.SetActive(true);
 
-        if(CreatureList_Script.Get.CaptureData != null)
+        // 捕まえたという表示をする
+        if(CreatureList_Script.Get.CaptureData != null && m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag == false)
         {
             m_battleResulteUI[3].GetComponent<SetChildActiveObject_Script>().OpenUI();
             m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag = true;
+            CreatureList_Script.Get.CaptureData = null;
         }
 
         // 手持ちがいっぱいの時
@@ -210,10 +212,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
                     // レベルアップUIをアクティブ化
                     m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
                     AudioManager_Script.Get.PlaySE(SfxType.LvUP);
-                }
-                else
-                {
-                    m_boxDrum.centerHitFlag = true;
                 }
                 m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().SetPoint();
                 m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();

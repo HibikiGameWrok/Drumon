@@ -68,6 +68,8 @@ public class CostUI_Script : MonoBehaviour
     private GameObject m_costTextUI = null;
     private CostTextUI_Script m_costText = null;
 
+    private CaptureDrum_Script m_captureDrum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,8 @@ public class CostUI_Script : MonoBehaviour
 
         m_costTextUI = GameObject.Find("CostTextUI");
         m_costText = m_costTextUI.GetComponent<CostTextUI_Script>();
+
+        m_captureDrum = GameObject.Find("CaptureDrum").GetComponent<CaptureDrum_Script>();
 
         m_sliderCompnent.minValue = m_minValue;
         m_sliderCompnent.maxValue = m_maxValue;
@@ -89,7 +93,7 @@ public class CostUI_Script : MonoBehaviour
         m_costText.NowCost = m_nowValue;
         int minValue = 10;
 
-        if (m_recoveryFlag != true)
+        if (m_recoveryFlag != true && !m_captureDrum.CaptureMode)
         {
             if (m_attackRecipeManegerScrit.csvDatas != null)
             {
@@ -110,7 +114,7 @@ public class CostUI_Script : MonoBehaviour
 
         if (GageEnd() == true)
         {
-            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中");
+            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中\n(連打で回復速度UP)", 50);
             GageRecovery(m_waitTime);
         }
     }

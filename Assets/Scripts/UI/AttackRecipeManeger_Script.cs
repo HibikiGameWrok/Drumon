@@ -140,12 +140,12 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
                             m_pCreature_Script.Heal();
                         }
                         // 技の名前を表示する
-                        m_abilityNameUI_Script.DrawStringAttackName(m_csvDatas[i][(int)Data_Column.ATK_NAME]);
+                        m_abilityNameUI_Script.DrawStringAttackName(m_csvDatas[i][(int)Data_Column.ATK_NAME],100);
                     }
                     else
                     {
                         // 技の名前を表示する
-                        m_abilityNameUI_Script.DrawStringAttackName("コストが足りません");
+                        m_abilityNameUI_Script.DrawStringAttackName("コストが足りません",100);
                     }
                     // UI の動作 //
                     // コスト消費
