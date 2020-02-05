@@ -9,9 +9,6 @@
 /*----------------------------------------------------------*/
 
 // using
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -21,6 +18,8 @@ public class SceneTitle_Script : IScene_Script
     // タイトルドラム
     private TitleDrum_Script m_titleDrum = null;
     private bool m_doneFlag = false;
+
+    private bool m_isMain;
 
     /// <summary>
     /// 終了処理
@@ -40,7 +39,10 @@ public class SceneTitle_Script : IScene_Script
     {
         if (m_doneFlag == false)
         {
-            // ゲームプレイを選択
+            if (Input.GetKeyDown(KeyCode.D))
+                m_isMain = m_isMain.Equals(false) ? true : false;
+
+            /*// ゲームプレイを選択
             if (m_titleDrum.SelectCount == 0 && m_titleDrum.Decision == true)
             {
                 CreatureData data = null;
@@ -77,6 +79,48 @@ public class SceneTitle_Script : IScene_Script
                 TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
 
                 return SceneID.SCENE_CAPTURETUTORIAL;
+            }*/
+
+            // ゲームプレイを選択
+            if (m_titleDrum.Decision)
+            {
+                if(m_isMain)
+                {
+                    CreatureData data = null;
+
+                    for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+                    {
+                        if (CreatureList_Script.Get.List.DataList[i].drumonName.Equals(""))
+                        {
+                            data = CreatureList_Script.Get.List.DataList[i];
+                            break;
+                        }
+                    }
+
+                    CreateData_Script.Get.CreateData(data, "Merlion");
+
+                    m_titleDrum.Decision = false;
+                    m_doneFlag = true;
+
+                    // SEを鳴らす
+                    m_manager.Audio.PlaySE(SfxType.WaterGun);
+                    // 非同期処理のSceneロード
+                    TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+
+                    return SceneID.SCENE_REVISED;
+                }
+                else
+                {
+                    m_titleDrum.Decision = false;
+                    m_doneFlag = true;
+
+                    // SEを鳴らす
+                    m_manager.Audio.PlaySE(SfxType.WaterGun);
+                    // 非同期処理のSceneロード
+                    TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
+
+                    return SceneID.SCENE_CAPTURETUTORIAL;
+                }   
             }
         }
             
@@ -100,6 +144,8 @@ public class SceneTitle_Script : IScene_Script
         m_titleDrum = GameObject.Find("TitleDrum").GetComponent<TitleDrum_Script>();
 
         m_doneFlag = false;
+
+        m_isMain = false;
 
         CreatureList_Script.Get.Reset();
     }
