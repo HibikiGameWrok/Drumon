@@ -17,7 +17,7 @@ using UnityEngine.UI;
 // ダメージ表記するクラス
 public class DamageUI_Script : MonoBehaviour
 {
-      public static void CreateDamageUI(Transform trans, int damage)
+    public static void CreateDamageUI(Transform trans, int damage)
     {
         GameObject go = Resources.Load<GameObject>("InsPrefab/DamageUI");
 
@@ -25,14 +25,32 @@ public class DamageUI_Script : MonoBehaviour
         if (!go)
             return;
 
-       var position = trans.position + new Vector3(0f, 2.2f, 0f);
+       var position = trans.position + new Vector3(0f, 1f, -3.5f);
 
         // 生成する
         go = Instantiate(go, position,Quaternion.Euler(0f,0f,0f));
         // TextにダメージStringを設定する
-        go.GetComponentInChildren<Text>().text = damage.ToString();
+        go.GetComponentsInChildren<Text>()[0].text = damage.ToString();
+        go.GetComponentsInChildren<Text>()[1].text = damage.ToString();
 
-        // 2秒後に削除する
-        Destroy(go, 2.0f);
+        // 1秒後に削除する
+        Destroy(go, 1.0f);
+    }
+
+    public static void CreateWeakUI(Transform trans)
+    {
+        GameObject go = Resources.Load<GameObject>("InsPrefab/WeakUI");
+
+        // 取得できなかったらreturnする
+        if (!go)
+            return;
+
+        var position = trans.position + new Vector3(0f, 1.5f, -3.5f);
+
+        // 生成する
+        go = Instantiate(go, position, Quaternion.Euler(0f, 0f, 0f));
+
+        // 1秒後に削除する
+        Destroy(go, 1.0f);
     }
 }
