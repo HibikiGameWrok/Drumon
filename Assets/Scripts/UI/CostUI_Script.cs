@@ -79,7 +79,7 @@ public class CostUI_Script : MonoBehaviour
         m_costTextUI = GameObject.Find("CostTextUI");
         m_costText = m_costTextUI.GetComponent<CostTextUI_Script>();
 
-        m_captureDrum = GameObject.Find("CaptureDrum").GetComponent<CaptureDrum_Script>();
+        m_captureDrum = GameObject.Find("Capture").GetComponent<CaptureDrum_Script>();
 
         m_sliderCompnent.minValue = m_minValue;
         m_sliderCompnent.maxValue = m_maxValue;
@@ -95,15 +95,23 @@ public class CostUI_Script : MonoBehaviour
 
         if (m_recoveryFlag != true)
         {
-            if (m_attackRecipeManegerScrit.csvDatas != null || !m_captureDrum.CaptureMode)
+            if (m_attackRecipeManegerScrit.csvDatas != null)
             {
-                for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
+                if (!m_captureDrum.CaptureMode)
                 {
-                    if (minValue > int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]))
+                    for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
                     {
-                        minValue = int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]);
+                        if (minValue > int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]))
+                        {
+                            minValue = int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]);
+                        }
                     }
                 }
+                else
+                {
+                    minValue = 0;
+                }
+
                 if (m_nowValue < minValue) m_recoveryFlag = true;
             }
             else
