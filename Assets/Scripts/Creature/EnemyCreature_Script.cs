@@ -108,6 +108,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
+        if (m_data.hp == 0) return;
         SelectArts();
         // 技のレートをクリーチャーに教える
         string matchRate = csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_RATE];

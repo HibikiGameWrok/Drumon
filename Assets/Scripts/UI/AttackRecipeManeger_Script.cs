@@ -35,10 +35,8 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
     private List<string[]> m_csvDatas = null;
     public List<string[]> csvDatas
     {
-            get { return m_csvDatas; }
+        get { return m_csvDatas; }
     }
-
-
 
     // クリーチャーについてのスクリプト保持変数
     private PlayerCreature_Script m_pCreature_Script = null;
@@ -96,8 +94,8 @@ public class AttackRecipeManeger_Script : SingletonBase_Script<AttackRecipeManeg
         m_attackRecipeTextUI.ChangeRecipe(m_csvHolder.CSVDatas);
         m_attackRecipeTextCostUI.ChangeRecipe(m_csvHolder.CSVDatas);
         m_costUI_Script.WaitTime = m_pCreature_Script.WaitTime;
+        m_csvDatas = m_csvHolder.CSVDatas;
     }
-
 
     // 現在のノーツと攻撃する為のノーツが合っているか見比べる
     public void MatchAttackRecipe(int nowCost)

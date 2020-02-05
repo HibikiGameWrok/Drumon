@@ -11,7 +11,7 @@ public class BoxDrum_Script : MonoBehaviour
 
     // トレードUIC
     [SerializeField]
-    private GameObject[] m_tradeUI;
+    private GameObject[] m_tradeUI = null;
 
     // カーソルUI
     private Move_CursorUI_Script m_cursorUI;
