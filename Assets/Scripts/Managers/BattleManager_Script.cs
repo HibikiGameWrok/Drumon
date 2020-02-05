@@ -170,6 +170,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         // Boxドラムをアクティブ化
         m_boxDrum.gameObject.SetActive(true);
 
+        // 捕まえたという表示をする
         if(CreatureList_Script.Get.CaptureData != null)
         {
             m_battleResulteUI[3].GetComponent<SetChildActiveObject_Script>().OpenUI();
