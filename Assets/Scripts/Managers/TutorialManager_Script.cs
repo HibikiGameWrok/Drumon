@@ -183,6 +183,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     // ヒットパターンキャンバス
     private GameObject m_hitPatternCanvas = null;
 
+    private GameObject m_rightHand = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -280,6 +282,8 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_text = m_textArray[0].GetComponent<Text>();
 
             CreatureList_Script.Get.List.DataList[0].drumonName = "";
+
+            m_rightHand = GameObject.Find("RightHand");
         }
 
         m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();
@@ -481,7 +485,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 if (m_enemyCreature.HP < m_enemyCreature.GetData().maxHp)
                 {
                     // 次のテキストの表示
-                    //NextText();
                     m_tutorialModeFlag = false;
 
                     // 敵が攻撃するようになる
@@ -523,7 +526,11 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 NextText();
             }
 
-            if (m_curentNum == 3)
+            if (m_curentNum == 1)
+            {
+                m_rightHand.gameObject.SetActive(false);
+            }
+            else if (m_curentNum == 3)
             {
                 m_captureFrame1.gameObject.SetActive(false);
             }
@@ -543,7 +550,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 if (CreatureList_Script.Get.List.DataList[0].drumonName != "")
                 {
                     // 次のテキストの表示
-                    //NextText();
                     m_tutorialModeFlag = false;
                 }
             }
