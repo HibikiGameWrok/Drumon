@@ -25,7 +25,7 @@ public class DamageUI_Script : MonoBehaviour
         if (!go)
             return;
 
-       var position = trans.position + new Vector3(0f, 1f, -3.5f);
+       var position = trans.position + new Vector3(0f, 1.5f, -3f);
 
         // 生成する
         go = Instantiate(go, position,Quaternion.Euler(0f,0f,0f));
@@ -45,7 +45,7 @@ public class DamageUI_Script : MonoBehaviour
         if (!go)
             return;
 
-        var position = trans.position + new Vector3(0f, 1.5f, -3.5f);
+        var position = trans.position + new Vector3(0f, 2f, -3f);
 
         // 生成する
         go = Instantiate(go, position, Quaternion.Euler(0f, 0f, 0f));
