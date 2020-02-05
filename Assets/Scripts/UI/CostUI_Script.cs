@@ -79,7 +79,7 @@ public class CostUI_Script : MonoBehaviour
         m_costTextUI = GameObject.Find("CostTextUI");
         m_costText = m_costTextUI.GetComponent<CostTextUI_Script>();
 
-        m_captureDrum = GameObject.Find("CaptureDrum").GetComponent<CaptureDrum_Script>();
+        m_captureDrum = GameObject.Find("Capture").GetComponent<CaptureDrum_Script>();
 
         m_sliderCompnent.minValue = m_minValue;
         m_sliderCompnent.maxValue = m_maxValue;
