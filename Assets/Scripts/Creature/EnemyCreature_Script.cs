@@ -129,6 +129,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         this.m_data.hp -= damage;
         m_anim.SetTrigger("Damage");
+        DamageUI_Script.CreateDamageUI(this.transform, damage);
         if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 
