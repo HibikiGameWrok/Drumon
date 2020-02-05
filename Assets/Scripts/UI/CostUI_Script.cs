@@ -93,9 +93,9 @@ public class CostUI_Script : MonoBehaviour
         m_costText.NowCost = m_nowValue;
         int minValue = 10;
 
-        if (m_recoveryFlag != true && !m_captureDrum.CaptureMode)
+        if (m_recoveryFlag != true)
         {
-            if (m_attackRecipeManegerScrit.csvDatas != null)
+            if (m_attackRecipeManegerScrit.csvDatas != null || !m_captureDrum.CaptureMode)
             {
                 for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
                 {

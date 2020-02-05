@@ -106,6 +106,15 @@ public class StickManager_Script : MonoBehaviour
                     OVRHaptics.LeftChannel.Preempt(m_leftStick.DoubleHitVibClip);
                     OVRHaptics.RightChannel.Preempt(m_rightStick.DoubleHitVibClip);
                 }
+
+                // 内側を叩いた判定フラグを伏せる
+                m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
+                // 内側を叩いた判定フラグを伏せる
+                m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.IN_HIT);
+                // 外側を叩いた判定フラグを伏せる
+                m_leftStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
+                // 外側を叩いた判定フラグを伏せる
+                m_rightStick.HitPatternFlag.OffFlag((uint)Stick_Script.HIT_PATTERN.OUT_HIT);
             }
         }
     }

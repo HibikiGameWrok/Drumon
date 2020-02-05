@@ -179,8 +179,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private GameObject m_stickLeft = null;
     private GameObject m_stickRight = null;
 
-    //private Mesh m_mesh = null;
-
     // フェードUI
     private PanelUI_Fade_Script m_fadePanel = null;
 
@@ -213,7 +211,13 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         m_leftStickRender = m_stickLeft.GetComponent<Renderer>();
         m_rightStickRender = m_stickRight.GetComponent<Renderer>();
 
-        //m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
+        // モデルをコントローラーに変える
+        m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
+        m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
+        m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[1];
+        m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[2];
+        m_leftStickRender.sharedMaterial = m_stickMaterials[1];
+        m_rightStickRender.sharedMaterial = m_stickMaterials[1];
 
         if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
         {
@@ -291,11 +295,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_textArray = new GameObject[] { m_explainText1, m_explainText2, m_explainText3, m_leftArrowText3, m_explainCaptureText1, m_explainCaptureText2, m_practiceCaptureText, m_explainText4 };
 
             m_text = m_textArray[0].GetComponent<Text>();
-
-            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
-            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
-            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = null;
-            m_stickRight.GetComponent<MeshFilter>().sharedMesh = null;
 
             CreatureList_Script.Get.List.DataList[0].drumonName = "";
         }
@@ -508,6 +507,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 NextText();
                 //m_tutorialModeFlag = false;
             }
+
+            // モデル変更
+            ChengeModel();
         }
         else if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
@@ -564,6 +566,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 m_captureFrame2.gameObject.SetActive(false);
                 StartCoroutine(SceneChengeStop());
             }
+
+            // モデル変更
+            ChengeModel();
         }
     }
 
@@ -674,5 +679,30 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
 
         yield return null;
+    }
+
+    // モデル変更
+    private void ChengeModel()
+    {
+        if (m_practiceModeFlag == true)
+        {
+            // モデルをスティックに変える
+            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = true;
+            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = true;
+            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
+            m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
+            m_leftStickRender.sharedMaterial = m_stickMaterials[0];
+            m_rightStickRender.sharedMaterial = m_stickMaterials[0];
+        }
+        else
+        {
+            // モデルをコントローラーに変える
+            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
+            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
+            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[1];
+            m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[2];
+            m_leftStickRender.sharedMaterial = m_stickMaterials[1];
+            m_rightStickRender.sharedMaterial = m_stickMaterials[1];
+        }
     }
 }
