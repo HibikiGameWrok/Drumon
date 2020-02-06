@@ -40,6 +40,7 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 
     public void Add(ICreature_Script creature)
     {
+        m_overData = null;
         m_captureData = creature.GetData();
         for(int i = 0; i < m_list.DataList.Length; i++)
         {

@@ -26,7 +26,7 @@ public class Lick_Script : MonoBehaviour
         if (timer >= timerMax)
         {
             timer = 0;
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         else
         {

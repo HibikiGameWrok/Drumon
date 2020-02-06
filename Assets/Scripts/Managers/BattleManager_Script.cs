@@ -227,7 +227,6 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
             // シーン遷移
             if (m_boxDrum.centerHitFlag == true)
             {
-                CreatureList_Script.Get.OverData = null;
                 m_isFinish.SetValueAndForceNotify(true);
             }
         }

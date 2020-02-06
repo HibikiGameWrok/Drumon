@@ -17,7 +17,7 @@ using UnityEngine.UI;
 // ダメージ表記するクラス
 public class DamageUI_Script : MonoBehaviour
 {
-    public static void CreateDamageUI(Transform trans, int damage)
+    public static void CreateDamageUI(Transform trans,Vector3 offset ,int damage)
     {
         GameObject go = Resources.Load<GameObject>("InsPrefab/DamageUI");
 
@@ -25,10 +25,14 @@ public class DamageUI_Script : MonoBehaviour
         if (!go)
             return;
 
-       var position = trans.position + new Vector3(0f, 1.5f, -3f);
+        var position = trans.position + offset;
 
         // 生成する
-        go = Instantiate(go, position,Quaternion.Euler(0f,0f,0f));
+        go = Instantiate(go, position,Quaternion.identity);
+
+        // 描画先のカメラを設定
+
+
         // TextにダメージStringを設定する
         go.GetComponentsInChildren<Text>()[0].text = damage.ToString();
         go.GetComponentsInChildren<Text>()[1].text = damage.ToString();
@@ -37,7 +41,7 @@ public class DamageUI_Script : MonoBehaviour
         Destroy(go, 1.0f);
     }
 
-    public static void CreateWeakUI(Transform trans)
+    public static void CreateWeakUI(Transform trans,Vector3 offset)
     {
         GameObject go = Resources.Load<GameObject>("InsPrefab/WeakUI");
 
@@ -45,10 +49,10 @@ public class DamageUI_Script : MonoBehaviour
         if (!go)
             return;
 
-        var position = trans.position + new Vector3(0f, 2f, -3f);
+        var position = trans.position + offset;
 
         // 生成する
-        go = Instantiate(go, position, Quaternion.Euler(0f, 0f, 0f));
+        go = Instantiate(go, position, Quaternion.identity);
 
         // 1秒後に削除する
         Destroy(go, 1.0f);

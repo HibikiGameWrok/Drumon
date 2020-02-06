@@ -19,6 +19,9 @@ using UnityEngine.SceneManagement;
 public class SceneBattle_Script : IScene_Script
 {
 
+    private PanelUI_Fade_Script m_panelUIFade_Script = null;
+    //private bool m_isFadeComp = false;
+
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -38,16 +41,22 @@ public class SceneBattle_Script : IScene_Script
         // もしOtosを倒したら
         if (BattleManager_Script.Get.EnemyCreature.OtsoFlag.Equals(true))
         {
-            // 非同期処理のSceneロード
-            TransitionManager_Script.StartTransition(m_manager.Result.Name);
-            return SceneID.SCENE_RESULT;
+            // フェードを起動
+            m_panelUIFade_Script.IsFadeOut = true;
+            // フェードし終えたか
+            if (m_panelUIFade_Script.IsFadeComp == true)
+            {
+                // 非同期処理のSceneロード
+                TransitionManager_Script.StartTransition(m_manager.Result.Name);
+                return SceneID.SCENE_RESULT;
+            }
         }
 
         // バトルが終了したかで判断する
         if (BattleManager_Script.Get.IsFinish.Value.Equals(true))
         {
             bool gameOver = true;
-            for(int i = 0;i<CreatureList_Script.Get.List.DataList.Length;i++)
+            for(int i = 0; i < CreatureList_Script.Get.List.DataList.Length;i++)
             {
                 if(CreatureList_Script.Get.List.DataList[i].hp != 0 && CreatureList_Script.Get.List.DataList[i].drumonName != "")
                 {
@@ -58,22 +67,35 @@ public class SceneBattle_Script : IScene_Script
 
             if(gameOver)
             {
-                // 非同期処理のSceneロード
-                TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                // フェードを起動
+                m_panelUIFade_Script.IsFadeOut = true;
+                // フェードし終えたか
+                if (m_panelUIFade_Script.IsFadeComp == true)
+                {
+                    // 非同期処理のSceneロード
+                    TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                    return SceneID.SCENE_REVISED;
+                }
             }
             else
             {
-                // 非同期処理のSceneアンロード
-                TransitionManager_Script.StartTransition_UnloadScene(this.Name);
+                // フェードを起動
+                m_panelUIFade_Script.IsFadeOut = true;
+                // フェードし終えたか
+                if (m_panelUIFade_Script.IsFadeComp == true)
+                {
+                    // 非同期処理のSceneアンロード
+                    TransitionManager_Script.StartTransition_UnloadScene(this.Name);
 
-                // プレイヤーをアクティブにしておく
-                if (m_manager.Player.activeSelf == false)
-                    m_manager.Player.SetActive(true);
+                    // プレイヤーをアクティブにしておく
+                    if (m_manager.Player.activeSelf == false)
+                        m_manager.Player.SetActive(true);
+
+                    return SceneID.SCENE_REVISED;
+      
+                }
             }
-
-            return SceneID.SCENE_REVISED;
         }
-
         return SceneID.CONTINUE;
     }
 
@@ -89,5 +111,7 @@ public class SceneBattle_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Battle);
+
+        m_panelUIFade_Script = GameObject.Find("FadePanel").GetComponent<PanelUI_Fade_Script>();
     }
 }

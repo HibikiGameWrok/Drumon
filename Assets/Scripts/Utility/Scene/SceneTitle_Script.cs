@@ -17,6 +17,7 @@ public class SceneTitle_Script : IScene_Script
 {
     // タイトルドラム
     private TitleDrum_Script m_titleDrum = null;
+    private PanelUI_Fade_Script m_panelUIFade_Script = null;
     private bool m_doneFlag = false;
 
     private bool m_isMain;
@@ -103,11 +104,11 @@ public class SceneTitle_Script : IScene_Script
                     m_doneFlag = true;
 
                     // SEを鳴らす
-                    m_manager.Audio.PlaySE(SfxType.WaterGun);
-                    // 非同期処理のSceneロード
-                    TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                    m_manager.Audio.PlaySE(SfxType.taiko);
 
-                    return SceneID.SCENE_REVISED;
+
+                    // フェードを起動
+                    m_panelUIFade_Script.IsFadeOut = true;
                 }
                 else
                 {
@@ -115,15 +116,32 @@ public class SceneTitle_Script : IScene_Script
                     m_doneFlag = true;
 
                     // SEを鳴らす
-                    m_manager.Audio.PlaySE(SfxType.WaterGun);
-                    // 非同期処理のSceneロード
-                    TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
+                    m_manager.Audio.PlaySE(SfxType.taiko);
 
-                    return SceneID.SCENE_CAPTURETUTORIAL;
+                    // フェードを起動
+                    m_panelUIFade_Script.IsFadeOut = true;
                 }   
             }
         }
-            
+
+        // フェードし終えたか
+        if (m_panelUIFade_Script.IsFadeComp == true)
+        {
+            if (m_isMain)
+            {
+                // 非同期処理のSceneロード
+                TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                return SceneID.SCENE_REVISED;
+            }
+            else
+            {
+                // 非同期処理のSceneロード
+                TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
+                return SceneID.SCENE_CAPTURETUTORIAL;
+            }
+        }
+
+
         // 継続する
         return SceneID.CONTINUE;
     }
@@ -140,6 +158,8 @@ public class SceneTitle_Script : IScene_Script
 
         // BGMを再生する
         m_manager.Audio.PlayBGM(BfxType.bgm_Title);
+
+        m_panelUIFade_Script = GameObject.Find("FadePanel").GetComponent<PanelUI_Fade_Script>();
 
         m_titleDrum = GameObject.Find("TitleDrum").GetComponent<TitleDrum_Script>();
 

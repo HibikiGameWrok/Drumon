@@ -88,16 +88,16 @@ public class TransitionController_Script : MonoBehaviour
         m_coverImage.raycastTarget = true;
 
         // 画面を徐々に白く
-        while(time > 0)
-        {
-            time -= Time.deltaTime;
-            m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f - time / m_transitionSeconds);
-            yield return null;            
-        }
+        //while(time > 0)
+        //{
+        //    time -= Time.deltaTime;
+        //    m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f - time / m_transitionSeconds);
+        //    yield return null;            
+        //}
 
-        // 完全に白くする
-        m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
-        //VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, 1.0f);
+        //// 完全に白くする
+        //m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
+        ////VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, 1.0f);
 
         // 画面が隠し終わったらシーン遷移する
         yield return SceneManager.LoadSceneAsync(nextSceneName,mode);
@@ -137,16 +137,16 @@ public class TransitionController_Script : MonoBehaviour
         // 画面のクリック
         m_coverImage.raycastTarget = true;
 
-        // 画面を徐々に白く
-        while (time > 0)
-        {
-            time -= Time.deltaTime;
-            m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f - time / m_transitionSeconds);
-            yield return null;
-        }
+        //// 画面を徐々に白く
+        //while (time > 0)
+        //{
+        //    time -= Time.deltaTime;
+        //    m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f - time / m_transitionSeconds);
+        //    yield return null;
+        //}
 
         // 完全に白くする
-        m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
+        //m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
 
         // 画面が隠し終わったらシーンをアンロードする
         yield return SceneManager.UnloadSceneAsync(unloadSceneName);

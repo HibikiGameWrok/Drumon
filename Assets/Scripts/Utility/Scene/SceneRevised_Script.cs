@@ -21,8 +21,10 @@ public class SceneRevised_Script : IScene_Script
 {
     // コンポーネントを取得する変数
     private AddDrumonList_Script m_drumonList;
-    
+    private PanelUI_Fade_Script m_panelUIFade_Script = null;
     private bool m_isTransitionBattle = false;
+
+
 
     /// <summary>
     /// 終了処理
@@ -48,16 +50,23 @@ public class SceneRevised_Script : IScene_Script
         IsActivePlayer();
 
         // バトルシーンへ
-        if (Input.GetKeyDown(KeyCode.B) || m_isTransitionBattle == true)
+        if (m_isTransitionBattle == true)
         {
             // 非同期処理のSceneロード
             TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+
+            // フェードを起動
+            m_panelUIFade_Script.IsFadeOut = true;
 
             // プレイヤーを非アクティブにしておく
             if (m_manager.Player.activeSelf == true)
                 m_manager.Player.SetActive(false);
 
-            return SceneID.SCENE_BATTLE;
+            // フェードし終えたか
+            if (m_panelUIFade_Script.IsFadeComp == true)
+            {
+                return SceneID.SCENE_BATTLE;
+            }
         }
         // リザルトシーンへ
         // return SceneID.SCENE_RESULT;
@@ -74,8 +83,14 @@ public class SceneRevised_Script : IScene_Script
         {
             if(AriaOver_Script.Get.IsOver)
             {
-                TransitionManager_Script.StartTransition(m_manager.Revised.Name);
-                return SceneID.SCENE_REVISED;
+                // フェードを起動
+                m_panelUIFade_Script.IsFadeOut = true;
+                // フェードし終えたか
+                if (m_panelUIFade_Script.IsFadeComp == true)
+                {
+                    TransitionManager_Script.StartTransition(m_manager.Revised.Name);
+                    return SceneID.SCENE_REVISED;
+                }
             }
         }
 
@@ -97,7 +112,7 @@ public class SceneRevised_Script : IScene_Script
         m_manager.Audio.PlayBGM(BfxType.bgm_Search);
         // Findする
         m_manager.Player = GameObject.Find("LocalAvatar");
-
+        m_panelUIFade_Script = GameObject.Find("FadePanel").GetComponent<PanelUI_Fade_Script>();
         for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
         {
             if (!CreatureList_Script.Get.List.DataList[i].drumonName.Equals(""))

@@ -82,7 +82,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_levelUI = GameObject.Find("ELVText");
         m_levelTextUIScript = m_levelUI.GetComponent<LevelTextUI_Script>();
 
-        m_targetPos = GameObject.Find("EnemyCreature");
+        m_targetPos = GameObject.Find("PlayerCreature");
 
         m_healProsperityUIScript.MaxPoint = m_data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.hp;
@@ -124,7 +124,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         damage = (int)(damage * weak);
         if (damage <= 0) damage = 1;
         this.m_target.Damage(damage);
-        if (weak == 1.5f) DamageUI_Script.CreateWeakUI(m_targetPos.transform);
+        if (weak == 1.5f) DamageUI_Script.CreateWeakUI(m_targetPos.transform, new Vector3(-0.25f, 2.8f, -3f));
         this.m_timer = 0.0f;
         this.m_atkFlag = false;
         
@@ -135,7 +135,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         this.m_data.hp -= damage;
         m_anim.SetTrigger("Damage");
-        DamageUI_Script.CreateDamageUI(this.transform, damage);
+        DamageUI_Script.CreateDamageUI(this.transform, new Vector3(1.6f, 2.7f, -3f), damage);
         if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 

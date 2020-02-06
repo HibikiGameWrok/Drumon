@@ -123,7 +123,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         damage = (int)(damage * weak);
         if (damage <= 0) damage = 1;
         this.m_target.Damage(damage);
-        if (weak == 1.5f) DamageUI_Script.CreateWeakUI(m_targetPos.transform);
+        if (weak == 1.5f) DamageUI_Script.CreateWeakUI(m_targetPos.transform, new Vector3(1.5f, 3.0f, -3f));
         this.m_rate = 0;
         this.m_atkFlag = false;
 
@@ -134,7 +134,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         this.m_data.hp -= damage;
         m_anim.SetTrigger("Damage");
-        DamageUI_Script.CreateDamageUI(this.transform, damage);
+        DamageUI_Script.CreateDamageUI(this.transform, new Vector3(0f, 2.5f, -2.5f), damage);
         if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 

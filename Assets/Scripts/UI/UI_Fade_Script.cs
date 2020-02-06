@@ -88,6 +88,8 @@ public class UI_Fade_Script : Fade_SetAlpha
         if (m_alfa >= 1)
         {
             IsFadeOut = false;
+            m_startFadeOutFlag = false;
+            m_fadeRunningFlag = true;
         }
     }
 
@@ -100,11 +102,15 @@ public class UI_Fade_Script : Fade_SetAlpha
         {
             m_alfa = 0;
             IsFadeIn = false;
+            m_startFadeInFlag = false;
+            m_fadeRunningFlag = true;
         }
     }
 
-    protected override void SetAlpha()
+    protected void Start()
     {
-
+        
     }
+
+    protected override void SetAlpha()  { }
 }
