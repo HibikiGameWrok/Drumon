@@ -194,7 +194,7 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
         }
         else
         {
-            //m_boxDrum.noUIFlag = true;
+            m_boxDrum.noUIFlag = true;
             m_boxDrum.switchFlag = true;
         }
         
