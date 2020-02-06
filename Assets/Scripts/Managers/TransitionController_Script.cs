@@ -97,7 +97,7 @@ public class TransitionController_Script : MonoBehaviour
 
         // 完全に白くする
         m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 1.0f);
-        VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, 1.0f);
+        //VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, 1.0f);
 
         // 画面が隠し終わったらシーン遷移する
         yield return SceneManager.LoadSceneAsync(nextSceneName,mode);
@@ -110,7 +110,7 @@ public class TransitionController_Script : MonoBehaviour
             time -= Time.deltaTime;
             m_coverImage.color = OverrideColorAlpha(m_coverImage.color, time / m_transitionSeconds);
             /**/
-            VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, time / m_transitionSeconds);
+            //VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.black, time / m_transitionSeconds);
             /**/
             yield return null;
         }
@@ -118,7 +118,7 @@ public class TransitionController_Script : MonoBehaviour
         // クリックイベントのブロック解除
         m_coverImage.raycastTarget = false;
         m_coverImage.color = OverrideColorAlpha(m_coverImage.color, 0.0f);
-        VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.clear, 0.0f);
+        //VRTK.VRTK_SDK_Bridge.HeadsetFade(Color.clear, 0.0f);
 
         // シーン遷移完了
         m_isTransferring.Value = false;

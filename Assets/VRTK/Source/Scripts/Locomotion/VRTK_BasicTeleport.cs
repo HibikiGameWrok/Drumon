@@ -77,6 +77,8 @@ namespace VRTK
         protected Vector3 givenForcedPosition = Vector3.zero;
         protected Quaternion? givenForcedRotation = null;
 
+        private StatusMenuUI_Script m_menu;
+
         /// <summary>
         /// The InitDestinationSetListener method is used to register the teleport script to listen to events from the given game object that is used to generate destination markers. Any destination set event emitted by a registered game object will initiate the teleport to the given destination location.
         /// </summary>
@@ -212,6 +214,8 @@ namespace VRTK
         protected virtual void Awake()
         {
             VRTK_SDKManager.AttemptAddBehaviourToToggleOnLoadedSetupChange(this);
+
+            m_menu = GameObject.Find("MenuCanvas").GetComponent<StatusMenuUI_Script>();
         }
 
         protected virtual void OnEnable()
@@ -247,6 +251,8 @@ namespace VRTK
             if (transitionSpeed > 0f)
             {
                 VRTK_SDK_Bridge.HeadsetFade(blinkToColor, 0);
+                if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Revised")
+                    AudioManager_Script.Get.PlaySE(SfxType.teleport);
             }
             Invoke("ReleaseBlink", blinkPause);
         }
@@ -281,22 +287,25 @@ namespace VRTK
 
         protected virtual void DoTeleport(object sender, DestinationMarkerEventArgs e)
         {
-            if (enableTeleport && ValidLocation(e.target, e.destinationPosition) && e.enableTeleport)
+            if (!m_menu.IsMenu)
             {
-                if (useGivenForcedPosition)
+                if (enableTeleport && ValidLocation(e.target, e.destinationPosition) && e.enableTeleport)
                 {
-                    e.destinationPosition = givenForcedPosition;
-                    e.destinationRotation = (givenForcedRotation != null ? givenForcedRotation : e.destinationRotation);
-                    ResetActualTeleportDestination();
+                    if (useGivenForcedPosition)
+                    {
+                        e.destinationPosition = givenForcedPosition;
+                        e.destinationRotation = (givenForcedRotation != null ? givenForcedRotation : e.destinationRotation);
+                        ResetActualTeleportDestination();
+                    }
+                    StartTeleport(sender, e);
+                    Quaternion updatedRotation = SetNewRotation(e.destinationRotation);
+                    Vector3 newPosition = GetNewPosition(e.destinationPosition, e.target, e.forceDestinationPosition);
+                    CalculateBlinkDelay(blinkTransitionSpeed, newPosition);
+                    Blink(blinkTransitionSpeed);
+                    Vector3 updatedPosition = SetNewPosition(newPosition, e.target, e.forceDestinationPosition);
+                    ProcessOrientation(sender, e, updatedPosition, updatedRotation);
+                    EndTeleport(sender, e);
                 }
-                StartTeleport(sender, e);
-                Quaternion updatedRotation = SetNewRotation(e.destinationRotation);
-                Vector3 newPosition = GetNewPosition(e.destinationPosition, e.target, e.forceDestinationPosition);
-                CalculateBlinkDelay(blinkTransitionSpeed, newPosition);
-                Blink(blinkTransitionSpeed);
-                Vector3 updatedPosition = SetNewPosition(newPosition, e.target, e.forceDestinationPosition);
-                ProcessOrientation(sender, e, updatedPosition, updatedRotation);
-                EndTeleport(sender, e);
             }
         }
 

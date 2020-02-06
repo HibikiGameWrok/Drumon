@@ -14,8 +14,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.SceneManagement;
-using UniRx;
+
 
 
 // ゲーム全体を管理するクラス
@@ -52,6 +53,22 @@ public class GameManager_Script : SingletonBase_Script<GameManager_Script>
             return;
         // 削除しない
         DontDestroyOnLoad(this.gameObject);
+
+#if UNITY_EDITOR
+        if (!XRDevice.isPresent)
+        {
+            bool result = UnityEditor.EditorUtility.DisplayDialog("警告", "VR機器が接続されていません","OK", "Ignore");
+
+            if (result)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+            }
+            else
+            {
+                // 続行する
+            }
+        }
+ #endif
 
         // Audio関連のインスタンスを生成する
         AudioInstance();

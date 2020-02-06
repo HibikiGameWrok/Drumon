@@ -51,6 +51,11 @@ public class CaptureDrum_Script : Drum_Script
     // キャプチャーモードテキスト
     private Transform m_captureModeText;
 
+    public bool CaptureMode
+    {
+        get { return m_captureModeText.gameObject.activeInHierarchy; }
+    }
+
     // 1秒のカウント
     private float m_timerCount = COUNT_RESET;
 

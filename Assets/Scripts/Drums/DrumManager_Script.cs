@@ -32,7 +32,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
     // 現在のドラム
     [SerializeField]
-    private Drum_Script m_currentDrum;
+    private Drum_Script m_currentDrum = null;
+
+    [SerializeField]
+    private CostUI_Script m_costUIScript = null;
 
     // HPUI
     private GameObject m_healProsperityUI;
@@ -112,25 +115,31 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             bool result = m_currentDrum.Execute();
 
             // 攻撃用のドラムの処理
-            if(m_currentDrum == m_attackDrum)
+            if (m_currentDrum == m_attackDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
-                if(result == true)
+                if (result == true)
                 {
                     if (XRDevice.isPresent)
                     {
-                        // 継続する
-
-                        // ノーツの生成処理
-                        m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                        if (m_costUIScript.GageEnd() != true)
+                        {
+                            // ノーツの生成処理
+                            m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                        }
+                        else
+                        {
+                            // コスト回復を早める処理
+                            m_attackDrum.GetComponent<AttackDrum_Script>().CostUpHit();
+                        }
                     }
                 }
                 else
                 {
-                    
+
                 }
             }
             // 選択用のドラムの処理
-            else if (m_currentDrum == m_switchDrum)
+            else if (m_currentDrum == m_switchDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
                 if (result == true)
                 {
@@ -151,13 +160,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 }
             }
             // 捕獲用のドラムの処理
-            else if (m_currentDrum == m_captureDrum)
+            else if (m_currentDrum == m_captureDrum || m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
-                if (result == true)
-                {
-                    // 継続する
-                    m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
-                }
+                // 継続する
+                m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
             }
         }
 
@@ -171,11 +177,11 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                     m_enemyCreature.Capture(CaptureDrum_Script.CAPTURE_CONFIRM);
                     //m_tutorialGetFlag = true;
                 }
-                else if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialBattleFlag == true)
+                else if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialBattleFlag == true && m_playerCreature.Data.hp > 0)
                 {
                     m_enemyCreature.Capture(0);
                 }
-                else
+                else if (m_playerCreature.Data.hp > 0)
                 {
                     m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
                 }

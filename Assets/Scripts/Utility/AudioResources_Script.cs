@@ -12,6 +12,8 @@ public enum SfxType
     teleport,
     appearRay,
     faild,
+    open,
+    close,
     fanfare,
     LvUP,
 

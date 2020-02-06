@@ -10,6 +10,8 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     private CSVDataHolder csvHolder = new CSVDataHolder();
     private int m_lastArts;
 
+    private GameObject m_targetPos = null;
+
     public int HP
     {
         get { return this.m_data.hp; }
@@ -80,6 +82,8 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         m_levelUI = GameObject.Find("ELVText");
         m_levelTextUIScript = m_levelUI.GetComponent<LevelTextUI_Script>();
 
+        m_targetPos = GameObject.Find("EnemyCreature");
+
         m_healProsperityUIScript.MaxPoint = m_data.maxHp;
         m_healProsperityUIScript.NowPoint = m_data.hp;
         m_levelTextUIScript.NowLevel = m_data.level;
@@ -108,6 +112,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
+        if (m_data.hp == 0) return;
         SelectArts();
         // 技のレートをクリーチャーに教える
         string matchRate = csvHolder.CSVDatas[m_lastArts][(int)AttackRecipeManeger_Script.Data_Column.ATK_RATE];
@@ -119,6 +124,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
         damage = (int)(damage * weak);
         if (damage <= 0) damage = 1;
         this.m_target.Damage(damage);
+        if (weak == 1.5f) DamageUI_Script.CreateWeakUI(m_targetPos.transform);
         this.m_timer = 0.0f;
         this.m_atkFlag = false;
         
@@ -129,6 +135,7 @@ public class EnemyCreature_Script : MonoBehaviour, ICreature_Script
     {
         this.m_data.hp -= damage;
         m_anim.SetTrigger("Damage");
+        DamageUI_Script.CreateDamageUI(this.transform, damage);
         if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 

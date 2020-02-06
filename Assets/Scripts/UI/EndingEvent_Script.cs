@@ -48,14 +48,21 @@ public class EndingEvent_Script : MonoBehaviour
     {
         for(int i = 1; i < m_csvDatas.Count; i++)
         {
+            // 遅延
             yield return new WaitForSeconds(2.0f);
+
             // CubeプレハブをGameObject型で取得
             GameObject obj = (GameObject)Resources.Load("InsPrefab/StaffRollTextObject");
-
+            // Textコンポーネント
             Text stafftext = obj.transform.GetChild(0).GetComponent<Text>();
+
+            // 文章をcsvの内容に反映
             stafftext.text = m_csvDatas[i][1];
-            if(m_csvDatas[i][2] == "1")
+            // フォントサイズをcsvの内容に反映
+            stafftext.fontSize = int.Parse(m_csvDatas[i][3]);
+            if (m_csvDatas[i][2] == "1")
             {
+                // 指定の文字の色を緑にする
                 stafftext.color = new Color(0.2f,0.4f,0.2f,1); 
             }
             else

@@ -13,6 +13,9 @@ public class ConeBarrage_Script : MonoBehaviour
     [SerializeField]
     private GameObject particleObject = null;
 
+    [SerializeField]
+    private Transform bullet = null;
+
     public float range = 1;
 
     public bool DeleteOnFinish = true;
@@ -58,7 +61,7 @@ public class ConeBarrage_Script : MonoBehaviour
 
                 GameObject particle = Instantiate(particleObject);
                 particle.transform.SetParent(transform);
-                particle.transform.localPosition = new Vector3(Random.Range(-(float)range, (float)range), 0, Random.Range(-(float)range, (float)range));
+                particle.transform.localPosition = bullet.localPosition + new Vector3(Random.Range(-(float)range, (float)range), 0, Random.Range(-(float)range, (float)range));
                 particle.transform.rotation = new Quaternion();
                 particle.transform.SetParent(null);
 

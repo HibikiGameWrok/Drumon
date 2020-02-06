@@ -40,11 +40,6 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     public IReadOnlyReactiveProperty<bool> IsAllFinish => m_isAllFinish;
 
-    // タイムオブジェクトを保持
-    //private GameObject m_timer = null;
-    // タイムScriptを取得
-    //private AccelerationTime_Script m_timeStandard_Script = null;
-
     // チュートリアルを表示中かどうかのフラグ
     private bool m_tutorialModeFlag = true;
     // 実践中かどうかのフラグ
@@ -56,103 +51,111 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
     // バトルシーン用
     // チュートリアルキャンバス
-    private GameObject m_tutorialCanvas;
+    private GameObject m_tutorialCanvas = null;
+    // 吹き出し1
+    private GameObject m_battleFrame1 = null;
     // テキストの配列
-    private GameObject[] m_textArray;
+    private GameObject[] m_textArray = null;
     // バトルシーケンステキスト
-    private GameObject m_explainBattleSequenceText;
-    // ドラモン説明テキスト
-    //private GameObject m_explainDrumonText;
+    private GameObject m_explainBattleSequenceText = null;
     // HP説明テキスト
-    private GameObject m_explainHPText;
+    private GameObject m_explainHPText = null;
     // 攻撃ドラム説明テキスト
-    private GameObject m_explainAttackDrumText;
+    private GameObject m_explainAttackDrumText = null;
     // 右矢印テキスト
-    private GameObject m_rightArrowText;
+    private GameObject m_rightArrowText = null;
     // バトルシステム説明テキスト
-    private GameObject m_explainBattleSystemText;
+    private GameObject m_explainBattleSystemText = null;
     // バトルシステム説明テキスト2
-    private GameObject m_explainBattleSystemText2;
+    private GameObject m_explainBattleSystemText2 = null;
     // 内側を叩いた時のチェック
-    private GameObject m_inHitCheckImage;
+    private GameObject m_inHitCheckImage = null;
     // 外側を叩いた時のチェック
-    private GameObject m_outHitCheckImage;
+    private GameObject m_outHitCheckImage = null;
     // 内側を同時に叩いた時のチェック
-    private GameObject m_doubleInHitCheckImage;
+    private GameObject m_doubleInHitCheckImage = null;
     // 外側を同時に叩いた時のチェック
-    private GameObject m_doubleOutHitCheckImage;
+    private GameObject m_doubleOutHitCheckImage = null;
     // 攻撃成功テキスト
-    private GameObject m_succesAttackText;
-    // 右矢印テキスト3
-    //private GameObject m_rightArrowText3;
+    private GameObject m_succesAttackText = null;
+    // 敵撃破テキスト
+    private GameObject m_enemyKillText = null;
     // チュートリアルの終了テキスト
-    private GameObject m_tutorialEndText;
+    private GameObject m_tutorialEndText = null;
+    // チュートリアルの終了テキスト2
+    private GameObject m_tutorialEndText2 = null;
 
     // チュートリアルスイッチキャンバス
-    private GameObject m_tutorialSwitchCanvas;
+    private GameObject m_tutorialSwitchCanvas = null;
+    // 吹き出し2
+    private GameObject m_battleFrame2 = null;
     // 選択ドラム説明テキスト
-    private GameObject m_explainSwitchDrumText;
+    private GameObject m_explainSwitchDrumText = null;
+    // 選択ドラム説明テキスト2
+    private GameObject m_explainSwitchDrumText2 = null;
     // 左矢印テキスト
-    private GameObject m_leftArrowText;
-    // スイッチの実践テキスト
-    //private GameObject m_practiceChangeText;
-    // 変更成功テキスト
-    //private GameObject m_succesSwitchText;
-    // 左矢印テキスト2
-    //private GameObject m_leftArrowText2;
+    private GameObject m_leftArrowText = null;
 
     // チュートリアルキャプチャーキャンバス
-    private GameObject m_tutorialCaptureCanvas;
+    private GameObject m_tutorialCaptureCanvas = null;
+    // 吹き出し3
+    private GameObject m_battleFrame3 = null;
     // 捕獲ドラム説明テキスト
-    private GameObject m_explainCaptureDrumText;
+    private GameObject m_explainCaptureDrumText = null;
     // 右矢印テキスト
-    private GameObject m_rightArrowText2;
-    // キャプチャーの実践テキスト
-    //private GameObject m_practiceCaptureText;
+    private GameObject m_rightArrowText2 = null;
 
     // チュートリアル技リストのキャンバス
-    private GameObject m_tutorialAbilityCanvas;
+    private GameObject m_tutorialAbilityCanvas = null;
+    // 吹き出し4
+    private GameObject m_battleFrame4 = null;
     // 技リストの説明テキスト
-    private GameObject m_explainAbilityText;
+    private GameObject m_explainAbilityText = null;
     // 技リストの説明テキスト2
-    private GameObject m_explainAbilityText2;
+    private GameObject m_explainAbilityText2 = null;
     // 技リストの説明テキスト3
-    private GameObject m_explainAbilityText3;
+    private GameObject m_explainAbilityText3 = null;
     // 技リストの説明テキスト4
-    private GameObject m_explainAbilityText4;
+    private GameObject m_explainAbilityText4 = null;
 
     // チュートリアルミュージックスコアキャンバス
-    private GameObject m_tutorialMusicScoreCanvas;
+    private GameObject m_tutorialMusicScoreCanvas = null;
+    // 吹き出し5
+    private GameObject m_battleFrame5 = null;
     // タイマーの説明テキスト
-    private GameObject m_explainTimerText;
+    private GameObject m_explainTimerText = null;
     // ノーツリセットの説明テキスト
-    private GameObject m_explainNotesResetText;
+    private GameObject m_explainNotesResetText = null;
 
     // キャプチャーシーン用
     // チュートリアル説明キャンバス
-    private GameObject m_tutorialExplainCanvas;
+    private GameObject m_tutorialExplainCanvas = null;
+    // 吹き出し1
+    private GameObject m_captureFrame1 = null;
     // 説明テキスト1
-    private GameObject m_explainText1;
+    private GameObject m_explainText1 = null;
     // 説明テキスト2
-    private GameObject m_explainText2;
+    private GameObject m_explainText2 = null;
     // 説明テキスト3
-    private GameObject m_explainText3;
+    private GameObject m_explainText3 = null;
     // 左矢印テキスト3
-    private GameObject m_leftArrowText3;
+    private GameObject m_leftArrowText3 = null;
     // 説明テキスト4
-    private GameObject m_explainText4;
+    private GameObject m_explainText4 = null;
 
     // チュートリアルキャプチャーキャンバス2
-    private GameObject m_tutorialCaptureCanvas2;
+    private GameObject m_tutorialCaptureCanvas2 = null;
+    // 吹き出し2
+    private GameObject m_captureFrame2 = null;
     // キャプチャーの説明テキスト1
-    private GameObject m_explainCaptureText1;
+    private GameObject m_explainCaptureText1 = null;
     // キャプチャーの説明テキスト2
-    private GameObject m_explainCaptureText2;
+    private GameObject m_explainCaptureText2 = null;
     // キャプチャーの実践テキスト
-    private GameObject m_practiceCaptureText;
+    private GameObject m_practiceCaptureText = null;
 
     // 現在のテキスト
-    private Text m_text;
+    private Text m_text = null;
     // 現在の説明テキスト数
     private int m_curentNum = 0;
 
@@ -164,7 +167,23 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private GameObject m_stickLeft = null;
     private GameObject m_stickRight = null;
 
-    private Mesh m_mesh = null;
+    // フェードUI
+    private PanelUI_Fade_Script m_fadePanel = null;
+
+    private float m_frameCount = 0.0f;
+
+    // マテリアル
+    [SerializeField]
+    private Material[] m_stickMaterials = null;
+    private Renderer m_leftStickRender = null;
+    private Renderer m_rightStickRender = null;
+    [SerializeField]
+    private Mesh[] m_handMesh = null;
+
+    // ヒットパターンキャンバス
+    private GameObject m_hitPatternCanvas = null;
+
+    private GameObject m_rightHand = null;
 
     // Start is called before the first frame update
     void Start()
@@ -177,22 +196,36 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         this.m_attackSpan = 0.0f;
         this.SetTarget();
 
-        //m_timer = GameObject.Find("Timer");
-        //m_timeStandard_Script = m_timer.GetComponent<AccelerationTime_Script>();
+        m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
+        m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
+        m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
+        m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
+
+        m_leftStickRender = m_stickLeft.GetComponent<Renderer>();
+        m_rightStickRender = m_stickRight.GetComponent<Renderer>();
+
+        // モデルをコントローラーに変える
+        m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
+        m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
+        m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[1];
+        m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[2];
+        m_leftStickRender.sharedMaterial = m_stickMaterials[1];
+        m_rightStickRender.sharedMaterial = m_stickMaterials[1];
 
         if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
         {
             m_tutorialCanvas = GameObject.Find("TutorialCanvas");
+            m_battleFrame1 = m_tutorialCanvas.transform.Find("BattleFrame1").gameObject;
             m_explainBattleSequenceText = m_tutorialCanvas.transform.Find("ExplainBattleSequenceText").gameObject;
-            //m_explainDrumonText = m_tutorialCanvas.transform.Find("ExplainDrumonText").gameObject;
             m_explainHPText = m_tutorialCanvas.transform.Find("ExplainHPText").gameObject;
             m_explainAttackDrumText = m_tutorialCanvas.transform.Find("ExplainAttackDrumText").gameObject;
             m_rightArrowText = m_tutorialCanvas.transform.Find("RightArrowText").gameObject;
             m_explainBattleSystemText = m_tutorialCanvas.transform.Find("ExplainBattleSystemText").gameObject;
             m_explainBattleSystemText2 = m_tutorialCanvas.transform.Find("ExplainBattleSystemText2").gameObject;
             m_succesAttackText = m_tutorialCanvas.transform.Find("SuccesAttackText").gameObject;
-            //m_rightArrowText3 = m_tutorialCanvas.transform.Find("RightArrowText3").gameObject;
+            m_enemyKillText = m_tutorialCanvas.transform.Find("EnemyKillText").gameObject;
             m_tutorialEndText = m_tutorialCanvas.transform.Find("TutorialEndText").gameObject;
+            m_tutorialEndText2 = m_tutorialCanvas.transform.Find("TutorialEndText2").gameObject;
 
             m_inHitCheckImage = m_explainBattleSystemText2.transform.Find("InHitCheckImage").gameObject;
             m_outHitCheckImage = m_explainBattleSystemText2.transform.Find("OutHitCheckImage").gameObject;
@@ -200,38 +233,38 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_doubleOutHitCheckImage = m_explainBattleSystemText2.transform.Find("DoubleOutHitCheckImage").gameObject;
 
             m_tutorialSwitchCanvas = GameObject.Find("TutorialSwitchCanvas");
+            m_battleFrame2 = m_tutorialSwitchCanvas.transform.Find("BattleFrame2").gameObject;
             m_explainSwitchDrumText = m_tutorialSwitchCanvas.transform.Find("ExplainSwitchDrumText").gameObject;
+            m_explainSwitchDrumText2 = m_tutorialSwitchCanvas.transform.Find("ExplainSwitchDrumText2").gameObject;
             m_leftArrowText = m_tutorialSwitchCanvas.transform.Find("LeftArrowText").gameObject;
-            //m_practiceChangeText = m_tutorialSwitchCanvas.transform.Find("PracticeChangeText").gameObject;
-            //m_succesSwitchText = m_tutorialSwitchCanvas.transform.Find("SuccesSwitchText").gameObject;
-            //m_leftArrowText2 = m_tutorialSwitchCanvas.transform.Find("LeftArrowText2").gameObject;
 
             m_tutorialCaptureCanvas = GameObject.Find("TutorialCaptureCanvas");
+            m_battleFrame3 = m_tutorialCaptureCanvas.transform.Find("BattleFrame3").gameObject;
             m_explainCaptureDrumText = m_tutorialCaptureCanvas.transform.Find("ExplainCaptureDrumText").gameObject;
             m_rightArrowText2 = m_tutorialCaptureCanvas.transform.Find("RightArrowText2").gameObject;
-            //m_practiceCaptureText = m_tutorialCaptureCanvas.transform.Find("PracticeCaptureText").gameObject;
 
             m_tutorialAbilityCanvas = GameObject.Find("TutorialAbilityCanvas");
+            m_battleFrame4 = m_tutorialAbilityCanvas.transform.Find("BattleFrame4").gameObject;
             m_explainAbilityText = m_tutorialAbilityCanvas.transform.Find("ExplainAbilityText").gameObject;
             m_explainAbilityText2 = m_tutorialAbilityCanvas.transform.Find("ExplainAbilityText2").gameObject;
             m_explainAbilityText3 = m_tutorialAbilityCanvas.transform.Find("ExplainAbilityText3").gameObject;
             m_explainAbilityText4 = m_tutorialAbilityCanvas.transform.Find("ExplainAbilityText4").gameObject;
 
             m_tutorialMusicScoreCanvas = GameObject.Find("TutorialMusicScoreCanvas");
+            m_battleFrame5 = m_tutorialMusicScoreCanvas.transform.Find("BattleFrame5").gameObject;
             m_explainTimerText = m_tutorialMusicScoreCanvas.transform.Find("ExplainTimerText").gameObject;
             m_explainNotesResetText = m_tutorialMusicScoreCanvas.transform.Find("ExplainNotesResetText").gameObject;
 
-            m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2, m_explainAbilityText, m_explainAbilityText2, m_explainAbilityText3, m_explainAbilityText4, m_explainTimerText, m_explainNotesResetText, m_succesAttackText, m_tutorialEndText };
+            m_textArray = new GameObject[] { m_explainBattleSequenceText, m_explainHPText, m_explainAttackDrumText, m_rightArrowText, m_explainSwitchDrumText, m_explainSwitchDrumText2, m_leftArrowText, m_explainCaptureDrumText, m_rightArrowText2, m_explainBattleSystemText, m_explainBattleSystemText2, m_explainAbilityText, m_explainAbilityText2, m_explainAbilityText3, m_explainAbilityText4, m_explainTimerText, m_explainNotesResetText, m_succesAttackText, m_enemyKillText, m_tutorialEndText, m_tutorialEndText2 };
 
             m_text = m_textArray[0].GetComponent<Text>();
+
+            m_hitPatternCanvas = GameObject.Find("HitPatternCanvas");
         }
         else if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
-            //ResetData(CreatureList_Script.Get.List.DataList[0]);
-            //CreatureList_Script.Get.List.DataList[1].hp = CreatureList_Script.Get.List.DataList[1].maxHp;
-            //ResetData(CreatureList_Script.Get.List.DataList[2]);
-
             m_tutorialExplainCanvas = GameObject.Find("TutorialExplainCanvas");
+            m_captureFrame1 = m_tutorialExplainCanvas.transform.Find("CaptureFrame1").gameObject;
             m_explainText1 = m_tutorialExplainCanvas.transform.Find("ExplainText1").gameObject;
             m_explainText2 = m_tutorialExplainCanvas.transform.Find("ExplainText2").gameObject;
             m_explainText3 = m_tutorialExplainCanvas.transform.Find("ExplainText3").gameObject;
@@ -239,6 +272,7 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             m_explainText4 = m_tutorialExplainCanvas.transform.Find("ExplainText4").gameObject;
 
             m_tutorialCaptureCanvas2 = GameObject.Find("TutorialCaptureCanvas2");
+            m_captureFrame2 = m_tutorialCaptureCanvas2.transform.Find("CaptureFrame2").gameObject;
             m_explainCaptureText1 = m_tutorialCaptureCanvas2.transform.Find("ExplainCaptureText1").gameObject;
             m_explainCaptureText2 = m_tutorialCaptureCanvas2.transform.Find("ExplainCaptureText2").gameObject;
             m_practiceCaptureText = m_tutorialCaptureCanvas2.transform.Find("PracticeCaptureText").gameObject;
@@ -247,22 +281,15 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
 
             m_text = m_textArray[0].GetComponent<Text>();
 
-            m_distanceGrabHandLeft = GameObject.Find("DistanceGrabHandLeft");
-            m_distanceGrabHandRight = GameObject.Find("DistanceGrabHandRight");
-            m_stickLeft = m_distanceGrabHandLeft.transform.Find("StickLeft").gameObject;
-            m_stickRight = m_distanceGrabHandRight.transform.Find("StickRight").gameObject;
-
-            m_mesh = m_stickLeft.GetComponent<MeshFilter>().sharedMesh;
-
-            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
-            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
-            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = null;
-            m_stickRight.GetComponent<MeshFilter>().sharedMesh = null;
-
             CreatureList_Script.Get.List.DataList[0].drumonName = "";
+
+            m_rightHand = GameObject.Find("RightHand");
         }
 
         m_drumManager = GameObject.Find("DrumManager").GetComponent<DrumManager_Script>();
+        m_fadePanel = GameObject.Find("FadePanel").GetComponent<PanelUI_Fade_Script>();
+
+        m_fadePanel.IsFadeIn = true;
     }
 
     // Update is called once per frame
@@ -295,17 +322,16 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             if (this.m_nowMove != null && this.m_attackSpan <= 0.0f) this.Action();
         }
 
-        //if (m_tutorialModeFlag == true && m_drumManager.CaptureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == false)
-        //{
-        //    m_timeStandard_Script.StopFlag = true;
-        //}
-
         if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
         {
             if (m_tutorialModeFlag == false)
             {
                 // 文字を小さくする
                 m_text.fontSize -= 10;
+                foreach (Transform childTransform in m_text.transform)
+                {
+                    childTransform.gameObject.SetActive(false);
+                }
             }
 
             // ボタンが押されたら
@@ -321,26 +347,101 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 NextText();
             }
 
-            if (m_curentNum == 9)
+            if (m_curentNum == 3)
+            {
+                m_battleFrame1.gameObject.SetActive(false);
+            }
+            else if (m_curentNum == 4)
+            {
+                m_battleFrame2.gameObject.SetActive(true);
+            }
+            else if (m_curentNum == 6)
+            {
+                m_battleFrame2.gameObject.SetActive(false);
+            }
+            else if (m_curentNum == 7)
+            {
+                m_battleFrame3.gameObject.SetActive(true);
+            }
+            else if (m_curentNum == 8)
+            {
+                m_battleFrame3.gameObject.SetActive(false);
+            }
+            else if (m_curentNum == 9)
+            {
+                m_battleFrame1.gameObject.SetActive(true);
+            }
+            else if (m_curentNum == 10)
             {
                 m_practiceModeFlag = true;
             }
+            else if (m_curentNum == 11)
+            {
+                m_battleFrame1.gameObject.SetActive(false);
+                m_battleFrame4.gameObject.SetActive(true);
+            }
             else if (m_curentNum == 15)
             {
-                m_practiceModeFlag = true;
+                m_battleFrame4.gameObject.SetActive(false);
+                m_battleFrame5.gameObject.SetActive(true);
             }
             else if (m_curentNum == 16)
             {
                 m_practiceModeFlag = true;
-                //m_timeStandard_Script.StopFlag = false;
-            }
 
-            //if (m_practiceCaptureText.activeInHierarchy == true)
-            //{
-            //    m_practiceModeFlag = true;
-            //    //m_timeStandard_Script.StopFlag = false;
-            //    m_drumManager.CaptureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag = true;
-            //}
+                foreach (Transform childTransform in m_hitPatternCanvas.transform)
+                {
+                    childTransform.gameObject.SetActive(true);
+                }
+            }
+            else if (m_curentNum == 17 && m_text.gameObject.activeInHierarchy == true)
+            {
+                m_practiceModeFlag = true;
+
+                m_frameCount++;
+
+                m_battleFrame5.gameObject.SetActive(false);
+                m_battleFrame1.gameObject.SetActive(true);
+
+                if (m_frameCount >= 240.0f)
+                {
+                    m_text.gameObject.SetActive(false);
+                    m_frameCount = 0.0f;
+
+                    m_battleFrame1.gameObject.SetActive(false);
+                }
+            }
+            else if (m_curentNum == 18)
+            {
+                m_practiceModeFlag = true;
+
+                m_frameCount++;
+
+                m_battleFrame1.gameObject.SetActive(true);
+
+                if (m_frameCount >= 300.0f)
+                {
+                    m_tutorialModeFlag = false;
+                    m_frameCount = 0.0f;
+                }
+            }
+            else if (m_curentNum == 19)
+            {
+                m_practiceModeFlag = true;
+
+                m_frameCount++;
+
+                if (m_frameCount >= 360.0f)
+                {
+                    m_tutorialModeFlag = false;
+                    m_frameCount = 0.0f;
+                }
+            }
+            else if (m_curentNum == 20)
+            {
+                m_practiceModeFlag = true;
+                StartCoroutine(SceneChengeStop());
+            }
 
             // 叩けたらチェックを出す
             if (m_explainBattleSystemText2.activeInHierarchy == true)
@@ -383,50 +484,22 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 // 敵が攻撃を受けたら
                 if (m_enemyCreature.HP < m_enemyCreature.GetData().maxHp)
                 {
-                    //if (m_timeStandard_Script.StopFlag == false)
-                    //{
-                    //    m_timeStandard_Script.StopFlag = true;
-
-                    //    // 次のテキストの表示
-                    //    NextText();
-                    //}
-
                     // 次のテキストの表示
-                    NextText();
+                    m_tutorialModeFlag = false;
 
                     // 敵が攻撃するようになる
                     m_enemyExecuteFlag = true;
                 }
             }
 
-            if (m_enemyCreature.HP <= 0)
+            if (m_enemyCreature.HP <= 0 && m_curentNum == 17)
             {
                 // 次のテキストの表示
                 NextText();
-
-                StartCoroutine(SceneChengeStop());
             }
 
-            //if (m_practiceChangeText.activeInHierarchy == true)
-            //{
-            //    // モンスターを変更したら
-            //    if (m_drumManager.SwitchDrum.GetComponent<SwitchDrum_Script>().TutorialChengeFlag == true)
-            //    {
-            //        // 次のテキストの表示
-            //        NextText();
-
-            //        m_drumManager.SwitchDrum.GetComponent<SwitchDrum_Script>().TutorialChengeFlag = false;
-            //    }
-            //}
-
-            //if (m_drumManager.TutorialGetFlag == true)
-            //{
-            //    // 次のテキストの表示
-            //    NextText();
-
-            //    m_drumManager.TutorialGetFlag = false;
-            //    //m_timeStandard_Script.StopFlag = true;
-            //}
+            // モデル変更
+            ChengeModel();
         }
         else if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
@@ -434,6 +507,10 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
             {
                 // 文字を小さくする
                 m_text.fontSize -= 10;
+                foreach (Transform childTransform in m_text.transform)
+                {
+                    childTransform.gameObject.SetActive(false);
+                }
             }
 
             // ボタンが押されたら
@@ -449,25 +526,42 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
                 NextText();
             }
 
-            if (m_curentNum == 6)
+            if (m_curentNum == 1)
+            {
+                m_rightHand.gameObject.SetActive(false);
+            }
+            else if (m_curentNum == 3)
+            {
+                m_captureFrame1.gameObject.SetActive(false);
+            }
+            else if (m_curentNum == 4)
+            {
+                m_captureFrame2.gameObject.SetActive(true);
+            }
+            else if(m_curentNum == 6)
             {
                 m_practiceModeFlag = true;
 
                 m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = true;
                 m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = true;
-                m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_mesh;
-                m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_mesh;
+                m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
+                m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
 
                 if (CreatureList_Script.Get.List.DataList[0].drumonName != "")
                 {
                     // 次のテキストの表示
-                    NextText();
+                    m_tutorialModeFlag = false;
                 }
             }
             else if (m_curentNum == 7)
             {
+                m_captureFrame1.gameObject.SetActive(true);
+                m_captureFrame2.gameObject.SetActive(false);
                 StartCoroutine(SceneChengeStop());
             }
+
+            // モデル変更
+            ChengeModel();
         }
     }
 
@@ -565,6 +659,9 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
     private IEnumerator SceneChengeStop()
     {
         yield return new WaitForSeconds(2.0f);
+        m_fadePanel.IsFadeOut = true;
+        yield return new WaitForSeconds(1.0f);
+
         if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
         {
             m_isFinish.SetValueAndForceNotify(true);
@@ -575,5 +672,30 @@ public class TutorialManager_Script : SingletonBase_Script<TutorialManager_Scrip
         }
 
         yield return null;
+    }
+
+    // モデル変更
+    private void ChengeModel()
+    {
+        if (m_practiceModeFlag == true)
+        {
+            // モデルをスティックに変える
+            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = true;
+            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = true;
+            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
+            m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[0];
+            m_leftStickRender.sharedMaterial = m_stickMaterials[0];
+            m_rightStickRender.sharedMaterial = m_stickMaterials[0];
+        }
+        else
+        {
+            // モデルをコントローラーに変える
+            m_distanceGrabHandLeft.GetComponent<CapsuleCollider>().enabled = false;
+            m_distanceGrabHandRight.GetComponent<CapsuleCollider>().enabled = false;
+            m_stickLeft.GetComponent<MeshFilter>().sharedMesh = m_handMesh[1];
+            m_stickRight.GetComponent<MeshFilter>().sharedMesh = m_handMesh[2];
+            m_leftStickRender.sharedMaterial = m_stickMaterials[1];
+            m_rightStickRender.sharedMaterial = m_stickMaterials[1];
+        }
     }
 }

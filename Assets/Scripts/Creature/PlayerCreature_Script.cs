@@ -38,6 +38,8 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     private ICreature_Script m_target = null;
 
+    private GameObject m_targetPos = null;
+
     private int m_rate;
     public int Rate
     {
@@ -77,6 +79,7 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
         m_levelUI = GameObject.Find("PLVText");
         m_levelTextUIScript = m_levelUI.GetComponent<LevelTextUI_Script>();
 
+        m_targetPos = GameObject.Find("EnemyCreature");
 
         PlayerBox_Script box = CreatureList_Script.Get.List;
         for (int i = 0; i < box.DataList.Length; i++)
@@ -113,12 +116,14 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
 
     public void Attack()
     {
+        if (m_data.hp == 0) return;
         int damage = (int)(((m_data.level / 5 + 2) * this.m_data.atk) * (this.m_rate / 100.0f)) - this.m_target.GetData().def;
         float weak = WeakChecker_Script.WeakCheck(this.m_data.elem, this.m_target.GetData().elem);
         VFXCreater_Script.CreateEffect(m_abiltyName, this.transform);
         damage = (int)(damage * weak);
         if (damage <= 0) damage = 1;
         this.m_target.Damage(damage);
+        if (weak == 1.5f) DamageUI_Script.CreateWeakUI(m_targetPos.transform);
         this.m_rate = 0;
         this.m_atkFlag = false;
 
@@ -129,11 +134,17 @@ public class PlayerCreature_Script : MonoBehaviour, ICreature_Script
     {
         this.m_data.hp -= damage;
         m_anim.SetTrigger("Damage");
+        DamageUI_Script.CreateDamageUI(this.transform, damage);
         if (this.m_data.hp < 0) this.m_data.hp = 0;
     }
 
     public void Heal()
     {
+        if (this.m_data.hp <= 0)
+        {
+            m_rate = 0;
+            return;
+        }
         // 回復SEを再生する
         AudioManager_Script.Get.PlaySE(SfxType.Heal);
 

@@ -4,6 +4,14 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 {
     [SerializeField]
     private PlayerBox_Script m_list = null;
+    private CreatureData m_captureData = null;
+
+    public CreatureData CaptureData
+    {
+        get { return m_captureData; }
+        set { m_captureData = value; }
+    }
+
     private CreatureData m_overData = null;
 
     public CreatureData OverData
@@ -32,6 +40,7 @@ public class CreatureList_Script : SingletonBase_Script<CreatureList_Script>
 
     public void Add(ICreature_Script creature)
     {
+        m_captureData = creature.GetData();
         for(int i = 0; i < m_list.DataList.Length; i++)
         {
             if(m_list.DataList[i].drumonName.Equals(""))

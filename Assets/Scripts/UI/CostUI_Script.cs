@@ -22,6 +22,13 @@ public class CostUI_Script : MonoBehaviour
     // 現在値
     [SerializeField]
     private float m_nowValue = 0.0f;
+
+    [SerializeField]
+    private AttackRecipeManeger_Script m_attackRecipeManegerScrit = null;
+
+    [SerializeField]
+    private AttackAbilityNameUI_Script m_attackAbilityNameUIScrit = null;
+
     public float NowCostValue
     {
         get { return m_nowValue; }
@@ -46,12 +53,22 @@ public class CostUI_Script : MonoBehaviour
         get { return m_waitTime; }
     }
 
+    // クールタイム
+    private float m_waitSpeedUp = 0.0f;
+    public float waitSpeedUp
+    {
+        set { m_waitSpeedUp = value; }
+        get { return m_waitSpeedUp; }
+    }
+
     // 子にアタッチしているSliderを保持する変数
     private Slider m_sliderCompnent = null;
 
     // コストテキストオブジェクト
     private GameObject m_costTextUI = null;
     private CostTextUI_Script m_costText = null;
+
+    private CaptureDrum_Script m_captureDrum;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +78,8 @@ public class CostUI_Script : MonoBehaviour
 
         m_costTextUI = GameObject.Find("CostTextUI");
         m_costText = m_costTextUI.GetComponent<CostTextUI_Script>();
+
+        m_captureDrum = GameObject.Find("Capture").GetComponent<CaptureDrum_Script>();
 
         m_sliderCompnent.minValue = m_minValue;
         m_sliderCompnent.maxValue = m_maxValue;
@@ -72,8 +91,38 @@ public class CostUI_Script : MonoBehaviour
     {
         m_sliderCompnent.value = m_nowValue;
         m_costText.NowCost = m_nowValue;
+        int minValue = 10;
+
+        if (m_recoveryFlag != true)
+        {
+            if (m_attackRecipeManegerScrit.csvDatas != null)
+            {
+                if (!m_captureDrum.CaptureMode)
+                {
+                    for (int i = 1; i < m_attackRecipeManegerScrit.csvDatas.Count; i++)
+                    {
+                        if (minValue > int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]))
+                        {
+                            minValue = int.Parse(m_attackRecipeManegerScrit.csvDatas[i][4]);
+                        }
+                    }
+                }
+                else
+                {
+                    minValue = 0;
+                }
+
+                if (m_nowValue < minValue) m_recoveryFlag = true;
+            }
+            else
+            {
+                if (m_nowValue <= 0) m_recoveryFlag = true;
+            }
+        }
+
         if (GageEnd() == true)
         {
+            m_attackAbilityNameUIScrit.DrawStringAttackName("コスト回復中\n(連打で回復速度UP)", 50);
             GageRecovery(m_waitTime);
         }
     }
@@ -83,7 +132,8 @@ public class CostUI_Script : MonoBehaviour
     {
         if (m_nowValue < m_sliderCompnent.maxValue)
         {
-            m_nowValue += Time.deltaTime / m_maxValue * waitTime;
+            m_nowValue += (Time.deltaTime / m_maxValue * waitTime) + m_waitSpeedUp;
+            m_waitSpeedUp = 0;
         }
     }
 
