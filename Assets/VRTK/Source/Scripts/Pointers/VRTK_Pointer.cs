@@ -568,13 +568,14 @@ namespace VRTK
             }
         }
 
+        // ボタンを押された時の動作
         protected virtual void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e)
         {
             controllerReference = e.controllerReference;
             OnActivationButtonPressed(controllerEvents.SetControllerEvent(ref activationButtonPressed, true));
             PointerActivated();
         }
-
+        // ボタンを離した時の動作
         protected virtual void DoActivationButtonReleased(object sender, ControllerInteractionEventArgs e)
         {
             controllerReference = e.controllerReference;

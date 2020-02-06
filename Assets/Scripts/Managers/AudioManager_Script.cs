@@ -1,15 +1,28 @@
-﻿using System.Collections;
+﻿/*----------------------------------------------------------*/
+//  file:      AudioManager_Script.cs                             |
+//				 											                    |
+//  brief:    Audio関係のスクリプト				                    |
+//															                    |
+//  date:	2019.11.12									            |
+//															                    |
+//  author: Renya Fukuyama									    |
+/*----------------------------------------------------------*/
+
+// using
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
 
-public class AudioManager_Script : MonoBehaviour
+
+// Audio関連のクラス
+public class AudioManager_Script : SingletonBase_Script<AudioManager_Script>
 {
     // ボリューム保存用のkeyとデフォルト値
     private const string BGM_VOLUME_KEY = "BGM_VOLUME_KEY";
     private const string SE_VOLUME_KEY = "SE_VOLUME_KEY";
-    private const float BGM_VOLUME_DEFAULT = 1.0f;
+    private const float BGM_VOLUME_DEFAULT = 0.5f;
     private const float SE_VOLUME_DEFAULT = 1.0f;
 
     // BGMがフェードするのにかかる時間
@@ -28,17 +41,18 @@ public class AudioManager_Script : MonoBehaviour
     public AudioSource AttachBGMSource, AttachSESource;
 
     // 全Audio保持
+    [SerializeField]
     private Dictionary<string, AudioClip> m_bgmDic, m_seDic;
 
 
-    private void Awake()
+    protected override void Awake()
     {
         // リソースフォルダから全SE＆BGMのファイルを読み込みセット
         m_bgmDic = new Dictionary<string, AudioClip>();
         m_seDic = new Dictionary<string, AudioClip>();
 
-        object[] bgmList = UnityEngine.Resources.LoadAll("");
-        object[] seList = UnityEngine.Resources.LoadAll("");
+        object[] bgmList = UnityEngine.Resources.LoadAll("Musics/BGM");
+        object[] seList = UnityEngine.Resources.LoadAll("Musics/SE");
 
         foreach(AudioClip bgm in bgmList)
         {
@@ -55,6 +69,7 @@ public class AudioManager_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 音量を設定する
         AttachBGMSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFAULT);
         AttachSESource.volume = PlayerPrefs.GetFloat(SE_VOLUME_KEY, SE_VOLUME_DEFAULT);
 
@@ -69,6 +84,7 @@ public class AudioManager_Script : MonoBehaviour
 
                 // 徐々にボリュームを下げていき、0になったら次の曲を流す
                 AttachBGMSource.volume -= Time.deltaTime * m_bgmFadeSpeedRate;
+               
                 if(AttachBGMSource.volume <= 0)
                 {
                     AttachBGMSource.Stop();
@@ -80,9 +96,15 @@ public class AudioManager_Script : MonoBehaviour
                         PlayBGM(m_nextBGMName);
                     }
                 }
-            });
+            }).AddTo(this.gameObject);
     }
 
+
+    /// <summary>
+    /// 指定したファイル名のSEを流す
+    /// </summary>
+    /// <param name="seName">SE名</param>
+    /// <param name="delay">再生までの間隔をあける</param>
     public void PlaySE(string seName, float delay = 0.0f)
     {
         // SEが存在しないなら処理しない
@@ -95,7 +117,6 @@ public class AudioManager_Script : MonoBehaviour
         m_nextSEName = seName;
         Invoke("DelayPlaySE", delay);
     }
-
     public void PlaySE(SfxType audio , float delay = 0.0f)
     {
         PlaySE(audio.ToString(), delay);

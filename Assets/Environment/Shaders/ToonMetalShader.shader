@@ -17,6 +17,9 @@
 		_RimAmount("Rim Amount", Range(0, 1)) = 0.716
 		_RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
 
+				_ShadowTier2Threshold("Shadow Tier 2 Threshold", Range(-1, 0)) = -0.3
+		_ShadowTier3Threshold("Shadow Tier 3 Threshold", Range(-1, 0)) = -0.6
+
 		[HDR]
 		_HighlightColor("Highlight Color", Color) = (1,0.5,0.5,1)
 		_HighlightVar("Highlight Variable", Range(-1, 1)) = 0.5
@@ -87,6 +90,9 @@
 			float4 _HighlightColor;
 			float _HighlightVar;
 
+			float _ShadowTier2Threshold;
+			float _ShadowTier3Threshold;
+
 			v2f vert(appdata v)
 			{
 				v2f o;
@@ -124,11 +130,11 @@ fixed4 col = tex2D(_MainTex, i.uv);
 			float NormalValToCheck = NdotL * shadow;
 			lightIntensity = smoothstep(0, 0.01, NormalValToCheck) * 0.8 + 0.2;
 
-			if (NdotL < -0.6)
+			if (NdotL < _ShadowTier3Threshold)
 			{
 				lightIntensity = 0;
 			}
-			else if (NdotL < -0.3)
+			else if (NdotL < _ShadowTier2Threshold)
 			{
 				lightIntensity /= 2;
 			}

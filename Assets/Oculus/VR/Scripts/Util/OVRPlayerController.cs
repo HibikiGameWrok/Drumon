@@ -18,7 +18,7 @@ using UnityEngine;
 /// <summary>
 /// Controls the player's movement in virtual reality.
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 public class OVRPlayerController : MonoBehaviour
 {
 	/// <summary>
@@ -166,9 +166,9 @@ public class OVRPlayerController : MonoBehaviour
 		if (Controller == null)
 			Debug.LogWarning("OVRPlayerController: No CharacterController attached.");
 
-		// We use OVRCameraRig to set rotations to cameras,
-		// and to be influenced by rotation
-		OVRCameraRig[] CameraRigs = gameObject.GetComponentsInChildren<OVRCameraRig>();
+        // We use OVRCameraRig to set rotations to cameras,
+        // and to be influenced by rotation
+        OVRCameraRig[] CameraRigs = gameObject.GetComponentsInChildren<OVRCameraRig>();
 
 		if (CameraRigs.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraRig attached.");
@@ -380,29 +380,29 @@ public class OVRPlayerController : MonoBehaviour
 			moveInfluence *= 1.0f + OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
 #endif
 
-			Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+		//	Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
 
-			// If speed quantization is enabled, adjust the input to the number of fixed speed steps.
-			if (FixedSpeedSteps > 0)
-			{
-				primaryAxis.y = Mathf.Round(primaryAxis.y * FixedSpeedSteps) / FixedSpeedSteps;
-				primaryAxis.x = Mathf.Round(primaryAxis.x * FixedSpeedSteps) / FixedSpeedSteps;
-			}
+		//	// If speed quantization is enabled, adjust the input to the number of fixed speed steps.
+		//	if (FixedSpeedSteps > 0)
+		//	{
+		//		primaryAxis.y = Mathf.Round(primaryAxis.y * FixedSpeedSteps) / FixedSpeedSteps;
+		//		primaryAxis.x = Mathf.Round(primaryAxis.x * FixedSpeedSteps) / FixedSpeedSteps;
+		//	}
 
-			if (primaryAxis.y > 0.0f)
-				MoveThrottle += ort * (primaryAxis.y * transform.lossyScale.z * moveInfluence * Vector3.forward);
+		//	if (primaryAxis.y > 0.0f)
+		//		MoveThrottle += ort * (primaryAxis.y * transform.lossyScale.z * moveInfluence * Vector3.forward);
 
-			if (primaryAxis.y < 0.0f)
-				MoveThrottle += ort * (Mathf.Abs(primaryAxis.y) * transform.lossyScale.z * moveInfluence *
-									   BackAndSideDampen * Vector3.back);
+		//	if (primaryAxis.y < 0.0f)
+		//		MoveThrottle += ort * (Mathf.Abs(primaryAxis.y) * transform.lossyScale.z * moveInfluence *
+		//							   BackAndSideDampen * Vector3.back);
 
-			if (primaryAxis.x < 0.0f)
-				MoveThrottle += ort * (Mathf.Abs(primaryAxis.x) * transform.lossyScale.x * moveInfluence *
-									   BackAndSideDampen * Vector3.left);
+		//	if (primaryAxis.x < 0.0f)
+		//		MoveThrottle += ort * (Mathf.Abs(primaryAxis.x) * transform.lossyScale.x * moveInfluence *
+		//							   BackAndSideDampen * Vector3.left);
 
-			if (primaryAxis.x > 0.0f)
-				MoveThrottle += ort * (primaryAxis.x * transform.lossyScale.x * moveInfluence * BackAndSideDampen *
-									   Vector3.right);
+		//	if (primaryAxis.x > 0.0f)
+		//		MoveThrottle += ort * (primaryAxis.x * transform.lossyScale.x * moveInfluence * BackAndSideDampen *
+		//							   Vector3.right);
 		}
 
 		if (EnableRotation)
@@ -433,46 +433,46 @@ public class OVRPlayerController : MonoBehaviour
 				euler.y += Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
 #endif
 
-			//if (SnapRotation)
-			//{
-			//	if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) ||
-			//		(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
-			//	{
-			//		if (ReadyToSnapTurn)
-			//		{
-			//			euler.y -= RotationRatchet;
-			//			ReadyToSnapTurn = false;
-			//		}
-			//	}
-			//	else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
-			//		(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
-			//	{
-			//		if (ReadyToSnapTurn)
-			//		{
-			//			euler.y += RotationRatchet;
-			//			ReadyToSnapTurn = false;
-			//		}
-			//	}
-			//	else
-			//	{
-			//		ReadyToSnapTurn = true;
-			//	}
-			//}
-			//else
-			//{
-			//	Vector2 secondaryAxis = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
-			//	if (RotationEitherThumbstick)
-			//	{
-			//		Vector2 altSecondaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-			//		if (secondaryAxis.sqrMagnitude < altSecondaryAxis.sqrMagnitude)
-			//		{
-			//			secondaryAxis = altSecondaryAxis;
-			//		}
-			//	}
-			//	euler.y += secondaryAxis.x * rotateInfluence;
-			//}
+            if (SnapRotation)
+            {
+                if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) ||
+                    (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
+                {
+                    if (ReadyToSnapTurn)
+                    {
+                        euler.y -= RotationRatchet;
+                        ReadyToSnapTurn = false;
+                    }
+                }
+                else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
+                    (RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
+                {
+                    if (ReadyToSnapTurn)
+                    {
+                        euler.y += RotationRatchet;
+                        ReadyToSnapTurn = false;
+                    }
+                }
+                else
+                {
+                    ReadyToSnapTurn = true;
+                }
+            }
+            else
+            {
+                Vector2 secondaryAxis = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+                if (RotationEitherThumbstick)
+                {
+                    Vector2 altSecondaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+                    if (secondaryAxis.sqrMagnitude < altSecondaryAxis.sqrMagnitude)
+                    {
+                        secondaryAxis = altSecondaryAxis;
+                    }
+                }
+                euler.y += secondaryAxis.x * rotateInfluence;
+            }
 
-			transform.rotation = Quaternion.Euler(euler);
+            transform.rotation = Quaternion.Euler(euler);
 		}
 	}
 

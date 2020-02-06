@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &2430617796933185838
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011178735610391744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 6076312883721405867, guid: db691556fbcfb954ebaa2e29bd6bc444, type: 3}
 --- !u!1 &8296321348429439677
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,6 +56,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Skull6
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: db691556fbcfb954ebaa2e29bd6bc444,
+        type: 3}
+      propertyPath: m_TagString
+      value: ExcludeTeleport
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: db691556fbcfb954ebaa2e29bd6bc444,
         type: 3}
@@ -100,6 +119,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db691556fbcfb954ebaa2e29bd6bc444, type: 3}
+--- !u!1 &1011178735610391744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: db691556fbcfb954ebaa2e29bd6bc444,
+    type: 3}
+  m_PrefabInstance: {fileID: 9018881177937982921}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4058645324228107987 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: db691556fbcfb954ebaa2e29bd6bc444,

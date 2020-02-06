@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &2254162246592724199
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381149054725552128}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -8641854981169665259, guid: c41dc8e156668814a9e095e88eaf6357, type: 3}
 --- !u!1 &8255201391194317973
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,6 +56,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LargeShroom
+      objectReference: {fileID: 0}
+    - target: {fileID: -6215879030447650333, guid: c41dc8e156668814a9e095e88eaf6357,
+        type: 3}
+      propertyPath: m_TagString
+      value: ExcludeTeleport
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c41dc8e156668814a9e095e88eaf6357,
         type: 3}
@@ -103,6 +122,12 @@ PrefabInstance:
 --- !u!4 &9217924530420292345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: c41dc8e156668814a9e095e88eaf6357,
+    type: 3}
+  m_PrefabInstance: {fileID: 4221580714855248355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1381149054725552128 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6215879030447650333, guid: c41dc8e156668814a9e095e88eaf6357,
     type: 3}
   m_PrefabInstance: {fileID: 4221580714855248355}
   m_PrefabAsset: {fileID: 0}

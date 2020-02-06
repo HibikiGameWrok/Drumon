@@ -5,7 +5,7 @@
     void Attack();
     void Damage(int damage);
     void Heal();
-    CharactorData GetData();
+    CreatureData GetData();
     void SetTarget(ICreature_Script target);
     void Dead();
 }

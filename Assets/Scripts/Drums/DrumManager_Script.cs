@@ -13,7 +13,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 // ドラムマネージャーの定義
 public class DrumManager_Script : SingletonBase_Script<DrumManager_Script> 
@@ -22,9 +23,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     // 攻撃用のドラム 
     [SerializeField]
     private Drum_Script m_attackDrum;
-    // 回復用のドラム
-    [SerializeField]
-    private Drum_Script m_healDrum;
     // 選択用のドラム
     [SerializeField]
     private Drum_Script m_switchDrum;
@@ -34,7 +32,10 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
     // 現在のドラム
     [SerializeField]
-    private Drum_Script m_currentDrum;
+    private Drum_Script m_currentDrum = null;
+
+    [SerializeField]
+    private CostUI_Script m_costUIScript = null;
 
     // HPUI
     private GameObject m_healProsperityUI;
@@ -45,8 +46,15 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
 
     // タイマーオブジェクト
     private GameObject m_timerObject;
-    // 行動ゲージが終わったかのフラグ
-    private bool m_gaugeFinishFlag = false;
+
+    // チュートリアルのモンスターを捕獲したフラグ
+    //private bool m_tutorialGetFlag = false;
+    //// チュートリアルのモンスターを捕獲したフラグのプロパティ
+    //public bool TutorialGetFlag
+    //{
+    //    get { return m_tutorialGetFlag; }
+    //    set { m_tutorialGetFlag = value; }
+    //}
 
     /// <summary>
     /// Awake関数
@@ -60,10 +68,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         m_attackDrum = GameObject.FindGameObjectWithTag("AttackDrum").GetComponent<AttackDrum_Script>();
         // 初期化する
         m_attackDrum.Initialize(this);
-        // 回復用のドラムを生成する
-        //m_healDrum = GameObject.FindGameObjectWithTag("HealDrum").GetComponent<HealDrum_Script>();
-        // 初期化する
-        //m_healDrum.Initialize(this);
         // 選択用のドラムを生成する
         m_switchDrum = GameObject.FindGameObjectWithTag("SwitchDrum").GetComponent<SwitchDrum_Script>();
         // 初期化する
@@ -78,8 +82,11 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
         // 現在のドラムをアクティブにする
         m_currentDrum.isActive = true;
 
-        m_healProsperityUI = GameObject.Find("PSlider");
-        m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+        if (SceneManager.GetActiveScene().name != "TutorialCaptureScene")
+        {
+            m_healProsperityUI = GameObject.Find("PSlider");
+            m_healProsperityUIScript = m_healProsperityUI.GetComponent<HealProsperityUI_Script>();
+        }
 
         m_playerCreature = BattleManager_Script.Get.PlayerCreature;
         m_enemyCreature = BattleManager_Script.Get.EnemyCreature;
@@ -99,48 +106,40 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
     void Update()
     {
         // プレイヤーモンスターのHPをUIに適用
-        m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
-        // 行動ゲージが終わったかのフラグの取得
-        m_gaugeFinishFlag = m_timerObject.GetComponent<TimeStandard_Script>().TimerMax();
+        //m_healProsperityUIScript.NowPoint = m_playerCreature.HP;
 
         if (m_currentDrum != null)
         {
-            Debug.Log(m_currentDrum);
+            //Debug.Log(m_currentDrum);
             // 現在のドラムの処理を実行する
             bool result = m_currentDrum.Execute();
 
             // 攻撃用のドラムの処理
-            if(m_currentDrum == m_attackDrum)
+            if (m_currentDrum == m_attackDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
-                if(result == true)
+                if (result == true)
                 {
-                    // 継続する
-
-                    // ノーツの生成処理
-                    m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                    if (XRDevice.isPresent)
+                    {
+                        if (m_costUIScript.GageEnd() != true)
+                        {
+                            // ノーツの生成処理
+                            m_attackDrum.GetComponent<AttackDrum_Script>().GenerateNotes();
+                        }
+                        else
+                        {
+                            // コスト回復を早める処理
+                            m_attackDrum.GetComponent<AttackDrum_Script>().CostUpHit();
+                        }
+                    }
                 }
                 else
                 {
-                    
+
                 }
             }
-            // 回復用のドラムの処理
-            //else if(m_currentDrum == m_healDrum)
-            //{
-            //    if (result == true)
-            //    {
-            //        // 継続する
-
-            //        // 回復処理
-            //        m_healDrum.GetComponent<HealDrum_Script>().Heal();
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
             // 選択用のドラムの処理
-            else if (m_currentDrum == m_switchDrum)
+            else if (m_currentDrum == m_switchDrum && !m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
                 if (result == true)
                 {
@@ -161,46 +160,36 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
                 }
             }
             // 捕獲用のドラムの処理
-            else if (m_currentDrum == m_captureDrum)
+            else if (m_currentDrum == m_captureDrum || m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureMode)
             {
-                if (result == true)
-                {
-                    // 継続する
-                    m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
-
-                }
-                else
-                {
-
-                }
+                // 継続する
+                m_captureDrum.GetComponent<CaptureDrum_Script>().Capture();
             }
         }
 
-        // 行動ゲージが終わったら
-        if (m_gaugeFinishFlag == true)
+        // キャプチャーの時にコストが0になったら
+        if (m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag)
         {
-
-            //if (m_healDrum != null)
-            //{
-            //    for (int i = 0; i < m_healDrum.GetComponent<HealDrum_Script>().HealCount / 2; i++)
-            //    {
-            //        // HPを回復
-            //        m_playerCreature.Heal();
-            //    }
-            //    // 回復ドラムを叩いた回数を初期化
-            //    m_healDrum.GetComponent<HealDrum_Script>().HealCount = 0;
-            //
-
             if (m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount != 0)
             {
-                m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
+                if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialCaptureFlag == true)
+                {
+                    m_enemyCreature.Capture(CaptureDrum_Script.CAPTURE_CONFIRM);
+                    //m_tutorialGetFlag = true;
+                }
+                else if (m_captureDrum.GetComponent<CaptureDrum_Script>().TutorialBattleFlag == true && m_playerCreature.Data.hp > 0)
+                {
+                    m_enemyCreature.Capture(0);
+                }
+                else if (m_playerCreature.Data.hp > 0)
+                {
+                    m_enemyCreature.Capture(m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount);
+                }
+
                 m_captureDrum.GetComponent<CaptureDrum_Script>().CaptureCount = 0;
             }
+            m_captureDrum.GetComponent<CaptureDrum_Script>().CostZeroFlag = false;
         }
-
-#if UNITY_EDITOR
-        Debug.Log("CurrentDrum is " + m_currentDrum);
-#endif
     }
 
 
@@ -215,12 +204,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             m_attackDrum.Dispose();
             m_attackDrum = null;
         }
-        //if (m_healDrum != null)
-        //{
-        //    // 回復用のドラムを解放する
-        //    m_healDrum.Dispose();
-        //    m_healDrum = null;
-        //}
         if (m_switchDrum != null)
         {
             // 選択用のドラムを解放する
@@ -273,18 +256,6 @@ public class DrumManager_Script : SingletonBase_Script<DrumManager_Script>
             return m_attackDrum;
         }
     }
-
-
-    /// <summary>
-    /// 回復用のドラムを取得する
-    /// </summary>
-    //public Drum_Script HealDrum
-    //{
-    //    get
-    //    {
-    //        return m_healDrum;
-    //    }
-    //}
 
     /// <summary>
     /// 選択用のドラムを取得する

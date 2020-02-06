@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ecabc74e80c48544b158179c6f55a6c, type: 3}
+  m_Name: DrumonParameters
+  m_EditorClassIdentifier: 
+  Sheet1:
+  - name: Merlion
+    hp: 65-70-60
+    atk: 15-17-22
+    def: 20-13-18
+    waitTime: 10
+    elem: 4
+    basePoint: 100
+  - name: Kitsune
+    hp: 65-67-70
+    atk: 20-13-20
+    def: 15-20-10
+    waitTime: 10
+    elem: 0
+    basePoint: 100
+  - name: Otso
+    hp: 200
+    atk: 75
+    def: 100
+    waitTime: 12
+    elem: 3
+    basePoint: 375
+  - name: Garfish
+    hp: 50-53-55
+    atk: 20-15-12
+    def: 5-7-8
+    waitTime: 9
+    elem: 4
+    basePoint: 75
+  - name: ChurchGrim
+    hp: 70-75-80
+    atk: 23-20-17
+    def: 17-15-13
+    waitTime: 8
+    elem: 2
+    basePoint: 110
+  - name: Lantern
+    hp: 40-50-55
+    atk: 25-15-20
+    def: 20-20-10
+    waitTime: 9
+    elem: 1
+    basePoint: 85

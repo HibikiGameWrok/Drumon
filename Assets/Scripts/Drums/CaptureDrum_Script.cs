@@ -1,9 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CaptureDrum_Script : Drum_Script
 {
+    // 定数
+    // 確定捕獲の値
+    public const int CAPTURE_CONFIRM = 100;
+
+    // 1秒間の値
+    public const float COUNT_RESET = 1.0f;
+
     // メンバ変数
 
     // 左スティック
@@ -19,6 +27,47 @@ public class CaptureDrum_Script : Drum_Script
     {
         get { return m_captureCount; }
         set { m_captureCount = value; }
+    }
+
+    // チュートリアルキャプチャー用のモンスター捕獲フラグ
+    private bool m_tutorialCaptureFlag = false;
+    // チュートリアルキャプチャー用のモンスター捕獲フラグのプロパティ
+    public bool TutorialCaptureFlag
+    {
+        get { return m_tutorialCaptureFlag; }
+        set { m_tutorialCaptureFlag = value; }
+    }
+    // チュートリアルバトル用のモンスター捕獲フラグ
+    private bool m_tutorialBattleFlag = false;
+    // チュートリアルバトル用のモンスター捕獲フラグのプロパティ
+    public bool TutorialBattleFlag
+    {
+        get { return m_tutorialBattleFlag; }
+        set { m_tutorialBattleFlag = value; }
+    }
+
+    // キャプチャードラムのUIキャンバス
+    private GameObject m_captureUIC;
+    // キャプチャーモードテキスト
+    private Transform m_captureModeText;
+
+    public bool CaptureMode
+    {
+        get { return m_captureModeText.gameObject.activeInHierarchy; }
+    }
+
+    // 1秒のカウント
+    private float m_timerCount = COUNT_RESET;
+
+    private CostUI_Script m_costUIScript = null;
+
+    // コストが0かどうかのフラグ
+    private bool m_costZeroFlag = false;
+    // コストが0かどうかのフラグのプロパティ
+    public bool CostZeroFlag
+    {
+        get { return m_costZeroFlag; }
+        set { m_costZeroFlag = value; }
     }
 
     // Start is called before the first frame update
@@ -40,6 +89,14 @@ public class CaptureDrum_Script : Drum_Script
         //m_stick = FindObjectOfType<Stick_Script>();
 
         m_captureCount = 0;
+
+        m_captureUIC = GameObject.Find("CaptureCanvas");
+        m_captureModeText = m_captureUIC.transform.Find("CaptureModeText");
+
+        m_timerCount = COUNT_RESET;
+
+        // コストのゲージUIのアタッチされたScriptを取得
+        m_costUIScript = GameObject.Find("Slider").GetComponent<CostUI_Script>();
     }
 
     /// <summary>
@@ -54,8 +111,6 @@ public class CaptureDrum_Script : Drum_Script
             // 変更する
             return false;
         }
-
-
 
         // 継続する
         return true;
@@ -107,39 +162,56 @@ public class CaptureDrum_Script : Drum_Script
     // 捕獲処理
     public void Capture()
     {
+        m_costZeroFlag = false;
+
         if (m_leftStick.HitDrumFlag.IsFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE) == true || m_rightStick.HitDrumFlag.IsFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE) == true)
         {
-            // カウントアップ
-            m_captureCount++;
+            if (m_costUIScript.RecoveryFlag != true)
+            {
+                // アクティブにする
+                m_captureModeText.gameObject.SetActive(true);
 
-            // 回復ドラムを叩いた判定フラグを伏せる
+                // カウントアップ
+                m_captureCount++;
+            }
+
+            // 捕獲ドラムを叩いた判定フラグを伏せる
             m_leftStick.HitDrumFlag.OffFlag((uint)StickLeft_Script.HIT_DRUM.CAPTURE);
             m_rightStick.HitDrumFlag.OffFlag((uint)StickRight_Script.HIT_DRUM.CAPTURE);
-            //m_leftStick.CaptureHit = false;
         }
 
-        // 捕獲ドラムが叩かれたら
-        //if (m_stick.LeftHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true || m_stick.RightHitDrumFlag.IsFlag((uint)Stick_Script.HIT_DRUM.CAPTURE) == true)
-        //{
-        //    // カウントアップ
-        //    m_captureCount++;
-
-        //    // 捕獲ドラムを叩いた判定フラグを伏せる
-        //    m_stick.LeftHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
-        //    m_stick.RightHitDrumFlag.OffFlag((uint)Stick_Script.HIT_DRUM.CAPTURE);
-        //    //m_leftStick.CaptureHit = false;
-        //}
-    }
-
-    /// <summary>
-    /// 当たり判定から外れた時
-    /// </summary>
-    /// <param name="col">衝突した相手</param>
-    public void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "Stick")
+        // キャプチャーモードテキストがアクティブだったら
+        if (m_captureModeText.gameObject.activeInHierarchy == true)
         {
-            Debug.Log("nonononononono");
+            // カウントダウン
+            m_timerCount -= Time.deltaTime;
+
+            if (m_timerCount <= 0.0f)
+            {
+                // コスト消費
+                m_costUIScript.CostDawn(1.0f);
+
+                m_timerCount = COUNT_RESET;
+            }
+
+            if (m_costUIScript.RecoveryFlag == true)
+            {
+                if (SceneManager.GetActiveScene().name == "TutorialCaptureScene")
+                {
+                    m_tutorialCaptureFlag = true;
+                }
+                else if (SceneManager.GetActiveScene().name == "TutorialBattleScene")
+                {
+                    m_tutorialBattleFlag = true;
+                }
+
+                m_timerCount = COUNT_RESET;
+
+                m_costZeroFlag = true;
+
+                // 非アクティブにする
+                m_captureModeText.gameObject.SetActive(false);
+            }
         }
     }
 }

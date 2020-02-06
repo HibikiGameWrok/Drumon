@@ -17,7 +17,8 @@
 		_RimAmount("Rim Amount", Range(0, 1)) = 0.716
 		_RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
 
-
+					_ShadowTier2Threshold("Shadow Tier 2 Threshold", Range(-1, 0)) = -0.3
+		_ShadowTier3Threshold("Shadow Tier 3 Threshold", Range(-1, 0)) = -0.6
 
 			[HideInInspector] _Cutoff("", Float) = 0.5
 	}
@@ -81,6 +82,9 @@
 			float _RimAmount;
 			float _RimThreshold;
 			
+			float _ShadowTier2Threshold;
+			float _ShadowTier3Threshold;
+
 			v2f vert (appdata v)
 			{
 				v2f o;
@@ -101,9 +105,6 @@
 			{
 								//// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
-				//// apply fog
-				//UNITY_APPLY_FOG(i.fogCoord, col);
-				//return col;
 
 				if(col.a < 0.5) discard;
 
@@ -113,32 +114,18 @@
 
 				float shadow = SHADOW_ATTENUATION(i);
 
-				//float lightIntensity = NdotL > 0 ? 1 : 0;
-
-				//float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
-				//float lightIntensity = smoothstep(0 - 0.6, 0.1 - 0.6, NdotL/* * shadow*/);
-
 				float lightIntensity;
 				float NormalValToCheck = NdotL * shadow;
 				lightIntensity = smoothstep(0, 0.01, NormalValToCheck) * 0.8 + 0.2;
 
-				if (NdotL < -0.6)
+				if (NdotL < _ShadowTier3Threshold)
 				{
 					lightIntensity = 0;
 				}
-				else if (NdotL < -0.3)
+				else if (NdotL < _ShadowTier2Threshold)
 				{
 					lightIntensity /= 2;
 				}
-
-				//if (NormalValToCheck > -0.29)
-				//{
-				//	lightIntensity = smoothstep(-0.15, -0.14, NormalValToCheck) * 0.333 + 0.333;
-				//}
-				//else
-				//{
-				//	lightIntensity = smoothstep(-0.3, -0.29, NormalValToCheck) * 0.333;
-				//}
 
 				float4 light = lightIntensity * _LightColor0;
 

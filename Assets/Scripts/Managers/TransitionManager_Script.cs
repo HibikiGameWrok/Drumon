@@ -29,6 +29,12 @@ public class TransitionManager_Script
         var r = Resources.Load("TransitionController");
         var o = UnityEngine.Object.Instantiate(r) as GameObject;
         UnityEngine.Object.DontDestroyOnLoad(o);
+
+        var canvas = o.GetComponent<Canvas>();
+        if(GameObject.Find("CenterEyeAnchor"))
+            canvas.worldCamera = GameObject.Find("CenterEyeAnchor")
+                                                            .GetComponent<Camera>();
+        
         return o.GetComponent<TransitionController_Script>();
     });
 
@@ -54,6 +60,11 @@ public class TransitionManager_Script
         Controller.TransitionStart(nextSceneName, mode);
     }
 
+
+    public static void StartTransition_UnloadScene(string unloadSceneName)
+    {
+        Controller.UnloadStart(unloadSceneName);
+    }
 
     /// <summary>
     /// シーン遷移完了を通知する

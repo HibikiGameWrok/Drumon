@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &7700599803646070345
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764890504458541836}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 3830103382998905064, guid: 70360ca8d86d0414cb04e37001c54d0c, type: 3}
 --- !u!1 &7646971685808703655
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,6 +56,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rock10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8199584779738957713, guid: 70360ca8d86d0414cb04e37001c54d0c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 70360ca8d86d0414cb04e37001c54d0c,
         type: 3}
@@ -103,6 +122,12 @@ PrefabInstance:
 --- !u!4 &1364220584368142215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 70360ca8d86d0414cb04e37001c54d0c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6310699395869334685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2764890504458541836 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8199584779738957713, guid: 70360ca8d86d0414cb04e37001c54d0c,
     type: 3}
   m_PrefabInstance: {fileID: 6310699395869334685}
   m_PrefabAsset: {fileID: 0}

@@ -21,8 +21,6 @@ public class VFXI_WaterSword : MonoBehaviour
     private float timer = 0.0f;
     public float timerMax = 0.7f;
 
-    public bool DestroyOnFinish = true;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,14 +34,7 @@ public class VFXI_WaterSword : MonoBehaviour
 
         if (timer >= timerMax)
         {
-            if (DestroyOnFinish)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                timer = 0;
-            }
+            timer = 0;
         }
         else if (timer >= 0.20 + 0.1 && timer - Time.deltaTime < 0.20 + 0.1)
         {

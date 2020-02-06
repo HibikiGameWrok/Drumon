@@ -31,6 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &5770998906370420924
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4210709902448597770}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4194429661609338696, guid: a35b43cc328eac549a7de26dbe9c098d, type: 3}
 --- !u!1001 &5282334573490094595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,6 +56,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fossil9
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: a35b43cc328eac549a7de26dbe9c098d,
+        type: 3}
+      propertyPath: m_TagString
+      value: ExcludeTeleport
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a35b43cc328eac549a7de26dbe9c098d,
         type: 3}
@@ -100,6 +119,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a35b43cc328eac549a7de26dbe9c098d, type: 3}
+--- !u!1 &4210709902448597770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: a35b43cc328eac549a7de26dbe9c098d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5282334573490094595}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &879375657010587929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: a35b43cc328eac549a7de26dbe9c098d,
