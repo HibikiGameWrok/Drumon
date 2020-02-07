@@ -96,7 +96,7 @@ public class BoxDrum_Script : MonoBehaviour
                     {
                         if (m_JudgeUI.MovePoint == 0)
                         {
-                            m_switchFlag = true;
+                            m_centerHitFlag = true;
                             // 入れ替え
                             if (m_cursorUI.MovePoint < 3)
                             {
