@@ -7,7 +7,7 @@ public class StickManager_Script : MonoBehaviour
 {
     // 定数
     // 同時に叩ける時間
-    protected const int DOUBLE_HIT_TIME = 2;
+    protected const int DOUBLE_HIT_TIME = 4;
 
     // 左スティック
     private StickLeft_Script m_leftStick;
