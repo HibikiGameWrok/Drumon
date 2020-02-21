@@ -63,7 +63,7 @@ public class EndingEvent_Script : MonoBehaviour
             if (m_csvDatas[i][2] == "1")
             {
                 // 指定の文字の色を緑にする
-                stafftext.color = new Color(0.2f,0.4f,0.2f,1); 
+                stafftext.color = Color.yellow; 
             }
             else
             {
