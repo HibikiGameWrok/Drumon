@@ -47,6 +47,7 @@ public class UI_Fade_Script : Fade_SetAlpha
     public bool IsFadeComp
     {
         get { return m_fadeRunningFlag; }
+        set { m_fadeRunningFlag = value; }
     }
 
     [SerializeField]
@@ -72,7 +73,6 @@ public class UI_Fade_Script : Fade_SetAlpha
         {
             StartFadeOut();
         }
-
         if (m_startFadeInFlag)
         {
             StartFadeIn();
@@ -109,7 +109,7 @@ public class UI_Fade_Script : Fade_SetAlpha
 
     protected void Start()
     {
-        
+        m_fadeRunningFlag = false;
     }
 
     protected override void SetAlpha()  { }

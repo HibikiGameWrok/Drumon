@@ -43,7 +43,7 @@ public class SceneTitle_Script : IScene_Script
             if (Input.GetKeyDown(KeyCode.D))
                 m_isMain = m_isMain.Equals(false) ? true : false;
 
-            /*// ゲームプレイを選択
+            // ゲームプレイを選択
             if (m_titleDrum.SelectCount == 0 && m_titleDrum.Decision == true)
             {
                 CreatureData data = null;
@@ -80,48 +80,48 @@ public class SceneTitle_Script : IScene_Script
                 TransitionManager_Script.StartTransition(m_manager.CaptureTutorial.Name);
 
                 return SceneID.SCENE_CAPTURETUTORIAL;
-            }*/
-
-            // ゲームプレイを選択
-            if (m_titleDrum.Decision)
-            {
-                if(m_isMain)
-                {
-                    CreatureData data = null;
-
-                    for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
-                    {
-                        if (CreatureList_Script.Get.List.DataList[i].drumonName.Equals(""))
-                        {
-                            data = CreatureList_Script.Get.List.DataList[i];
-                            break;
-                        }
-                    }
-
-                    CreateData_Script.Get.CreateData(data, "Merlion");
-
-                    m_titleDrum.Decision = false;
-                    m_doneFlag = true;
-
-                    // SEを鳴らす
-                    m_manager.Audio.PlaySE(SfxType.taiko);
-
-
-                    // フェードを起動
-                    m_panelUIFade_Script.IsFadeOut = true;
-                }
-                else
-                {
-                    m_titleDrum.Decision = false;
-                    m_doneFlag = true;
-
-                    // SEを鳴らす
-                    m_manager.Audio.PlaySE(SfxType.taiko);
-
-                    // フェードを起動
-                    m_panelUIFade_Script.IsFadeOut = true;
-                }   
             }
+
+            //// ゲームプレイを選択
+            //if (m_titleDrum.Decision)
+            //{
+            //    if(m_isMain)
+            //    {
+            //        CreatureData data = null;
+
+            //        for (int i = 0; i < CreatureList_Script.Get.List.DataList.Length; i++)
+            //        {
+            //            if (CreatureList_Script.Get.List.DataList[i].drumonName.Equals(""))
+            //            {
+            //                data = CreatureList_Script.Get.List.DataList[i];
+            //                break;
+            //            }
+            //        }
+
+            //        CreateData_Script.Get.CreateData(data, "Merlion");
+
+            //        m_titleDrum.Decision = false;
+            //        m_doneFlag = true;
+
+            //        // SEを鳴らす
+            //        m_manager.Audio.PlaySE(SfxType.taiko);
+
+
+            //        // フェードを起動
+            //        m_panelUIFade_Script.IsFadeOut = true;
+            //    }
+            //    else
+            //    {
+            //        m_titleDrum.Decision = false;
+            //        m_doneFlag = true;
+
+            //        // SEを鳴らす
+            //        m_manager.Audio.PlaySE(SfxType.taiko);
+
+            //        // フェードを起動
+            //        m_panelUIFade_Script.IsFadeOut = true;
+            //    }   
+            //}
         }
 
         // フェードし終えたか
