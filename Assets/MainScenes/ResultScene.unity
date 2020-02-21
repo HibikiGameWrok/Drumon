@@ -24367,7 +24367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -24407,6 +24407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fadeSpeed: 0.05
+  m_startFadeOutFlag: 0
+  m_startFadeInFlag: 0
 --- !u!114 &593423567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60440,6 +60442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fadeSpeed: 0.01
+  m_startFadeOutFlag: 0
+  m_startFadeInFlag: 0
 --- !u!1001 &1455750451
 PrefabInstance:
   m_ObjectHideFlags: 0

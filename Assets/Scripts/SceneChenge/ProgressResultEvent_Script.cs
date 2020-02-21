@@ -57,6 +57,8 @@ public class ProgressResultEvent_Script : MonoBehaviour
 
     private IEnumerator EventStep()
     {
+        yield return new WaitForSeconds(3.0f);
+
         // 1. パネルをフェードアウト
         m_panelUI_Script.IsFadeOut = true;
 
