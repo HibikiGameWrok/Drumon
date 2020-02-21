@@ -6,8 +6,7 @@ public class StartFadeScript : MonoBehaviour
 {
     private GameObject m_TK = null;
     private GameObject m_localAvatar = null;
-    //[SerializeField]
-    //private GameObject m_fadeobject;
+
     private PanelUI_Fade_Script m_pnaelFadeScript = null;
 
     // Start is called before the first frame update
@@ -21,9 +20,12 @@ public class StartFadeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_localAvatar.transform.gameObject.activeSelf == true)
+        if (m_localAvatar.transform.gameObject.activeSelf == true)
         {
-            m_pnaelFadeScript.IsFadeIn = true;
+            if (m_pnaelFadeScript.AlphaMax() == true)
+            {
+                m_pnaelFadeScript.IsFadeIn = true;
+            }
         }
     }
 }

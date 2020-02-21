@@ -25,7 +25,6 @@ public class SceneRevised_Script : IScene_Script
     private bool m_isTransitionBattle = false;
 
 
-
     /// <summary>
     /// 終了処理
     /// </summary>
@@ -46,21 +45,23 @@ public class SceneRevised_Script : IScene_Script
     {
         // 対象オブジェクトを探す
         FindSearchEnemy();
-
         IsActivePlayer();
+
 
         // バトルシーンへ
         if (m_isTransitionBattle == true)
         {
-            // 非同期処理のSceneロード
-            TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-
             // フェードを起動
             m_panelUIFade_Script.IsFadeOut = true;
 
+            // 非同期処理のSceneロード
+            TransitionManager_Script.StartTransition(m_manager.Battle.Name, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+
             // プレイヤーを非アクティブにしておく
             if (m_manager.Player.activeSelf == true)
+            {
                 m_manager.Player.SetActive(false);
+            }
 
             // フェードし終えたか
             if (m_panelUIFade_Script.IsFadeComp == true)
@@ -68,8 +69,8 @@ public class SceneRevised_Script : IScene_Script
                 return SceneID.SCENE_BATTLE;
             }
         }
-        // リザルトシーンへ
-        // return SceneID.SCENE_RESULT;
+        
+
         // タイトルシーンへ
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -85,6 +86,7 @@ public class SceneRevised_Script : IScene_Script
             {
                 // フェードを起動
                 m_panelUIFade_Script.IsFadeOut = true;
+
                 // フェードし終えたか
                 if (m_panelUIFade_Script.IsFadeComp == true)
                 {

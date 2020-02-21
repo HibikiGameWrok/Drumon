@@ -43,11 +43,11 @@ public class UI_Fade_Script : Fade_SetAlpha
     }
 
     // フェードが完了した時のフラグ
-    protected bool m_fadeRunningFlag = false;
+    protected bool m_isCompFlag = false;
     public bool IsFadeComp
     {
-        get { return m_fadeRunningFlag; }
-        set { m_fadeRunningFlag = value; }
+        get { return m_isCompFlag; }
+        set { m_isCompFlag = value; }
     }
 
     [SerializeField]
@@ -87,9 +87,10 @@ public class UI_Fade_Script : Fade_SetAlpha
         SetAlpha();
         if (m_alfa >= 1)
         {
-            IsFadeOut = false;
+            m_alfa = 1;
+            m_isFadeOut = false;
             m_startFadeOutFlag = false;
-            m_fadeRunningFlag = true;
+            m_isCompFlag = true;
         }
     }
 
@@ -101,16 +102,30 @@ public class UI_Fade_Script : Fade_SetAlpha
         if (m_alfa <= 0)
         {
             m_alfa = 0;
-            IsFadeIn = false;
+            m_isFadeIn = false;
             m_startFadeInFlag = false;
-            m_fadeRunningFlag = true;
+            m_isCompFlag = true;
         }
     }
 
     protected void Start()
     {
-        m_fadeRunningFlag = false;
+        m_isCompFlag = false;
     }
 
     protected override void SetAlpha()  { }
+
+    public bool AlphaMax()
+    {
+        bool alphaFlag = false;
+        if(m_alfa >= 1)
+        {
+            alphaFlag = true;
+        }
+        else if(m_alfa <= 0)
+        {
+            alphaFlag = false;
+        }
+        return alphaFlag;
+    }
 }

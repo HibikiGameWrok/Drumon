@@ -57,6 +57,9 @@ public class SceneTitle_Script : IScene_Script
                     }
                 }
 
+                // フェードを起動
+                m_panelUIFade_Script.IsFadeOut = true;
+
                 CreateData_Script.Get.CreateData(data, "Merlion");
 
                 m_titleDrum.Decision = false;
@@ -73,6 +76,9 @@ public class SceneTitle_Script : IScene_Script
             {
                 m_titleDrum.Decision = false;
                 m_doneFlag = true;
+
+                // フェードを起動
+                m_panelUIFade_Script.IsFadeOut = true;
 
                 // SEを鳴らす
                 m_manager.Audio.PlaySE(SfxType.WaterGun);

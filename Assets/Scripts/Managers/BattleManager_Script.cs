@@ -165,70 +165,77 @@ public class BattleManager_Script : SingletonBase_Script<BattleManager_Script>
 
     private void ResultDisplay()
     {
-        // Playerオブジェクトを非アクティブ化
-        m_playerObject.SetActive(false);
-        // Boxドラムをアクティブ化
-        m_boxDrum.gameObject.SetActive(true);
+        if (m_enemyCreature.OtsoFlag == false)
+        {
+            // Playerオブジェクトを非アクティブ化
+            m_playerObject.SetActive(false);
+            // Boxドラムをアクティブ化
+            m_boxDrum.gameObject.SetActive(true);
 
-        // 捕まえたという表示をする
-        if(CreatureList_Script.Get.CaptureData != null && m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag == false)
-        {
-            m_battleResulteUI[3].GetComponent<SetChildActiveObject_Script>().OpenUI();
-            m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag = true;
-            CreatureList_Script.Get.CaptureData = null;
-        }
-        else
-        if (CreatureList_Script.Get.CaptureData == null && m_battleResulteUI[4].GetComponent<AwakeOpenUI_Script>().fadeFlag == false && m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag == false)
-        {
-            m_battleResulteUI[4].GetComponent<SetChildActiveObject_Script>().OpenUI();
-            m_battleResulteUI[4].GetComponent<AwakeOpenUI_Script>().fadeFlag = true;
-        }
-
-        // 手持ちがいっぱいの時
-        if (CaptureOver() == true)
-        {
-            // 入れ替えUIをアクティブ化
-            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
-            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().SetUpUIData(4);
-            m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().EnemySetUpUIData();
-        }
-        else
-        {
-            m_boxDrum.noUIFlag = true;
-            m_boxDrum.switchFlag = true;
-        }
-        
-
-        if(m_boxDrum.switchFlag == true)
-        {
-            // 入れ替えUIを非アクティブ化
-            m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
-            // 入れ替えUIを非アクティブ化
-            m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
-
-            // レベルアップ表示
-            if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
+            // 捕まえたという表示をする
+            if (CreatureList_Script.Get.CaptureData != null && m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag == false)
             {
-                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
-                AudioManager_Script.Get.AttachBGMSource.Stop();
-                AudioManager_Script.Get.PlayBGM(BfxType.bgm_Victory);
+                m_battleResulteUI[3].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag = true;
+                CreatureList_Script.Get.CaptureData = null;
+            }
+            else
+            if (CreatureList_Script.Get.CaptureData == null && m_battleResulteUI[4].GetComponent<AwakeOpenUI_Script>().fadeFlag == false && m_battleResulteUI[3].GetComponent<AwakeOpenUI_Script>().fadeFlag == false)
+            {
+                m_battleResulteUI[4].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                m_battleResulteUI[4].GetComponent<AwakeOpenUI_Script>().fadeFlag = true;
+            }
 
-                if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().noActiveNum < 3)
+            // 手持ちがいっぱいの時
+            if (CaptureOver() == true)
+            {
+                // 入れ替えUIをアクティブ化
+                m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().SetUpUIData(4);
+                m_battleResulteUI[1].GetComponent<StatusMenuUI_Script>().EnemySetUpUIData();
+            }
+            else
+            {
+                m_boxDrum.noUIFlag = true;
+                m_boxDrum.switchFlag = true;
+            }
+
+
+            if (m_boxDrum.switchFlag == true)
+            {
+                // 入れ替えUIを非アクティブ化
+                m_battleResulteUI[1].GetComponent<SetChildActiveObject_Script>().CloseUI();
+                // 入れ替えUIを非アクティブ化
+                m_battleResulteUI[2].GetComponent<SetChildActiveObject_Script>().CloseUI();
+
+                // レベルアップ表示
+                if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().onewayFlag == false)
                 {
-                    // レベルアップUIをアクティブ化
-                    m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
-                    AudioManager_Script.Get.PlaySE(SfxType.LvUP);
+                    m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().CheckLevelUP();
+                    AudioManager_Script.Get.AttachBGMSource.Stop();
+                    AudioManager_Script.Get.PlayBGM(BfxType.bgm_Victory);
+
+                    if (m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().noActiveNum < 3)
+                    {
+                        // レベルアップUIをアクティブ化
+                        m_battleResulteUI[0].GetComponent<SetChildActiveObject_Script>().OpenUI();
+                        AudioManager_Script.Get.PlaySE(SfxType.LvUP);
+                    }
+                    m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().SetPoint();
+                    m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
                 }
-                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().SetPoint();
-                m_battleResulteUI[0].GetComponent<LevelUPUI_Script>().out_putText();
-            }
 
 
-            // シーン遷移
-            if (m_boxDrum.centerHitFlag == true)
-            {
-                m_isFinish.SetValueAndForceNotify(true);
+                // シーン遷移
+                if (m_boxDrum.centerHitFlag == true)
+                {
+                    m_isFinish.SetValueAndForceNotify(true);
+                }
             }
+        }
+        else
+        {
+            m_isFinish.SetValueAndForceNotify(true);
         }
     }
 

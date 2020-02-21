@@ -41,6 +41,7 @@ public class SceneBattle_Script : IScene_Script
         // バトルが終了したかで判断する
         if (BattleManager_Script.Get.IsFinish.Value.Equals(true))
         {
+            m_panelUIFade_Script.IsFadeOut = true;
             bool gameOver = true;
             for(int i = 0; i < CreatureList_Script.Get.List.DataList.Length;i++)
             {
@@ -53,12 +54,6 @@ public class SceneBattle_Script : IScene_Script
 
             if(gameOver)
             {
-                if (m_panelUIFade_Script.IsFadeOut == false)
-                {
-                    // フェードを起動
-                    m_panelUIFade_Script.IsFadeOut = true;
-                    m_panelUIFade_Script.IsFadeComp = false;
-                }
                 // フェードし終えたか
                 if (m_panelUIFade_Script.IsFadeComp == true)
                 {
@@ -72,12 +67,6 @@ public class SceneBattle_Script : IScene_Script
                 // もしOtosを倒したら
                 if (BattleManager_Script.Get.EnemyCreature.OtsoFlag.Equals(true))
                 {
-                    if (m_panelUIFade_Script.IsFadeOut == false)
-                    {
-                        // フェードを起動
-                        m_panelUIFade_Script.IsFadeOut = true;
-                        m_panelUIFade_Script.IsFadeComp = false;
-                    }
                     // フェードし終えたか
                     if (m_panelUIFade_Script.IsFadeComp == true)
                     {
@@ -88,12 +77,6 @@ public class SceneBattle_Script : IScene_Script
                 }
                 else
                 {
-                    if (m_panelUIFade_Script.IsFadeOut == false)
-                    {
-                        // フェードを起動
-                        m_panelUIFade_Script.IsFadeOut = true;
-                        m_panelUIFade_Script.IsFadeComp = false;
-                    }
                     // フェードし終えたか
                     if (m_panelUIFade_Script.IsFadeComp == true)
                     {
@@ -105,11 +88,11 @@ public class SceneBattle_Script : IScene_Script
                             m_manager.Player.SetActive(true);
 
                         return SceneID.SCENE_REVISED;
-
                     }
                 }
             }
         }
+        Debug.Log(m_panelUIFade_Script.IsFadeComp);
         return SceneID.CONTINUE;
    }
 
